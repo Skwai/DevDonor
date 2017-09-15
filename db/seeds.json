@@ -1,0 +1,25 @@
+{
+  "pitches": {
+    "pitch1" : {
+      "createdAt" : "2017-09-15T07:21:10.206Z",
+      "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "organizationLogo" : "https://c402277.ssl.cf1.rackcdn.com/photos/9031/images/original/WWF_25mm_no_tab.png",
+      "organizationName" : "World Wildlife Fund",
+      "organizationRegion" : "Worldwide"
+    },
+    "pitch2" : {
+      "createdAt" : "2017-09-15T07:21:10.206Z",
+      "description" : "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "organizationLogo" : "http://diylogodesigns.com/blog/wp-content/uploads/2016/04/oxfam-charity-logo-design-uk.png",
+      "organizationName" : "Oxfam",
+      "organizationRegion" : "Australia"
+    },
+    "pitch3" : {
+      "createdAt" : "2017-09-15T07:21:10.206Z",
+      "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "organizationLogo" : "https://www.spellbrand.com/images/blog/images/united-nations-childrens-fund-logo-design-trend.jpg",
+      "organizationName" : "UNICEF",
+      "organizationRegion" : "Australia"
+    }
+  }
+}

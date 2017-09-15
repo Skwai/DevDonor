@@ -6071,6 +6071,10 @@ vue@^2.4.2:
   version "2.4.3"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.4.3.tgz#55fee0ec509cf2e10aa73b34b15219e92a9ab9ea"
 
+vuefire@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/vuefire/-/vuefire-1.4.3.tgz#6ad02e10d191efefbc1ca78da1611772289ff74c"
+
 vuex@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/vuex/-/vuex-2.4.0.tgz#e1d0430646282b40007fdd06ec6ae88a9f5a1e14"

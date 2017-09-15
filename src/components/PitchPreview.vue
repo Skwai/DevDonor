@@ -12,7 +12,7 @@
         <div class="PitchPreview__Description">{{pitch.description}}</div>
       </div>
       <div class="PitchPreview__Meta">
-        <time class="PitchPreview__CreatedDate" :datetime="pitch.createdAt">3 days ago</time>
+        <time class="PitchPreview__CreatedAt" :datetime="pitch.createdAt">3 days ago</time>
       </div>
     </a>
   </article>
@@ -53,7 +53,6 @@ export default {
     justify-content: center
     background: #fff
     border: colorLightGray solid 1px
-    margin-right: spacingBase
 
   &__LogoImage
     width: 100%
@@ -62,6 +61,9 @@ export default {
 
   &__Organization
     textHeading()
+
+  &__Details
+    margin: 0 spacingBase
 
   &__Region
     textSmallCaps()
@@ -74,6 +76,6 @@ export default {
 
   &__CreatedAt
     text-align: right
-
-
+    white-space: nowrap
+    opacity: .5
 </style>

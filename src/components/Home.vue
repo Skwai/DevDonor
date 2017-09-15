@@ -1,21 +1,21 @@
 <template>
   <div class="Home">
-    <PitchPreview v-for="(pitch, index) in pitchPreviews" :pitch="pitch" :key="index"></PitchPreview>
+    <PitchPreview v-for="(pitch, index) in pitches" :pitch="pitch" :key="index"></PitchPreview>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { db } from '@/services/firebase'
 import PitchPreview from '@/components/PitchPreview'
 
+console.log(db.ref('pitches'))
+
 export default {
-  computed: {
-    ...mapGetters([
-      'pitchPreviews'
-    ])
-  },
   components: {
     PitchPreview
+  },
+  firebase: {
+    pitches: db.ref('pitches')
   }
 }
 </script>

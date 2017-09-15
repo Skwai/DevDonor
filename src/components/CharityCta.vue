@@ -1,13 +1,12 @@
 <template>
   <div class="CharityCta">
     <span>Are you a charity or non-profit?</span>
-    <a href="#">Pitch your project!</a>
+    <router-link to="/pitch">Pitch your project!</router-link>
   </div>
 </template>
 
 <script>
 export default {
-
 }
 </script>
 

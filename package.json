@@ -12,12 +12,14 @@
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
-    "deploy": "npm run build && firebase deploy"
+    "deploy": "npm run build && firebase deploy",
+    "seed": "firebase database:set / ./db/seeds.json"
   },
   "dependencies": {
     "firebase": "^4.3.1",
     "vue": "^2.4.2",
     "vue-router": "^2.7.0",
+    "vuefire": "^1.4.3",
     "vuex": "^2.4.0",
     "vuexfire": "^2.3.0"
   },
