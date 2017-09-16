@@ -8,9 +8,7 @@
 </template>
 
 <script>
-const COLORS = [
-  'dark', 'light', 'primary'
-]
+const COLORS = ['dark', 'light', 'primary', 'stroke']
 
 export default {
   props: ['to', 'color'],
@@ -36,6 +34,13 @@ export default {
   display: inline-block
   font-weight: 500
   transition: transitionBase
+  text-decoration: none
+
+  &--stroke
+    background: transparent
+    border: currentColor solid 1px
+    box-shadow: none
+    color: inherit
 
   &--light
     background: #fff

@@ -3,7 +3,10 @@
     <div class="AppHeader__Intro">
       <h1 class="AppHeader__Title">DevDonor</h1>
       <p class="AppHeader__Description">A platform for charities and developers to connect</p>
-      <Btn to="#" color="dark">How it works</Btn>
+      <div class="AppHeader__Btns">
+        <Btn to="#" color="stroke">Sign me up</Btn>
+        <Btn to="#" color="stroke">How it works</Btn>
+      </div>
     </div>
     <nav class="AppHeader__Tabs">
       <router-link to="/" class="AppHeader__Tab" active-class="-active" exact>
@@ -39,6 +42,7 @@ export default {
 @require "../styles/config"
 @require "../styles/grid"
 @require "../styles/text"
+@require "../styles/navbar"
 
 .AppHeader
   background: colorPrimaryBlue linear-gradient(180deg, darken(colorPrimaryBlue, 10) 0%, colorPrimaryBlue 100%)
@@ -56,6 +60,9 @@ export default {
     textLead()
     opacity: .7
     margin-bottom: 1rem
+
+  &__Btns
+    navbar()
 
   &__Tabs
     justify-content: center
