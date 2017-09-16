@@ -13,7 +13,10 @@
             <h1 class="PitchPreview__Organization">{{organization.name}}</h1>
             <div class="PitchPreview__Region">{{organization.region}}</div>
           </div>
-          <time class="PitchPreview__CreatedAt" :datetime="pitch.createdAt">{{pitch.createdAt | moment('from', 'now')}}</time>
+          <time class="PitchPreview__CreatedAt" :datetime="pitch.createdAt">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="#444" stroke-width="1" stroke-linecap="square" stroke-miterlimit="10"><path d="M12 10v4h4"/><circle cx="12" cy="14" r="9"/><path d="M10 1h4M12 1v4"/></g></svg>
+            <span>{{pitch.createdAt | moment('from', 'now')}}</span>
+          </time>
         </header>
         <div class="PitchPreview__Description">{{pitch.description}}</div>
       </div>
@@ -121,11 +124,12 @@ export default {
     align-self: flex-start
 
   &__Region
-    margin-top: 0.6rem
+    margin-top: 0.35rem
     textSmallCaps()
     flex: 0 0 100%
     opacity: .4
     font-size: 0.75rem
+    font-weight: 500
 
   &__Description
     margin-top: 0.35rem
@@ -142,7 +146,14 @@ export default {
     text-align: right
     white-space: nowrap
     textSmallCaps()
-    font-size: 0.75rem
     opacity: .4
     margin-left: auto
+    display: flex
+    align-items: center
+    align-self: flex-start
+
+    svg
+      width: 1rem
+      height: 1rem
+      margin-right: 0.5rem
 </style>

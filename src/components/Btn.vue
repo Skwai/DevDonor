@@ -41,6 +41,7 @@ export default {
   border: 0
   textSmallCaps()
   white-space: nowrap
+  cursor: pointer
 
   &:focus,
   &:active
@@ -48,6 +49,7 @@ export default {
 
   &--large
     padding: 1rem 2rem
+    textCaps()
 
   &--dark
     background: colorDarkBlue
@@ -68,5 +70,5 @@ export default {
 
     &:hover,
     &:focus
-      box-shadow: rgba(0,0,0,.2) 0 0 0 1px
+      box-shadow: rgba(0,0,0,.3) 0 0 0 1px
 </style>

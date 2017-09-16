@@ -4,17 +4,19 @@ textMuted()
   opacity: .5
   font-size: 87.5%
 
-textSmallCaps()
+textCaps()
   font-size: 87.5%
   text-transform: uppercase
-  font-weight: 600
+  font-weight: 500
   letter-spacing: 0.05em
 
+textSmallCaps()
+  textCaps()
+  font-size: 75%
+
 textBigCaps()
+  textCaps()
   font-size: 1.125rem
-  text-transform: uppercase
-  font-weight: 600
-  letter-spacing: 0.05em
 
 textTitle()
   font-size: calc(1rem + 3vmin)

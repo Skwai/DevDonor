@@ -1,7 +1,7 @@
 <template>
   <div class="Pitch">
     <Loading v-if="loading" />
-    <div v-else>
+    <div v-else class="Pitch__Container">
       <h1>{{organization.name}}</h1>
       <p>{{pitch.description}}</p>
     </div>
