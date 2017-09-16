@@ -53,26 +53,43 @@ export default {
     opacity: .5
 
   &__Tabs
-    // background: colorOffWhite
-    background: #354B62
 
     &Container
+      background: colorDarkGray
+      border-radius: 4px 4px 0 0
+      overflow: hidden
       container()
       display: flex
       justify-content: center
 
   &__Tab
     display: flex
+    flex: 1
     // border-radius: 4px 4px 0 0
     padding: spacingBase
     align-items: center
-    flex: 1
     opacity: .8
+    justify-content: center
+    position: relative
+    transition: transitionBase
 
     &.-active
       opacity: 1
-      color: fontColorBase
       background: #fff
+      color: colorDarkGray
+
+      &::after
+        content: ""
+        border-bottom: #fff solid 0.75rem
+        border-left: transparent solid 0.75rem
+        border-right: transparent solid 0.75rem
+        position: absolute
+        left: 50%
+        bottom: 0
+        transform: translateX(-50%)
+
+      // color: fontColorBase
+      // background: #fff
 
     &:hover
       opacity: 1
@@ -81,7 +98,6 @@ export default {
       width: 3rem
       height: 3rem
       margin-right: 1rem
-      opacity: .7
 
     &Label
       textHeading()
