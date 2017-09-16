@@ -1,14 +1,21 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
+import Pitches from '@/components/Pitches'
+import Pitch from '@/components/Pitch'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
+      name: 'pitches',
       path: '/',
-      component: Home
+      component: Pitches
+    },
+    {
+      name: 'pitch',
+      path: '/pitch/:pitchId',
+      component: Pitch
     }
   ]
 })

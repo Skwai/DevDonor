@@ -1,24 +1,31 @@
+@require './config.styl'
+
 textMuted()
-  opacity: .4
-  font-size: 93.75%
+  opacity: .5
+  font-size: 87.5%
 
 textSmallCaps()
-  textMuted()
+  opacity: .4
+  font-size: 80%
   text-transform: uppercase
-  font-weight: 700
+  font-weight: 600
 
 textTitle()
-  font-size: 2rem
+  font-size: calc(1rem + 1.5vmin)
+  line-height: lineHeightTiny
   font-weight: 700
 
 textHeading()
-  font-size: 1.5rem
+  font-size: 1.3rem
+  line-height: lineHeightSmall
   font-weight: 700
 
 textSubheading()
-  font-size: 1.25rem
+  font-size: 1.15rem
+  line-height: lineHeightSmall
   font-weight: 700
 
 textLead()
-  font-size: 1.25rem
+  font-size: 1.15rem
+  line-height: lineHeightSmall
   font-weight: 500

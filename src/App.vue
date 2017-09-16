@@ -31,6 +31,12 @@ export default {
 html
   font-size: fontSizeBase
 
+  @media (max-width: 639px)
+    font-size: fontSizeBaseMobile
+
+  @media (max-width: 1027px)
+    font-size: fontSizeBaseTablet
+
 body
   font-family: fontFamilyBase
   line-height: lineHeightBase
