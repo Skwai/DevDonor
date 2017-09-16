@@ -1,32 +1,36 @@
 <template>
   <header class="AppHeader">
     <div class="AppHeader__Intro">
-      <h2 class="AppHeader__Tagline">Connecting inspired developers with charities</h2>
-      <p class="AppHeader__Description">A platform for charities to pitch ideas for developers to volunteer to work on</p>
+      <h1 class="AppHeader__Title">DevDonor</h1>
+      <p class="AppHeader__Description">A platform for charities and developers to connect</p>
+      <Btn to="#" color="dark">How it works</Btn>
     </div>
     <nav class="AppHeader__Tabs">
-      <div class="AppHeader__TabsContainer">
-        <router-link to="/" class="AppHeader__Tab" active-class="-active" exact>
-          <svg class="AppHeader__TabIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-miterlimit="10"><path d="M20 9c0-4.4-3.6-8-8-8S4 4.6 4 9c0 3.4 2.1 6.2 5 7.4V19h6v-2.6c2.9-1.2 5-4 5-7.4zM9 22h6"/><path d="M8 9l2 2 2-2 2 2 2-2"/></g></svg>
-          <div>
-            <strong class="AppHeader__TabLabel">Pitches</strong>
-            <div class="AppHeader__TabDescription">Projects seeking volunteers</div>
-          </div>
-        </router-link>
-        <router-link to="/projects" class="AppHeader__Tab" active-class="-active">
-          <svg class="AppHeader__TabIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-miterlimit="10"><path d="M12.5 16.5L17 21l5 1-1-5-4.5-4.5M11.5 7.5L6 2 2 6l5.5 5.5"/><path d="M2 17L17 2l5 5L7 22z" stroke-width="1"/><path d="M11 8l1 1M14 5l2 2M8 11l2 2M5 14l1 1"/></g></svg>
-          <div>
-            <strong class="AppHeader__TabLabel">Projects</strong>
-            <div class="AppHeader__TabDescription">Browse established projects</div>
-          </div>
-        </router-link>
-      </div>
+      <router-link to="/" class="AppHeader__Tab" active-class="-active" exact>
+        <svg class="AppHeader__TabIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-miterlimit="10"><path d="M20 9c0-4.4-3.6-8-8-8S4 4.6 4 9c0 3.4 2.1 6.2 5 7.4V19h6v-2.6c2.9-1.2 5-4 5-7.4zM9 22h6"/><path d="M8 9l2 2 2-2 2 2 2-2"/></g></svg>
+        <div>
+          <strong class="AppHeader__TabLabel">Pitches</strong>
+          <div class="AppHeader__TabDescription">Projects seeking volunteers</div>
+        </div>
+      </router-link>
+      <router-link to="/projects" class="AppHeader__Tab" active-class="-active">
+        <svg class="AppHeader__TabIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-miterlimit="10"><path d="M12.5 16.5L17 21l5 1-1-5-4.5-4.5M11.5 7.5L6 2 2 6l5.5 5.5"/><path d="M2 17L17 2l5 5L7 22z" stroke-width="1"/><path d="M11 8l1 1M14 5l2 2M8 11l2 2M5 14l1 1"/></g></svg>
+        <div>
+          <strong class="AppHeader__TabLabel">Projects</strong>
+          <div class="AppHeader__TabDescription">Browse established projects</div>
+        </div>
+      </router-link>
     </nav>
   </header>
 </template>
 
 <script>
+import Btn from '@/components/Btn'
+
 export default {
+  components: {
+    Btn
+  },
   props: ['pitch']
 }
 </script>
@@ -45,51 +49,31 @@ export default {
     text-align: center
     padding: 10vmin spacingBase
 
-  &__Tagline
+  &__Title
     textTitle()
 
   &__Description
     textLead()
-    opacity: .5
+    opacity: .7
+    margin-bottom: 1rem
 
   &__Tabs
-
-    &Container
-      background: colorDarkGray
-      border-radius: 4px 4px 0 0
-      overflow: hidden
-      container()
-      display: flex
-      justify-content: center
+    justify-content: center
+    display: flex
+    container()
 
   &__Tab
     display: flex
-    flex: 1
-    // border-radius: 4px 4px 0 0
-    padding: spacingBase
+    padding: spacingBase spacingLarge
     align-items: center
-    opacity: .8
     justify-content: center
-    position: relative
     transition: transitionBase
+    background: colorDarkGray
 
     &.-active
       opacity: 1
       background: #fff
       color: colorDarkGray
-
-      &::after
-        content: ""
-        border-bottom: #fff solid 0.75rem
-        border-left: transparent solid 0.75rem
-        border-right: transparent solid 0.75rem
-        position: absolute
-        left: 50%
-        bottom: 0
-        transform: translateX(-50%)
-
-      // color: fontColorBase
-      // background: #fff
 
     &:hover
       opacity: 1

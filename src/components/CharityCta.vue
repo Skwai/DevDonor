@@ -15,7 +15,10 @@ export default {
 @require "../styles/config"
 
 .CharityCta
-  background: #fff
+  // background: #fff
+  background: colorPrimaryBlue
+  color: #fff
+
   padding: spacingBase
   text-align: center
   display: flex

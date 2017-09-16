@@ -2,7 +2,7 @@
   <div class="Pitch">
     <Loading v-if="loading" />
     <div v-else>
-      <h1>{{ organization.name }}</h1>
+      <h1>{{organization.name}}</h1>
       <p>{{pitch.description}}</p>
     </div>
   </div>
