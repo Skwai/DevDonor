@@ -10,7 +10,7 @@
           <svg class="AppHeader__TabIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-miterlimit="10"><path d="M20 9c0-4.4-3.6-8-8-8S4 4.6 4 9c0 3.4 2.1 6.2 5 7.4V19h6v-2.6c2.9-1.2 5-4 5-7.4zM9 22h6"/><path d="M8 9l2 2 2-2 2 2 2-2"/></g></svg>
           <div>
             <strong class="AppHeader__TabLabel">Pitches</strong>
-            <div class="AppHeader__TabDescription">New projects looking for volunteers</div>
+            <div class="AppHeader__TabDescription">Projects seeking volunteers</div>
           </div>
         </router-link>
         <router-link to="/projects" class="AppHeader__Tab" active-class="-active">
@@ -53,22 +53,35 @@ export default {
     opacity: .5
 
   &__Tabs
-    background: colorDarkGray
+    // background: colorOffWhite
+    background: #354B62
 
     &Container
       container()
       display: flex
+      justify-content: center
 
   &__Tab
     display: flex
     // border-radius: 4px 4px 0 0
     padding: spacingBase
     align-items: center
+    flex: 1
+    opacity: .8
+
+    &.-active
+      opacity: 1
+      color: fontColorBase
+      background: #fff
+
+    &:hover
+      opacity: 1
 
     &Icon
       width: 3rem
       height: 3rem
       margin-right: 1rem
+      opacity: .7
 
     &Label
       textHeading()
@@ -78,9 +91,5 @@ export default {
       opacity: .5
       display: block
       font-weight: 500
-
-    &.-active
-      color: fontColorBase
-      background: #fff
-      box-shadow: rgba(0,0,0,.15) 0 -1px 2px
+      line-height: lineHeightTiny
 </style>

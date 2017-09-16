@@ -48,13 +48,13 @@ export default {
 
 .PitchPreview
   border: colorLightGray solid
-  border-width: 0 0 1px
+  border-width: 1px 1px 1px
 
   &.-loading
     opacity: 0
 
   + .PitchPreview
-    border-top: 1px
+    border-top: 0
 
   &__Link
     display: flex
@@ -83,7 +83,7 @@ export default {
     max-height: 100%
 
   &__Organization
-    textHeading()
+    textSubheading()
 
   &__Details
     flex: 1

@@ -40,6 +40,7 @@ html
 body
   font-family: fontFamilyBase
   line-height: lineHeightBase
+  color: fontColorBase
 
 a
   text-decoration: none
@@ -48,4 +49,6 @@ a
 .App
   &__Container
     container()
+    padding-top: spacingBase
+    padding-bottom: spacingBase
 </style>
