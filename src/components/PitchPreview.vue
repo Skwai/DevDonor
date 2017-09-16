@@ -2,7 +2,9 @@
   <article class="PitchPreview" :class="{ '-loading': loading }">
     <router-link :to="{ name: 'pitch', params: { pitchId: 'pitch1' } }" class="PitchPreview__Link">
       <div class="PitchPreview__Logo">
-        <img class="PitchPreview__LogoImage" :src="organization.logo">
+        <div class="PitchPreview__LogoWrap">
+          <img class="PitchPreview__LogoImage" :src="organization.logo">
+        </div>
       </div>
       <div class="PitchPreview__Details">
         <header class="PitchPreview__Header">
@@ -49,6 +51,10 @@ export default {
 .PitchPreview
   border: colorLightGray solid
   border-width: 1px 1px 1px
+  position: relative
+
+  &:hover
+    z-index: 2
 
   &.-loading
     opacity: 0
@@ -60,44 +66,45 @@ export default {
     display: flex
     color: inherit
     transition: transitionBase
-    padding: spacingBase
     background: #fff
+    align-items: stretch
 
     &:hover
-      background: colorOffWhite
+      box-shadow: rgba(35,47,65,.2) 0 2px 2rem
 
   &__Logo
-    size = 4.5rem
-    width: size
-    height: size
-    flex: 0 0 size
-    display: flex
-    align-items: center
-    justify-content: center
-    background: #fff
-    box-shadow: rgba(0,0,0,.15) 0 1px 2px
-    margin-right: spacingBase
+    padding: spacingBase
+    background: colorOffWhite
 
-  &__LogoImage
-    max-width: 100%
-    max-height: 100%
+    &Wrap
+      size = 5rem
+      width: size
+      height: size
+      display: flex
+      align-items: center
+      justify-content: center
+      background: #fff
+      box-shadow: rgba(0,0,0,.1) 0 0 0 1px
+
+    &Image
+      max-width: 100%
+      max-height: 100%
 
   &__Organization
-    textSubheading()
+    textHeading()
+    color: colorPrimaryBlue
 
   &__Details
     flex: 1
+    padding: spacingBase
 
   &__Region
+    margin-top: 0.35rem
     textSmallCaps()
     flex: 0 0 100%
 
   &__Description
     margin-top: 0.35rem
-    white-space: nowrap
-    max-width: 100%
-    overflow: hidden
-    text-overflow: ellipsis
 
   &__Header
     display: flex

@@ -4,8 +4,7 @@
       <h1 class="AppHeader__Title">DevDonor</h1>
       <p class="AppHeader__Description">A platform for charities and developers to connect</p>
       <div class="AppHeader__Btns">
-        <Btn to="#" color="stroke">Sign me up</Btn>
-        <Btn to="#" color="stroke">How it works</Btn>
+        <Btn to="#" color="dark">Sign me up</Btn>
       </div>
     </div>
     <nav class="AppHeader__Tabs">
@@ -57,7 +56,8 @@ export default {
     textTitle()
 
   &__Description
-    textLead()
+    textHeading()
+    font-weight: 400
     opacity: .7
     margin-bottom: 1rem
 
@@ -75,12 +75,12 @@ export default {
     align-items: center
     justify-content: center
     transition: transitionBase
-    background: colorDarkGray
+    background: colorDarkBlue
 
     &.-active
       opacity: 1
       background: #fff
-      color: colorDarkGray
+      color: colorDarkBlue
 
     &:hover
       opacity: 1
@@ -91,12 +91,12 @@ export default {
       margin-right: 1rem
 
     &Label
-      textHeading()
+      textBigCaps()
       display: block
 
     &Description
       opacity: .5
       display: block
-      font-weight: 500
+      font-weight: 400
       line-height: lineHeightTiny
 </style>

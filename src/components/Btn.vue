@@ -8,7 +8,7 @@
 </template>
 
 <script>
-const COLORS = ['dark', 'light', 'primary', 'stroke']
+const COLORS = ['dark', 'light', 'primary', 'stroke', 'link']
 
 export default {
   props: ['to', 'color'],
@@ -24,29 +24,24 @@ export default {
 
 <style lang="stylus">
 @require "../styles/config.styl"
+@require "../styles/text.styl"
 
 .Btn
   background: #fff
-  box-shadow: inset rgba(0,0,0,.15) 0 -2px 0
   border-radius: 99rem
   color: colorPrimaryBlue
   padding: 0.75rem 1.5rem
   display: inline-block
-  font-weight: 500
   transition: transitionBase
   text-decoration: none
-
-  &--stroke
-    background: transparent
-    border: currentColor solid 1px
-    box-shadow: none
-    color: inherit
+  border: 0
+  textSmallCaps()
 
   &--light
     background: #fff
 
   &--dark
-    background: colorDarkGray
+    background: colorDarkBlue
     color: #fff
 
   &--primary
@@ -55,5 +50,5 @@ export default {
 
   &:hover,
   &:focus
-    box-shadow: inset rgba(0,0,0,.15) 0 -2px 0, rgba(0,0,0,.2) 0 2px 1rem
+    box-shadow: rgba(0,0,0,.2) 0 2px 1rem // , inset rgba(0,0,0,.15) 0 -2px 0
 </style>

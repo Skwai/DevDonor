@@ -7,13 +7,13 @@
     },
     "pitch2" : {
       "createdAt" : "2017-09-15T07:21:10.206Z",
-      "description" : "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "organization": "organization2"
+      "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "organization" : "organization2"
     },
     "pitch3" : {
       "createdAt" : "2017-09-15T07:21:10.206Z",
-      "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      "organization" : "organization3"
+      "description" : "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "organization": "organization3"
     },
     "pitch4" : {
       "createdAt" : "2017-09-15T07:21:10.206Z",
@@ -24,6 +24,11 @@
       "createdAt" : "2017-09-15T07:21:10.206Z",
       "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       "organization" : "organization5"
+    },
+    "pitch6" : {
+      "createdAt" : "2017-09-15T07:21:10.206Z",
+      "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "organization" : "organization6"
     }
   },
   "organizations" : {
@@ -34,9 +39,9 @@
       "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     },
     "organization2" : {
-      "name" : "UNICEF",
-      "logo" : "https://www.spellbrand.com/images/blog/images/united-nations-childrens-fund-logo-design-trend.jpg",
-      "region" : "Australia",
+      "name" : "Red",
+      "logo" : "https://red.org/wp-content/uploads/2016/11/red-logo.jpg",
+      "region" : "Worldwide",
       "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     },
     "organization3" : {
@@ -55,6 +60,12 @@
       "name" : "Wellcome Trust",
       "logo" : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Wellcome_Trust_logo.svg/250px-Wellcome_Trust_logo.svg.png",
       "region" : "UK",
+      "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    "organization6" : {
+      "name" : "UNICEF",
+      "logo" : "https://www.spellbrand.com/images/blog/images/united-nations-childrens-fund-logo-design-trend.jpg",
+      "region" : "Australia",
       "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     }
   }
