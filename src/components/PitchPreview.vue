@@ -5,12 +5,15 @@
         <div class="PitchPreview__LogoWrap">
           <img class="PitchPreview__LogoImage" :src="organization.logo">
         </div>
+        <div class="PitchPreview__Category">{{organization.type}}</div>
       </div>
       <div class="PitchPreview__Details">
         <header class="PitchPreview__Header">
-          <h1 class="PitchPreview__Organization">{{organization.name}}</h1>
-          <time class="PitchPreview__CreatedAt" :datetime="pitch.createdAt">3 days ago</time>
-          <div class="PitchPreview__Region">{{organization.region}}</div>
+          <div class="PitchPreview__HeaderInner">
+            <h1 class="PitchPreview__Organization">{{organization.name}}</h1>
+            <div class="PitchPreview__Region">{{organization.region}}</div>
+          </div>
+          <time class="PitchPreview__CreatedAt" :datetime="pitch.createdAt">{{pitch.createdAt | moment('from', 'now')}}</time>
         </header>
         <div class="PitchPreview__Description">{{pitch.description}}</div>
       </div>
@@ -50,27 +53,43 @@ export default {
 
 .PitchPreview
   border: colorLightGray solid
-  border-width: 1px 1px 1px
+  border-width: 1px
   position: relative
+  transition: transitionLong
+  transform: translate3d(0,0,0)
+  transform-origin: center center
 
   &:hover
     z-index: 2
+    border-color: rgba(0,0,0,.15)
+
+    @media (min-width: 1024px)
+      transform: scale(1.02)
 
   &.-loading
     opacity: 0
 
   + .PitchPreview
-    border-top: 0
+    margin-top: -1px
+
+  &__Category
+    textSmallCaps()
+    font-size: 0.75rem
+    text-align: center
+    opacity: .4
+    width: 100%
+    margin-top: 1rem
 
   &__Link
     display: flex
     color: inherit
-    transition: transitionBase
+    transition: transitionLong
     background: #fff
     align-items: stretch
+    transform: translate3d(0,0,0,0)
 
     &:hover
-      box-shadow: rgba(35,47,65,.2) 0 2px 2rem
+      box-shadow: rgba(35,47,65,.15) 0 2px 2rem
 
   &__Logo
     padding: spacingBase
@@ -92,27 +111,38 @@ export default {
 
   &__Organization
     textHeading()
-    color: colorPrimaryBlue
 
   &__Details
     flex: 1
     padding: spacingBase
+    display: flex
+    align-items: flex-start
+    flex-wrap: wrap
+    align-self: flex-start
 
   &__Region
-    margin-top: 0.35rem
+    margin-top: 0.6rem
     textSmallCaps()
     flex: 0 0 100%
+    opacity: .4
+    font-size: 0.75rem
 
   &__Description
     margin-top: 0.35rem
+    flex: 0 0 100%
 
   &__Header
     display: flex
-    flex-wrap: wrap
+    flex: 0 0 100%
+
+    &Inner
+      margin-right: 1rem
 
   &__CreatedAt
     text-align: right
     white-space: nowrap
-    opacity: .5
+    textSmallCaps()
+    font-size: 0.75rem
+    opacity: .4
     margin-left: auto
 </style>

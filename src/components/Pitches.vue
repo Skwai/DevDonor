@@ -1,12 +1,17 @@
 <template>
   <div class="Pitches">
     <Loading v-if="loading" />
-    <PitchPreview
-      v-else
-      v-for="(pitch, index) in pitches"
-      :pitch="pitch"
-      :key="index"
-    />
+    <div v-else>
+      <Filters>
+        <Btn color="light">Skill: Any</Btn>
+        <Btn color="light">Region: All</Btn>
+      </Filters>
+      <PitchPreview
+        v-for="(pitch, index) in pitches"
+        :pitch="pitch"
+        :key="index"
+      />
+    </div>
   </div>
 </template>
 
@@ -14,11 +19,15 @@
 import { db } from '@/services/firebase'
 import PitchPreview from '@/components/PitchPreview'
 import Loading from '@/components/Loading'
+import Filters from '@/components/Filters'
+import Btn from '@/components/Btn'
 
 export default {
   components: {
     PitchPreview,
-    Loading
+    Loading,
+    Filters,
+    Btn
   },
 
   data () {
@@ -30,7 +39,7 @@ export default {
   firebase () {
     return {
       pitches: {
-        source: db.ref('pitches').orderByChild('createdAt').limitToLast(20),
+        source: db.ref('pitches').limitToFirst(20),
         readyCallback () {
           this.loading = false
         }

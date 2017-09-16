@@ -4,7 +4,7 @@
       <h1 class="AppHeader__Title">DevDonor</h1>
       <p class="AppHeader__Description">A platform for charities and developers to connect</p>
       <div class="AppHeader__Btns">
-        <Btn to="#" color="dark">Sign me up</Btn>
+        <Btn to="#" color="dark" size="large">Sign me up</Btn>
       </div>
     </div>
     <nav class="AppHeader__Tabs">
@@ -44,22 +44,23 @@ export default {
 @require "../styles/navbar"
 
 .AppHeader
-  background: colorPrimaryBlue linear-gradient(180deg, darken(colorPrimaryBlue, 10) 0%, colorPrimaryBlue 100%)
+  background: colorPrimaryBlue linear-gradient(150deg, darken(colorPrimaryBlue, 10) 0%, colorPrimaryBlue 100%)
   color: #fff
 
   &__Intro
     container()
     text-align: center
-    padding: 10vmin spacingBase
+    padding: 15vmin spacingBase 15vmin
 
   &__Title
     textTitle()
+    margin-bottom: 1rem
 
   &__Description
     textHeading()
     font-weight: 400
     opacity: .7
-    margin-bottom: 1rem
+    margin-bottom: spacingBase
 
   &__Btns
     navbar()
@@ -71,11 +72,14 @@ export default {
 
   &__Tab
     display: flex
-    padding: spacingBase spacingLarge
     align-items: center
     justify-content: center
     transition: transitionBase
     background: colorDarkBlue
+    padding: spacingBase
+
+    @media (min-width: 768px)
+      padding: spacingBase spacingLarge
 
     &.-active
       opacity: 1

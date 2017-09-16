@@ -1,5 +1,5 @@
 <template>
-  <router-link v-if="to" :to="to" class="Btn" :class="colorClassName">
+  <router-link v-if="to" :to="to" class="Btn" :class="[colorClassName, sizeClassName]">
     <slot/>
   </router-link>
   <button v-else class="Btn" :class="colorClassName">
@@ -9,14 +9,18 @@
 
 <script>
 const COLORS = ['dark', 'light', 'primary', 'stroke', 'link']
+const SIZES = ['large']
 
 export default {
-  props: ['to', 'color'],
+  props: ['to', 'color', 'size'],
   computed: {
     colorClassName () {
       const { color } = this
-      console.log(color)
       return (color && COLORS.includes(color)) ? `Btn--${color}` : null
+    },
+    sizeClassName () {
+      const { size } = this
+      return (size && SIZES.includes(size)) ? `Btn--${size}` : null
     }
   }
 }
@@ -36,9 +40,14 @@ export default {
   text-decoration: none
   border: 0
   textSmallCaps()
+  white-space: nowrap
 
-  &--light
-    background: #fff
+  &:focus,
+  &:active
+    outline: 0
+
+  &--large
+    padding: 1rem 2rem
 
   &--dark
     background: colorDarkBlue
@@ -50,5 +59,14 @@ export default {
 
   &:hover,
   &:focus
-    box-shadow: rgba(0,0,0,.2) 0 2px 1rem // , inset rgba(0,0,0,.15) 0 -2px 0
+    box-shadow: rgba(0,0,0,.1) 0 2px 1rem
+
+  &--light
+    background: #fff
+    box-shadow: rgba(0,0,0,.1) 0 0 0 1px
+    color: fontColorBase
+
+    &:hover,
+    &:focus
+      box-shadow: rgba(0,0,0,.2) 0 0 0 1px
 </style>
