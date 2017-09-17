@@ -1,7 +1,7 @@
 <template>
   <div class="OrganizationPreview">
     <Loading v-if="loading" />
-    <div v-else>
+    <div v-else class="OrganizationPreview__Inner">
       <div class="OrganizationPreview__Logo">
         <img class="OrganizationPreview__LogoImage" :src="organization.logo" :alt="organization.name + ' logo'">
       </div>
@@ -14,7 +14,6 @@
           </a>
         </div>
       </header>
-
       <div class="OrganizationPreview__Description" v-html="description"></div>
     </div>
   </div>
@@ -66,10 +65,8 @@ export default {
 @require "../styles/config.styl"
 
 .OrganizationPreview
-  card()
-  position: relative
-  margin-top: 2.5rem
-  padding-top: spacingBase + 2.5rem
+  overflow: hidden
+  padding-top: 2.5rem
 
   &__Header
     text-align: center
@@ -100,6 +97,11 @@ export default {
     textMarkdown()
     opacity: .7
     font-size: 0.875rem
+
+  &__Inner
+    card()
+    position: relative
+    padding-top: spacingBase + 2.5rem
 
 </style>
 

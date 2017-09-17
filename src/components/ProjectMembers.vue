@@ -1,22 +1,30 @@
 <template>
   <section class="ProjectMembers">
-    <h3>Members</h3>
+    <Loading v-if="loading" />
+    <div v-else>
+      <h3 class="ProjectMembers__Heading">Project Members</h3>
 
-    <div class="ProjectMembers__List">
-      <UserAvatar :user="user" v-for="(user, key) in projectMembers" :key="key" />
+      <ul class="ProjectMembers__Users">
+        <li class="ProjectMembers__User"
+          v-for="(user, key) in projectMembers"
+          :key="key"
+        ><UserAvatar :user="user" :showDetails="true" /></li>
+      </ul>
     </div>
   </section>
 </template>
 
 <script>
 import { db } from '@/services/firebase'
+import Loading from '@/components/Loading'
 import UserAvatar from '@/components/UserAvatar'
 
 export default {
   props: ['projectId'],
 
   components: {
-    UserAvatar
+    UserAvatar,
+    Loading
   },
 
   data () {
@@ -45,5 +53,15 @@ export default {
 
 .ProjectMembers
   card()
+
+  &__Heading
+    textCaps()
+    margin-bottom: spacingBase
+    opacity: .5
+    text-align: center
+
+  &__User + &__User
+    margin-top: 1rem
+
 
 </style>

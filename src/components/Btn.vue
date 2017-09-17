@@ -3,6 +3,9 @@
     <slot/>
   </router-link>
   <button v-else class="Btn" :class="[colorClassName, sizeClassName]">
+    <span class="Btn__Icon" v-if="$slots.icon">
+      <slot name="icon" />
+    </span>
     <slot/>
   </button>
 </template>
@@ -35,13 +38,17 @@ export default {
   border-radius: 99rem
   color: colorPrimaryBlue
   padding: 0.75rem 1.5rem
-  display: inline-block
+  display: inline-flex
+  align-items: center
   transition: transitionBase
   text-decoration: none
+  background: #fff
+  color: inherit
   border: 0
   textSmallCaps()
   white-space: nowrap
   cursor: pointer
+  box-shadow: inset rgba(0,0,0,.15) 0 -2px 0, rgba(0,0,0,.1) 0 0 0 1px
 
   &:focus,
   &:active
@@ -63,12 +70,11 @@ export default {
   &:focus
     box-shadow: rgba(0,0,0,.1) 0 2px 1rem
 
-  &--light
-    background: #fff
-    box-shadow: rgba(0,0,0,.1) 0 0 0 1px
-    color: fontColorBase
+  &__Icon
+    margin-right: 1em
 
-    &:hover,
-    &:focus
-      box-shadow: rgba(0,0,0,.3) 0 0 0 1px
+    svg
+      width: 2em
+      height: 2em
+      stroke: currentColor
 </style>

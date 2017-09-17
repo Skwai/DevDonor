@@ -15,10 +15,14 @@
       </article>
       <aside class="Project__Sidebar">
         <div class="Project__Join">
-          <Btn color="primary" size="large">Join this project</Btn>
+          <JoinProject />
         </div>
-        <ProjectMembers :projectId="project['.key']" />
-        <OrganizationPreview :organizationId="project.organization" />
+        <div class="Project__Organization">
+          <OrganizationPreview :organizationId="project.organization" />
+        </div>
+        <div class="Project__Members">
+          <ProjectMembers :projectId="project['.key']" />
+        </div>
       </aside>
     </div>
   </div>
@@ -30,6 +34,7 @@ import marked from 'marked'
 
 import Loading from '@/components/Loading'
 import Btn from '@/components/Btn'
+import JoinProject from '@/components/JoinProject'
 import ProjectMembers from '@/components/ProjectMembers'
 import OrganizationPreview from '@/components/OrganizationPreview'
 
@@ -38,7 +43,8 @@ export default {
     Loading,
     Btn,
     OrganizationPreview,
-    ProjectMembers
+    ProjectMembers,
+    JoinProject
   },
 
   data () {
@@ -71,6 +77,7 @@ export default {
 @require "../styles/grid.styl"
 @require "../styles/text.styl"
 @require "../styles/config.styl"
+@require "../styles/card.styl"
 
 .Project
   &__Container
@@ -88,10 +95,15 @@ export default {
 
   &__Sidebar
     flex: 0 0 20rem
-    margin-left: spacingBase
+    margin-left: spacingLarge
 
   &__Details
     flex: 1 0
+
+  &__Join,
+  &__Members,
+  &__Organization
+    margin-bottom: spacingBase
 
   &__Meta
     margin-bottom: spacingBase

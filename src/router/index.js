@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Projects from '@/components/Projects'
+import Home from '@/components/Home'
 import Project from '@/components/Project'
 
 Vue.use(Router)
@@ -8,9 +8,9 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      name: 'projects',
+      name: 'home',
       path: '/',
-      component: Projects
+      component: Home
     },
     {
       name: 'project',

@@ -1,22 +1,17 @@
 <template>
   <main class="App">
     <CharityCta />
-    <AppHeader />
-    <div class="App__Container">
-      <router-view></router-view>
-    </div>
+    <router-view></router-view>
     <AppFooter />
   </main>
 </template>
 
 <script>
-import AppHeader from '@/components/AppHeader'
 import AppFooter from '@/components/AppFooter'
 import CharityCta from '@/components/CharityCta'
 
 export default {
   components: {
-    AppHeader,
     AppFooter,
     CharityCta
   }
