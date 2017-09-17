@@ -16,5 +16,4 @@ export default {
   height: 2.5rem
   border-radius: 50%
   box-shadow: #fff 0 0 0 1px
-
 </style>

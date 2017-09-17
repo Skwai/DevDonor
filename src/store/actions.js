@@ -8,5 +8,5 @@ export const login = ({ commit }, profile) => {
 
 export const logout = ({ commit }) => {
   localStorage.removeItem(config.PROFILE_STORAGE_KEY)
-  commit(types.LOGIN)
+  commit(types.LOGOUT)
 }

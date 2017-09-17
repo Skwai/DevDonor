@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
+import Logout from '@/components/Logout'
 import Project from '@/components/Project'
 
 Vue.use(Router)
@@ -20,6 +21,11 @@ const router = new Router({
       name: 'project',
       path: '/project/:projectId',
       component: Project
+    },
+    {
+      name: 'logout',
+      path: '/logout',
+      component: Logout
     }
   ]
 })

@@ -5,8 +5,8 @@
       class="AccountMenu__Toggle"
     ><AccountAvatar :picture="getProfile.picture" /></button>
     <div class="AccountMenu__Options">
-      <a href="#" class="AccountMenu__Option">Your Profile</a>
-      <a href="#" class="AccountMenu__Option">Logout</a>
+      <router-link to="profile" class="AccountMenu__Option">Your Profile</router-link>
+      <router-link to="logout" class="AccountMenu__Option">Logout</router-link>
     </div>
   </div>
 </template>
