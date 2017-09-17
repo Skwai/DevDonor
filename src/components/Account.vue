@@ -50,6 +50,11 @@ export default {
 
 .Account
   margin-left: auto
+  transition: transitionBase
+  padding: 1rem spacingBase
+
+  &:hover
+    background: rgba(0,0,0,.05)
 
   &__Login
     border: 0

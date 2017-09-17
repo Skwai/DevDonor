@@ -1,6 +1,6 @@
 <template>
   <header class="AppHeader">
-    <router-link to="/"><h1>DevDonor</h1></router-link>
+    <router-link to="/" class="AppHeader__Logo"><h1>DevDonor</h1></router-link>
     <Account />
   </header>
 </template>
@@ -24,8 +24,14 @@ export default {
 .AppHeader
   background: colorPrimaryBlue
   color: #fff
-  padding: 1rem spacingBase
   transition: transitionBase
   display: flex
-  align-items: center
+  align-items: stretch
+
+  &__Logo
+    padding: 1rem spacingBase
+    transition: transitionBase
+
+    &:hover
+      background: rgba(0,0,0,.05)
 </style>
