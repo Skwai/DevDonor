@@ -8,8 +8,11 @@ import App from './App'
 import router from './router'
 import store from './store'
 
+import filters from './filters'
+
 Vue.use(VueFire)
 Vue.use(VueMoment)
+Vue.use(filters)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

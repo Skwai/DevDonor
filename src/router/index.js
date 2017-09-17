@@ -1,21 +1,21 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Pitches from '@/components/Pitches'
-import Pitch from '@/components/Pitch'
+import Projects from '@/components/Projects'
+import Project from '@/components/Project'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      name: 'pitches',
+      name: 'projects',
       path: '/',
-      component: Pitches
+      component: Projects
     },
     {
-      name: 'pitch',
-      path: '/pitch/:pitchId',
-      component: Pitch
+      name: 'project',
+      path: '/project/:projectId',
+      component: Project
     }
   ]
 })

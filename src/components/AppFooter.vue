@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  props: ['pitch']
+  props: ['project']
 }
 </script>
 

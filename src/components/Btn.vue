@@ -2,7 +2,7 @@
   <router-link v-if="to" :to="to" class="Btn" :class="[colorClassName, sizeClassName]">
     <slot/>
   </router-link>
-  <button v-else class="Btn" :class="colorClassName">
+  <button v-else class="Btn" :class="[colorClassName, sizeClassName]">
     <slot/>
   </button>
 </template>

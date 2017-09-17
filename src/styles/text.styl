@@ -1,11 +1,14 @@
 @require './config.styl'
 
-textMuted()
-  opacity: .5
+textSmall()
   font-size: 87.5%
 
+textMuted()
+  opacity: .5
+  textSmall()
+
 textCaps()
-  font-size: 87.5%
+  textSmall()
   text-transform: uppercase
   font-weight: 500
   letter-spacing: 0.05em
@@ -19,12 +22,11 @@ textBigCaps()
   font-size: 1.125rem
 
 textTitle()
-  font-size: calc(1rem + 3vmin)
-  line-height: 1
+  font-size: 1.5rem
   font-weight: 600
 
 textHeading()
-  font-size: 1.3rem
+  font-size: 1.35rem
   line-height: 1
   font-weight: 600
 
@@ -35,8 +37,7 @@ textSubheading()
 
 textLead()
   font-size: 1.15rem
-  line-height: lineHeightSmall
-  font-weight: 600
+  font-weight: 400
 
 textLink()
   text-decoration: none
@@ -44,3 +45,27 @@ textLink()
 
   &:hover
     box-shadow: 0 2px 0 currentColor
+
+textMarkdown()
+  p, ul, ol
+    &:first-child
+      margin-top: 0
+
+    &:last-child
+      margin-bottom: 0
+
+  p
+    margin: 1em 0
+
+  ol, ul
+    margin: 0 0 1.5em 1.5em
+
+  li
+    padding: 0.25em 0
+
+  ol
+    list-style-type: decimal;
+
+  ul
+    list-style-type: disc
+

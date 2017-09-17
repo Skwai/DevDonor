@@ -1,33 +1,39 @@
 {
-  "pitches" : {
-    "pitch1" : {
+  "projects" : {
+    "project1" : {
       "createdAt" : "2017-09-15T07:21:10.206Z",
-      "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "title" : "Create a lorem ipsum website that will generate great placeholder text",
+      "description" : "Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback, we need to leverage our synergies, for helicopter view cannibalize, and herding cats gain traction. Staff engagement herding cats killing it, nor bottleneck mice. Level the playing field baseline can I just chime in on that one. In this space staff engagement, but knowledge process outsourcing. Quick-win.\n\n**Amazing list:**\n\n\n\n1. This is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.\n\n2.  Suspendisse id sem consectetuer libero luctus adipiscing.You better eat a reality sandwich before you walk back in that boardroom game plan. \n\n3. Goalposts. Get all your ducks in a row this vendor is incompetent or game plan hammer out, no scraps hit the floor ramp up.\n\n**Strategic high-level 30,000 ft view.**\n\nUltimate measure of success where the metal hits the meat high turnaround rate. Value prop we need a recap by eod, cob or whatever comes first the last person we talked to said this would be ready or three-martini lunch, nor feature creep we need to socialize the comms with the wider stakeholder community but clear blue water.\n\nTime to open the kimono meeting assassin.\n\nCannibalize ultimate measure of success so not enough bandwidth. Driving the initiative forward face time, so feature creep, for at the end of the day we don't want to boil the ocean we've got to manage that low hanging fruit reach out.\n\n1. Close the loop \n\n2. High touch client we need to start advertising on social media nor bake it in or bells and whistles, yet make sure to include in your wheelhouse we need distributors to evangelize the new line to local markets.\n\nProduct management breakout fastworks pushback, or at the end of the day we need to leverage our synergies no scraps hit the floor. Guerrilla marketing i'll book a meeting so we can solution this before the sprint is over, for deliverables. Three-martini lunch race without a finish line, but churning anomalies.\n\nTimeframe. Forcing function . At the end of the day bench mark, so bells and whistles gain traction low-hanging fruit so hammer out, programmatically. Hammer out. Gain traction data-point into the weeds message the initiative.",
       "organization": "organization1"
     },
-    "pitch2" : {
+    "project2" : {
       "createdAt" : "2017-09-13T07:21:10.206Z",
-      "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "title" : "Create a lorem ipsum website that will generate great placeholder text",
+      "description" : "Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback, we need to leverage our synergies, for helicopter view cannibalize, and herding cats gain traction. Staff engagement herding cats killing it, nor bottleneck mice. Level the playing field baseline can I just chime in on that one. In this space staff engagement, but knowledge process outsourcing. Quick-win.\n\n**Amazing list:**\n\n\n\n1. This is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.\n\n2.  Suspendisse id sem consectetuer libero luctus adipiscing.You better eat a reality sandwich before you walk back in that boardroom game plan. \n\n3. Goalposts. Get all your ducks in a row this vendor is incompetent or game plan hammer out, no scraps hit the floor ramp up.\n\n**Strategic high-level 30,000 ft view.**\n\nUltimate measure of success where the metal hits the meat high turnaround rate. Value prop we need a recap by eod, cob or whatever comes first the last person we talked to said this would be ready or three-martini lunch, nor feature creep we need to socialize the comms with the wider stakeholder community but clear blue water.\n\nTime to open the kimono meeting assassin.\n\nCannibalize ultimate measure of success so not enough bandwidth. Driving the initiative forward face time, so feature creep, for at the end of the day we don't want to boil the ocean we've got to manage that low hanging fruit reach out.\n\n1. Close the loop \n\n2. High touch client we need to start advertising on social media nor bake it in or bells and whistles, yet make sure to include in your wheelhouse we need distributors to evangelize the new line to local markets.\n\nProduct management breakout fastworks pushback, or at the end of the day we need to leverage our synergies no scraps hit the floor. Guerrilla marketing i'll book a meeting so we can solution this before the sprint is over, for deliverables. Three-martini lunch race without a finish line, but churning anomalies.\n\nTimeframe. Forcing function . At the end of the day bench mark, so bells and whistles gain traction low-hanging fruit so hammer out, programmatically. Hammer out. Gain traction data-point into the weeds message the initiative.",
       "organization" : "organization2"
     },
-    "pitch3" : {
+    "project3" : {
       "createdAt" : "2017-09-11T07:21:10.206Z",
-      "description" : "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "title" : "Create a lorem ipsum website that will generate great placeholder text",
+      "description" : "Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback, we need to leverage our synergies, for helicopter view cannibalize, and herding cats gain traction. Staff engagement herding cats killing it, nor bottleneck mice. Level the playing field baseline can I just chime in on that one. In this space staff engagement, but knowledge process outsourcing. Quick-win.\n\n**Amazing list:**\n\n\n\n1. This is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.\n\n2.  Suspendisse id sem consectetuer libero luctus adipiscing.You better eat a reality sandwich before you walk back in that boardroom game plan. \n\n3. Goalposts. Get all your ducks in a row this vendor is incompetent or game plan hammer out, no scraps hit the floor ramp up.\n\n**Strategic high-level 30,000 ft view.**\n\nUltimate measure of success where the metal hits the meat high turnaround rate. Value prop we need a recap by eod, cob or whatever comes first the last person we talked to said this would be ready or three-martini lunch, nor feature creep we need to socialize the comms with the wider stakeholder community but clear blue water.\n\nTime to open the kimono meeting assassin.\n\nCannibalize ultimate measure of success so not enough bandwidth. Driving the initiative forward face time, so feature creep, for at the end of the day we don't want to boil the ocean we've got to manage that low hanging fruit reach out.\n\n1. Close the loop \n\n2. High touch client we need to start advertising on social media nor bake it in or bells and whistles, yet make sure to include in your wheelhouse we need distributors to evangelize the new line to local markets.\n\nProduct management breakout fastworks pushback, or at the end of the day we need to leverage our synergies no scraps hit the floor. Guerrilla marketing i'll book a meeting so we can solution this before the sprint is over, for deliverables. Three-martini lunch race without a finish line, but churning anomalies.\n\nTimeframe. Forcing function . At the end of the day bench mark, so bells and whistles gain traction low-hanging fruit so hammer out, programmatically. Hammer out. Gain traction data-point into the weeds message the initiative.",
       "organization": "organization3"
     },
-    "pitch4" : {
+    "project4" : {
       "createdAt" : "2017-09-09T07:21:10.206Z",
-      "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "title" : "Create a lorem ipsum website that will generate great placeholder text",
+      "description" : "Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback, we need to leverage our synergies, for helicopter view cannibalize, and herding cats gain traction. Staff engagement herding cats killing it, nor bottleneck mice. Level the playing field baseline can I just chime in on that one. In this space staff engagement, but knowledge process outsourcing. Quick-win.\n\n**Amazing list:**\n\n\n\n1. This is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.\n\n2.  Suspendisse id sem consectetuer libero luctus adipiscing.You better eat a reality sandwich before you walk back in that boardroom game plan. \n\n3. Goalposts. Get all your ducks in a row this vendor is incompetent or game plan hammer out, no scraps hit the floor ramp up.\n\n**Strategic high-level 30,000 ft view.**\n\nUltimate measure of success where the metal hits the meat high turnaround rate. Value prop we need a recap by eod, cob or whatever comes first the last person we talked to said this would be ready or three-martini lunch, nor feature creep we need to socialize the comms with the wider stakeholder community but clear blue water.\n\nTime to open the kimono meeting assassin.\n\nCannibalize ultimate measure of success so not enough bandwidth. Driving the initiative forward face time, so feature creep, for at the end of the day we don't want to boil the ocean we've got to manage that low hanging fruit reach out.\n\n1. Close the loop \n\n2. High touch client we need to start advertising on social media nor bake it in or bells and whistles, yet make sure to include in your wheelhouse we need distributors to evangelize the new line to local markets.\n\nProduct management breakout fastworks pushback, or at the end of the day we need to leverage our synergies no scraps hit the floor. Guerrilla marketing i'll book a meeting so we can solution this before the sprint is over, for deliverables. Three-martini lunch race without a finish line, but churning anomalies.\n\nTimeframe. Forcing function . At the end of the day bench mark, so bells and whistles gain traction low-hanging fruit so hammer out, programmatically. Hammer out. Gain traction data-point into the weeds message the initiative.",
       "organization" : "organization4"
     },
-    "pitch5" : {
+    "project5" : {
       "createdAt" : "2017-09-05T07:21:10.206Z",
-      "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "title" : "Create a lorem ipsum website that will generate great placeholder text",
+      "description" : "Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback, we need to leverage our synergies, for helicopter view cannibalize, and herding cats gain traction. Staff engagement herding cats killing it, nor bottleneck mice. Level the playing field baseline can I just chime in on that one. In this space staff engagement, but knowledge process outsourcing. Quick-win.\n\n**Amazing list:**\n\n\n\n1. This is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.\n\n2.  Suspendisse id sem consectetuer libero luctus adipiscing.You better eat a reality sandwich before you walk back in that boardroom game plan. \n\n3. Goalposts. Get all your ducks in a row this vendor is incompetent or game plan hammer out, no scraps hit the floor ramp up.\n\n**Strategic high-level 30,000 ft view.**\n\nUltimate measure of success where the metal hits the meat high turnaround rate. Value prop we need a recap by eod, cob or whatever comes first the last person we talked to said this would be ready or three-martini lunch, nor feature creep we need to socialize the comms with the wider stakeholder community but clear blue water.\n\nTime to open the kimono meeting assassin.\n\nCannibalize ultimate measure of success so not enough bandwidth. Driving the initiative forward face time, so feature creep, for at the end of the day we don't want to boil the ocean we've got to manage that low hanging fruit reach out.\n\n1. Close the loop \n\n2. High touch client we need to start advertising on social media nor bake it in or bells and whistles, yet make sure to include in your wheelhouse we need distributors to evangelize the new line to local markets.\n\nProduct management breakout fastworks pushback, or at the end of the day we need to leverage our synergies no scraps hit the floor. Guerrilla marketing i'll book a meeting so we can solution this before the sprint is over, for deliverables. Three-martini lunch race without a finish line, but churning anomalies.\n\nTimeframe. Forcing function . At the end of the day bench mark, so bells and whistles gain traction low-hanging fruit so hammer out, programmatically. Hammer out. Gain traction data-point into the weeds message the initiative.",
       "organization" : "organization5"
     },
-    "pitch6" : {
+    "project6" : {
       "createdAt" : "2017-09-01T07:21:10.206Z",
-      "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "title" : "Create a lorem ipsum website that will generate great placeholder text",
+      "description" : "Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback, we need to leverage our synergies, for helicopter view cannibalize, and herding cats gain traction. Staff engagement herding cats killing it, nor bottleneck mice. Level the playing field baseline can I just chime in on that one. In this space staff engagement, but knowledge process outsourcing. Quick-win.\n\n**Amazing list:**\n\n\n\n1. This is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.\n\n2.  Suspendisse id sem consectetuer libero luctus adipiscing.You better eat a reality sandwich before you walk back in that boardroom game plan. \n\n3. Goalposts. Get all your ducks in a row this vendor is incompetent or game plan hammer out, no scraps hit the floor ramp up.\n\n**Strategic high-level 30,000 ft view.**\n\nUltimate measure of success where the metal hits the meat high turnaround rate. Value prop we need a recap by eod, cob or whatever comes first the last person we talked to said this would be ready or three-martini lunch, nor feature creep we need to socialize the comms with the wider stakeholder community but clear blue water.\n\nTime to open the kimono meeting assassin.\n\nCannibalize ultimate measure of success so not enough bandwidth. Driving the initiative forward face time, so feature creep, for at the end of the day we don't want to boil the ocean we've got to manage that low hanging fruit reach out.\n\n1. Close the loop \n\n2. High touch client we need to start advertising on social media nor bake it in or bells and whistles, yet make sure to include in your wheelhouse we need distributors to evangelize the new line to local markets.\n\nProduct management breakout fastworks pushback, or at the end of the day we need to leverage our synergies no scraps hit the floor. Guerrilla marketing i'll book a meeting so we can solution this before the sprint is over, for deliverables. Three-martini lunch race without a finish line, but churning anomalies.\n\nTimeframe. Forcing function . At the end of the day bench mark, so bells and whistles gain traction low-hanging fruit so hammer out, programmatically. Hammer out. Gain traction data-point into the weeds message the initiative.",
       "organization" : "organization6"
     }
   },
@@ -37,42 +43,73 @@
       "logo" : "https://c402277.ssl.cf1.rackcdn.com/photos/9031/images/original/WWF_25mm_no_tab.png",
       "region" : "Worldwide",
       "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "type" : "NFP"
+      "type" : "NFP",
+      "url": "https://www.worldwildlife.org"
     },
     "organization2" : {
       "name" : "Red",
       "logo" : "https://red.org/wp-content/uploads/2016/11/red-logo.jpg",
       "region" : "Worldwide",
       "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "type" : "NFP"
+      "type" : "NFP",
+      "url": "https://red.org"
     },
     "organization3" : {
       "name" : "Red Cross",
       "logo" : "https://i.kinja-img.com/gawker-media/image/upload/s--QNLRzYHX--/c_fill,fl_progressive,g_center,h_450,q_80,w_800/edjsz6yzvuhbzo2mi5lt.jpg",
       "region" : "Worldwide",
       "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "type" : "Charity"
+      "type" : "Charity",
+      "url": "https://wellcome.ac.uk"
     },
     "organization4" : {
       "name" : "Bill & Melinda Gates Foundation",
       "logo" : "https://www.gatesfoundation.org/~/media/GFO/Site/Logo-Images/Gates_logo_1200x1200.jpg",
       "region" : "USA",
       "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "type" : "Charity"
+
+      "type" : "Charity",
+      "url": "https://www.gatesfoundation.org"
     },
     "organization5" : {
       "name" : "Wellcome Trust",
       "logo" : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Wellcome_Trust_logo.svg/250px-Wellcome_Trust_logo.svg.png",
       "region" : "UK",
       "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "type" : "Charity"
+      "type" : "Charity",
+      "url": "https://wellcome.ac.uk/"
     },
     "organization6" : {
       "name" : "UNICEF",
       "logo" : "https://www.spellbrand.com/images/blog/images/united-nations-childrens-fund-logo-design-trend.jpg",
       "region" : "Australia",
       "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "type" : "NFP"
+      "type" : "NFP",
+      "url": "https://www.unicef.org"
+    }
+  },
+  "projectMembers": {
+    "project1": {
+      "user1": {
+        "profilePicture": "https://static.pexels.com/photos/428339/pexels-photo-428339.jpeg",
+        "name": "John Generous",
+        "type": "Frontend Developer"
+      },
+      "user2": {
+        "profilePicture": "https://static.pexels.com/photos/220453/pexels-photo-220453.jpeg",
+        "name": "John Generous",
+        "type": "Frontend Developer"
+      },
+      "user3": {
+        "profilePicture": "https://static.pexels.com/photos/354951/pexels-photo-354951.jpeg",
+        "name": "John Generous",
+        "type": "Frontend Developer"
+      },
+      "user4": {
+        "profilePicture": "https://static.pexels.com/photos/58020/pexels-photo-58020.jpeg",
+        "name": "John Generous",
+        "type": "Frontend Developer"
+      }
     }
   }
 }

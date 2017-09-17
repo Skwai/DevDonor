@@ -1,24 +1,24 @@
 <template>
-  <article class="PitchPreview" :class="{ '-loading': loading }">
-    <router-link :to="{ name: 'pitch', params: { pitchId: 'pitch1' } }" class="PitchPreview__Link">
-      <div class="PitchPreview__Logo">
-        <div class="PitchPreview__LogoWrap">
-          <img class="PitchPreview__LogoImage" :src="organization.logo">
+  <article class="ProjectPreview" :class="{ '-loading': loading }">
+    <router-link :to="{ name: 'project', params: { projectId: project['.key'] } }" class="ProjectPreview__Link">
+      <div class="ProjectPreview__Logo">
+        <div class="ProjectPreview__LogoWrap">
+          <img class="ProjectPreview__LogoImage" :src="organization.logo">
         </div>
-        <div class="PitchPreview__Category">{{organization.type}}</div>
+        <div class="ProjectPreview__Category">{{organization.type}}</div>
       </div>
-      <div class="PitchPreview__Details">
-        <header class="PitchPreview__Header">
-          <div class="PitchPreview__HeaderInner">
-            <h1 class="PitchPreview__Organization">{{organization.name}}</h1>
-            <div class="PitchPreview__Region">{{organization.region}}</div>
+      <div class="ProjectPreview__Details">
+        <header class="ProjectPreview__Header">
+          <div class="ProjectPreview__HeaderInner">
+            <h1 class="ProjectPreview__Organization">{{organization.name}}</h1>
+            <div class="ProjectPreview__Region">{{organization.region}}</div>
           </div>
-          <time class="PitchPreview__CreatedAt" :datetime="pitch.createdAt">
+          <time class="ProjectPreview__CreatedAt" :datetime="project.createdAt">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="#444" stroke-width="1" stroke-linecap="square" stroke-miterlimit="10"><path d="M12 10v4h4"/><circle cx="12" cy="14" r="9"/><path d="M10 1h4M12 1v4"/></g></svg>
-            <span>{{pitch.createdAt | moment('from', 'now')}}</span>
+            <span>{{project.createdAt | moment('from', 'now')}}</span>
           </time>
         </header>
-        <div class="PitchPreview__Description">{{pitch.description}}</div>
+        <div class="ProjectPreview__Description">{{project.title}}</div>
       </div>
     </router-link>
   </article>
@@ -28,7 +28,7 @@
 import { db } from '@/services/firebase'
 
 export default {
-  props: ['pitch'],
+  props: ['project'],
 
   data () {
     return {
@@ -39,7 +39,7 @@ export default {
   firebase () {
     return {
       organization: {
-        source: db.ref(`organizations`).child(this.pitch.organization),
+        source: db.ref(`organizations`).child(this.project.organization),
         asObject: true,
         readyCallback () {
           this.loading = false
@@ -54,7 +54,7 @@ export default {
 @require "../styles/config.styl"
 @require "../styles/text.styl"
 
-.PitchPreview
+.ProjectPreview
   border: colorLightGray solid
   border-width: 1px
   position: relative
@@ -72,7 +72,7 @@ export default {
   &.-loading
     opacity: 0
 
-  + .PitchPreview
+  + .ProjectPreview
     margin-top: -1px
 
   &__Category
@@ -106,7 +106,7 @@ export default {
       align-items: center
       justify-content: center
       background: #fff
-      box-shadow: rgba(0,0,0,.1) 0 0 0 1px
+      box-shadow: rgba(0,0,0,.1) 0 1px 2px, colorLightGray 0 0 0 1px
 
     &Image
       max-width: 100%

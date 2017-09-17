@@ -27,6 +27,7 @@ export default {
 @require "styles/config.styl"
 @require "styles/reset.styl"
 @require "styles/grid.styl"
+@require "styles/text.styl"
 
 html
   font-size: fontSizeBase
@@ -41,6 +42,18 @@ body
   font-family: fontFamilyBase
   line-height: lineHeightBase
   color: fontColorBase
+
+h1, h2, h3, h4
+  line-height: lineHeightSmall
+
+h1
+  textTitle()
+
+h2
+  textHeading()
+
+h3
+  textSubheading()
 
 a
   text-decoration: none
