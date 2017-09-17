@@ -25,6 +25,7 @@ export default {
   display: block
   font-size: 1.125rem
   font-weight: 500
+  margin-bottom: spacingBase
 
   &__Underline,
   &__Label

@@ -1,31 +1,23 @@
 <template>
-  <div class="Project">
-    <Loading v-if="loading" />
-    <div v-else class="Project__Container">
-      <article class="Project__Details">
-        <header>
-          <div class="Project__Meta">
-            <time class="Project__CreatedAt" :datetime="project.createdAt">
-              <span>Posted {{project.createdAt | moment('from', 'now')}}</span>
-            </time>
-          </div>
-          <h1 class="Project__Title">{{project.title}}</h1>
-        </header>
-        <div class="Project__Description" v-html="description"></div>
-      </article>
-      <aside class="Project__Sidebar">
-        <div class="Project__Join">
-          <JoinProject />
+  <Loading v-if="loading" />
+  <Page class="Project" v-else>
+    <div slot="content">
+      <header>
+        <div class="Project__Meta">
+          <time class="Project__CreatedAt" :datetime="project.createdAt">
+            <span>Posted {{project.createdAt | moment('from', 'now')}}</span>
+          </time>
         </div>
-        <div class="Project__Organization">
-          <OrganizationPreview :organizationId="project.organization" />
-        </div>
-        <div class="Project__Members">
-          <ProjectMembers :projectId="project['.key']" />
-        </div>
-      </aside>
+        <h1 class="Project__Title">{{project.title}}</h1>
+      </header>
+      <div class="Project__Description" v-html="description"></div>
     </div>
-  </div>
+    <div slot="sidebar">
+      <JoinProject />
+      <OrganizationPreview :organizationId="project.organization" />
+      <ProjectMembers :projectId="project['.key']" />
+    </div>
+  </Page>
 </template>
 
 <script>
@@ -34,6 +26,7 @@ import marked from 'marked'
 
 import Loading from '@/components/Loading'
 import Btn from '@/components/Btn'
+import Page from '@/components/Page'
 import JoinProject from '@/components/JoinProject'
 import ProjectMembers from '@/components/ProjectMembers'
 import OrganizationPreview from '@/components/OrganizationPreview'
@@ -44,7 +37,8 @@ export default {
     Btn,
     OrganizationPreview,
     ProjectMembers,
-    JoinProject
+    JoinProject,
+    Page
   },
 
   data () {
@@ -55,7 +49,7 @@ export default {
 
   computed: {
     description () {
-      return this.project ? marked(this.project.description) : null
+      return this.project && this.project.description ? marked(this.project.description) : ''
     }
   },
 
@@ -80,18 +74,6 @@ export default {
 @require "../styles/card.styl"
 
 .Project
-  background: colorOffWhite
-  min-height: 100vh
-  border-bottom: colorLightGray solid 1px
-
-  &__Container
-    container()
-    display: flex
-    flex-wrap: wrap
-
-    @media (min-width: 768px)
-      flex-wrap: nowrap
-
   &__Title
     margin-bottom: spacingBase
     font-weight: 500
@@ -99,23 +81,6 @@ export default {
   &__Description
     textLead()
     textMarkdown()
-
-  &__Sidebar
-    flex: 0 0 100%
-    padding: spacingBase
-
-    @media (min-width: 768px)
-      flex: 0 0 24rem
-      padding: spacingLarge spacingBase
-
-
-  &__Details
-    flex: 1 0
-    background: #fff
-    padding: spacingBase
-
-    @media (min-width: 768px)
-      padding: spacingLarge
 
   &__Join,
   &__Members,

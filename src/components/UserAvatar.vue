@@ -1,5 +1,5 @@
 <template>
-  <router-link class="UserAvatar" to="#">
+  <router-link class="UserAvatar" :to="{ name: 'profile', params: { profileId: user['.key'] } }">
     <div class="UserAvatar__ImageWrap">
       <img class="UserAvatar__Image" :src="user.profilePicture" :alt="user.name">
     </div>
