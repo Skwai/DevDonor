@@ -8,5 +8,5 @@ export default {
     'charity': 'Charity',
     'nfp': 'Not for profit'
   },
-  AUTH_STORAGE_KEY: 'auth'
+  PROFILE_STORAGE_KEY: 'profile'
 }

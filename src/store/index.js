@@ -15,7 +15,7 @@ export default new Vuex.Store({
   getters,
   mutations,
   state: {
-    auth: localStorage.getItem(config.AUTH_STORAGE_KEY) || null
+    profile: JSON.parse(localStorage.getItem(config.PROFILE_STORAGE_KEY)) || null
   },
   strict: debug
 })

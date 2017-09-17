@@ -24,14 +24,8 @@ export default {
 .AppHeader
   background: colorPrimaryBlue
   color: #fff
-  padding: spacingBase
+  padding: 1rem spacingBase
   transition: transitionBase
   display: flex
-
-  &__Charity
-    navbar()
-    margin-left: auto
-
-    a
-      textLink()
+  align-items: center
 </style>
