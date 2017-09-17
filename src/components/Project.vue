@@ -101,11 +101,13 @@ export default {
     textMarkdown()
 
   &__Sidebar
-    padding: spacingBase
     flex: 0 0 100%
+    padding: spacingBase
 
     @media (min-width: 768px)
       flex: 0 0 24rem
+      padding: spacingLarge spacingBase
+
 
   &__Details
     flex: 1 0
