@@ -1,25 +1,27 @@
 <template>
-  <div class="OrganizationPreview">
+  <article class="OrganizationPreview">
     <Loading v-if="loading" />
     <div v-else class="OrganizationPreview__Inner">
       <div class="OrganizationPreview__Logo">
         <img class="OrganizationPreview__LogoImage" :src="organization.logo" :alt="organization.name + ' logo'">
       </div>
       <header class="OrganizationPreview__Header">
-        <h2 class="OrganizationPreview__Name">{{organization.name}}</h2>
         <SmallCaps>{{organization.region}}</SmallCaps>
-        <div>
-          <a class="OrganizationPreview__Link" :href="organization.url">
-            {{organization.url}}
-          </a>
-        </div>
+        <h2 class="OrganizationPreview__Name">{{organization.name}}</h2>
       </header>
       <div class="OrganizationPreview__Description" v-html="description"></div>
+      <footer class="OrganizationPreview__Footer">
+        <SmallCaps>{{getCharityType(organization.type)}}</SmallCaps>
+        <a class="OrganizationPreview__Link" :href="organization.url">
+          {{organization.url}}
+        </a>
+      </footer>
     </div>
-  </div>
+  </article>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import marked from 'marked'
 import SmallCaps from '@/components/SmallCaps'
 import Loading from '@/components/Loading'
@@ -40,6 +42,9 @@ export default {
   },
 
   computed: {
+    ...mapGetters([
+      'getCharityType'
+    ]),
     description () {
       return marked(this.organization.description)
     }
@@ -72,6 +77,9 @@ export default {
     text-align: center
     margin-bottom: 1rem
 
+  &__Name
+    margin: 0.5rem 0
+
   &__Logo
     position: absolute
     top: 0
@@ -103,5 +111,8 @@ export default {
     position: relative
     padding-top: spacingBase + 2.5rem
 
+  &__Footer
+    text-align: center
+    margin-top: 1rem
 </style>
 
