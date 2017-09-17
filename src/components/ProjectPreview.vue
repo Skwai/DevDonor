@@ -62,6 +62,9 @@ export default {
   transform: translate3d(0,0,0)
   transform-origin: center center
 
+  *
+    transform: translate3d(0,0,0)
+
   &:hover
     z-index: 2
     border-color: rgba(0,0,0,.15)

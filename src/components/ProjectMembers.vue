@@ -2,7 +2,7 @@
   <section class="ProjectMembers">
     <Loading v-if="loading" />
     <div v-else>
-      <h3 class="ProjectMembers__Heading">Project Members</h3>
+      <h3 class="ProjectMembers__Heading">Project Members ({{projectMembers.length}})</h3>
 
       <ul class="ProjectMembers__Users">
         <li class="ProjectMembers__User"
@@ -36,7 +36,7 @@ export default {
   firebase () {
     return {
       projectMembers: {
-        source: db.ref('projectMembers').child('project1'),
+        source: db.ref('projectMembers').child(this.projectId),
         readyCallback () {
           this.loading = false
         }

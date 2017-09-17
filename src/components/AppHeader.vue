@@ -1,16 +1,16 @@
 <template>
   <header class="AppHeader">
     <router-link to="/"><h1>DevDonor</h1></router-link>
-    <div class="AppHeader__Charity">
-      <span>Are you a charity or non-profit?</span>
-      <router-link to="/pitch">Pitch your project</router-link>
-    </div>
+    <Account />
   </header>
 </template>
 
 <script>
+import Account from '@/components/Account'
+
 export default {
   components: {
+    Account
   }
 }
 </script>

@@ -38,6 +38,13 @@ body
   line-height: lineHeightBase
   color: fontColorBase
 
+button, input, textarea
+  font-size: 1rem
+  line-height: lineHeightBase
+
+button
+  cursor: pointer
+
 h1, h2, h3, h4
   line-height: lineHeightSmall
 

@@ -104,6 +104,14 @@
         "profilePicture": "https://static.pexels.com/photos/354951/pexels-photo-354951.jpeg?h=350&auto=compress&cs=tinysrgb",
         "name": "Pam Beesly",
         "role": "UX Designer"
+      }
+    },
+
+    "project2": {
+      "user3": {
+        "profilePicture": "https://static.pexels.com/photos/354951/pexels-photo-354951.jpeg?h=350&auto=compress&cs=tinysrgb",
+        "name": "Pam Beesly",
+        "role": "UX Designer"
       },
       "user4": {
         "profilePicture": "https://static.pexels.com/photos/58020/pexels-photo-58020.jpeg?h=350&auto=compress&cs=tinysrgb",
@@ -113,6 +121,57 @@
       "user5": {
         "profilePicture": "https://static.pexels.com/photos/157907/smile-color-laugh-black-157907.jpeg?h=350&auto=compress&cs=tinysrgb",
         "name": "Phyllis Vance",
+        "role": "Developer"
+      }
+    },
+
+    "project3": {
+      "user1": {
+        "profilePicture": "https://images.pexels.com/photos/428333/pexels-photo-428333.jpeg?h=350&auto=compress&cs=tinysrgb",
+        "name": "Michael Scott",
+        "role": "Developer"
+      },
+      "user2": {
+        "profilePicture": "https://static.pexels.com/photos/220453/pexels-photo-220453.jpeg?h=350&auto=compress&cs=tinysrgb",
+        "name": "Dwight Shrute",
+        "role": "Developer"
+      },
+      "user3": {
+        "profilePicture": "https://static.pexels.com/photos/354951/pexels-photo-354951.jpeg?h=350&auto=compress&cs=tinysrgb",
+        "name": "Pam Beesly",
+        "role": "UX Designer"
+      },
+      "user5": {
+        "profilePicture": "https://static.pexels.com/photos/157907/smile-color-laugh-black-157907.jpeg?h=350&auto=compress&cs=tinysrgb",
+        "name": "Phyllis Vance",
+        "role": "Developer"
+      }
+    },
+
+    "project4": {
+      "user1": {
+        "profilePicture": "https://images.pexels.com/photos/428333/pexels-photo-428333.jpeg?h=350&auto=compress&cs=tinysrgb",
+        "name": "Michael Scott",
+        "role": "Developer"
+      },
+      "user2": {
+        "profilePicture": "https://static.pexels.com/photos/220453/pexels-photo-220453.jpeg?h=350&auto=compress&cs=tinysrgb",
+        "name": "Dwight Shrute",
+        "role": "Developer"
+      },
+      "user5": {
+        "profilePicture": "https://static.pexels.com/photos/157907/smile-color-laugh-black-157907.jpeg?h=350&auto=compress&cs=tinysrgb",
+        "name": "Phyllis Vance",
+        "role": "Developer"
+      }
+    },
+
+    "project5": {},
+
+    "project6": {
+      "user1": {
+        "profilePicture": "https://images.pexels.com/photos/428333/pexels-photo-428333.jpeg?h=350&auto=compress&cs=tinysrgb",
+        "name": "Michael Scott",
         "role": "Developer"
       }
     }

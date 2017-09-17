@@ -2458,7 +2458,7 @@ find-up@^2.1.0:
   dependencies:
     locate-path "^2.0.0"
 
-firebase@^4.3.1:
+firebase@^4.1.2, firebase@^4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/firebase/-/firebase-4.3.1.tgz#0e6132ee22af323b350d03b6eb1680bb1a6f9ee6"
   dependencies:
@@ -2467,6 +2467,12 @@ firebase@^4.3.1:
     jsonwebtoken "^7.3.0"
     promise-polyfill "^6.0.2"
     xmlhttprequest "^1.8.0"
+
+firebaseui@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/firebaseui/-/firebaseui-2.3.0.tgz#9eb5f44ea54e6dda90a2c5c09a5400f0ae140449"
+  dependencies:
+    firebase "^4.1.2"
 
 flat-cache@^1.2.1:
   version "1.2.2"

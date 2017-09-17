@@ -1,7 +1,7 @@
 <template>
   <header class="Intro">
     <div class="Intro__Intro">
-      <h1 class="Intro__Title">DevDonor</h1>
+      <h1 class="Intro__Title">Connecting developers with charities</h1>
       <p class="Intro__Description">A platform for charities and developers to connect</p>
       <div class="Intro__Btns">
         <Btn to="register" color="dark" size="large">Sign me up</Btn>
@@ -41,7 +41,7 @@ export default {
     padding: 12vmin spacingBase 12vmin
 
   &__Title
-    font-size: (1rem + 2vmin)
+    font-size: (1rem + 1vmin)
     margin-bottom: 1rem
 
   &__Description
