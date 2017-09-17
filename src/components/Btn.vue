@@ -48,7 +48,7 @@ export default {
   textSmallCaps()
   white-space: nowrap
   cursor: pointer
-  box-shadow: inset rgba(0,0,0,.15) 0 -2px 0, rgba(0,0,0,.1) 0 0 0 1px
+  box-shadow: inset rgba(0,0,0,.1) 0 0 0 1px
 
   &:focus,
   &:active
@@ -68,7 +68,10 @@ export default {
 
   &:hover,
   &:focus
-    box-shadow: rgba(0,0,0,.1) 0 2px 1rem
+    box-shadow: inset rgba(0,0,0,.25) 0 0 0 1px
+
+  &:active
+    transform: translateY(-2px)
 
   &__Icon
     margin-right: 1em

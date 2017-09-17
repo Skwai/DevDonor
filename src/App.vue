@@ -1,19 +1,19 @@
 <template>
   <main class="App">
-    <CharityCta />
+    <AppHeader />
     <router-view></router-view>
     <AppFooter />
   </main>
 </template>
 
 <script>
+import AppHeader from '@/components/AppHeader'
 import AppFooter from '@/components/AppFooter'
-import CharityCta from '@/components/CharityCta'
 
 export default {
   components: {
     AppFooter,
-    CharityCta
+    AppHeader
   }
 }
 </script>

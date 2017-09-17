@@ -36,7 +36,7 @@ export default {
   firebase () {
     return {
       projectMembers: {
-        source: db.ref('projectMembers').child(this.projectId),
+        source: db.ref('projectMembers').child('project1'),
         readyCallback () {
           this.loading = false
         }

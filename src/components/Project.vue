@@ -80,10 +80,17 @@ export default {
 @require "../styles/card.styl"
 
 .Project
+  background: colorOffWhite
+  min-height: 100vh
+  border-bottom: colorLightGray solid 1px
+
   &__Container
     container()
     display: flex
-    padding: spacingBase spacingBase
+    flex-wrap: wrap
+
+    @media (min-width: 768px)
+      flex-wrap: nowrap
 
   &__Title
     margin-bottom: spacingBase
@@ -94,11 +101,19 @@ export default {
     textMarkdown()
 
   &__Sidebar
-    flex: 0 0 20rem
-    margin-left: spacingLarge
+    padding: spacingBase
+    flex: 0 0 100%
+
+    @media (min-width: 768px)
+      flex: 0 0 24rem
 
   &__Details
     flex: 1 0
+    background: #fff
+    padding: spacingBase
+
+    @media (min-width: 768px)
+      padding: spacingLarge
 
   &__Join,
   &__Members,

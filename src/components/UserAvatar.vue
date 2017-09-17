@@ -49,7 +49,7 @@ export default {
     line-height: 1
     justify-content: stretch
     align-items: stretch
-    border-radius: 4px
+    border-radius: 3px
     overflow: hidden
     transition: transitionBase
     transform: translate3d(0,0,0)
