@@ -11,10 +11,8 @@
       </header>
       <div class="OrganizationPreview__Description" v-html="description"></div>
       <footer class="OrganizationPreview__Footer">
-        <SmallCaps>{{getCharityType(organization.type)}}</SmallCaps>
-        <a class="OrganizationPreview__Link" :href="organization.url">
-          {{organization.url}}
-        </a>
+        <div><SmallCaps>{{getCharityType(organization.type)}}</SmallCaps></div>
+        <a class="OrganizationPreview__Link" :href="organization.url">{{organization.url}}</a>
       </footer>
     </div>
   </article>

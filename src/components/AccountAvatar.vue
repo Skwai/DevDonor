@@ -12,8 +12,8 @@ export default {
 @require "../styles/config.styl"
 
 .AccountAvatar
-  width: 2.5rem
-  height: 2.5rem
+  width: 2rem
+  height: 2rem
   border-radius: 50%
   box-shadow: #fff 0 0 0 1px
 </style>

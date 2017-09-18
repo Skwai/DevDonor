@@ -40,6 +40,7 @@ export default {}
     flex: 1 0
     background: #fff
     padding: spacingBase
+    min-height: 100vh
 
     @media (min-width: 768px)
       padding: spacingLarge

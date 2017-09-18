@@ -1,18 +1,46 @@
 <template>
-  <router-link class="UserAvatar" :to="{ name: 'profile', params: { profileId: user['.key'] } }">
+  <Loading size="small" v-if="loading" />
+  <router-link class="UserAvatar" :to="{ name: 'profile', params: { profileId: userId } }" v-else>
     <div class="UserAvatar__ImageWrap">
-      <img class="UserAvatar__Image" :src="user.profilePicture" :alt="user.name">
+      <img class="UserAvatar__Image" :src="user.picture" :alt="user.name">
     </div>
     <div class="UserAvatar__Details" v-if="showDetails">
       <div class="UserAvatar__Name">{{user.name}}</div>
-      <div class="UserAvatar__Role">{{user.role}}</div>
+      <SmallCaps>{{user.role}}</SmallCaps>
     </div>
   </router-link>
 </template>
 
 <script>
+import { db } from '@/services/firebase'
+import Loading from '@/components/Loading'
+import SmallCaps from '@/components/SmallCaps'
+
 export default {
-  props: ['user', 'showDetails']
+  props: ['userId', 'showDetails'],
+
+  components: {
+    Loading,
+    SmallCaps
+  },
+
+  data () {
+    return {
+      loading: true
+    }
+  },
+
+  firebase () {
+    return {
+      user: {
+        source: db.ref('users').child(this.userId),
+        asObject: true,
+        readyCallback () {
+          this.loading = false
+        }
+      }
+    }
+  }
 }
 </script>
 
@@ -37,10 +65,6 @@ export default {
   &__Name
     font-weight: 500
 
-  &__Role
-    textSmallCaps()
-    opacity: .5
-
   &__ImageWrap
     size = 3.5rem
     width: size
@@ -49,7 +73,7 @@ export default {
     line-height: 1
     justify-content: stretch
     align-items: stretch
-    border-radius: 3px
+    border-radius: borderRadiusBase
     overflow: hidden
     transition: transitionBase
     transform: translate3d(0,0,0)

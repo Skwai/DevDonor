@@ -18,6 +18,11 @@ const router = new Router({
       component: Home
     },
     {
+      name: 'browse',
+      path: '/browse',
+      component: Home
+    },
+    {
       name: 'project',
       path: '/project/:projectId',
       component: Project
@@ -29,7 +34,7 @@ const router = new Router({
     },
     {
       name: 'profile',
-      path: '/profile/:profileId?',
+      path: '/profile/:profileId',
       component: Profile
     }
   ]

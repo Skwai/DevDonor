@@ -1,14 +1,13 @@
 <template>
-  <section class="ProjectMembers">
+  <section class="ProjectUsers">
     <Loading v-if="loading" />
     <div v-else>
-      <h3 class="ProjectMembers__Heading">Project Members ({{projectMembers.length}})</h3>
-
-      <ul class="ProjectMembers__Users">
-        <li class="ProjectMembers__User"
-          v-for="(user, key) in projectMembers"
+      <h3 class="ProjectUsers__Heading">Project Members ({{projectUsers.length}})</h3>
+      <ul class="ProjectUsers__Users">
+        <li class="ProjectUsers__User"
+          v-for="(user, key) in projectUsers"
           :key="key"
-        ><UserAvatar :user="user" :showDetails="true" /></li>
+        ><UserAvatar :userId="user['.key']" :showDetails="true" /></li>
       </ul>
     </div>
   </section>
@@ -35,8 +34,8 @@ export default {
 
   firebase () {
     return {
-      projectMembers: {
-        source: db.ref('projectMembers').child(this.projectId),
+      projectUsers: {
+        source: db.ref('projectUsers').child(this.projectId),
         readyCallback () {
           this.loading = false
         }
@@ -51,7 +50,7 @@ export default {
 @require "../styles/text.styl"
 @require "../styles/card.styl"
 
-.ProjectMembers
+.ProjectUsers
   card()
 
   &__Heading

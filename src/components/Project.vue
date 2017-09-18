@@ -15,7 +15,7 @@
     <div slot="sidebar">
       <JoinProject />
       <OrganizationPreview :organizationId="project.organization" />
-      <ProjectMembers :projectId="project['.key']" />
+      <ProjectUsers :projectId="project['.key']" />
     </div>
   </Page>
 </template>
@@ -28,7 +28,7 @@ import Loading from '@/components/Loading'
 import Btn from '@/components/Btn'
 import Page from '@/components/Page'
 import JoinProject from '@/components/JoinProject'
-import ProjectMembers from '@/components/ProjectMembers'
+import ProjectUsers from '@/components/ProjectUsers'
 import OrganizationPreview from '@/components/OrganizationPreview'
 
 export default {
@@ -36,7 +36,7 @@ export default {
     Loading,
     Btn,
     OrganizationPreview,
-    ProjectMembers,
+    ProjectUsers,
     JoinProject,
     Page
   },

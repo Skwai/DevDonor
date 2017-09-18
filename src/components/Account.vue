@@ -35,10 +35,7 @@ export default {
       try {
         const { additionalUserInfo: { profile } } = await login(this.$refs.login)
         this.$store.dispatch('login', profile)
-      } catch (err) {
-
-      } finally {
-      }
+      } catch (err) {}
     }
   }
 }

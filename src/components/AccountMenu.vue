@@ -3,7 +3,7 @@
     <button
       @click.prevent="toggleAccountMenu"
       class="AccountMenu__Toggle"
-    ><AccountAvatar :picture="getProfile.picture" /></button>
+    ><AccountAvatar :picture="getProfile.picture" /> <span class="AccountMenu__UserName">{{getProfile.given_name}}</span></button>
     <div class="AccountMenu__Options">
       <router-link to="profile" class="AccountMenu__Option">Your Profile</router-link>
       <router-link to="logout" class="AccountMenu__Option">Logout</router-link>
@@ -57,6 +57,7 @@ export default {
 
 <style lang="stylus">
 @require "../styles/config.styl"
+@require "../styles/text.styl"
 
 .AccountMenu
   position: relative
@@ -65,6 +66,14 @@ export default {
     background: none
     border: 0
     padding: 0
+    color: #fff
+    display: flex
+    align-items: center
+
+  &__UserName
+    textSmallCaps()
+    margin-left: 1rem
+    line-height: 1
 
   &__Options
     position: absolute
@@ -75,12 +84,15 @@ export default {
     right: 0
     min-width: 10rem
     box-shadow: rgba(0,0,0,.1) 0 2px 5px
-    transition: transitionBase
+    transition-duration: transitionBase
+    transition-property: opacity, transform
     opacity: 0
+    top: -999rem
 
     .-show &
       transform: translate(1px, 0.5rem) scale(1, 1)
       opacity: 1
+      top: 100%
 
     &::after
       size = 0.5rem
