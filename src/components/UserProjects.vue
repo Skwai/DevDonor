@@ -64,6 +64,6 @@ export default {
     text-align: center;
 
   &__Project + &__Project
-    margin-top: 1rem
+    margin-top: spacingSmall
 
 </style>

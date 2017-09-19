@@ -48,7 +48,7 @@ export default {}
     &Icon
       width: 3rem
       height: 3rem
-      margin-right: 1rem
+      margin-right: spacingSmall
 
     &Label
       textBigCaps()

@@ -73,7 +73,7 @@ export default {
 
   &__Header
     text-align: center
-    margin-bottom: 1rem
+    margin-bottom: spacingSmall
 
   &__Name
     margin: 0.5rem 0
@@ -111,6 +111,6 @@ export default {
 
   &__Footer
     text-align: center
-    margin-top: 1rem
+    margin-top: spacingSmall
 </style>
 

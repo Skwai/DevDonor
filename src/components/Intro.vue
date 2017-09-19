@@ -42,7 +42,7 @@ export default {
 
   &__Title
     font-size: (1rem + 1vmin)
-    margin-bottom: 1rem
+    margin-bottom: spacingSmall
 
   &__Description
     textHeading()

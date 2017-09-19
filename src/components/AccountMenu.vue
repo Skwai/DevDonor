@@ -72,7 +72,7 @@ export default {
 
   &__UserName
     textSmallCaps()
-    margin-left: 1rem
+    margin-left: spacingSmall
     line-height: 1
 
   &__Options
@@ -110,7 +110,7 @@ export default {
     color: #fff
     font-size: 0.875rem
     white-space: nowrap
-    padding: 1rem spacingBase
+    padding: spacingSmall spacingBase
 
     &:hover
       color: colorPrimaryBlue

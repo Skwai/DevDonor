@@ -60,7 +60,7 @@ export default {
     text-align: center
 
   &__User + &__User
-    margin-top: 1rem
+    margin-top: spacingSmall
 
 
 </style>

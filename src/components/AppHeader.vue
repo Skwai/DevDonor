@@ -29,7 +29,7 @@ export default {
   align-items: stretch
 
   &__Logo
-    padding: 1rem spacingBase
+    padding: spacingSmall spacingBase
     transition: transitionBase
 
     &:hover

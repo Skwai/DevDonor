@@ -80,7 +80,7 @@ export default {
 .Profile
 
   &__Tags
-    margin-top: 1rem
+    margin-top: spacingSmall
 
   &__Header
     display: flex

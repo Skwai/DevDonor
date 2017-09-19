@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import Logout from '@/components/Logout'
 import Project from '@/components/Project'
 import Profile from '@/components/Profile'
+import OrganizationRegister from '@/components/OrganizationRegister'
 
 Vue.use(Router)
 
@@ -36,6 +37,11 @@ const router = new Router({
       name: 'profile',
       path: '/profile/:profileId',
       component: Profile
+    },
+    {
+      name: 'register',
+      path: '/register',
+      component: OrganizationRegister
     }
   ]
 })

@@ -60,7 +60,7 @@ export default {
 
   &__Details
     flex: 1
-    margin-left: 1rem
+    margin-left: spacingSmall
 
   &__Name
     font-weight: 500

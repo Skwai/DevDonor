@@ -84,7 +84,7 @@ export default {
     text-align: center
     opacity: .4
     width: 100%
-    margin-top: 1rem
+    margin-top: spacingSmall
 
   &__Link
     display: flex
@@ -143,7 +143,7 @@ export default {
     flex: 0 0 100%
 
     &Inner
-      margin-right: 1rem
+      margin-right: spacingSmall
 
   &__CreatedAt
     text-align: right

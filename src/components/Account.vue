@@ -48,7 +48,7 @@ export default {
 .Account
   margin-left: auto
   transition: transitionBase
-  padding: 1rem spacingBase
+  padding: spacingSmall spacingBase
 
   &:hover
     background: rgba(0,0,0,.05)

@@ -12,6 +12,6 @@ export default {}
 
 .Subheading
   textSubheading()
-  margin-bottom: 1rem
+  margin-bottom: spacingSmall
 
 </style>

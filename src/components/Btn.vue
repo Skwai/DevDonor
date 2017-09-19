@@ -55,7 +55,7 @@ export default {
     outline: 0
 
   &--large
-    padding: 1rem 2rem
+    padding: spacingSmall 2rem
     textCaps()
 
   &--dark
