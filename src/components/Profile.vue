@@ -22,23 +22,13 @@
 </template>
 
 <script>
-import Page from '@/components/Page'
-import Tag from '@/components/Tag'
-import Loading from '@/components/Loading'
 import { db } from '@/services/firebase'
 import marked from 'marked'
 import UserProjects from '@/components/UserProjects'
-import SmallCaps from '@/components/SmallCaps'
-import Subheading from '@/components/Subheading'
 
 export default {
   components: {
-    Page,
-    Loading,
-    UserProjects,
-    Tag,
-    SmallCaps,
-    Subheading
+    UserProjects
   },
 
   data () {

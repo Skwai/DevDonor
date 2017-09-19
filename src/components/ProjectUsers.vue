@@ -12,15 +12,13 @@
 </template>
 
 <script>
-import Loading from '@/components/Loading'
 import UserAvatar from '@/components/UserAvatar'
 
 export default {
   props: ['projectUserIds'],
 
   components: {
-    UserAvatar,
-    Loading
+    UserAvatar
   },
 
   computed: {

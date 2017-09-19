@@ -6,13 +6,8 @@
 
 <script>
 import { logout } from '@/services/firebase'
-import Page from '@/components/Page'
 
 export default {
-  components: {
-    Page
-  },
-
   async created () {
     await logout()
     this.$store.dispatch('logout')

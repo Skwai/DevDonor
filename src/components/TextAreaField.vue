@@ -1,16 +1,17 @@
 <template>
-  <div class="TextField" :class="{ '-empty': !value, '-disabled': disabled }">
-    <label class="TextField__Wrap">
-      <input
-        class="TextField__Input"
-        type="text"
+  <div class="TextAreaField" :class="{ '-empty': !value, '-disabled': disabled }">
+    <label class="TextAreaField__Wrap">
+      <textarea
+        class="TextAreaField__Input"
         required
         v-model="inputValue"
         :disabled="disabled"
-      >
-      <span class="TextField__Label">{{label}}</span>
+        rows="5"
+        cols="40"
+      ></textarea>
+      <span class="TextAreaField__Label">{{label}}</span>
     </label>
-    <HelpText v-if="description" class="TextField__Description">{{description}}</HelpText>
+    <HelpText v-if="description" class="TextAreaField__Description">{{description}}</HelpText>
   </div>
 </template>
 
@@ -37,7 +38,7 @@ export default {
 <style scope lang="stylus">
 @require "../styles/config"
 
-.TextField
+.TextAreaField
   margin-bottom: spacingBase
 
   &__Wrap
@@ -56,7 +57,7 @@ export default {
     width: 100%
     background: transparent
     border: 0
-    line-height: 1rem
+    line-height: lineHeightBase
     font-size: 1rem
     font-weight: 500
     z-index: 2
@@ -79,7 +80,7 @@ export default {
 
   &__Label
     cursor: text
-    top: 50%
+    top: 2rem
     left: spacingSmall
     position: absolute
     display: block

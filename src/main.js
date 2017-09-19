@@ -4,11 +4,12 @@ import Vue from 'vue'
 import VueFire from 'vuefire'
 import VueMoment from 'vue-moment'
 
-import App from './App'
-import router from './router'
-import store from './store'
+import App from '@/App'
+import router from '@/router'
+import store from '@/store'
 
-import filters from './filters'
+import filters from '@/filters'
+import '@/components'
 
 Vue.use(VueFire)
 Vue.use(VueMoment)

@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import Loading from '@/components/Loading'
 import SmallCaps from '@/components/SmallCaps'
 import { db } from '@/services/firebase'
 
@@ -17,7 +16,6 @@ export default {
   props: ['projectId'],
 
   components: {
-    Loading,
     SmallCaps
   },
 

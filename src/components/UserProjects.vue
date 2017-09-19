@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import Loading from '@/components/Loading'
 import { db } from '@/services/firebase'
 import UserProject from '@/components/UserProject'
 
@@ -22,7 +21,6 @@ export default {
   props: ['userId'],
 
   components: {
-    Loading,
     UserProject
   },
 

@@ -12,12 +12,10 @@
 </template>
 
 <script>
-import Btn from '@/components/Btn'
 import IntroTabs from '@/components/IntroTabs'
 
 export default {
   components: {
-    Btn,
     IntroTabs
   },
   props: ['project']

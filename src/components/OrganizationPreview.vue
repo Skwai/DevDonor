@@ -21,17 +21,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import marked from 'marked'
-import SmallCaps from '@/components/SmallCaps'
-import Loading from '@/components/Loading'
 import { db } from '@/services/firebase'
 
 export default {
   props: ['organizationId'],
-
-  components: {
-    SmallCaps,
-    Loading
-  },
 
   data () {
     return {

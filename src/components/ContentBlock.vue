@@ -1,5 +1,5 @@
 <template>
-  <div class="Content"><slot /></div>
+  <div class="ContentBlock"><slot /></div>
 </template>
 
 <script>
@@ -10,7 +10,7 @@ export default {}
 @require "../styles/config.styl"
 @require "../styles/text.styl"
 
-.Content
+.ContentBlock
   textContent()
   margin-bottom: spacingBase
 </style>

@@ -6,12 +6,7 @@
 </template>
 
 <script>
-import Btn from '@/components/Btn'
-
 export default {
-  components: {
-    Btn
-  }
 }
 </script>
 

@@ -9,14 +9,12 @@
 
 <script>
 import Intro from '@/components/Intro'
-import Container from '@/components/Container'
 import Projects from '@/components/Projects'
 
 export default {
   components: {
     Intro,
-    Projects,
-    Container
+    Projects
   }
 }
 </script>

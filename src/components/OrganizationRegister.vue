@@ -4,24 +4,37 @@
     <form slot="content" @submit.prevent="submit">
 
       <Heading>Charity Registration</Heading>
-      <Content>
+      <ContentBlock>
         Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback.
-      </Content>
+      </ContentBlock>
 
       <TextField label="Organization Name" :value.sync="organization.name" />
 
-      <TextField label="Organization Type" :value.sync="organization.type" />
+      <SelectField
+        label="Charity Type"
+        :value.sync="organization.type"
+        :options="{ nfp: 'Not for profit', charity: 'Charity' }"
+       />
 
       <TextField
         label="Website URL"
         :value.sync="organization.url"
         description="If you don't have a website, paste a link to your Facebook page"
       />
-      <TextField
+
+      <SelectField
         label="Region"
         :value.sync="organization.region"
+        :options="countryOptions"
         description="The region that your organization mainly operates"
       />
+
+      <TextAreaField
+        label="Quick Description"
+        :value.sync="organization.bio"
+        description="Write a brief description about your organization for users to see"
+      />
+
 
       <Btn color="primary" size="large">Submit Application</Btn>
     </form>
@@ -35,27 +48,9 @@
 </template>
 
 <script>
-import Loading from '@/components/Loading'
-import Page from '@/components/Page'
-import Heading from '@/components/Heading'
-import TextField from '@/components/TextField'
-import Content from '@/components/Content'
-import Card from '@/components/Card'
-import Subheading from '@/components/Subheading'
-import Btn from '@/components/Btn'
+import { db, sanitizeRef } from '@/services/firebase'
 
 export default {
-  components: {
-    Loading,
-    Page,
-    TextField,
-    Heading,
-    Content,
-    Card,
-    Subheading,
-    Btn
-  },
-
   data () {
     return {
       loading: false,
@@ -69,9 +64,19 @@ export default {
     }
   },
 
+  computed: {
+    countryOptions () {
+      return sanitizeRef(this.countries)
+    }
+  },
+
   methods: {
-    submit (ev) {
-      console.log(ev)
+    submit (ev) {}
+  },
+
+  firebase () {
+    return {
+      countries: db.ref('countries')
     }
   }
 }

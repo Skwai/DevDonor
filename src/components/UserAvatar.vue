@@ -12,14 +12,12 @@
 
 <script>
 import { db } from '@/services/firebase'
-import Loading from '@/components/Loading'
 import SmallCaps from '@/components/SmallCaps'
 
 export default {
   props: ['userId', 'showDetails'],
 
   components: {
-    Loading,
     SmallCaps
   },
 

@@ -14,5 +14,4 @@ export default {}
   font-weight: 500
   padding: spacingBase
   text-align: center
-
 </style>

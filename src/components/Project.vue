@@ -24,21 +24,15 @@
 import { db } from '@/services/firebase'
 import marked from 'marked'
 
-import Loading from '@/components/Loading'
-import Btn from '@/components/Btn'
-import Page from '@/components/Page'
 import JoinProject from '@/components/JoinProject'
 import ProjectUsers from '@/components/ProjectUsers'
 import OrganizationPreview from '@/components/OrganizationPreview'
 
 export default {
   components: {
-    Loading,
-    Btn,
     OrganizationPreview,
     ProjectUsers,
-    JoinProject,
-    Page
+    JoinProject
   },
 
   data () {

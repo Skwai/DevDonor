@@ -23,18 +23,12 @@
 <script>
 import { db } from '@/services/firebase'
 import ProjectPreview from '@/components/ProjectPreview'
-import Loading from '@/components/Loading'
-import Alert from '@/components/Alert'
 import Filters from '@/components/Filters'
-import Btn from '@/components/Btn'
 
 export default {
   components: {
-    Alert,
     ProjectPreview,
-    Loading,
-    Filters,
-    Btn
+    Filters
   },
 
   data () {

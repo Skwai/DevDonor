@@ -29,14 +29,9 @@
 
 <script>
 import { db } from '@/services/firebase'
-import Tag from '@/components/Tag'
 
 export default {
   props: ['project'],
-
-  components: {
-    Tag
-  },
 
   data () {
     return {
