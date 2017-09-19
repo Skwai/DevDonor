@@ -10,22 +10,24 @@
       >
       <span class="TextField__Label">{{label}}</span>
     </label>
+    <div v-if="description" class="TextField__Description">{{description}}</div>
   </div>
 </template>
 
 <script>
 
 export default {
-  props: ['options', 'label', 'disabled', 'value', 'type', 'errorMessage'],
+  props: ['options', 'label', 'disabled', 'value', 'type', 'errorMessage', 'description'],
+
   data () {
     return {
       error: null,
       inputValue: this.value
     }
   },
+
   watch: {
     inputValue () {
-      console.log(this.value)
       this.$emit('update:value', this.inputValue)
     }
   }
@@ -39,9 +41,11 @@ export default {
   margin-bottom: spacingBase
 
   &__Wrap
+    background: colorOffWhite
     position: relative
     display: block
     position: relative
+    box-shadow: inset rgba(0,0,0,.1) 0 1px 1px
 
     .-disabled &
       cursor: not-allowed
@@ -51,16 +55,16 @@ export default {
     display: block
     width: 100%
     background: transparent
-    border: rgba(0,0,0,.1) solid 1px
+    border: 0
     line-height: 1rem
     font-size: 1rem
     font-weight: 500
     z-index: 2
     position: relative
-    padding: 1.75rem spacingSmall 0.75rem
+    padding: 2rem spacingSmall 1rem
 
     .-empty &
-      padding: 1.25rem spacingSmall
+      padding: 1.5rem spacingSmall
 
     &:invalid
       box-shadow: none
@@ -68,7 +72,7 @@ export default {
     &:focus
       outline: 0
       border-color: #499aff
-      padding: 1.75rem spacingSmall 0.75rem
+      padding: 2rem spacingSmall 1rem
 
   &__Wrap:hover &__Input
     border-color: #499aff
@@ -84,7 +88,7 @@ export default {
     transition: transitionBase
     transform: translate(0, -100%) scale(0.875)
     transform-origin: left top
-    font-weight: 500
+    font-weight: 600
     opacity: .5
 
     .-empty &
@@ -95,4 +99,8 @@ export default {
     transform: translate(0, -100%) scale(0.875)
     color: colorPrimaryBlue
     opacity: 1
+
+  &__Description
+    margin: spacingTiny 0 0
+    opacity: .7
 </style>
