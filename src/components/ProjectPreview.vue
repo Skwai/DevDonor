@@ -63,22 +63,17 @@ export default {
 @require "../styles/text.styl"
 
 .ProjectPreview
-  // border: colorLightGray solid 1px
   position: relative
   transition: transitionLong
   transform: translate3d(0,0,0)
   transform-origin: center center
-  border-bottom: #ccc solid 1px
+  margin-bottom: spacingSmall
 
   *
     transform: translate3d(0,0,0)
 
   &:hover
     z-index: 2
-    border-color: rgba(0,0,0,.15)
-
-    @media (min-width: 1024px)
-      transform: scale(1.02)
 
   &.-loading
     opacity: 0
@@ -101,9 +96,14 @@ export default {
     background: #fff
     align-items: stretch
     transform: translate3d(0,0,0,0)
+    transition: transitionBase
+    box-shadow: rgba(0,0,0,.1) 0 0 0 1px
 
     &:hover
-      box-shadow: rgba(35,47,65,.15) 0 2px 2rem
+      box-shadow: rgba(35,47,65,.1) 0 2px 2rem, rgba(0,0,0,.1) 0 0 0 1px
+
+      @media (min-width: 1024px)
+        transform: scale(1.02)
 
   &__Tags
     margin-top: spacingSmall
