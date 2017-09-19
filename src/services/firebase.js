@@ -17,3 +17,5 @@ export const sanitizeRef = (data) => {
     return Object.assign(obj, { [el['.key']]: el['.value'] })
   }, {})
 }
+
+export const storage = Firebase.storage()

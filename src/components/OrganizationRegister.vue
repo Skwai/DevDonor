@@ -29,8 +29,13 @@
         description="The region that your organization mainly operates"
       />
 
+      <Upload
+        :maxFileSize="2"
+        label="Upload your logo"
+      />
+
       <TextAreaField
-        label="Quick Description"
+        label="Short Description"
         :value.sync="organization.bio"
         description="Write a brief description about your organization for users to see"
       />
@@ -49,8 +54,13 @@
 
 <script>
 import { db, sanitizeRef } from '@/services/firebase'
+import Upload from '@/components/Upload'
 
 export default {
+  components: {
+    Upload
+  },
+
   data () {
     return {
       loading: false,

@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import VueFire from 'vuefire'
 import VueMoment from 'vue-moment'
+import VueClip from 'vue-clip'
 
 import App from '@/App'
 import router from '@/router'
@@ -13,6 +14,7 @@ import '@/components'
 
 Vue.use(VueFire)
 Vue.use(VueMoment)
+Vue.use(VueClip)
 Vue.use(filters)
 Vue.config.productionTip = false
 

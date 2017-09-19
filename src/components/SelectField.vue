@@ -1,7 +1,8 @@
 <template>
-  <div class="SelectField" :class="{ '-empty': !value, '-disabled': disabled, '-open': open }">
+  <div class="SelectField" :class="{ '-empty': !inputValue, '-disabled': disabled, '-open': open }">
     <label class="SelectField__Wrap">
       <input
+        ref="input"
         class="SelectField__Input"
         type="text"
         required
@@ -15,12 +16,15 @@
       <span class="SelectField__Label">{{label}}</span>
     </label>
     <div class="SelectField__Options" ref="options">
+      <div v-if="!filteredOptions" class="SelectField__Empty">No results</div>
       <div
+        v-else
         class="SelectField__Option"
         :class="{ '-selected': value === key }"
         v-for="(option, key) in filteredOptions"
         :key="key"
         @click="selectOption(key, option)"
+        @keydown="preventScroll"
         @keydown.tab="hideOptions"
         @keydown.enter="selectOption(key, option)"
         @keydown.down="nextOption"
@@ -64,16 +68,25 @@ export default {
       const { options } = this
       const keys = Object.keys(options)
       const filter = String(this.filterValue || '').toLowerCase()
+
       if (!keys.length) return {}
 
       const filtered = keys
         .filter((k) => options[k].toLowerCase().includes(filter))
-        .reduce((obj, k) => Object.assign(obj, { [k]: options[k] }), {})
-      return filtered
+
+      if (!filtered.length) return null
+
+      return filtered.reduce((obj, k) => Object.assign(obj, { [k]: options[k] }), {})
     }
   },
 
   methods: {
+    preventScroll (ev) {
+      if ([32, 37, 38, 39, 40].includes(ev.keyCode)) {
+        ev.preventDefault()
+      }
+    },
+
     filterOptions (ev) {
       this.filterValue = ev.target.value
     },
@@ -229,5 +242,9 @@ export default {
     &:focus
       outline: 0
 
-
+  &__Empty
+    padding: 0.75rem spacingSmall
+    text-align: center
+    color: fontColorBase
+    font-weight: 500
 </style>
