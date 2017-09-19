@@ -57,10 +57,10 @@ export default {
     font-weight: 500
     z-index: 2
     position: relative
-    padding: spacingBase spacingSmall spacingTiny
+    padding: 1.75rem spacingSmall 0.75rem
 
     .-empty &
-      padding: spacingSmall spacingSmall
+      padding: 1.25rem spacingSmall
 
     &:invalid
       box-shadow: none
@@ -68,7 +68,7 @@ export default {
     &:focus
       outline: 0
       border-color: #499aff
-      padding: spacingBase spacingSmall spacingTiny
+      padding: 1.75rem spacingSmall 0.75rem
 
   &__Wrap:hover &__Input
     border-color: #499aff
@@ -79,16 +79,20 @@ export default {
     left: spacingSmall
     position: absolute
     display: block
-    opacity: .5
     cursor: text
     z-index: 1
     transition: transitionBase
     transform: translate(0, -100%) scale(0.875)
     transform-origin: left top
+    font-weight: 500
+    opacity: .5
 
     .-empty &
       transform: translate(0, -50%)
+      opacity: 1
 
   &__Input:focus + &__Label
     transform: translate(0, -100%) scale(0.875)
+    color: colorPrimaryBlue
+    opacity: 1
 </style>
