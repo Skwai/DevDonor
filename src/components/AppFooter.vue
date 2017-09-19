@@ -1,5 +1,5 @@
 <template>
-  <header class="AppFooter">
+  <footer class="AppFooter">
     <div class="AppFooter__Container">
       <nav class="AppFooter__Legals">
         <span>&copy; DevDonor</span>
@@ -7,7 +7,7 @@
         <a href="#">Terms of Use</a>
       </nav>
     </div>
-  </header>
+  </footer>
 </template>
 
 <script>

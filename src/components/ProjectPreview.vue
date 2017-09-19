@@ -67,7 +67,6 @@ export default {
   transition: transitionLong
   transform: translate3d(0,0,0)
   transform-origin: center center
-  margin-bottom: spacingSmall
 
   *
     transform: translate3d(0,0,0)
@@ -79,7 +78,7 @@ export default {
     opacity: 0
 
   + .ProjectPreview
-    // margin-top: -1px
+    margin-top: -1px
 
   &__Category
     textSmallCaps()
