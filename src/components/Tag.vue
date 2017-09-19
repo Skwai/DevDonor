@@ -14,13 +14,21 @@ export default {
 
 .Tag
   font-size: 0.875rem
-  background: colorOffWhite
-  padding: 0.35rem 0.7rem
-  border-radius: borderRadiusBase
-  box-shadow: inset 0 -2px 0 rgba(0,0,0,.1)
+  background: inherit
+  border: colorPrimaryBlue solid 2px
+  padding: 0.5rem 0.75rem
+  border-radius: borderRadiusLarge
+  textSmallCaps()
+  font-weight: 600
+  line-height: 1
+  transition: 0.2s
+
+  &:hover
+    background: colorPrimaryBlue
+    color: #fff
+    cursor: pointer
 
   + .Tag
     margin-left: 0.5rem
-
 
 </style>

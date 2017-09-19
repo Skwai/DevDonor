@@ -1,45 +1,31 @@
 <template>
   <section class="ProjectUsers">
-    <Loading v-if="loading" />
-    <div v-else>
-      <h3 class="ProjectUsers__Heading">Project Members ({{projectUsers.length}})</h3>
-      <ul class="ProjectUsers__Users">
-        <li class="ProjectUsers__User"
-          v-for="(user, key) in projectUsers"
-          :key="key"
-        ><UserAvatar :userId="user['.key']" :showDetails="true" /></li>
-      </ul>
-    </div>
+    <h3 class="ProjectUsers__Heading">Project Members ({{userCount}})</h3>
+    <ul class="ProjectUsers__Users">
+      <li class="ProjectUsers__User"
+        v-for="(user, key) in projectUserIds"
+        :key="key"
+      >
+      <UserAvatar :userId="key" :showDetails="true" /></li>
+    </ul>
   </section>
 </template>
 
 <script>
-import { db } from '@/services/firebase'
 import Loading from '@/components/Loading'
 import UserAvatar from '@/components/UserAvatar'
 
 export default {
-  props: ['projectId'],
+  props: ['projectUserIds'],
 
   components: {
     UserAvatar,
     Loading
   },
 
-  data () {
-    return {
-      loading: true
-    }
-  },
-
-  firebase () {
-    return {
-      projectUsers: {
-        source: db.ref('projectUsers').child(this.projectId),
-        readyCallback () {
-          this.loading = false
-        }
-      }
+  computed: {
+    userCount () {
+      return Object.keys(this.projectUserIds).length
     }
   }
 }

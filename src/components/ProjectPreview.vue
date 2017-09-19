@@ -19,6 +19,9 @@
           </time>
         </header>
         <div class="ProjectPreview__Description">{{project.title}}</div>
+        <div class="ProjectPreview__Tags">
+          <Tag v-for="(tag, key) in project.tags":key="key" :tag="tag" />
+        </div>
       </div>
     </router-link>
   </article>
@@ -26,9 +29,14 @@
 
 <script>
 import { db } from '@/services/firebase'
+import Tag from '@/components/Tag'
 
 export default {
   props: ['project'],
+
+  components: {
+    Tag
+  },
 
   data () {
     return {
@@ -55,12 +63,12 @@ export default {
 @require "../styles/text.styl"
 
 .ProjectPreview
-  border: colorLightGray solid
-  border-width: 1px
+  // border: colorLightGray solid 1px
   position: relative
   transition: transitionLong
   transform: translate3d(0,0,0)
   transform-origin: center center
+  border-bottom: #ccc solid 1px
 
   *
     transform: translate3d(0,0,0)
@@ -76,7 +84,7 @@ export default {
     opacity: 0
 
   + .ProjectPreview
-    margin-top: -1px
+    // margin-top: -1px
 
   &__Category
     textSmallCaps()
@@ -96,6 +104,9 @@ export default {
 
     &:hover
       box-shadow: rgba(35,47,65,.15) 0 2px 2rem
+
+  &__Tags
+    margin-top: spacingSmall
 
   &__Logo
     padding: spacingBase
@@ -117,6 +128,7 @@ export default {
 
   &__Organization
     textHeading()
+    color: colorPrimaryBlue
 
   &__Details
     flex: 1

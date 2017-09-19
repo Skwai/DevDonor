@@ -1,6 +1,5 @@
 <template>
-  <Loading size="small" v-if="loading" />
-  <router-link class="UserAvatar" :to="{ name: 'profile', params: { profileId: userId } }" v-else>
+  <router-link class="UserAvatar" :to="{ name: 'profile', params: { profileId: userId } }">
     <div class="UserAvatar__ImageWrap">
       <img class="UserAvatar__Image" :src="user.picture" :alt="user.name">
     </div>

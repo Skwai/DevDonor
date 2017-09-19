@@ -15,7 +15,7 @@
     <div slot="sidebar">
       <JoinProject />
       <OrganizationPreview :organizationId="project.organization" />
-      <ProjectUsers :projectId="project['.key']" />
+      <ProjectUsers :projectUserIds="project.users" />
     </div>
   </Page>
 </template>
