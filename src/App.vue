@@ -3,17 +3,20 @@
     <AppHeader />
     <router-view></router-view>
     <AppFooter />
+    <AccountType />
   </main>
 </template>
 
 <script>
 import AppHeader from '@/components/AppHeader'
 import AppFooter from '@/components/AppFooter'
+import AccountType from '@/components/AccountType'
 
 export default {
   components: {
     AppFooter,
-    AppHeader
+    AppHeader,
+    AccountType
   },
 
   created () {

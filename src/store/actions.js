@@ -17,7 +17,7 @@ export const login = async ({ commit }) => {
 }
 
 /**
- * Set a user's current authentication state
+ * Set a user's current auth state
  */
 export const auth = async ({ commit }) => {
   commit(types.AUTH_START)
