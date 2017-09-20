@@ -1,10 +1,11 @@
 <template>
   <header class="Intro">
-    <div class="Intro__Intro">
+    <div class="Intro__Intro" v-if="!currentUser">
       <h1 class="Intro__Title">Connecting developers with charities</h1>
       <p class="Intro__Description">A platform for charities and developers to connect</p>
       <div class="Intro__Btns">
-        <Btn to="register" color="dark" size="large">Sign me up</Btn>
+        <Loading color="white" v-if="authenticating" />
+        <Btn v-else :click="login" color="dark" size="large">Sign me up</Btn>
       </div>
     </div>
     <IntroTabs />
@@ -13,12 +14,27 @@
 
 <script>
 import IntroTabs from '@/components/IntroTabs'
+import { mapGetters } from 'vuex'
 
 export default {
+  props: ['project'],
+
   components: {
     IntroTabs
   },
-  props: ['project']
+
+  computed: {
+    ...mapGetters([
+      'currentUser',
+      'authenticating'
+    ])
+  },
+
+  methods: {
+    login () {
+      this.$store.dispatch('login')
+    }
+  }
 }
 </script>
 
