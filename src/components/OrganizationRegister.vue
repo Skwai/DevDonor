@@ -31,6 +31,8 @@
 
       <Upload
         :maxFileSize="2"
+        filePath="logos"
+        fileName="test"
         label="Upload your logo"
       />
 

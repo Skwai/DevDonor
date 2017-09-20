@@ -27,9 +27,6 @@ export default {
       if (!file) return
       const { maxFileSize } = this
 
-      // TODO: Check fileType
-      console.log(file)
-
       if (maxFileSize && file.size / Math.pow(1024, 2) > maxFileSize) {
         throw Error(`File is larger than ${maxFileSize}MB`)
       }
@@ -40,11 +37,21 @@ export default {
         const { filePath, fileName } = this
         const ext = file.name.split('.').pop()
         const path = `${filePath}/${fileName}.${ext}`
+        console.log(path)
         const ref = storage.ref().child(path)
         const metadata = {
           contentType: file.type
         }
-        const snapshot = await ref.put(file, metadata)
+        const task = ref.put(file, metadata)
+
+        task.on('state_changed', (ev) => {
+          console.log(ev)
+          this.progress = (ev.bytesTransferred / ev.totalBytes) * 100
+        }, (err) => {
+          throw err
+        })
+
+        const snapshot = await task
         this.url = snapshot.downloadURL
         console.log(snapshot)
       } finally {
@@ -64,6 +71,7 @@ export default {
 
   data () {
     return {
+      progress: 0,
       url: null,
       uploading: false
     }
@@ -106,20 +114,20 @@ export default {
     left: 0
     width: 100%
     height: 100%
+    cursor: pointer
 
   &__Drop
     position: relative
     width: 100%
     height: 6rem
     border-radius: borderRadiusBase
-    background: #fff
-    border: colorLightGray dashed 2px
+    // border: colorLightGray dashed 2px
+    background: #f4f5f7
     display: flex
     align-items: center
     justify-content: center
-    color: colorPrimaryBlue
+    // color: colorPrimaryBlue
     text-align: center
-    cursor: pointer
 
     &:hover
       border-color: darken(colorLightGray, 10)
