@@ -4,7 +4,6 @@ import Vuex from 'vuex'
 import * as actions from './actions'
 import * as getters from './getters'
 import mutations from './mutations'
-import config from '@/config'
 
 Vue.use(Vuex)
 
@@ -15,7 +14,8 @@ export default new Vuex.Store({
   getters,
   mutations,
   state: {
-    profile: JSON.parse(localStorage.getItem(config.PROFILE_STORAGE_KEY)) || null
+    authenticating: false,
+    currentUser: null
   },
   strict: debug
 })

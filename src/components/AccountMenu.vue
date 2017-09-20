@@ -3,10 +3,13 @@
     <button
       @click.prevent="toggleAccountMenu"
       class="AccountMenu__Toggle"
-    ><AccountAvatar :picture="getProfile.picture" /> <span class="AccountMenu__UserName">{{getProfile.given_name}}</span></button>
+    >
+      <AccountAvatar :picture="currentUser.photoURL" />
+      <span class="AccountMenu__UserName">{{currentUser.displayName}}</span>
+    </button>
     <div class="AccountMenu__Options">
       <router-link to="profile" class="AccountMenu__Option">Your Profile</router-link>
-      <router-link to="logout" class="AccountMenu__Option">Logout</router-link>
+      <span tabindex="0" class="AccountMenu__Option" @click="logout">Logout</span>
     </div>
   </div>
 </template>
@@ -22,7 +25,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      'getProfile'
+      'currentUser'
     ])
   },
 
@@ -36,6 +39,10 @@ export default {
   },
 
   methods: {
+    logout () {
+      this.$store.dispatch('logout')
+    },
+
     onDocumentClick (ev) {
       if (!this.$el.contains(ev.target)) {
         this.showAccountMenu = false
@@ -111,7 +118,9 @@ export default {
     font-size: 0.875rem
     white-space: nowrap
     padding: spacingSmall spacingBase
+    cursor: pointer
 
-    &:hover
+    &:hover,
+    &:focus
       color: colorPrimaryBlue
 </style>

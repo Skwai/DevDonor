@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-import Logout from '@/components/Logout'
 import Project from '@/components/Project'
 import Profile from '@/components/Profile'
 import OrganizationRegister from '@/components/OrganizationRegister'
@@ -27,11 +26,6 @@ const router = new Router({
       name: 'project',
       path: '/project/:projectId',
       component: Project
-    },
-    {
-      name: 'logout',
-      path: '/logout',
-      component: Logout
     },
     {
       name: 'profile',

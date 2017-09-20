@@ -14,6 +14,10 @@ export default {
   components: {
     AppFooter,
     AppHeader
+  },
+
+  created () {
+    this.$store.dispatch('auth')
   }
 }
 </script>

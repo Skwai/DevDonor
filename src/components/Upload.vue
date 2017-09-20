@@ -45,7 +45,6 @@ export default {
         const task = ref.put(file, metadata)
 
         task.on('state_changed', (ev) => {
-          console.log(ev)
           this.progress = (ev.bytesTransferred / ev.totalBytes) * 100
         }, (err) => {
           throw err

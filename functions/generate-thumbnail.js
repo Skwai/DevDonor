@@ -15,6 +15,8 @@
  */
 'use strict';
 
+const THUMBNAIL_SUFFIX = '-thumbnail'
+
 // [START import]
 const functions = require('firebase-functions');
 const gcs = require('@google-cloud/storage')();
@@ -51,8 +53,10 @@ module.exports = functions.storage.object().onChange(event => {
 
   // Get the file name.
   const fileName = path.basename(filePath);
+
   // Exit if the image is already a thumbnail.
-  if (fileName.startsWith('thumb_')) {
+  const suffixed = fileName.split('.')[0].endsWith(THUMBNAIL_SUFFIX)
+  if (suffixed) {
     console.log('Already a Thumbnail.');
     return;
   }
@@ -84,10 +88,10 @@ module.exports = functions.storage.object().onChange(event => {
   }).then(() => {
     console.log('Thumbnail created at', tempFilePath);
     // We add a 'thumb_' prefix to thumbnails file name. That's where we'll upload the thumbnail.
-    const thumbFileName = `thumb_${fileName}`;
+    const thumbFileName = `${fileName}${THUMBNAIL_POSTFIX}`;
     const thumbFilePath = path.join(path.dirname(filePath), thumbFileName);
     // Uploading the thumbnail.
-    return bucket.upload(tempFilePath, {destination: thumbFilePath});
+    return bucket.upload(tempFilePath, { destination: thumbFilePath });
   // Once the thumbnail has been uploaded delete the local file to free up disk space.
   }).then(() => fs.unlinkSync(tempFilePath));
   // [END thumbnailGeneration]
