@@ -40,12 +40,12 @@ export const removeUID = async ({ commit }) => {
 /**
  * Set a user's current auth state
  */
-export const getAuthStatus = async ({ dispatch, commit }) => {
+export const getAuthStatus = async ({ commit }) => {
   commit(types.AUTH_START)
   try {
     const user = await getCurrentUser()
     if (user) {
-      commit(types.AUTH_SUCCESS, user)
+      commit(types.AUTH_SUCCESS, user.toJSON())
     }
     commit(types.AUTH_COMPLETE)
   } catch (err) {

@@ -27,7 +27,7 @@ export default {
   },
 
   created () {
-    // this.$store.dispatch('getAuthStatus')
+    this.$store.dispatch('getAuthStatus')
   }
 }
 </script>
