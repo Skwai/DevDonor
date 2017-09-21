@@ -2,7 +2,7 @@
   <router-link v-if="to" :to="to" class="Btn" :class="[colorClassName, sizeClassName]">
     <slot/>
   </router-link>
-  <button v-else class="Btn" :class="[colorClassName, sizeClassName]" @click.prevent="click">
+  <button v-else class="Btn" :class="[colorClassName, sizeClassName]" @click="onClick">
     <span class="Btn__Icon" v-if="$slots.icon">
       <slot name="icon" />
     </span>
@@ -16,6 +16,16 @@ const SIZES = ['large']
 
 export default {
   props: ['to', 'color', 'size', 'click'],
+
+  methods: {
+    onClick (ev) {
+      if (this.click) {
+        ev.preventDefault()
+        this.click(ev)
+      }
+    }
+  },
+
   computed: {
     colorClassName () {
       const { color } = this

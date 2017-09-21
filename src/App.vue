@@ -3,7 +3,7 @@
     <AppHeader />
     <router-view></router-view>
     <AppFooter />
-    <!--<AccountType v-if="currentUser && !accountType" />-->
+    <!--<AccountType v-if="auth && !accountType" />-->
   </main>
 </template>
 
@@ -22,13 +22,12 @@ export default {
 
   computed: {
     ...mapGetters([
-      'currentUser',
-      'accountType'
+      'auth'
     ])
   },
 
   created () {
-    this.$store.dispatch('auth')
+    // this.$store.dispatch('getAuthStatus')
   }
 }
 </script>

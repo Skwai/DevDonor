@@ -10,5 +10,6 @@ export default {
   CHARITY_TYPES: {
     'charity': 'Charity',
     'nfp': 'Not for profit'
-  }
+  },
+  USER_ID_KEY: 'devdonor:uid'
 }

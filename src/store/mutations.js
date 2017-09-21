@@ -5,18 +5,28 @@ export default {
     state.authenticating = true
   },
 
-  [types.AUTH_SUCCESS] (state, user) {
-    console.log(user)
-    state.currentUser = user
-    state.authenticating = false
+  [types.AUTH_SUCCESS] (state, auth) {
+    state.auth = auth
+  },
+
+  [types.UPDATE_UID] (state, uid) {
+    state.uid = uid
+  },
+
+  [types.REMOVE_UID] (state) {
+    state.uid = null
   },
 
   [types.AUTH_FAILED] (state) {
     state.authenticating = false
   },
 
+  [types.AUTH_COMPLETE] (state) {
+    state.authenticating = false
+  },
+
   [types.LOGOUT] (state) {
-    state.currentUser = null
+    state.auth = null
     state.authenticating = false
   }
 }

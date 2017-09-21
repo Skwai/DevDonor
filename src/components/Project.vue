@@ -52,7 +52,7 @@ export default {
       project: {
         source: db.ref('projects').child(this.$route.params.projectId),
         asObject: true,
-        readyCallback (snapshot) {
+        readyCallback () {
           this.loading = false
         }
       }

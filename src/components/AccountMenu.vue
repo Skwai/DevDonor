@@ -4,8 +4,8 @@
       @click.prevent="toggleAccountMenu"
       class="AccountMenu__Toggle"
     >
-      <AccountAvatar :picture="currentUser.photoURL" />
-      <span class="AccountMenu__UserName">{{currentUser.displayName}}</span>
+      <AccountAvatar :picture="auth.photoURL" />
+      <span class="AccountMenu__UserName">{{auth.displayName}}</span>
     </button>
     <div class="AccountMenu__Options">
       <router-link to="profile" class="AccountMenu__Option">Your Profile</router-link>
@@ -25,7 +25,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      'currentUser'
+      'auth'
     ])
   },
 
