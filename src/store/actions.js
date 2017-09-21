@@ -12,9 +12,7 @@ export const login = async ({ dispatch, commit }) => {
   try {
     const response = await signIn()
     const user = response.user.toJSON()
-    const { uid } = user
-    dispatch('setUID', uid)
-    commit(types.AUTH_SUCCESS, user)
+    dispatch('setUID', user.uid)
     commit(types.AUTH_COMPLETE)
   } catch (err) {
     commit(types.AUTH_FAILED)
@@ -53,7 +51,10 @@ export const getAuthStatus = async ({ commit }) => {
   }
 }
 
-const getCurrentUser = async () => new Promise((resolve, reject) => {
+/**
+ *
+ */
+const getCurrentUser = () => new Promise((resolve, reject) => {
   if (currentUser()) {
     resolve(currentUser())
   } else {

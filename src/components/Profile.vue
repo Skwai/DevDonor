@@ -7,6 +7,18 @@
         Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback.
       </ContentBlock>
 
+      <TextField
+        label="Email"
+        :value.sync="user.email"
+        :options="roleOptions"
+       />
+
+      <TextField
+        label="Name"
+        :value.sync="user.name"
+        :options="roleOptions"
+       />
+
       <SelectField
         label="Role"
         :value.sync="user.role"
@@ -49,18 +61,25 @@ export default {
 
   data () {
     return {
-      loading: false
+      loading: true
     }
   },
 
   computed: {
-    ...mapGetters(['uid']),
     countryOptions () {
       return sanitizeRef(this.countries)
     },
     roleOptions () {
       return {}
-    }
+    },
+    validations () {
+      return {
+        bio: () => true,
+        region: () => true,
+        role: () => true
+      }
+    },
+    ...mapGetters(['uid'])
   },
 
   methods: {
@@ -81,7 +100,11 @@ export default {
       user: {
         source: db.ref('users').child(this.uid),
         asObject: true,
-        readyCallback (ss) {
+        readyCallback (snapshot) {
+          if (!snapshot.exists()) {
+            console.log('NO USER')
+          }
+          console.log(snapshot.val())
           this.loading = false
         }
       }

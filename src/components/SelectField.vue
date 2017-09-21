@@ -80,6 +80,12 @@ export default {
     }
   },
 
+  watch: {
+    value (newValue) {
+      this.inputValue = newValue
+    }
+  },
+
   methods: {
     preventScroll (ev) {
       if ([32, 37, 38, 39, 40].includes(ev.keyCode)) {

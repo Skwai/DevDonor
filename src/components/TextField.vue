@@ -27,6 +27,10 @@ export default {
   },
 
   watch: {
+    value (newValue) {
+      this.inputValue = newValue
+    },
+
     inputValue () {
       this.$emit('update:value', this.inputValue)
     }
