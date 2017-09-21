@@ -1,24 +1,24 @@
 <template>
-  <section class="ProjectUsers">
-    <h3 class="ProjectUsers__Heading">Project Members ({{userCount}})</h3>
-    <ul class="ProjectUsers__Users">
-      <li class="ProjectUsers__User"
+  <section class="ProjectVolunteers">
+    <h3 class="ProjectVolunteers__Heading">Project Members ({{userCount}})</h3>
+    <ul class="ProjectVolunteers__Users">
+      <li class="ProjectVolunteers__User"
         v-for="(user, key) in projectUserIds"
         :key="key"
       >
-      <UserAvatar :userId="key" :showDetails="true" /></li>
+      <VolunteerAvatar :userId="key" :showDetails="true" /></li>
     </ul>
   </section>
 </template>
 
 <script>
-import UserAvatar from '@/components/UserAvatar'
+import VolunteerAvatar from '@/components/VolunteerAvatar'
 
 export default {
   props: ['projectUserIds'],
 
   components: {
-    UserAvatar
+    VolunteerAvatar
   },
 
   computed: {
@@ -34,7 +34,7 @@ export default {
 @require "../styles/text.styl"
 @require "../styles/card.styl"
 
-.ProjectUsers
+.ProjectVolunteers
   card()
 
   &__Heading

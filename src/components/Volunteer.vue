@@ -2,21 +2,21 @@
   <Loading v-if="loading" />
   <Page v-else>
     <div slot="content">
-      <header class="Profile__Header">
-        <img class="Profile__Avatar" :src="user.picture">
-        <div class="Profile__HeaderDetails">
+      <header class="Volunteer__Header">
+        <img class="Volunteer__Avatar" :src="user.picture">
+        <div class="Volunteer__HeaderDetails">
           <h1>{{user.name}}</h1>
           <div><SmallCaps>{{user.role}}, {{user.region}}</SmallCaps></div>
-          <div class="Profile__Tags">
+          <div class="Volunteer__Tags">
             <Tag v-for="(tag, key) in tags" :key="key" :tag="tag" />
           </div>
         </div>
       </header>
       <Subheading>About me</Subheading>
-      <div v-html="bio" class="Profile__Bio"></div>
+      <div v-html="bio" class="Volunteer__Bio"></div>
     </div>
     <div slot="sidebar">
-      <UserProjects :userId="$route.params.profileId" />
+      <VolunteerProjects :projectIds="volunteer.projects" />
     </div>
   </Page>
 </template>
@@ -24,11 +24,11 @@
 <script>
 import { db } from '@/services/firebase'
 import marked from 'marked'
-import UserProjects from '@/components/UserProjects'
+import VolunteerProjects from '@/components/VolunteerProjects'
 
 export default {
   components: {
-    UserProjects
+    VolunteerProjects
   },
 
   data () {
@@ -50,8 +50,8 @@ export default {
 
   firebase () {
     return {
-      user: {
-        source: db.ref('/users').child(this.$route.params.profileId),
+      volunteer: {
+        source: db.ref('/volunteers').child(this.$route.params.profileId),
         asObject: true,
         readyCallback () {
           this.loading = false
@@ -67,7 +67,7 @@ export default {
 @require "../styles/text.styl"
 @require "../styles/card.styl"
 
-.Profile
+.Volunteer
 
   &__Tags
     margin-top: spacingSmall

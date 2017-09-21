@@ -1,8 +1,8 @@
 <template>
-  <router-link :to="{ name: 'project', params: { projectId: projectId } }" v-if="!loading" class="UserProject">
-    <img :src="organization.logo" class="UserProject__Logo">
-    <div class="UserProject__Details">
-      <div class="UserProject__Name">{{organization.name}}</div>
+  <router-link :to="{ name: 'project', params: { projectId: projectId } }" v-if="!loading" class="VolunteerProject">
+    <img :src="organization.logo" class="VolunteerProject__Logo">
+    <div class="VolunteerProject__Details">
+      <div class="VolunteerProject__Name">{{organization.name}}</div>
       <SmallCaps><time :datetime="project.createdAt">{{project.createdAt | moment('from', 'now')}}</time></SmallCaps>
     </div>
   </router-link>
@@ -50,7 +50,7 @@ export default {
 @require "../styles/config.styl"
 @require "../styles/text.styl"
 
-.UserProject
+.VolunteerProject
   display: flex
   align-items: center
 

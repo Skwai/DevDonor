@@ -1,19 +1,29 @@
 import * as types from './mutation-types'
 
-import { signIn, signOut, currentUser, fb } from '@/services/firebase'
+import { signIn, signOut, currentUser, fb, db } from '@/services/firebase'
 
 /**
  * Trigger login
  */
-export const login = async ({ commit }) => {
+export const login = async ({ dispatch, commit }) => {
   commit(types.AUTH_START)
   try {
     const response = await signIn()
     const user = response.user.toJSON()
-    commit(types.AUTH_SUCCESS, user)
+    dispatch('updateUserFromAuth', user)
+    const result = commit(types.AUTH_SUCCESS, user)
+    console.log(result)
   } catch (err) {
     commit(types.AUTH_FAILED)
   }
+}
+
+export const updateUserFromAuth = async ({ commit }, { uid, email, displayName, photoURL }) => {
+  return db.ref(`users/${uid}`).set({
+    email,
+    displayName,
+    photoURL
+  })
 }
 
 /**

@@ -3,11 +3,12 @@
     <AppHeader />
     <router-view></router-view>
     <AppFooter />
-    <AccountType />
+    <!--<AccountType v-if="currentUser && !accountType" />-->
   </main>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import AppHeader from '@/components/AppHeader'
 import AppFooter from '@/components/AppFooter'
 import AccountType from '@/components/AccountType'
@@ -17,6 +18,13 @@ export default {
     AppFooter,
     AppHeader,
     AccountType
+  },
+
+  computed: {
+    ...mapGetters([
+      'currentUser',
+      'accountType'
+    ])
   },
 
   created () {

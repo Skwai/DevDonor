@@ -8,7 +8,7 @@
       "web": "Web",
       "design": "Design"
     },
-    "users": {
+    "volunteers": {
       "user1": true,
       "user2": true,
       "user3": true
@@ -24,7 +24,7 @@
       "android": "Android",
       "design": "Design"
     },
-    "users": {
+    "volunteers": {
       "user3": true,
       "user4": true,
       "user5": true
@@ -40,7 +40,7 @@
       "web": "Web",
       "design": "Design"
     },
-    "users": {
+    "volunteers": {
       "user1": true,
       "user2": true,
       "user3": true,
@@ -56,7 +56,7 @@
       "web": "Web",
       "design": "Design"
     },
-    "users": {
+    "volunteers": {
       "user1": true,
       "user2": true,
       "user5": true
@@ -71,7 +71,7 @@
       "web": "Web",
       "design": "Design"
     },
-    "users": {
+    "volunteers": {
       "user3": true
     }
   },
@@ -84,6 +84,6 @@
       "web": "Web",
       "design": "Design"
     },
-    "users": {}
+    "volunteers": {}
   }
 }

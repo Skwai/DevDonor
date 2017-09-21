@@ -1,11 +1,11 @@
 <template>
-  <router-link class="UserAvatar" :to="{ name: 'profile', params: { profileId: userId } }">
-    <div class="UserAvatar__ImageWrap">
-      <img class="UserAvatar__Image" :src="user.picture" :alt="user.name">
+  <router-link class="VolunteerAvatar" :to="{ name: 'volunteer', params: { userId } }">
+    <div class="VolunteerAvatar__ImageWrap">
+      <img class="VolunteerAvatar__Image" :src="volunteer.picture" :alt="volunteer.name">
     </div>
-    <div class="UserAvatar__Details" v-if="showDetails">
-      <div class="UserAvatar__Name">{{user.name}}</div>
-      <SmallCaps>{{user.role}}</SmallCaps>
+    <div class="VolunteerAvatar__Details" v-if="showDetails">
+      <div class="VolunteerAvatar__Name">{{volunteer.name}}</div>
+      <SmallCaps>{{volunteer.role}}</SmallCaps>
     </div>
   </router-link>
 </template>
@@ -29,10 +29,11 @@ export default {
 
   firebase () {
     return {
-      user: {
-        source: db.ref('users').child(this.userId),
+      volunteer: {
+        source: db.ref('volunteers').child(this.userId),
         asObject: true,
-        readyCallback () {
+        readyCallback (snapshot) {
+          console.log(snapshot.val())
           this.loading = false
         }
       }
@@ -45,7 +46,7 @@ export default {
 @require "../styles/config.styl"
 @require "../styles/text.styl"
 
-.UserAvatar
+.VolunteerAvatar
   display: flex
   align-items: center
 

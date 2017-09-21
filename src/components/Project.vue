@@ -15,7 +15,7 @@
     <div slot="sidebar">
       <JoinProject />
       <OrganizationPreview :organizationId="project.organization" />
-      <ProjectUsers :projectUserIds="project.users" />
+      <ProjectVolunteers :projectUserIds="project.volunteers" />
     </div>
   </Page>
 </template>
@@ -25,13 +25,13 @@ import { db } from '@/services/firebase'
 import marked from 'marked'
 
 import JoinProject from '@/components/JoinProject'
-import ProjectUsers from '@/components/ProjectUsers'
+import ProjectVolunteers from '@/components/ProjectVolunteers'
 import OrganizationPreview from '@/components/OrganizationPreview'
 
 export default {
   components: {
     OrganizationPreview,
-    ProjectUsers,
+    ProjectVolunteers,
     JoinProject
   },
 

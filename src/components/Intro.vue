@@ -1,6 +1,6 @@
 <template>
   <header class="Intro">
-    <div class="Intro__Intro" v-if="!currentUser">
+    <div class="Intro__Intro">
       <h1 class="Intro__Title">Connecting developers with charities</h1>
       <p class="Intro__Description">A platform for charities and developers to connect</p>
       <div class="Intro__Btns">

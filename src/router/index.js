@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import Project from '@/components/Project'
-import Profile from '@/components/Profile'
+import Volunteer from '@/components/Volunteer'
 import OrganizationRegister from '@/components/OrganizationRegister'
 
 Vue.use(Router)
@@ -28,9 +28,9 @@ const router = new Router({
       component: Project
     },
     {
-      name: 'profile',
-      path: '/profile/:profileId',
-      component: Profile
+      name: 'volunteer',
+      path: '/volunteer/:volunteerId',
+      component: Volunteer
     },
     {
       name: 'register',
