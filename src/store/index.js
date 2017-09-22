@@ -16,6 +16,7 @@ export default new Vuex.Store({
   mutations,
   state: {
     uid: localStorage.getItem(config.USER_ID_KEY) || null,
+    registrationId: localStorage.getItem(config.REGISTRATION_ID_KEY) || null,
     auth: null,
     authenticating: false
   },

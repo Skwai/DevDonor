@@ -37,7 +37,6 @@ export default {
         const { filePath, fileName } = this
         const ext = file.name.split('.').pop()
         const path = `${filePath}/${fileName}.${ext}`
-        console.log(path)
         const ref = storage.ref().child(path)
         const metadata = {
           contentType: file.type
@@ -52,7 +51,6 @@ export default {
 
         const snapshot = await task
         this.url = snapshot.downloadURL
-        console.log(snapshot)
       } finally {
         this.uploading = false
       }

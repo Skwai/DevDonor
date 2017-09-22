@@ -2,7 +2,7 @@ import config from '@/config'
 
 import * as types from './mutation-types'
 
-import { signIn, signOut, getCurrentUser } from '@/services/firebase'
+import { signIn, signOut, getCurrentUser, db } from '@/services/firebase'
 
 /**
  * Trigger login
@@ -12,11 +12,36 @@ export const login = async ({ dispatch, commit }) => {
   try {
     const response = await signIn()
     const user = response.user.toJSON()
-    dispatch('setUID', user.uid)
+    const {
+      uid,
+      email,
+      displayName: name,
+      photoURL: picture
+    } = user
+    dispatch('setUID', uid)
+    dispatch('tryCreateUser', {
+      uid,
+      email,
+      name,
+      picture
+    })
+    commit(types.AUTH_SUCCESS, user)
     commit(types.AUTH_COMPLETE)
   } catch (err) {
     commit(types.AUTH_FAILED)
   }
+}
+
+/**
+ *
+ */
+export const tryCreateUser = async (_, { uid, ...data }) => {
+  const ref = db.ref('users').child(uid)
+  ref.transaction((userData) => {
+    if (userData === null) {
+      return data
+    }
+  })
 }
 
 /**
@@ -50,6 +75,19 @@ export const getAuthStatus = async ({ commit }) => {
   } catch (err) {
     commit(types.AUTH_FAILED)
   }
+}
+
+export const createRegistrationId = async({ commit }) => {
+  try {
+    const key = db.ref('applications').push().key
+    localStorage.setItem(config.REGISTRATION_ID_KEY, key)
+    commit(types.UPDATE_REGISTRATION_KEY, key)
+  } catch (err) {}
+}
+
+export const removeRegistrationId = async({ commit }) => {
+  localStorage.removeItem(config.REGISTRATION_ID_KEY)
+  commit(types.REMOVE_REGISTRATION_KEY)
 }
 
 /**

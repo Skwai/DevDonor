@@ -5,10 +5,11 @@
       class="AccountMenu__Toggle"
     >
       <AccountAvatar :picture="auth.photoURL" />
-      <span class="AccountMenu__UserName">{{auth.displayName}}</span>
+      <svg class="AccountMenu__ToggleIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
     </button>
-    <div class="AccountMenu__Options">
-      <router-link to="profile" class="AccountMenu__Option">Your Profile</router-link>
+    <div class="AccountMenu__Options" @click="onOptionsClick">
+      <router-link to="register" class="AccountMenu__Option">Register a charity</router-link>
+      <router-link to="profile" class="AccountMenu__Option">Your profile</router-link>
       <span tabindex="0" class="AccountMenu__Option" @click="logout">Logout</span>
     </div>
   </div>
@@ -41,6 +42,10 @@ export default {
   methods: {
     logout () {
       this.$store.dispatch('logout')
+    },
+
+    onOptionsClick (ev) {
+      this.showAccountMenu = false
     },
 
     onDocumentClick (ev) {
@@ -76,6 +81,20 @@ export default {
     color: #fff
     display: flex
     align-items: center
+    position: relative
+
+    &:focus
+      outline: 0
+
+    &Icon
+      width: 1.5rem
+      height: 1.5rem
+      fill: currentColor
+      margin-left: spacingTiny
+      transition: transitionBase
+
+      .-show &
+        transform: rotate(180deg)
 
   &__UserName
     textSmallCaps()

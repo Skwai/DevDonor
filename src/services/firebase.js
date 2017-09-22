@@ -6,6 +6,11 @@ export const db = app.database()
 export const provider = new Firebase.auth.GoogleAuthProvider()
 provider.addScope('https://www.googleapis.com/auth/userinfo.email')
 
+/**
+ * Convert a VueFire reference of primitives into an object of `{ key: value }`
+ * @param {Object} data
+ * @return {Object}
+ */
 export const sanitizeRef = (data) => {
   const keys = Object.keys(data)
   if (!keys.length) return {}
@@ -30,6 +35,6 @@ export const getCurrentUser = () => new Promise((resolve, reject) => {
   if (user) {
     resolve(user)
   } else {
-    auth().onAuthStateChanged((u) => u ? resolve(u) : reject())
+    auth().onAuthStateChanged((u) => u ? resolve(u) : reject(null))
   }
 })

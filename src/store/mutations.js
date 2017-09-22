@@ -28,5 +28,13 @@ export default {
   [types.LOGOUT] (state) {
     state.auth = null
     state.authenticating = false
+  },
+
+  [types.UPDATE_REGISTRATION_ID] (state, id) {
+    state.registrationId = id
+  },
+
+  [types.REMOVE_REGISTRATION_ID] (state) {
+    state.registrationId = null
   }
 }

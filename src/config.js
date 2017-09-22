@@ -11,5 +11,6 @@ export default {
     'charity': 'Charity',
     'nfp': 'Not for profit'
   },
-  USER_ID_KEY: 'devdonor:uid'
+  USER_ID_KEY: 'devdonor:uid',
+  REGISTRATION_ID_KEY: 'devdonor:registration'
 }

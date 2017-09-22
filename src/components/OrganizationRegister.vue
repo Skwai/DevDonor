@@ -8,23 +8,23 @@
         Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback.
       </ContentBlock>
 
-      <TextField label="Organization Name" :value.sync="organization.name" />
+      <TextField label="Organization Name" :value.sync="registration.name" />
 
       <SelectField
         label="Charity Type"
-        :value.sync="organization.type"
+        :value.sync="registration.type"
         :options="{ nfp: 'Not for profit', charity: 'Charity' }"
        />
 
       <TextField
         label="Website URL"
-        :value.sync="organization.url"
+        :value.sync="registration.url"
         description="If you don't have a website, paste a link to your Facebook page"
       />
 
       <SelectField
         label="Region"
-        :value.sync="organization.region"
+        :value.sync="registration.region"
         :options="countryOptions"
         description="The region that your organization mainly operates"
       />
@@ -32,16 +32,15 @@
       <Upload
         :maxFileSize="2"
         filePath="logos"
-        fileName="test"
+        :fileName="registrationId"
         label="Upload your logo"
       />
 
       <TextAreaField
         label="Short Description"
-        :value.sync="organization.bio"
+        :value.sync="registration.bio"
         description="Write a brief description about your organization for users to see"
       />
-
 
       <Btn color="primary" size="large">Submit Application</Btn>
     </form>
@@ -55,6 +54,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { db, sanitizeRef } from '@/services/firebase'
 import Upload from '@/components/Upload'
 
@@ -65,9 +65,11 @@ export default {
 
   data () {
     return {
-      loading: false,
+      loading: true,
 
-      organization: {
+      registration: {
+        bio: null,
+        logo: null,
         name: null,
         type: null,
         url: null,
@@ -79,11 +81,26 @@ export default {
   computed: {
     countryOptions () {
       return sanitizeRef(this.countries)
+    },
+    validations () {
+      return {
+
+      }
+    },
+    ...mapGetters(['uid', 'registrationId'])
+  },
+
+  async created () {
+    if (!this.registrationId) {
+      this.$store.dispatch('createRegistrationId')
     }
+    this.loading = false
   },
 
   methods: {
-    submit (ev) {}
+    submit (ev) {
+
+    }
   },
 
   firebase () {
