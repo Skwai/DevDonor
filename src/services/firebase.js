@@ -1,8 +1,8 @@
 import config from '../config'
 import Firebase from 'firebase'
 
-export const firebaseApp = Firebase.initializeApp(config.FIREBASE)
-export const db = firebaseApp.database()
+export const app = Firebase.initializeApp(config.FIREBASE)
+export const db = app.database()
 export const provider = new Firebase.auth.GoogleAuthProvider()
 provider.addScope('https://www.googleapis.com/auth/userinfo.email')
 
@@ -15,11 +15,21 @@ export const sanitizeRef = (data) => {
   }, {})
 }
 
-export const currentUser = () => firebaseApp.auth().currentUser
-export const signIn = () => firebaseApp.auth().signInWithPopup(provider)
-export const signOut = () => firebaseApp.auth().signOut()
-export const auth = () => firebaseApp.auth()
-export const storage = Firebase.storage()
-export const fb = Firebase
+export const auth = () => app.auth()
 
-window.fb = firebaseApp
+export const currentUser = () => auth().currentUser
+
+export const signIn = () => auth().signInWithPopup(provider)
+
+export const signOut = () => auth().signOut()
+
+export const storage = Firebase.storage()
+
+export const getCurrentUser = () => new Promise((resolve, reject) => {
+  const user = currentUser()
+  if (user) {
+    resolve(user)
+  } else {
+    auth().onAuthStateChanged((u) => u ? resolve(u) : reject())
+  }
+})

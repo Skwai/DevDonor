@@ -2,7 +2,7 @@ import config from '@/config'
 
 import * as types from './mutation-types'
 
-import { signIn, signOut, currentUser, fb } from '@/services/firebase'
+import { signIn, signOut, getCurrentUser } from '@/services/firebase'
 
 /**
  * Trigger login
@@ -20,7 +20,8 @@ export const login = async ({ dispatch, commit }) => {
 }
 
 /**
- *
+ * Add the UID to localStorage and store
+ * @param {String} uid
  */
 export const setUID = async ({ commit }, uid) => {
   localStorage.setItem(config.USER_ID_KEY, uid)
@@ -28,7 +29,7 @@ export const setUID = async ({ commit }, uid) => {
 }
 
 /**
- *
+ * Remove the UID from localStorage and store
  */
 export const removeUID = async ({ commit }) => {
   localStorage.removeItem(config.USER_ID_KEY)
@@ -50,17 +51,6 @@ export const getAuthStatus = async ({ commit }) => {
     commit(types.AUTH_FAILED)
   }
 }
-
-/**
- *
- */
-const getCurrentUser = () => new Promise((resolve, reject) => {
-  if (currentUser()) {
-    resolve(currentUser())
-  } else {
-    fb.auth().onAuthStateChanged((user) => user ? resolve(user) : reject('Not signed in'))
-  }
-})
 
 /**
  * Destroy a user's session

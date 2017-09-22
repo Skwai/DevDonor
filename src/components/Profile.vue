@@ -11,12 +11,14 @@
         label="Email"
         :value.sync="user.email"
         :options="roleOptions"
+        disabled
        />
 
       <TextField
         label="Name"
         :value.sync="user.name"
         :options="roleOptions"
+        disabled
        />
 
       <SelectField
@@ -35,10 +37,10 @@
       <TextAreaField
         label="About You"
         :value.sync="user.bio"
-        description="Write a brief description about your organization for users to see"
+        description="Write a brief description about yourself"
       />
 
-      <Btn color="primary" size="large" type="submit">Update Profile</Btn>
+      <Btn color="primary" size="large" type="submit">Update your profile</Btn>
     </form>
     <div slot="sidebar">
       <Card>
