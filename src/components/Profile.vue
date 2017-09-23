@@ -28,13 +28,6 @@
       <FormBlock legend="Basic information">
 
         <TextField
-          label="Email"
-          :value.sync="profile.email"
-          description="This is based on your authentication method. It cannot be changed"
-          disabled
-        />
-
-        <TextField
           label="Name"
           :value.sync="profile.name"
           :options="roleOptions"

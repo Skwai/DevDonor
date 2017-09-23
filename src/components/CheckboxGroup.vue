@@ -1,6 +1,7 @@
 <template>
   <div class="CheckboxGroup">
     <div class="CheckboxGroup__Label">{{label}}</div>
+    <HelpText v-if="description">{{description}}</HelpText>
     <div class="CheckboxGroup__Options">
       <label class="CheckboxGroup__Option" v-for="(option, key) in options" :key="key">
         <input
@@ -35,12 +36,11 @@ export default {
 
   &__Label
     font-weight: 600
-    margin-bottom: spacingSmall
 
   &__Options
     display: flex
     flex-wrap: wrap
-    margin: (-1 * spacingTiny) (-1 * spacingSmall)
+    margin: spacingTiny (-1 * spacingSmall)
 
   &__Option
     padding: spacingTiny spacingSmall
