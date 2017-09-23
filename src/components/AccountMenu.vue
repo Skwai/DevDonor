@@ -8,8 +8,8 @@
       <svg class="AccountMenu__ToggleIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
     </button>
     <div class="AccountMenu__Options" @click="onOptionsClick">
-      <router-link to="register" class="AccountMenu__Option">Register a charity</router-link>
-      <router-link to="profile" class="AccountMenu__Option">Your profile</router-link>
+      <router-link to="/register" class="AccountMenu__Option">Register a charity</router-link>
+      <router-link to="/profile" class="AccountMenu__Option">Your profile</router-link>
       <span tabindex="0" class="AccountMenu__Option" @click="logout">Logout</span>
     </div>
   </div>

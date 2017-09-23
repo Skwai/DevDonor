@@ -1,12 +1,14 @@
 <template>
-  <div class="TextField" :class="{ '-empty': !value, '-disabled': disabled }">
+  <div class="TextField" :class="{ '-empty': !value, '-disabled': disabled, '-focused': focused }">
     <label class="TextField__Wrap">
       <input
         class="TextField__Input"
         type="text"
-        required
+        :required="required"
         v-model="inputValue"
         :disabled="disabled"
+        @focus="onFocus"
+        @blur="onBlur"
       >
       <span class="TextField__Label">{{label}}</span>
     </label>
@@ -17,11 +19,12 @@
 <script>
 
 export default {
-  props: ['options', 'label', 'disabled', 'value', 'type', 'errorMessage', 'description'],
+  props: ['options', 'label', 'disabled', 'value', 'required', 'type', 'errorMessage', 'description'],
 
   data () {
     return {
       error: null,
+      focused: false,
       inputValue: this.value
     }
   },
@@ -34,6 +37,16 @@ export default {
     inputValue () {
       this.$emit('update:value', this.inputValue)
     }
+  },
+
+  methods: {
+    onFocus () {
+      this.focused = true
+    },
+
+    onBlur () {
+      this.focused = false
+    }
   }
 }
 </script>
@@ -42,7 +55,7 @@ export default {
 @require "../styles/config"
 
 .TextField
-  margin-bottom: spacingBase
+  spacing()
 
   &__Wrap
     background: colorOffWhite
@@ -50,6 +63,11 @@ export default {
     display: block
     position: relative
     box-shadow: inset rgba(0,0,0,.1) 0 1px 1px
+    transition: transitionBase
+
+    .-focused &
+      background: #fff
+      box-shadow: inset colorPrimaryBlue 0 0 0 1px
 
     .-disabled &
       cursor: not-allowed
@@ -66,6 +84,7 @@ export default {
     z-index: 2
     position: relative
     padding: 2rem spacingSmall 1rem
+    transition: transitionBase
 
     .-empty &
       padding: 1.5rem spacingSmall
@@ -75,11 +94,7 @@ export default {
 
     &:focus
       outline: 0
-      border-color: #499aff
       padding: 2rem spacingSmall 1rem
-
-  &__Wrap:hover &__Input
-    border-color: #499aff
 
   &__Label
     cursor: text

@@ -49,12 +49,12 @@ export default {
           throw err
         })
 
-        const snapshot = await task
-        this.url = snapshot.downloadURL
+        const { downloadURL } = await task
+        this.url = downloadURL
+        this.$emit('update:url', this.url)
       } finally {
         this.uploading = false
       }
-
       // TODO: resize image: https://gist.github.com/dcollien/312bce1270a5f511bf4a
     }
   },

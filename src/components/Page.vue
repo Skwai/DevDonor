@@ -1,8 +1,8 @@
 <template>
   <div class="Page">
     <div class="Page__Container">
-      <div class="Page__Content"><slot name="content"></slot></div>
-      <aside class="Page__Sidebar"><slot name="sidebar"></slot></aside>
+      <div class="Page__Content"><slot /><slot name="content" /></div>
+      <aside class="Page__Sidebar" v-if="$slots.sidebar"><slot name="sidebar"></slot></aside>
     </div>
   </div>
 </template>

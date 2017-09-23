@@ -3,7 +3,7 @@
   <Page v-else>
     <div slot="content">
       <header class="Volunteer__Header">
-        <img class="Volunteer__Avatar" :src="user.picture">
+        <Avatar :src="user.picture" :label="user.name" />
         <div class="Volunteer__HeaderDetails">
           <h1>{{user.name}}</h1>
           <div><SmallCaps>{{user.role}}, {{user.region}}</SmallCaps></div>
@@ -16,7 +16,7 @@
       <div v-html="bio" class="Volunteer__Bio"></div>
     </div>
     <div slot="sidebar">
-      <VolunteerProjects :projectIds="volunteer.projects" />
+      <VolunteerProjects :projectIds="user.projects" />
     </div>
   </Page>
 </template>
@@ -50,8 +50,8 @@ export default {
 
   firebase () {
     return {
-      volunteer: {
-        source: db.ref('/volunteers').child(this.$route.params.profileId),
+      user: {
+        source: db.ref('users').child(this.$route.params.userId),
         asObject: true,
         readyCallback () {
           this.loading = false
@@ -83,11 +83,5 @@ export default {
 
   &__Bio
     textMarkdown()
-
-  &__Avatar
-    width: 6rem
-    height: 6rem
-    object-fit: cover
-    border-radius: borderRadiusBase
 
 </style>

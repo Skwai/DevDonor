@@ -3,7 +3,8 @@ colorLightGray = #eaebec
 colorDarkBlue = #232f41
 colorPrimaryBlue = #499AFF
 colorHighlight = #f3f4f5
-colorGray = #567290
+colorHighlightBlue = rgba(colorPrimaryBlue, .075)
+colorGray = #dadbdc
 
 fontColorBase = colorDarkBlue
 
@@ -30,3 +31,9 @@ borderRadiusBase = 3px
 borderRadiusLarge = 5px
 
 zIndexCover = 1000
+
+spacing()
+  margin-bottom: spacingBase
+
+  &:last-child
+    margin-bottom: 0

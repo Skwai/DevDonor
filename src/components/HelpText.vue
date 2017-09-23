@@ -12,5 +12,5 @@ export default {}
 .HelpText
   margin: spacingTiny 0 0
   opacity: .7
-
+  font-size: fontSizeSmall
 </style>

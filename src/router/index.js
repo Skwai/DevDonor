@@ -30,7 +30,7 @@ const router = new Router({
     },
     {
       name: 'volunteer',
-      path: '/volunteer/:volunteerId',
+      path: '/volunteer/:userId',
       component: Volunteer
     },
     {

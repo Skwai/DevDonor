@@ -1,15 +1,14 @@
 <template>
   <div class="VolunteerProjects">
-    <Loading v-if="loading" />
-
-    <div v-else>
-      <h3 class="VolunteerProjects__Heading">Projects</h3>
-      <ul class="VolunteerProjects__Projects">
-        <li class="VolunteerProjects__Project" v-for="(project, key) in projectIds" :key="key">
-          <VolunteerProject :projectId="key" />
-        </li>
-      </ul>
+    <h3 class="VolunteerProjects__Heading">Volunteer's Projects</h3>
+    <div v-if="projectIds.length">
+      Nothing yet
     </div>
+    <ul class="VolunteerProjects__Projects" v-else>
+      <li class="VolunteerProjects__Project" v-for="(project, key) in projectIds" :key="key">
+        <VolunteerProject :projectId="key" />
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -21,12 +20,6 @@ export default {
 
   components: {
     VolunteerProject
-  },
-
-  data () {
-    return {
-      loading: true
-    }
   }
 }
 </script>

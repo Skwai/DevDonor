@@ -3,7 +3,7 @@
     <label class="TextAreaField__Wrap">
       <textarea
         class="TextAreaField__Input"
-        required
+        :required="required"
         v-model="inputValue"
         :disabled="disabled"
         rows="5"
@@ -18,7 +18,7 @@
 <script>
 
 export default {
-  props: ['options', 'label', 'disabled', 'value', 'type', 'errorMessage', 'description'],
+  props: ['options', 'label', 'disabled', 'value', 'required', 'type', 'errorMessage', 'description'],
 
   data () {
     return {
@@ -39,7 +39,7 @@ export default {
 @require "../styles/config"
 
 .TextAreaField
-  margin-bottom: spacingBase
+  spacing()
 
   &__Wrap
     background: colorOffWhite

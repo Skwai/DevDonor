@@ -30,10 +30,9 @@ export default {
   firebase () {
     return {
       volunteer: {
-        source: db.ref('volunteers').child(this.userId),
+        source: db.ref('users').child(this.userId),
         asObject: true,
         readyCallback (snapshot) {
-          console.log(snapshot.val())
           this.loading = false
         }
       }

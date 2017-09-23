@@ -11,6 +11,6 @@ export default {}
 @require "../styles/text.styl"
 
 .ContentBlock
-  textContent()
-  margin-bottom: spacingBase
+  textMarkdown()
+  spacing()
 </style>

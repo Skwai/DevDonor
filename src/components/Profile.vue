@@ -2,45 +2,76 @@
   <Loading v-if="loading" />
   <Page v-else>
     <form slot="content" @submit.prevent="submit">
-      <Heading>Volunteer Profile</Heading>
+      <Heading>Your Profile</Heading>
       <ContentBlock>
         Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback.
       </ContentBlock>
 
-      <TextField
-        label="Email"
-        :value.sync="user.email"
-        :options="roleOptions"
-        disabled
-       />
+      <FormBlock legend="Profile picture">
+        <MediaObject align="center">
+          <div slot="object">
+            <Avatar v-if="user.picture" :url="user.picture" description="Your profile picture" />
+            <Upload v-else
+              :maxFileSize="2"
+              filePath="avatars"
+              :fileName="registrationId"
+              :url.sync="user.picture"
+              label="Upload a profile picture"
+            />
+          </div>
+          <div slot="body">
+            <p>Upload a professional portrait that clearly shows your face</p>
+          </div>
+        </MediaObject>
+      </FormBlock>
 
-      <TextField
-        label="Name"
-        :value.sync="user.name"
-        :options="roleOptions"
-        disabled
-       />
+      <FormBlock legend="Basic information">
 
-      <SelectField
-        label="Role"
-        :value.sync="user.role"
-        :options="roleOptions"
-       />
+        <TextField
+          label="Email"
+          :value.sync="profile.email"
+          description="This is based on your authentication method. It cannot be changed"
+          disabled
+        />
 
-      <SelectField
-        label="Country"
-        :value.sync="user.region"
-        :options="countryOptions"
-        description="The region that your organization mainly operates"
-      />
+        <TextField
+          label="Name"
+          :value.sync="profile.name"
+          :options="roleOptions"
+        />
 
-      <TextAreaField
-        label="About You"
-        :value.sync="user.bio"
-        description="Write a brief description about yourself"
-      />
+        <SelectField
+          label="Country"
+          :value.sync="user.country"
+          :options="countryOptions"
+        />
 
-      <Btn color="primary" size="large" type="submit">Update your profile</Btn>
+      </FormBlock>
+
+      <FormBlock legend="Professional history">
+
+        <TextField
+          label="Professional title"
+          :value.sync="profile.role"
+          description='A professional title that describes the work you do. Eg. "Web Developer" or "UX Designer"'
+        />
+
+        <CheckboxGroup
+          label="Professional skills"
+          :options="skillOptions"
+          description="Select the type of work you have expertise in"
+          value="profile.skills"
+        />
+
+        <TextAreaField
+          label="About You"
+          :value.sync="profile.bio"
+          description="Write a brief description about yourself"
+        />
+
+      </FormBlock>
+
+      <Btn color="primary" size="large" type="submit" :loading="saving">Update your profile</Btn>
     </form>
     <div slot="sidebar">
       <Card>
@@ -63,7 +94,15 @@ export default {
 
   data () {
     return {
-      loading: true
+      loading: true,
+      saving: false,
+
+      profile: {
+        bio: null,
+        role: null,
+        country: null,
+        skills: null
+      }
     }
   },
 
@@ -71,28 +110,36 @@ export default {
     countryOptions () {
       return sanitizeRef(this.countries)
     },
-    roleOptions () {
-      return {}
+    skillOptions () {
+      return [
+        'Desktop Software Development',
+        'Web Development',
+        'Mobile Development',
+        'Product Management',
+        'Systems Administration / DevOps',
+        'UX Design',
+        'Design'
+      ]
     },
     validations () {
       return {
-        bio: () => true,
-        region: () => true,
-        role: () => true
       }
     },
     ...mapGetters(['uid'])
   },
 
   methods: {
-    submit (ev) {
+    async submit (ev) {
       ev.preventDefault()
-      const { bio, region, role } = this.user
-      this.$firebaseRefs.user.update({
+      this.saving = true
+      const { bio, country, role, skills } = this.profile
+      await this.$firebaseRefs.user.update({
         bio,
-        region,
-        role
+        country,
+        role,
+        skills
       })
+      this.saving = false
     }
   },
 
@@ -103,10 +150,8 @@ export default {
         source: db.ref('users').child(this.uid),
         asObject: true,
         readyCallback (snapshot) {
-          if (!snapshot.exists()) {
-            console.log('NO USER')
-          }
-          console.log(snapshot.val())
+          Object.assign(this.profile, snapshot.val())
+          console.log(this.profile)
           this.loading = false
         }
       }

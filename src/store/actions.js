@@ -81,13 +81,13 @@ export const createRegistrationId = async({ commit }) => {
   try {
     const key = db.ref('applications').push().key
     localStorage.setItem(config.REGISTRATION_ID_KEY, key)
-    commit(types.UPDATE_REGISTRATION_KEY, key)
+    commit(types.UPDATE_REGISTRATION_ID, key)
   } catch (err) {}
 }
 
 export const removeRegistrationId = async({ commit }) => {
   localStorage.removeItem(config.REGISTRATION_ID_KEY)
-  commit(types.REMOVE_REGISTRATION_KEY)
+  commit(types.REMOVE_REGISTRATION_ID)
 }
 
 /**

@@ -5,7 +5,7 @@
         ref="input"
         class="SelectField__Input"
         type="text"
-        required
+        :required="required"
         v-model="inputValue"
         :disabled="disabled"
         @input="filterOptions"
@@ -32,12 +32,13 @@
         :tabindex="open ? 0 : -1"
       >{{option}}</div>
     </div>
+    <HelpText v-if="description" class="SelectField__Description">{{description}}</HelpText>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['options', 'label', 'disabled', 'value', 'errorMessage', 'description'],
+  props: ['options', 'label', 'disabled', 'value', 'required', 'errorMessage', 'description'],
 
   data () {
     return {
@@ -149,7 +150,7 @@ export default {
 @require "../styles/config"
 
 .SelectField
-  margin-bottom: spacingBase
+  spacing()
   position: relative
 
   &__Wrap
@@ -163,6 +164,10 @@ export default {
       cursor: not-allowed
       opacity: .5
 
+    .-open &
+      background: #fff
+      box-shadow: inset colorPrimaryBlue 0 0 0 1px
+
   &__Input
     display: block
     width: 100%
@@ -174,6 +179,7 @@ export default {
     z-index: 2
     position: relative
     padding: 2rem spacingSmall 1rem
+    transition: transitionBase
 
     .-empty &
       padding: 1.5rem spacingSmall

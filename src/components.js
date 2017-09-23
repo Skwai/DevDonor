@@ -23,6 +23,10 @@ import Container from '@/components/Container'
 import SmallCaps from '@/components/SmallCaps'
 import Tag from '@/components/Tag'
 import Loading from '@/components/Loading'
+import Avatar from '@/components/Avatar'
+import MediaObject from '@/components/MediaObject'
+import FormBlock from '@/components/FormBlock'
+import CheckboxGroup from '@/components/CheckboxGroup'
 
 Vue.component('TextField', TextField)
 Vue.component('SelectField', SelectField)
@@ -37,5 +41,9 @@ Vue.component('Tag', Tag)
 Vue.component('Loading', Loading)
 Vue.component('Page', Page)
 Vue.component('Alert', Alert)
+Vue.component('Avatar', Avatar)
 Vue.component('Container', Container)
 Vue.component('TextAreaField', TextAreaField)
+Vue.component('MediaObject', MediaObject)
+Vue.component('FormBlock', FormBlock)
+Vue.component('CheckboxGroup', CheckboxGroup)
