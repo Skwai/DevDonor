@@ -71,7 +71,12 @@
 
       </FormBlock>
 
-      <Btn color="primary" size="large" type="submit" :loading="saving">Update your profile</Btn>
+      <Btn
+        color="primary"
+        size="large"
+        type="submit"
+        :loading="saving"
+      >Update your profile</Btn>
     </form>
     <div slot="sidebar">
       <Card>
