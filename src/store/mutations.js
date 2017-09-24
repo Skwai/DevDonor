@@ -42,7 +42,7 @@ export default {
     state.notification = { message, type }
   },
 
-  [types.ADD_NOTIFICATION] (state) {
+  [types.REMOVE_NOTIFICATION] (state) {
     state.notification = null
   }
 }

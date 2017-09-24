@@ -44,6 +44,7 @@ export default {
 
   &__Label
     font-weight: 600
+    color: colorPrimaryBlue
 
   &__Options
     display: flex

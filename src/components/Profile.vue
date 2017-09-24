@@ -141,6 +141,10 @@ export default {
           role,
           skills
         })
+        this.$store.dispatch('showNotification', {
+          type: 'success',
+          message: 'Your profile has been updated'
+        })
       } catch (err) {
         console.log(err)
       } finally {
