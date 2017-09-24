@@ -12,6 +12,7 @@
       >
       <span class="TextField__Label">{{label}}</span>
     </label>
+    <div class="TextField__Error" v-if="error">{{errorMessage || "Invalid"}}</div>
     <HelpText v-if="description" class="TextField__Description">{{description}}</HelpText>
   </div>
 </template>
@@ -19,11 +20,10 @@
 <script>
 
 export default {
-  props: ['options', 'label', 'disabled', 'value', 'required', 'type', 'errorMessage', 'description'],
+  props: ['options', 'error', 'label', 'disabled', 'value', 'required', 'type', 'errorMessage', 'description'],
 
   data () {
     return {
-      error: null,
       focused: false,
       inputValue: this.value
     }
@@ -57,6 +57,11 @@ export default {
 
 .TextField
   spacing()
+
+  &__Error
+    color: colorRed
+    font-size: 0.875rem
+    padding: spacingTiny 0 0
 
   &__Wrap
     field()

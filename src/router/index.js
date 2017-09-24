@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import Project from '@/components/Project'
 import Profile from '@/components/Profile'
 import Volunteer from '@/components/Volunteer'
+import ProjectForm from '@/components/ProjectForm'
 import OrganizationRegister from '@/components/OrganizationRegister'
 
 Vue.use(Router)
@@ -22,6 +23,11 @@ const router = new Router({
       name: 'browse',
       path: '/browse',
       component: Home
+    },
+    {
+      name: 'projectForm',
+      path: '/project/:projectForm',
+      component: ProjectForm
     },
     {
       name: 'project',

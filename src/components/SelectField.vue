@@ -32,17 +32,17 @@
         :tabindex="open ? 0 : -1"
       >{{option}}</div>
     </div>
+    <div class="SelectField__Error" v-if="error">{{errorMessage || "Invalid"}}</div>
     <HelpText v-if="description" class="SelectField__Description">{{description}}</HelpText>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['options', 'label', 'disabled', 'value', 'required', 'errorMessage', 'description'],
+  props: ['options', 'label', 'disabled', 'value', 'required', 'error', 'errorMessage', 'description', 'errorMessage'],
 
   data () {
     return {
-      error: null,
       open: false,
       filterValue: '',
       inputValue: ''
@@ -72,8 +72,7 @@ export default {
 
       if (!keys.length) return {}
 
-      const filtered = keys
-        .filter((k) => options[k].toLowerCase().includes(filter))
+      const filtered = keys.filter((k) => options[k].toLowerCase().includes(filter))
 
       if (!filtered.length) return null
 
@@ -153,6 +152,11 @@ export default {
 .SelectField
   spacing()
   position: relative
+
+  &__Error
+    color: colorRed
+    font-size: 0.875rem
+    padding: spacingTiny 0 0
 
   &__Wrap
     field()

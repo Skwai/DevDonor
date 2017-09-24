@@ -24,7 +24,7 @@ export default {
 
   computed: {
     userCount () {
-      return Object.keys(this.projectUserIds).length
+      return Object.values(this.projectUserIds).filter((v) => v === true).length
     }
   }
 }

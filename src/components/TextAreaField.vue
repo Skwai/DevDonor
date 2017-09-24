@@ -11,6 +11,7 @@
       ></textarea>
       <span class="TextAreaField__Label">{{label}}</span>
     </label>
+    <div class="TextAreaField__Error" v-if="error">{{errorMessage || "Invalid"}}</div>
     <HelpText v-if="description" class="TextAreaField__Description">{{description}}</HelpText>
   </div>
 </template>
@@ -18,11 +19,10 @@
 <script>
 
 export default {
-  props: ['options', 'label', 'disabled', 'value', 'required', 'type', 'errorMessage', 'description'],
+  props: ['options', 'label', 'disabled', 'value', 'required', 'type', 'error', 'errorMessage', 'description'],
 
   data () {
     return {
-      error: null,
       inputValue: this.value
     }
   },
@@ -41,6 +41,11 @@ export default {
 
 .TextAreaField
   spacing()
+
+  &__Error
+    color: colorRed
+    font-size: 0.875rem
+    padding: spacingTiny 0 0
 
   &__Wrap
     field()
@@ -65,11 +70,11 @@ export default {
 
     &:focus
       outline: 0
-      border-color: #499aff
+      border-color: colorPrimaryBlue
       padding: 2rem spacingSmall 1rem
 
   &__Wrap:hover &__Input
-    border-color: #499aff
+    border-color: colorPrimaryBlue
 
   &__Label
     fieldLabel()

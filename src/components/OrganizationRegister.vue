@@ -19,17 +19,25 @@
           Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback.
         </ContentBlock>
 
-        <TextField label="Organization Name" :value.sync="registration.name" />
+        <TextField
+          label="Organization Name"
+          :value.sync="registration.name"
+          :error="validations.name"
+          errorMessage="Please enter your charity name"
+        />
 
         <SelectField
           label="Charity Type"
           :value.sync="registration.type"
+          :error="validations.type"
+          errorMessage="Please select a charity type"
           :options="{ nfp: 'Not for profit', charity: 'Charity' }"
         />
 
         <TextField
           label="Website URL"
           :value.sync="registration.url"
+          :error="validations.url"
           description="If you don't have a website, paste a link to your Facebook page"
         />
 
@@ -37,6 +45,8 @@
           label="Region"
           :value.sync="registration.region"
           :options="countryOptions"
+          :error="validations.region"
+          errorMessage="Please select a region"
           description="The region that your organization mainly operates"
         />
 
@@ -51,6 +61,8 @@
         <TextAreaField
           label="Short Description"
           :value.sync="registration.bio"
+          :error="validations.bio"
+          errorMessage="Please enter a description"
           description="Write a brief description about your organization for users to see"
         />
 
@@ -99,7 +111,12 @@ export default {
     },
     validations () {
       return {
-
+        bio: (val) => val.length,
+        logo: (val) => val.length,
+        name: (val) => val.length,
+        region: (val) => val.length,
+        url: (val) => val.length,
+        type: (val) => val.length
       }
     },
     ...mapGetters(['uid', 'registrationId'])
@@ -124,16 +141,35 @@ export default {
   },
 
   methods: {
-    async submit (ev) {
-      this.saving = true
+    submit (ev) {
+      if (!Object.values(this.validations).every(v => v)) {
+        return this.$store.dispatch('showNotification', {
+          type: 'error',
+          message: 'There are problems with your registration'
+        })
+      }
+
+      // validate fields
+      if (!this.validate()) return
+
+      // submit
+      this.createRegistration()
+    },
+
+    validate () {
+      return Object.values(this.validations).every(v => v)
+    },
+
+    async createRegistration () {
       try {
+        this.saving = true
         const updates = {
           [`registrations/${this.registrationId}`]: this.registration,
           [`users/${this.uid}/registrations/${this.registrationId}`]: true
         }
         await db.ref().update(updates)
         this.$store.dispatch('showNotification', {
-          type: 'error',
+          type: 'success',
           message: 'Your registration has been submitted'
         })
         this.submitted = true
