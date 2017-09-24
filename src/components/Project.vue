@@ -13,8 +13,14 @@
       <div class="Project__Description" v-html="description"></div>
     </div>
     <div slot="sidebar">
-      <div v-if="!userInProject">
-        <Btn size="large" :click="joinProject" :loading="joining">Volunteer for this project</Btn>
+      <div class="Project__Join">
+        <Btn
+          v-if="!userInProject"
+          size="large"
+          :click="joinProject"
+          :loading="joining"
+        >Volunteer for this project</Btn>
+        <div v-else class="Project__Pending">You've applied to join this project</div>
       </div>
       <OrganizationPreview :organizationId="project.organization" />
       <ProjectVolunteers :projectUserIds="project.volunteers" />
@@ -90,6 +96,14 @@ export default {
 @require "../styles/card.styl"
 
 .Project
+  &__Join
+    margin-bottom: spacingBase
+    card()
+
+  &__Pending
+    text-align: center
+    font-weight: 500
+
   &__Title
     margin-bottom: spacingBase
     font-weight: 500

@@ -4,6 +4,7 @@
     <ul class="ProjectVolunteers__Users">
       <li class="ProjectVolunteers__User"
         v-for="(user, key) in projectUserIds"
+        v-if="user"
         :key="key"
       >
       <VolunteerAvatar :userId="key" :showDetails="true" /></li>

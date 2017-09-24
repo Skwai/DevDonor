@@ -1,23 +1,23 @@
 {
   "rules": {
     ".read": "true",
-    ".write": "true",
-
+    ".write": "false",
     "projects": {
       ".indexOn": ["createdAt"]
     },
     "users": {
       "$uid": {
-        ".read": true,
-        ".write": "auth != null && auth.uid == auth.uid",
-
+        ".read": "true",
+        ".write": "auth.uid == $uid",
+        ".validate": "newData.hasChildren(['email', 'name', 'picture'])",
         "email": {
-          ".read": "auth != null && auth.uid == uid"
-        },
-        "name": {
-          ".validate": "newData.isString()"
+          ".read": "false"
         }
       }
+    },
+    "countries": {
+      ".read": "true",
+      ".write": "false"
     }
   }
 }
