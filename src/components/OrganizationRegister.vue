@@ -12,62 +12,55 @@
       </Card>
     </Page>
     <Page v-else>
-      <div slot="content">
-        <div v-if="submitted">
+      <form @submit.prevent="submit" slot="content">
 
-        </div>
-        <form v-else @submit.prevent="submit">
+        <Heading>Charity Registration</Heading>
+        <ContentBlock>
+          Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback.
+        </ContentBlock>
 
-          <Heading>Charity Registration</Heading>
-          <ContentBlock>
-            Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback.
-          </ContentBlock>
+        <TextField label="Organization Name" :value.sync="registration.name" />
 
-          <Alert v-if="error">{{error}}</Alert>
+        <SelectField
+          label="Charity Type"
+          :value.sync="registration.type"
+          :options="{ nfp: 'Not for profit', charity: 'Charity' }"
+        />
 
-          <TextField label="Organization Name" :value.sync="registration.name" />
+        <TextField
+          label="Website URL"
+          :value.sync="registration.url"
+          description="If you don't have a website, paste a link to your Facebook page"
+        />
 
-          <SelectField
-            label="Charity Type"
-            :value.sync="registration.type"
-            :options="{ nfp: 'Not for profit', charity: 'Charity' }"
-          />
+        <SelectField
+          label="Region"
+          :value.sync="registration.region"
+          :options="countryOptions"
+          description="The region that your organization mainly operates"
+        />
 
-          <TextField
-            label="Website URL"
-            :value.sync="registration.url"
-            description="If you don't have a website, paste a link to your Facebook page"
-          />
+        <Upload
+          :maxFileSize="2"
+          filePath="logos"
+          :fileName="registrationId"
+          :url.sync="registration.logo"
+          label="Upload your logo"
+        />
 
-          <SelectField
-            label="Region"
-            :value.sync="registration.region"
-            :options="countryOptions"
-            description="The region that your organization mainly operates"
-          />
+        <TextAreaField
+          label="Short Description"
+          :value.sync="registration.bio"
+          description="Write a brief description about your organization for users to see"
+        />
 
-          <Upload
-            :maxFileSize="2"
-            filePath="logos"
-            :fileName="registrationId"
-            :url.sync="registration.logo"
-            label="Upload your logo"
-          />
-
-          <TextAreaField
-            label="Short Description"
-            :value.sync="registration.bio"
-            description="Write a brief description about your organization for users to see"
-          />
-
-          <Btn color="primary" size="large" :loading="saving">Submit Application</Btn>
-        </form>
-        <div slot="sidebar">
-          <Card v-if="!submitted">
-            <Subheading>Before you register&hellip;</Subheading>
-            Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback, we need to leverage our synergies, for helicopter view cannibalize, and herding cats gain traction. Staff engagement herding cats killing it, nor bottleneck mice.
-          </Card>
-        </div>
+        <Btn color="primary" size="large" :loading="saving">Submit Application</Btn>
+      </form>
+      <div slot="sidebar">
+        <Card v-if="!submitted">
+          <Subheading>Before you register&hellip;</Subheading>
+          Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback, we need to leverage our synergies, for helicopter view cannibalize, and herding cats gain traction. Staff engagement herding cats killing it, nor bottleneck mice.
+        </Card>
       </div>
     </Page>
   </div>
@@ -87,7 +80,6 @@ export default {
     return {
       loading: true,
       saving: false,
-      error: null,
       submitted: false,
 
       registration: {
@@ -133,7 +125,6 @@ export default {
 
   methods: {
     async submit (ev) {
-      this.error = false
       this.saving = true
       try {
         const updates = {
@@ -141,8 +132,16 @@ export default {
           [`users/${this.uid}/registrations/${this.registrationId}`]: true
         }
         await db.ref().update(updates)
+        this.$store.dispatch('showNotification', {
+          type: 'error',
+          message: 'Your registration has been submitted'
+        })
+        this.submitted = true
       } catch (err) {
-        this.error = err
+        this.$store.dispatch('showNotification', {
+          type: 'error',
+          message: 'Error submitting form'
+        })
       } finally {
         this.saving = false
       }

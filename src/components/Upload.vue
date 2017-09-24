@@ -118,16 +118,16 @@ export default {
     width: 100%
     height: 6rem
     border-radius: borderRadiusBase
-    // border: colorLightGray dashed 2px
-    background: #f4f5f7
+    border: colorGray dashed 2px
     display: flex
     align-items: center
     justify-content: center
-    // color: colorPrimaryBlue
     text-align: center
+    transition: transitionBase
 
     &:hover
-      border-color: darken(colorLightGray, 10)
+      border-color: colorPrimaryBlue
+      color: colorPrimaryBlue
 
   &__Icon
     width: 2.5rem

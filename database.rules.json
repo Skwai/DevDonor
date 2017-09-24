@@ -2,9 +2,6 @@
   "rules": {
     ".read": "true",
     ".write": "false",
-    "projects": {
-      ".indexOn": ["createdAt"]
-    },
     "users": {
       "$uid": {
         ".read": "true",
@@ -12,6 +9,18 @@
         ".validate": "newData.hasChildren(['email', 'name', 'picture'])",
         "email": {
           ".read": "false"
+        }
+      }
+    },
+    "registrations": {
+      ".write": "auth != null"
+    },
+    "projects": {
+      ".indexOn": ["createdAt"],
+      ".write": "auth != null",
+      "$projectId": {
+        "volunteers": {
+          ".write": "auth != null"
         }
       }
     },

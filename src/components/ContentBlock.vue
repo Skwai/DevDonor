@@ -1,9 +1,17 @@
 <template>
-  <div class="ContentBlock"><slot /></div>
+  <div class="ContentBlock" :class="[textAlignClassName]"><slot /></div>
 </template>
 
 <script>
-export default {}
+export default {
+  props: ['textAlign'],
+
+  computed: {
+    textAlignClassName () {
+      return this.textAlign ? `ContentBlock--${this.textAlign}` : null
+    }
+  }
+}
 </script>
 
 <style lang="stylus">
@@ -13,6 +21,9 @@ export default {}
 .ContentBlock
   textMarkdown()
   spacing()
+
+  &--center
+    text-align: center
 
   a
     textLink()

@@ -2,7 +2,7 @@
   <div class="Page">
     <div class="Page__Container">
       <div class="Page__Content"><slot /><slot name="content" /></div>
-      <aside class="Page__Sidebar" v-if="$slots.sidebar"><slot name="sidebar"></slot></aside>
+      <aside class="Page__Sidebar" v-if="$slots.sidebar"><slot name="sidebar" /></aside>
     </div>
   </div>
 </template>
@@ -34,6 +34,7 @@ export default {}
 
     @media (min-width: 768px)
       flex: 0 0 24rem
+      max-width: 24rema
       padding: spacingLarge spacingBase
 
   &__Content

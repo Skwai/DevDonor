@@ -27,6 +27,8 @@ export default {
   transition: transitionBase
   display: flex
   align-items: stretch
+  position: relative
+  z-index: 2
 
   &__Logo
     padding: spacingSmall spacingBase

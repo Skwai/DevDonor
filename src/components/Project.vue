@@ -14,13 +14,21 @@
     </div>
     <div slot="sidebar">
       <div class="Project__Join">
-        <Btn
-          v-if="!userInProject"
-          size="large"
-          :click="joinProject"
-          :loading="joining"
-        >Volunteer for this project</Btn>
-        <div v-else class="Project__Pending">You've applied to join this project</div>
+        <ContentBlock textAlign="center">
+          <div v-if="!userInProject">
+            <p>Interested in helping out?</p>
+            <Btn
+              :click="joinProject"
+              :loading="joining"
+            >Volunteer for this project</Btn>
+          </div>
+          <div v-else>
+            <p>You've applied to join this project.</p>
+            <Btn
+              :click="leaveProject"
+            >Leave Project</Btn>
+          </div>
+        </ContentBlock>
       </div>
       <OrganizationPreview :organizationId="project.organization" />
       <ProjectVolunteers :projectUserIds="project.volunteers" />
@@ -45,22 +53,47 @@ export default {
   data () {
     return {
       loading: true,
-      joining: false
+      joining: false,
+      leaving: false
     }
   },
 
   methods: {
     async joinProject () {
       const path = `projects/${this.$route.params.projectId}/volunteers`
-      this.loading = false
+      this.joining = false
       try {
         await db.ref(path).update({ [this.uid]: false })
         this.$store.dispatch('showNotification', {
+          type: 'success',
           message: 'You\'ve applied to join the project'
         })
       } catch (err) {
+        this.$store.dispatch('showNotification', {
+          type: 'error',
+          message: 'There was a problem trying to join this project'
+        })
       } finally {
-        this.loading = false
+        this.joining = false
+      }
+    },
+
+    async leaveProject () {
+      const path = `projects/${this.$route.params.projectId}/volunteers`
+      this.leaving = true
+      try {
+        await db.ref(path).child(this.uid).remove()
+        this.$store.dispatch('showNotification', {
+          type: 'success',
+          message: 'You\'ve left this project'
+        })
+      } catch (err) {
+        this.$store.dispatch('showNotification', {
+          type: 'error',
+          message: 'There was a problem trying to leave this project'
+        })
+      } finally {
+        this.leaving = false
       }
     }
   },
@@ -99,10 +132,6 @@ export default {
   &__Join
     margin-bottom: spacingBase
     card()
-
-  &__Pending
-    text-align: center
-    font-weight: 500
 
   &__Title
     margin-bottom: spacingBase
