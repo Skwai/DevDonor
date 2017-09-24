@@ -6,13 +6,18 @@
         <p>We will review your application to make sure everything is in order and and email you soon.</p>
       </ContentBlock>
 
-      <div class="organizations">
-        <div v-for="(org, key) in orgs">
-        </div>
+      <div class="ProjectForm__Organizations">
+        <UserOrganization :organizationId="org['.key']" v-for="(org, key) in userOrganizations" :key="key" />
       </div>
 
       <TextField
         label="Project title"
+      />
+
+      <CheckboxGroup
+        label="Skills required"
+        :options="skillOptions"
+        description="Select the type of work required for this project"
       />
 
       <TextAreaField
@@ -35,8 +40,13 @@
 <script>
 import { mapGetters } from 'vuex'
 import { db } from '@/services/firebase'
+import UserOrganization from '@/components/UserOrganization'
 
 export default {
+  components: {
+    UserOrganization
+  },
+
   computed: {
     ...mapGetters([
       'uid'
@@ -45,19 +55,37 @@ export default {
 
   data () {
     return {
-      orgs: []
+      loading: true,
+      skillOptions: []
     }
   },
 
-  async created () {
-    const userOrgsRef = await db.ref(`users/${this.uid}/organizations`).once('value')
-    if (!userOrgsRef.exists()) {
-      // TODO: empty organizations
-      return
+  firebase () {
+    return {
+      userOrganizations: {
+        source: db.ref(`users/${this.uid}/organizations`),
+        readyCallback (snapshot) {
+          if (!snapshot.exists()) {
+            // TODO: empty organizations
+          }
+          this.loading = false
+        }
+      },
+      skills: {
+        source: db.ref('skills'),
+        readyCallback (snapshot) {
+          this.skillOptions = Object.keys(snapshot.val())
+        }
+      }
     }
   }
 }
 </script>
 
 <style lang="stylus">
+@require "../styles/config.styl"
+
+.ProjectForm
+  &__Organizations
+    margin-bottom: spacingBase
 </style>

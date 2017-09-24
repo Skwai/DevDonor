@@ -96,11 +96,12 @@ export default {
       loading: true,
       saving: false,
 
+      skillOptions: [],
+
       profile: {
         bio: null,
         role: null,
-        country: null,
-        skills: []
+        country: null
       }
     }
   },
@@ -108,17 +109,6 @@ export default {
   computed: {
     countryOptions () {
       return sanitizeRef(this.countries)
-    },
-    skillOptions () {
-      return [
-        'Desktop Software Development',
-        'Web Development',
-        'Mobile Development',
-        'Product Management',
-        'Systems Administration',
-        'UX Design',
-        'Design'
-      ]
     },
     validations () {
       return {
@@ -157,13 +147,19 @@ export default {
     return {
       countries: db.ref('countries'),
       user: {
-        source: db.ref('users').child(this.uid),
+        source: db.ref(`users/${this.uid}`),
         asObject: true,
         readyCallback (snapshot) {
           const data = snapshot.val()
-          const skills = data.skills instanceof Object ? Object.keys(data.skills) : []
+          const skills = data.skills && data.skills instanceof Object ? Object.keys(data.skills) : []
           Object.assign(this.profile, data, { skills })
           this.loading = false
+        }
+      },
+      skills: {
+        source: db.ref('skills'),
+        readyCallback (snapshot) {
+          this.skillOptions = Object.keys(snapshot.val())
         }
       }
     }

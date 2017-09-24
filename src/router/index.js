@@ -46,7 +46,7 @@ const router = new Router({
     },
     {
       name: 'register',
-      path: '/register',
+      path: '/orgnizations/create',
       component: OrganizationRegister
     }
   ]
