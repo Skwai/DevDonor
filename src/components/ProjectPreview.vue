@@ -91,10 +91,10 @@ export default {
     align-items: stretch
     transform: translate3d(0,0,0,0)
     transition: transitionBase
-    box-shadow: rgba(0,0,0,.1) 0 0 0 1px
+    box-shadow: colorGray 0 0 0 1px
 
     &:hover
-      box-shadow: rgba(35,47,65,.1) 0 2px 2rem, rgba(0,0,0,.1) 0 0 0 1px
+      box-shadow: rgba(35,47,65,.1) 0 2px 2rem, colorGray 0 0 0 1px
 
       @media (min-width: 1024px)
         transform: scale(1.02)

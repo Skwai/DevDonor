@@ -7,6 +7,7 @@
         <ContentBlock>
           <p>We will review your application to make sure everything is in order and and email you soon.</p>
           <p>This is part of our process to ensure that all organizations are confirmed charities.</p>
+          <p>If you have any questions please <router-link to="/contact">contact us</router-link></p>
         </ContentBlock>
       </Card>
     </Page>

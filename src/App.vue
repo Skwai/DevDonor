@@ -4,7 +4,7 @@
     <AppHeader />
     <router-view></router-view>
     <AppFooter />
-    <!--<AccountType v-if="auth && !accountType" />-->
+    <AccountType v-if="auth && !accountType" />
   </main>
 </template>
 

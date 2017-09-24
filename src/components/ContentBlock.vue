@@ -13,4 +13,8 @@ export default {}
 .ContentBlock
   textMarkdown()
   spacing()
+
+  a
+    textLink()
+    color: colorLink
 </style>

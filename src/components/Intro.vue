@@ -4,8 +4,10 @@
       <h1 class="Intro__Title">Connecting developers with charities</h1>
       <p class="Intro__Description">A platform for charities and developers to connect</p>
       <div class="Intro__Btns">
-        <Loading color="white" v-if="authenticating" />
-        <Btn v-else :click="login" color="dark" size="large">Sign me up</Btn>
+        <div v-if="!auth">
+          <Loading color="white" v-if="authenticating" />
+          <Btn v-else :click="login" color="dark" size="large">Sign me up</Btn>
+        </div>
       </div>
     </div>
     <IntroTabs />
