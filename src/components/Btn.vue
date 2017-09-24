@@ -76,11 +76,6 @@ export default {
   to
     transform: rotate(359deg)
 
-@keyframes -success
-  from
-
-
-
 @require "../styles/config.styl"
 @require "../styles/text.styl"
 
@@ -88,7 +83,6 @@ export default {
 .Btn
   background: #fff
   border-radius: 99rem
-  color: colorPrimaryBlue
   padding: 0.75rem 1.5rem
   display: inline-flex
   align-items: center
@@ -127,7 +121,7 @@ export default {
 
   &--large
     padding: spacingSmall 2rem
-    textCaps()
+    font-size: 0.8125rem
 
   &--dark
     background: colorDarkBlue

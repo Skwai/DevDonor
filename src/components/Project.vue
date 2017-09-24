@@ -13,7 +13,9 @@
       <div class="Project__Description" v-html="description"></div>
     </div>
     <div slot="sidebar">
-      <JoinProject />
+      <div v-if="!userInProject">
+        <Btn size="large" :click="joinProject" :loading="joining">Volunteer for this project</Btn>
+      </div>
       <OrganizationPreview :organizationId="project.organization" />
       <ProjectVolunteers :projectUserIds="project.volunteers" />
     </div>
@@ -23,28 +25,48 @@
 <script>
 import { db } from '@/services/firebase'
 import marked from 'marked'
+import { mapGetters } from 'vuex'
 
-import JoinProject from '@/components/JoinProject'
 import ProjectVolunteers from '@/components/ProjectVolunteers'
 import OrganizationPreview from '@/components/OrganizationPreview'
 
 export default {
   components: {
     OrganizationPreview,
-    ProjectVolunteers,
-    JoinProject
+    ProjectVolunteers
   },
 
   data () {
     return {
-      loading: true
+      loading: true,
+      joining: false
+    }
+  },
+
+  methods: {
+    async joinProject () {
+      const path = `projects/${this.$route.params.projectId}/volunteers`
+      this.loading = false
+      try {
+        await db.ref(path).update({ [this.uid]: false })
+        this.$store.dispatch('showNotification', {
+          message: 'You\'ve applied to join the project'
+        })
+      } catch (err) {
+      } finally {
+        this.loading = false
+      }
     }
   },
 
   computed: {
+    userInProject () {
+      return this.project && this.uid && Object.keys(this.project.volunteers).includes(this.uid)
+    },
     description () {
       return this.project && this.project.description ? marked(this.project.description) : ''
-    }
+    },
+    ...mapGetters(['uid'])
   },
 
   firebase () {
