@@ -7,7 +7,7 @@
         <input
           class="CheckboxGroup__OptionInput"
           type="checkbox"
-          v-model="values"
+          v-model="selected"
           :value="option"
         >
         <span class="CheckboxGroup__OptionLabel">{{option}}</span>
@@ -22,7 +22,13 @@ export default {
 
   data () {
     return {
-      values: []
+      selected: this.value || []
+    }
+  },
+
+  watch: {
+    selected () {
+      this.$emit('update:value', this.selected)
     }
   }
 }
@@ -30,9 +36,11 @@ export default {
 
 <style lang="stylus">
 @require "../styles/config.styl"
+@require "../styles/card.styl"
 
 .CheckboxGroup
   spacing()
+  card()
 
   &__Label
     font-weight: 600
@@ -40,10 +48,11 @@ export default {
   &__Options
     display: flex
     flex-wrap: wrap
-    margin: spacingTiny (-1 * spacingSmall)
+    margin-top: spacingSmall
 
   &__Option
-    padding: spacingTiny spacingSmall
+    padding: spacingTiny 0
+    flex: 0 0 100%
 
     &Input
       position: absolute

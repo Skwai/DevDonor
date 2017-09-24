@@ -35,7 +35,21 @@ export const login = async ({ dispatch, commit }) => {
 /**
  *
  */
-export const tryCreateUser = async (_, { uid, ...data }) => {
+export const showNotification = async ({ commit, dispatch }, { message, type }) => {
+  commit(types.ADD_NOTIFICATION, { message, type })
+}
+
+/**
+ *
+ */
+export const removeNotification = async ({ commit }) => {
+  commit(types.REMOVE_NOTIFICATION)
+}
+
+/**
+ * Create a new user in Firebase
+ */
+export const tryCreateUser = async (context, { uid, ...data }) => {
   const ref = db.ref('users').child(uid)
   ref.transaction((userData) => {
     if (userData === null) {

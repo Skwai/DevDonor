@@ -1,5 +1,6 @@
 <template>
   <main class="App">
+    <Notification />
     <AppHeader />
     <router-view></router-view>
     <AppFooter />
@@ -12,12 +13,14 @@ import { mapGetters } from 'vuex'
 import AppHeader from '@/components/AppHeader'
 import AppFooter from '@/components/AppFooter'
 import AccountType from '@/components/AccountType'
+import Notification from '@/components/Notification'
 
 export default {
   components: {
     AppFooter,
     AppHeader,
-    AccountType
+    AccountType,
+    Notification
   },
 
   computed: {

@@ -5,6 +5,19 @@
 
     "projects": {
       ".indexOn": ["createdAt"]
+    },
+    "users": {
+      "$uid": {
+        ".read": true,
+        ".write": "auth != null && auth.uid == auth.uid",
+
+        "email": {
+          ".read": "auth != null && auth.uid == uid"
+        },
+        "name": {
+          ".validate": "newData.isString()"
+        }
+      }
     }
   }
 }

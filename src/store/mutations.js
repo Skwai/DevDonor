@@ -36,5 +36,13 @@ export default {
 
   [types.REMOVE_REGISTRATION_ID] (state) {
     state.registrationId = null
+  },
+
+  [types.ADD_NOTIFICATION] (state, { message, type }) {
+    state.notification = { message, type }
+  },
+
+  [types.ADD_NOTIFICATION] (state) {
+    state.notification = null
   }
 }

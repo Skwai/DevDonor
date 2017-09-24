@@ -37,20 +37,13 @@ export default {
 
 <style scope lang="stylus">
 @require "../styles/config"
+@require "../styles/forms"
 
 .TextAreaField
   spacing()
 
   &__Wrap
-    background: colorOffWhite
-    position: relative
-    display: block
-    position: relative
-    box-shadow: inset rgba(0,0,0,.1) 0 1px 1px
-
-    .-disabled &
-      cursor: not-allowed
-      opacity: .5
+    field()
 
   &__Input
     display: block
@@ -79,22 +72,7 @@ export default {
     border-color: #499aff
 
   &__Label
-    cursor: text
-    top: 2rem
-    left: spacingSmall
-    position: absolute
-    display: block
-    cursor: text
-    z-index: 1
-    transition: transitionBase
-    transform: translate(0, -100%) scale(0.875)
-    transform-origin: left top
-    font-weight: 600
-    opacity: .5
-
-    .-empty &
-      transform: translate(0, -50%)
-      opacity: 1
+    fieldLabel()
 
   &__Input:focus + &__Label
     transform: translate(0, -100%) scale(0.875)

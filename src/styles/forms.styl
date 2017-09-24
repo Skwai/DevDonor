@@ -1,0 +1,34 @@
+field()
+  position: relative
+  display: block
+  position: relative
+  border: colorGray solid 1px
+
+  .-disabled &
+    cursor: not-allowed
+    opacity: .5
+
+  .-open &
+    background: #fff
+    border-color: colorPrimaryBlue
+
+  .-focused &
+    border-color: colorPrimaryBlue
+
+fieldLabel()
+  cursor: text
+  top: (spacingSmall + 1rem)
+  left: spacingSmall
+  position: absolute
+  display: block
+  cursor: text
+  z-index: 1
+  transition: transitionBase
+  transform: translate(0, -100%) scale(0.875)
+  transform-origin: left top
+  font-weight: 600
+  color: colorPrimaryBlue
+
+  .-empty &
+    transform: translate(0, -50%)
+    opacity: 1

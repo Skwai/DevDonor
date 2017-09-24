@@ -3,7 +3,7 @@
     v-if="to"
     :to="to"
     class="Btn"
-    :class="[colorClassName, sizeClassName, loadingClassName]"
+    :class="[colorClassName, sizeClassName, loadingClassName, successClassName]"
   >
     <slot/>
   </router-link>
@@ -11,7 +11,7 @@
     v-else
     class="Btn"
     :disabled="disabled"
-    :class="[colorClassName, sizeClassName, loadingClassName]"
+    :class="[colorClassName, sizeClassName, loadingClassName, successClassName]"
     @click="onClick"
   >
     <span class="Btn__Icon" v-if="$slots.icon">
@@ -26,7 +26,15 @@ const COLORS = ['dark', 'light', 'primary', 'stroke', 'link']
 const SIZES = ['large']
 
 export default {
-  props: ['to', 'color', 'size', 'click', 'disabled', 'loading'],
+  props: [
+    'to',
+    'color',
+    'size',
+    'click',
+    'disabled',
+    'loading',
+    'success'
+  ],
 
   methods: {
     onClick (ev) {
@@ -47,6 +55,9 @@ export default {
       const { color } = this
       return (color && COLORS.includes(color)) ? `Btn--${color}` : null
     },
+    successClassName () {
+      return this.success ? '-success' : null
+    },
     loadingClassName () {
       return this.loading ? '-loading' : null
     },
@@ -59,11 +70,16 @@ export default {
 </script>
 
 <style lang="stylus">
-@keyframes loading
+@keyframes -loading
   from
     transform: rotate(0deg)
   to
     transform: rotate(359deg)
+
+@keyframes -success
+  from
+
+
 
 @require "../styles/config.styl"
 @require "../styles/text.styl"
@@ -105,7 +121,7 @@ export default {
       left: 50%
       top: 50%
       margin: (-0.5 * size) 0 0 (-0.5 * size)
-      animation: loading 1s ease infinite
+      animation: -loading 1s ease infinite
       background: embedurl("../assets/loading-white.svg", "utf8") center center
       background-size: contain
 

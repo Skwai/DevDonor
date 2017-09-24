@@ -18,7 +18,8 @@ export default new Vuex.Store({
     uid: localStorage.getItem(config.USER_ID_KEY) || null,
     registrationId: localStorage.getItem(config.REGISTRATION_ID_KEY) || null,
     auth: null,
-    authenticating: false
+    authenticating: false,
+    notification: null
   },
   strict: debug
 })

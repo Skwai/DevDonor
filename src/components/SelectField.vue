@@ -148,25 +148,14 @@ export default {
 
 <style lang="stylus">
 @require "../styles/config"
+@require "../styles/forms"
 
 .SelectField
   spacing()
   position: relative
 
   &__Wrap
-    background: colorOffWhite
-    position: relative
-    display: block
-    position: relative
-    box-shadow: inset rgba(0,0,0,.1) 0 1px 1px
-
-    .-disabled &
-      cursor: not-allowed
-      opacity: .5
-
-    .-open &
-      background: #fff
-      box-shadow: inset colorPrimaryBlue 0 0 0 1px
+    field()
 
   &__Input
     display: block
@@ -189,29 +178,13 @@ export default {
 
     &:focus
       outline: 0
-      border-color: #499aff
       padding: 2rem spacingSmall 1rem
 
   &__Wrap:hover &__Input
     border-color: #499aff
 
   &__Label
-    cursor: text
-    top: 50%
-    left: spacingSmall
-    position: absolute
-    display: block
-    cursor: text
-    z-index: 1
-    transition: transitionBase
-    transform: translate(0, -100%) scale(0.875)
-    transform-origin: left top
-    font-weight: 600
-    opacity: .5
-
-    .-empty &
-      transform: translate(0, -50%)
-      opacity: 1
+    fieldLabel()
 
   &__Input:focus + &__Label
     transform: translate(0, -100%) scale(0.875)

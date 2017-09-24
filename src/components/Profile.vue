@@ -30,7 +30,6 @@
         <TextField
           label="Name"
           :value.sync="profile.name"
-          :options="roleOptions"
         />
 
         <SelectField
@@ -53,13 +52,15 @@
           label="Professional skills"
           :options="skillOptions"
           description="Select the type of work you have expertise in"
-          value="profile.skills"
+          :value.sync="profile.skills"
         />
 
+      </FormBlock>
+      <FormBlock legend="Your biography">
+
         <TextAreaField
-          label="About You"
+          label="A little bit about yourself"
           :value.sync="profile.bio"
-          description="Write a brief description about yourself"
         />
 
       </FormBlock>
@@ -99,7 +100,7 @@ export default {
         bio: null,
         role: null,
         country: null,
-        skills: null
+        skills: []
       }
     }
   },
@@ -114,7 +115,7 @@ export default {
         'Web Development',
         'Mobile Development',
         'Product Management',
-        'Systems Administration / DevOps',
+        'Systems Administration',
         'UX Design',
         'Design'
       ]
@@ -130,14 +131,21 @@ export default {
     async submit (ev) {
       ev.preventDefault()
       this.saving = true
-      const { bio, country, role, skills } = this.profile
-      await this.$firebaseRefs.user.update({
-        bio,
-        country,
-        role,
-        skills
-      })
-      this.saving = false
+      this.error = false
+      const { bio, country, role } = this.profile
+      const skills = this.profile.skills.reduce((obj, v) => Object.assign(obj, { [v]: true }), {})
+      try {
+        await this.$firebaseRefs.user.update({
+          bio,
+          country,
+          role,
+          skills
+        })
+      } catch (err) {
+        console.log(err)
+      } finally {
+        this.saving = false
+      }
     }
   },
 
@@ -148,8 +156,9 @@ export default {
         source: db.ref('users').child(this.uid),
         asObject: true,
         readyCallback (snapshot) {
-          Object.assign(this.profile, snapshot.val())
-          console.log(this.profile)
+          const data = snapshot.val()
+          const skills = data.skills instanceof Object ? Object.keys(data.skills) : []
+          Object.assign(this.profile, data, { skills })
           this.loading = false
         }
       }
