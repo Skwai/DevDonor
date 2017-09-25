@@ -2,12 +2,14 @@ import config from '@/config'
 
 import * as types from './mutation-types'
 
-import { signIn, signOut, getCurrentUser, db } from '@/services/firebase'
+import { signIn, signOut, getCurrentUser, db, auth } from '@/services/firebase'
+
+const TOKEN_REFRESH_INTERVAL = 60 * 1 * 1000 // 10 minutes
 
 /**
  * Trigger login
  */
-export const login = async ({ dispatch, commit }) => {
+export const login = async ({ commit, dispatch }) => {
   commit(types.AUTH_START)
   try {
     const response = await signIn()
@@ -27,8 +29,21 @@ export const login = async ({ dispatch, commit }) => {
     })
     commit(types.AUTH_SUCCESS, user)
     commit(types.AUTH_COMPLETE)
+    dispatch('authTokenRefresh')
   } catch (err) {
     commit(types.AUTH_FAILED)
+  }
+}
+
+/**
+ * Refresh the current auth token
+ */
+export const authTokenRefresh = async ({ dispatch }) => {
+  try {
+    await auth().currentUser.getIdToken(true)
+    setTimeout(() => dispatch(authTokenRefresh), TOKEN_REFRESH_INTERVAL)
+  } catch (err) {
+    console.log(err)
   }
 }
 
@@ -78,13 +93,14 @@ export const removeUID = async ({ commit }) => {
 /**
  * Set a user's current auth state
  */
-export const getAuthStatus = async ({ commit }) => {
+export const getAuthStatus = async ({ commit, dispatch }) => {
   commit(types.AUTH_START)
   try {
     const user = await getCurrentUser()
     if (user) {
       commit(types.AUTH_SUCCESS, user.toJSON())
     }
+    dispatch('authTokenRefresh')
     commit(types.AUTH_COMPLETE)
   } catch (err) {
     commit(types.AUTH_FAILED)

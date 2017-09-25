@@ -25,9 +25,6 @@
       />
 
       <Btn color="primary" size="large">Create Project</Btn>
-
-
-
     </form>
     <div slot="sidebar">
       <Card>
@@ -48,9 +45,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      'uid'
-    ])
+    ...mapGetters(['uid'])
   },
 
   data () {
