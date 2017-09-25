@@ -18,7 +18,8 @@ export default new Vuex.Store({
     uid: localStorage.getItem(config.USER_ID_KEY) || null,
     auth: null,
     authenticating: false,
-    notification: null
+    notification: null,
+    showSignupSplash: !localStorage.getItem(config.SPLASH_SEEN_KEY)
   },
   strict: debug
 })

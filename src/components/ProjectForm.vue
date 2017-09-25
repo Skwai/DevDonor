@@ -1,30 +1,33 @@
 <template>
   <Page>
-    <form slot="content">
+    <form slot="content" @submit.prevent="submit">
       <Subheading>Create a Project</Subheading>
       <ContentBlock>
         <p>We will review your application to make sure everything is in order and and email you soon.</p>
       </ContentBlock>
 
       <div class="ProjectForm__Organizations">
-        <UserOrganization :organizationId="org['.key']" v-for="(org, key) in userOrganizations" :key="key" />
+        <UserOrganization :organizationId="org['.key']" v-for="(org, key) in userOrgs" :key="key" />
       </div>
 
       <TextField
         label="Project title"
+        :value="project.title"
       />
 
       <CheckboxGroup
         label="Skills required"
         :options="skillOptions"
+        :value.sync="project.skills"
         description="Select the type of work required for this project"
       />
 
       <TextAreaField
         label="Project description"
+        :value.sync="project.description"
       />
 
-      <Btn color="primary" size="large">Create Project</Btn>
+      <Btn color="primary" size="large" :loading="saving">Create Project</Btn>
     </form>
     <div slot="sidebar">
       <Card>
@@ -51,13 +54,48 @@ export default {
   data () {
     return {
       loading: true,
-      skillOptions: []
+      saving: false,
+      skillOptions: [],
+
+      project: {
+        name: null,
+        skills: [],
+        description: null
+      }
+    }
+  },
+
+  methods: {
+    async submit () {
+      const projectId = db.ref('projects').push().key
+      const { description, name } = this.project
+      const organization = this.userOrgs[0]['.key']
+      const skills = this.project.skills.reduce((obj, v) => Object.assign(obj, { [v]: true }), {})
+      this.saving = true
+      try {
+        await db.ref(`projects/${projectId}`).update({
+          // TODO: make organizations selectable
+          organization,
+          description,
+          name,
+          skills
+        })
+        this.$store.dispatch('showNotification', {
+          message: 'Your project has been created',
+          type: 'success'
+        })
+        this.$router.push({ name: 'project', params: { projectId } })
+      } catch (err) {
+        console.log(err)
+      } finally {
+        this.saving = false
+      }
     }
   },
 
   firebase () {
     return {
-      userOrganizations: {
+      userOrgs: {
         source: db.ref(`users/${this.uid}/organizations`),
         readyCallback (snapshot) {
           if (!snapshot.exists()) {

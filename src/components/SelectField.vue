@@ -69,11 +69,8 @@ export default {
       const { options } = this
       const keys = Object.keys(options)
       const filter = String(this.filterValue || '').toLowerCase()
-
-      if (!keys.length) return {}
-
+      if (!keys.length) return []
       const filtered = keys.filter((k) => options[k].toLowerCase().includes(filter))
-
       return filtered.length ? filtered : []
     }
   },

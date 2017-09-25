@@ -48,6 +48,9 @@ export default {
 
 .Account
   margin-left: auto
+  display: flex
+  align-items: center
+  padding: 0 spacingBase
 
   &__Login
     border: 0
@@ -55,7 +58,6 @@ export default {
     color: inherit
     display: inline-flex
     align-items: center
-    padding: 0 spacingBase
     textCaps()
     height: 100%
 

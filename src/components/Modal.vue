@@ -32,5 +32,5 @@ export default {}
     transform: translate(-50%, 0)
     border-radius: borderRadiusLarge
     overflow: hidden
-    box-shadow: rgba(colorDarkBlue, .2) 0 1rem 2rem -0.5rem
+    box-shadow: rgba(colorDarkBlue, .2) 0 1rem 2rem
 </style>

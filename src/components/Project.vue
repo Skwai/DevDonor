@@ -26,6 +26,7 @@
             <p>You've applied to join this project.</p>
             <Btn
               :click="leaveProject"
+              :loading="leaving"
             >Leave Project</Btn>
           </div>
         </ContentBlock>
@@ -100,10 +101,12 @@ export default {
 
   computed: {
     userInProject () {
-      return this.project && this.uid && Object.keys(this.project.volunteers).includes(this.uid)
+      const { project, uid } = this
+      return project && uid && project.volunteers && Object.keys(project.volunteers).includes(uid)
     },
     description () {
-      return this.project && this.project.description ? marked(this.project.description) : ''
+      const { project } = this
+      return project && project.description.length ? marked(project.description) : ''
     },
     ...mapGetters(['uid'])
   },
@@ -111,9 +114,10 @@ export default {
   firebase () {
     return {
       project: {
-        source: db.ref('projects').child(this.$route.params.projectId),
+        source: db.ref(`projects/${this.$route.params.projectId}`),
         asObject: true,
-        readyCallback () {
+        readyCallback (snapshot) {
+          console.log(snapshot.val())
           this.loading = false
         }
       }

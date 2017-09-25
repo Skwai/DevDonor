@@ -1,4 +1,5 @@
 {
+
   "rules": {
     ".read": "true",
     ".write": "false",
@@ -13,21 +14,24 @@
       }
     },
     "organizations": {
-      ".write": "auth != null"
-    },
-    "registrations": {
-      ".write": "auth != null"
+      ".read": false,
+      ".write": "auth != null",
+      "$organizationId": {}
     },
     "projects": {
       ".indexOn": ["createdAt"],
       ".write": "auth != null",
-      "$projectId": {
-        "volunteers": {
-          ".write": "auth != null"
-        }
-      }
+      "$projectId": {}
     },
     "countries": {
+      ".read": "true",
+      ".write": "false"
+    },
+    "organizationTypes": {
+      ".read": "true",
+      ".write": "false"
+    },
+    "skills": {
       ".read": "true",
       ".write": "false"
     }

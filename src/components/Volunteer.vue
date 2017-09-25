@@ -8,7 +8,7 @@
           <h1>{{user.name}}</h1>
           <div><SmallCaps>{{user.role}}, {{user.region}}</SmallCaps></div>
           <div class="Volunteer__Tags">
-            <Tag v-for="(tag, key) in tags" :key="key" :tag="tag" />
+            <Tag v-for="(tag, key) in user.skills" :key="key" :tag="tag" />
           </div>
         </div>
       </header>
@@ -33,12 +33,7 @@ export default {
 
   data () {
     return {
-      loading: true,
-      tags: [
-        'JavaScript',
-        'HTML',
-        'CSS'
-      ]
+      loading: true
     }
   },
 
@@ -69,7 +64,7 @@ export default {
 
 .Volunteer
 
-  &__Tags
+  &__Skills
     margin-top: spacingSmall
 
   &__Header

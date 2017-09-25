@@ -37,16 +37,18 @@ export default {
       'getCharityType'
     ]),
     description () {
-      return marked(this.organization.description)
+      return this.organization && this.organization.description ? marked(this.organization.description) : null
     }
   },
 
   firebase () {
+    console.log(this.organizationId)
     return {
       organization: {
-        source: db.ref('organizations').child(this.organizationId),
+        source: db.ref(`organizations/${this.organizationId}`),
         asObject: true,
-        readyCallback () {
+        readyCallback (snapshot) {
+          console.log(snapshot.val())
           this.loading = false
         }
       }

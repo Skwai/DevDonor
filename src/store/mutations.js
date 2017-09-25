@@ -30,19 +30,19 @@ export default {
     state.authenticating = false
   },
 
-  [types.UPDATE_REGISTRATION_ID] (state, id) {
-    state.registrationId = id
-  },
-
-  [types.REMOVE_REGISTRATION_ID] (state) {
-    state.registrationId = null
-  },
-
   [types.ADD_NOTIFICATION] (state, { message, type }) {
     state.notification = { message, type }
   },
 
   [types.REMOVE_NOTIFICATION] (state) {
     state.notification = null
+  },
+
+  [types.SHOW_SIGNUP_SPLASH] (state) {
+    state.showSignupSplash = true
+  },
+
+  [types.HIDE_SIGNUP_SPLASH] (state) {
+    state.showSignupSplash = false
   }
 }

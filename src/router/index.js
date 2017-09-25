@@ -30,6 +30,11 @@ const router = new Router({
       component: OrganizationForm
     },
     {
+      name: 'organization',
+      path: '/organization/:organizationId',
+      component: OrganizationForm
+    },
+    {
       name: 'createProject',
       path: '/project/create',
       component: ProjectForm

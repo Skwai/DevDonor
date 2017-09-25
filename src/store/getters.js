@@ -5,3 +5,4 @@ export const authenticating = ({ authenticating }) => authenticating
 export const auth = ({ auth }) => auth
 export const uid = ({ uid }) => uid
 export const notification = ({ notification }) => notification
+export const showSignupSplash = ({ showSignupSplash }) => showSignupSplash

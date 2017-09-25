@@ -8,8 +8,17 @@
       <svg class="AccountMenu__ToggleIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
     </button>
     <div class="AccountMenu__Options" @click="onOptionsClick">
-      <router-link to="/organization/create" class="AccountMenu__Option">Register an organization</router-link>
-      <router-link v-for="(org, key) in userOrgs" :key="key" :to="'/organization/' + org['.key']">{{org['.key']}}</router-link>
+      <router-link to="/organization/create" class="AccountMenu__Option">Register a charity</router-link>
+      <router-link
+        v-for="(org, key) in orgs"
+        :key="key"
+        :to="'/organization/' + key"
+        class="AccountMenu__Option"
+      >
+      <img
+          :src="org.logo"
+          :alt="org.name"
+        >{{org.name}}</router-link>
       <router-link to="/project/create" class="AccountMenu__Option">Create a project</router-link>
       <router-link to="/profile" class="AccountMenu__Option">Your profile</router-link>
       <span tabindex="0" class="AccountMenu__Option" @click="logout">Logout</span>
@@ -29,6 +38,7 @@ export default {
 
   computed: {
     ...mapGetters([
+      'uid',
       'auth'
     ])
   },
@@ -64,12 +74,22 @@ export default {
 
   data () {
     return {
+      orgs: {},
       showAccountMenu: false
     }
   },
+
   firebase () {
     return {
-      userOrgs: db.ref(`user/${this.uid}/organizations`)
+      userOrgs: {
+        source: db.ref(`users/${this.uid}/organizations`),
+        async readyCallback (snapshot) {
+          const promises = []
+          snapshot.forEach(({ key }) => promises.push(db.ref(`organizations/${key}`).once('value')))
+          const orgs = await Promise.all(promises)
+          this.orgs = orgs.reduce((obj, s) => Object.assign(obj, { [s.key]: s.val() }), {})
+        }
+      }
     }
   }
 }
@@ -81,6 +101,7 @@ export default {
 
 .AccountMenu
   position: relative
+  margin-right: (-1 * spacingBase)
 
   &__Toggle
     background: none
@@ -116,15 +137,14 @@ export default {
     transform: translate(0, 0.5rem) scale(.7, .7)
     transform-origin: right top
     right: 0
-    min-width: 10rem
+    top: -999rem
     box-shadow: rgba(0,0,0,.1) 0 2px 5px, rgba(0,0,0,.1) 0 0 0 1px
     transition-duration: transitionBase
     transition-property: opacity, transform
     opacity: 0
-    top: -999rem
+    margin: 0
     padding: spacingTiny 0
     color: fontColorBase
-    margin: 0
 
     .-show &
       transform: translate(0, 0) scale(1, 1)
@@ -132,14 +152,22 @@ export default {
       top: 100%
 
   &__Option
-    display: block
+    display: flex
     white-space: nowrap
     padding: 0.75rem spacingBase
     cursor: pointer
     transition: 0.2s
+    white-space: nowrap
+    align-items: center
+    min-width: 16rem
+
+    img
+      width: 2rem
+      height: 2rem
+      border-radius: borderRadiusBase
+      margin-right: spacingTiny
 
     &:hover,
     &:focus
       background: colorHighlight
-      // color: colorPrimaryBlue
 </style>

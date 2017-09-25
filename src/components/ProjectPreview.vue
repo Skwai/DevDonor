@@ -20,7 +20,7 @@
         </header>
         <div class="ProjectPreview__Description">{{project.title}}</div>
         <div class="ProjectPreview__Tags">
-          <Tag v-for="(tag, key) in project.tags":key="key" :tag="tag" />
+          <Tag v-for="(tag, key) in project.skills":key="key" :tag="tag" />
         </div>
       </div>
     </router-link>
@@ -99,7 +99,7 @@ export default {
       @media (min-width: 1024px)
         transform: scale(1.02)
 
-  &__Tags
+  &__Skills
     margin-top: spacingSmall
 
   &__Logo

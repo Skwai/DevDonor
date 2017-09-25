@@ -4,7 +4,7 @@
     <AppHeader />
     <router-view></router-view>
     <AppFooter />
-    <!-- <AccountType v-if="auth && !accountType" /> -->
+    <SignupSplash v-if="auth && showSignupSplash" />
   </main>
 </template>
 
@@ -12,20 +12,21 @@
 import { mapGetters } from 'vuex'
 import AppHeader from '@/components/AppHeader'
 import AppFooter from '@/components/AppFooter'
-import AccountType from '@/components/AccountType'
+import SignupSplash from '@/components/SignupSplash'
 import Notification from '@/components/Notification'
 
 export default {
   components: {
     AppFooter,
     AppHeader,
-    AccountType,
+    SignupSplash,
     Notification
   },
 
   computed: {
     ...mapGetters([
-      'auth'
+      'auth',
+      'showSignupSplash'
     ])
   },
 
