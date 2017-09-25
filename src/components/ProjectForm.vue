@@ -59,8 +59,8 @@ export default {
 
       project: {
         name: null,
-        skills: [],
-        description: null
+        description: null,
+        skills: []
       }
     }
   },
@@ -71,6 +71,7 @@ export default {
       const { description, name } = this.project
       const organization = this.userOrgs[0]['.key']
       const skills = this.project.skills.reduce((obj, v) => Object.assign(obj, { [v]: true }), {})
+      const createdAt = new Date().toISOString()
       this.saving = true
       try {
         await db.ref(`projects/${projectId}`).update({
@@ -78,7 +79,8 @@ export default {
           organization,
           description,
           name,
-          skills
+          skills,
+          createdAt
         })
         this.$store.dispatch('showNotification', {
           message: 'Your project has been created',

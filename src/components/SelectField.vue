@@ -1,36 +1,38 @@
 <template>
   <div class="SelectField" :class="{ '-empty': !inputValue, '-disabled': disabled, '-open': open }">
-    <label class="SelectField__Wrap">
-      <input
-        ref="input"
-        class="SelectField__Input"
-        type="text"
-        :required="required"
-        v-model="inputValue"
-        :disabled="disabled"
-        @input="filterOptions"
-        @keydown.tab="hideOptions"
-        @keydown.down="firstOption"
-        @focus="showOptions"
-      >
-      <span class="SelectField__Label">{{label}}</span>
-    </label>
-    <div class="SelectField__Options" ref="options">
-      <div v-if="!filteredOptions" class="SelectField__Empty">No results</div>
-      <div
-        v-else
-        class="SelectField__Option"
-        :class="{ '-selected': value === key }"
-        v-for="(option, key) in filteredOptions"
-        :key="key"
-        @click="selectOption(key, option)"
-        @keydown="preventScroll"
-        @keydown.tab="hideOptions"
-        @keydown.enter="selectOption(key, option)"
-        @keydown.down="nextOption"
-        @keydown.up="prevOption"
-        :tabindex="open ? 0 : -1"
-      >{{option}}</div>
+    <div class="SelectField__Container">
+      <label class="SelectField__Wrap">
+        <input
+          ref="input"
+          class="SelectField__Input"
+          type="text"
+          :required="required"
+          v-model="inputValue"
+          :disabled="disabled"
+          @input="filterOptions"
+          @keydown.tab="hideOptions"
+          @keydown.down="firstOption"
+          @focus="showOptions"
+        >
+        <span class="SelectField__Label">{{label}}</span>
+      </label>
+      <div class="SelectField__Options" ref="options">
+        <div v-if="!filteredOptions" class="SelectField__Empty">No results</div>
+        <div
+          v-else
+          class="SelectField__Option"
+          :class="{ '-selected': value === option }"
+          v-for="(option, key) in filteredOptions"
+          :key="key"
+          @click="selectOption(option)"
+          @keydown="preventScroll"
+          @keydown.tab="hideOptions"
+          @keydown.enter="selectOption(option)"
+          @keydown.down="nextOption"
+          @keydown.up="prevOption"
+          :tabindex="open ? 0 : -1"
+        >{{option}}</div>
+      </div>
     </div>
     <div class="SelectField__Error" v-if="error">{{errorMessage || "Invalid"}}</div>
     <HelpText v-if="description" class="SelectField__Description">{{description}}</HelpText>
@@ -49,12 +51,6 @@ export default {
     }
   },
 
-  created () {
-    if (this.value) {
-      this.inputValue = this.options[this.value] || ''
-    }
-  },
-
   mounted () {
     this.onDocumentClick = this.onDocumentClick.bind(this)
     document.addEventListener('click', this.onDocumentClick)
@@ -67,11 +63,9 @@ export default {
   computed: {
     filteredOptions () {
       const { options } = this
-      const keys = Object.keys(options)
       const filter = String(this.filterValue || '').toLowerCase()
-      if (!keys.length) return []
-      const filtered = keys.filter((k) => options[k].toLowerCase().includes(filter))
-      return filtered.length ? filtered : []
+      if (!options.length) return []
+      return options.filter((v) => v.toLowerCase().includes(filter)) || []
     }
   },
 
@@ -130,8 +124,8 @@ export default {
       this.open = true
     },
 
-    selectOption (value, option) {
-      this.inputValue = option
+    selectOption (value) {
+      this.inputValue = value
       this.filterValue = ''
       this.$emit('update:value', value)
       this.hideOptions()
@@ -155,6 +149,9 @@ export default {
 
   &__Wrap
     field()
+
+  &__Container
+    position: relative
 
   &__Input
     display: block

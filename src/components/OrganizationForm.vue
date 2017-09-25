@@ -148,7 +148,7 @@ export default {
 
       try {
         const updates = {
-          [`organizations/${organizationId}`]: this.registration,
+          [`organizations/${organizationId}`]: this.org,
           [`users/${this.uid}/organizations/${organizationId}`]: true
         }
         await db.ref().update(updates)
@@ -158,6 +158,7 @@ export default {
         })
         this.$router.push({ name: 'organization', params: { organizationId } })
       } catch (err) {
+        console.log(err)
         this.$store.dispatch('showNotification', {
           type: 'error',
           message: 'Error submitting form'
@@ -171,7 +172,7 @@ export default {
   firebase () {
     return {
       countries: {
-        source: db.ref('organizationTypes'),
+        source: db.ref('countries'),
         readyCallback (snapshot) {
           this.countryOptions = Object.keys(snapshot.val())
         }
