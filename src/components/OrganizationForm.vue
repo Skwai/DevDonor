@@ -31,7 +31,7 @@
           :value.sync="registration.type"
           :error="validations.type"
           errorMessage="Please select a charity type"
-          :options="{ nfp: 'Not for profit', charity: 'Charity' }"
+          :options="organizationTypeOptions"
         />
 
         <TextField
@@ -53,7 +53,7 @@
         <Upload
           :maxFileSize="2"
           filePath="logos"
-          :fileName="registrationId"
+          :fileName="organizationId"
           :url.sync="registration.logo"
           label="Upload your logo"
         />
@@ -80,7 +80,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { db, sanitizeRef } from '@/services/firebase'
+import { db } from '@/services/firebase'
 import Upload from '@/components/Upload'
 
 export default {
@@ -94,6 +94,8 @@ export default {
       saving: false,
       submitted: false,
 
+      countryOptions: [],
+
       registration: {
         bio: null,
         logo: null,
@@ -106,9 +108,6 @@ export default {
   },
 
   computed: {
-    countryOptions () {
-      return sanitizeRef(this.countries)
-    },
     validations () {
       return {
         bio: (val) => val.length,
@@ -119,22 +118,23 @@ export default {
         type: (val) => val.length
       }
     },
-    ...mapGetters(['uid', 'registrationId'])
+    ...mapGetters(['uid'])
   },
 
   async created () {
-    const registrations = await db.ref(`users/${this.uid}/registrations/`).once('value')
+    this.organizationId = db.ref('organizations').push().key
+    const registrations = await db.ref(`users/${this.uid}/organizations/`).once('value')
 
     // check if user has already submitted a registration
     if (registrations.exists()) {
       this.submitted = true
-      const [ registrationId ] = Object.keys(registrations.val())
-      const registration = await db.ref(`registrations/${registrationId}`).once('value')
+      const [ organizationId ] = Object.keys(registrations.val())
+      const registration = await db.ref(`organizations/${organizationId}`).once('value')
       this.registration = registration.val()
     }
 
-    if (!this.registrationId) {
-      this.$store.dispatch('createRegistrationId')
+    if (!this.organizationId) {
+      this.$store.dispatch('createOrganizationId')
     }
 
     this.loading = false
@@ -161,11 +161,13 @@ export default {
     },
 
     async createRegistration () {
+      this.saving = true
+      const { organizationId } = this
+
       try {
-        this.saving = true
         const updates = {
-          [`registrations/${this.registrationId}`]: this.registration,
-          [`users/${this.uid}/registrations/${this.registrationId}`]: true
+          [`organizations/${organizationId}`]: this.registration,
+          [`users/${this.uid}/organizations/${organizationId}`]: true
         }
         await db.ref().update(updates)
         this.$store.dispatch('showNotification', {
@@ -186,7 +188,18 @@ export default {
 
   firebase () {
     return {
-      countries: db.ref('countries')
+      countries: {
+        source: db.ref('organizationTypes'),
+        readyCallback (snapshot) {
+          this.countryOptions = Object.keys(snapshot.val())
+        }
+      },
+      organizationTypes: {
+        source: db.ref('organizationTypes'),
+        readyCallback (snapshot) {
+          this.organizationTypeOptions = Object.keys(snapshot.val())
+        }
+      }
     }
   }
 }

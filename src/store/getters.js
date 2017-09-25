@@ -4,5 +4,4 @@ export const getCharityType = () => (type) => config.CHARITY_TYPES[type.toLowerC
 export const authenticating = ({ authenticating }) => authenticating
 export const auth = ({ auth }) => auth
 export const uid = ({ uid }) => uid
-export const registrationId = ({ registrationId }) => registrationId
 export const notification = ({ notification }) => notification

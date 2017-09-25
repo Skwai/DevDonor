@@ -12,6 +12,9 @@
         }
       }
     },
+    "organizations": {
+      ".write": "auth != null"
+    },
     "registrations": {
       ".write": "auth != null"
     },

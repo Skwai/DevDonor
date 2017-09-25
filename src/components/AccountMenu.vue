@@ -8,7 +8,8 @@
       <svg class="AccountMenu__ToggleIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
     </button>
     <div class="AccountMenu__Options" @click="onOptionsClick">
-      <router-link to="/organization/create" class="AccountMenu__Option">Register a charity</router-link>
+      <router-link to="/organization/create" class="AccountMenu__Option">Register an organization</router-link>
+      <router-link v-for="(org, key) in userOrgs" :key="key" :to="'/organization/' + org['.key']">{{org['.key']}}</router-link>
       <router-link to="/project/create" class="AccountMenu__Option">Create a project</router-link>
       <router-link to="/profile" class="AccountMenu__Option">Your profile</router-link>
       <span tabindex="0" class="AccountMenu__Option" @click="logout">Logout</span>
@@ -19,6 +20,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import AccountAvatar from '@/components/AccountAvatar'
+import { db } from '@/services/firebase'
 
 export default {
   components: {
@@ -64,6 +66,11 @@ export default {
     return {
       showAccountMenu: false
     }
+  },
+  firebase () {
+    return {
+      userOrgs: db.ref(`user/${this.uid}/organizations`)
+    }
   }
 }
 </script>
@@ -83,6 +90,12 @@ export default {
     display: flex
     align-items: center
     position: relative
+    transition: transitionBase
+    padding: spacingSmall spacingBase
+
+    &:hover,
+    &:focus
+      background: rgba(0,0,0,.05)
 
     &:focus
       outline: 0
@@ -99,44 +112,34 @@ export default {
 
   &__Options
     position: absolute
-    background: colorDarkBlue
-    top: 100%
-    transform: translate(1px, 0) scale(.7, .7)
+    background: #fff
+    transform: translate(0, 0.5rem) scale(.7, .7)
     transform-origin: right top
     right: 0
     min-width: 10rem
-    box-shadow: rgba(0,0,0,.1) 0 2px 5px
+    box-shadow: rgba(0,0,0,.1) 0 2px 5px, rgba(0,0,0,.1) 0 0 0 1px
     transition-duration: transitionBase
     transition-property: opacity, transform
     opacity: 0
     top: -999rem
     padding: spacingTiny 0
+    color: fontColorBase
+    margin: 0
 
     .-show &
-      transform: translate(1px, 0.5rem) scale(1, 1)
+      transform: translate(0, 0) scale(1, 1)
       opacity: 1
       top: 100%
 
-    &::after
-      size = 0.5rem
-      content: ""
-      position: absolute
-      top: 0
-      right: calc(1.25rem + 1px)
-      transform: translate(50%, -100%)
-      border-bottom: colorDarkBlue solid size
-      border-left: transparent solid size
-      border-right: transparent solid size
-
   &__Option
     display: block
-    color: #fff
-    font-size: 0.875rem
     white-space: nowrap
-    padding: spacingTiny spacingBase
+    padding: 0.75rem spacingBase
     cursor: pointer
+    transition: 0.2s
 
     &:hover,
     &:focus
-      color: colorPrimaryBlue
+      background: colorHighlight
+      // color: colorPrimaryBlue
 </style>

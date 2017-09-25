@@ -14,7 +14,7 @@
             <Upload v-else
               :maxFileSize="2"
               filePath="avatars"
-              :fileName="registrationId"
+              :fileName="organizationId"
               :url.sync="user.picture"
               label="Upload a profile picture"
             />
@@ -83,7 +83,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { db, sanitizeRef } from '@/services/firebase'
+import { db } from '@/services/firebase'
 import Upload from '@/components/Upload'
 
 export default {
@@ -96,7 +96,9 @@ export default {
       loading: true,
       saving: false,
 
+      countryOptions: [],
       skillOptions: [],
+      organizationId: null,
 
       profile: {
         bio: null,
@@ -107,9 +109,6 @@ export default {
   },
 
   computed: {
-    countryOptions () {
-      return sanitizeRef(this.countries)
-    },
     validations () {
       return {
       }
@@ -145,7 +144,12 @@ export default {
 
   firebase () {
     return {
-      countries: db.ref('countries'),
+      countries: {
+        source: db.ref('countries'),
+        readyCallback (snapshot) {
+          this.countryOptions = Object.keys(snapshot.val())
+        }
+      },
       user: {
         source: db.ref(`users/${this.uid}`),
         asObject: true,

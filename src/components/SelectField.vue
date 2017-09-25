@@ -74,9 +74,7 @@ export default {
 
       const filtered = keys.filter((k) => options[k].toLowerCase().includes(filter))
 
-      if (!filtered.length) return null
-
-      return filtered.reduce((obj, k) => Object.assign(obj, { [k]: options[k] }), {})
+      return filtered.length ? filtered : []
     }
   },
 

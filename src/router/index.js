@@ -5,7 +5,7 @@ import Project from '@/components/Project'
 import Profile from '@/components/Profile'
 import Volunteer from '@/components/Volunteer'
 import ProjectForm from '@/components/ProjectForm'
-import OrganizationRegister from '@/components/OrganizationRegister'
+import OrganizationForm from '@/components/OrganizationForm'
 
 Vue.use(Router)
 
@@ -25,8 +25,13 @@ const router = new Router({
       component: Home
     },
     {
-      name: 'projectForm',
-      path: '/project/:projectForm',
+      name: 'createOrganization',
+      path: '/organization/create',
+      component: OrganizationForm
+    },
+    {
+      name: 'createProject',
+      path: '/project/create',
       component: ProjectForm
     },
     {
@@ -43,11 +48,6 @@ const router = new Router({
       name: 'profile',
       path: '/profile',
       component: Profile
-    },
-    {
-      name: 'register',
-      path: '/orgnizations/create',
-      component: OrganizationRegister
     }
   ]
 })
