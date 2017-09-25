@@ -34,7 +34,7 @@
         >{{option}}</div>
       </div>
     </div>
-    <div class="SelectField__Error" v-if="error">{{errorMessage || "Invalid"}}</div>
+    <div class="SelectField__Error" v-if="error && isDirty">{{errorMessage || "Invalid"}}</div>
     <HelpText v-if="description" class="SelectField__Description">{{description}}</HelpText>
   </div>
 </template>
@@ -45,6 +45,7 @@ export default {
 
   data () {
     return {
+      isDirty: false,
       open: false,
       filterValue: '',
       inputValue: ''
@@ -117,7 +118,10 @@ export default {
     },
 
     hideOptions () {
-      this.open = false
+      if (this.open) {
+        this.isDirty = true
+        this.open = false
+      }
     },
 
     showOptions () {

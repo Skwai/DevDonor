@@ -1,5 +1,5 @@
 <template>
-  <div class="TextAreaField" :class="{ '-empty': !value, '-disabled': disabled }">
+  <div class="TextAreaField" :class="{ '-empty': !value, '-disabled': disabled, '-focused': focused }">
     <label class="TextAreaField__Wrap">
       <textarea
         class="TextAreaField__Input"
@@ -8,10 +8,12 @@
         :disabled="disabled"
         rows="5"
         cols="40"
+        @focus="onFocus"
+        @blur="onBlur"
       ></textarea>
       <span class="TextAreaField__Label">{{label}}</span>
     </label>
-    <div class="TextAreaField__Error" v-if="error">{{errorMessage || "Invalid"}}</div>
+    <div class="TextAreaField__Error" v-if="error && isDirty">{{errorMessage || "Invalid"}}</div>
     <HelpText v-if="description" class="TextAreaField__Description">{{description}}</HelpText>
   </div>
 </template>
@@ -23,6 +25,8 @@ export default {
 
   data () {
     return {
+      isDirty: false,
+      focused: false,
       inputValue: this.value
     }
   },
@@ -30,6 +34,17 @@ export default {
   watch: {
     inputValue () {
       this.$emit('update:value', this.inputValue)
+    }
+  },
+
+  methods: {
+    onFocus () {
+      this.isDirty = true
+      this.focused = true
+    },
+
+    onBlur () {
+      this.focused = false
     }
   }
 }

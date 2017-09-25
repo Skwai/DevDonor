@@ -88,7 +88,6 @@ export default {
         })
         this.$router.push({ name: 'project', params: { projectId } })
       } catch (err) {
-        console.log(err)
       } finally {
         this.saving = false
       }

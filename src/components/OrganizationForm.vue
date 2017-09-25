@@ -11,14 +11,14 @@
       <TextField
         label="Organization Name"
         :value.sync="org.name"
-        :error="validations.name"
+        :error="!validation.name"
         errorMessage="Please enter your charity name"
       />
 
       <SelectField
         label="Charity Type"
         :value.sync="org.type"
-        :error="validations.type"
+        :error="!validation.type"
         errorMessage="Please select a charity type"
         :options="organizationTypeOptions"
       />
@@ -26,7 +26,7 @@
       <TextField
         label="Website URL"
         :value.sync="org.url"
-        :error="validations.url"
+        :error="!validation.url"
         description="If you don't have a website, paste a link to your Facebook page"
       />
 
@@ -34,7 +34,7 @@
         label="Region"
         :value.sync="org.region"
         :options="countryOptions"
-        :error="validations.region"
+        :error="!validation.region"
         errorMessage="Please select a region"
         description="The region that your organization mainly operates"
       />
@@ -50,12 +50,12 @@
       <TextAreaField
         label="Short Description"
         :value.sync="org.description"
-        :error="validations.description"
+        :error="!validation.description"
         errorMessage="Please enter a description"
         description="Write a brief description about your organization for users to see"
       />
 
-      <Btn color="primary" size="large" :loading="saving">Submit Application</Btn>
+      <Btn color="primary" size="large" :loading="saving" :disabled="!isValid">Submit Application</Btn>
     </form>
     <template slot="sidebar">
       <Card v-if="!submitted">
@@ -91,23 +91,29 @@ export default {
         logo: null,
         name: null,
         type: null,
-        url: null,
-        region: null
+        region: null,
+        url: null
       }
     }
   },
 
   computed: {
-    validations () {
+    validation () {
+      const { org } = this
       return {
-        description: (val) => val.length,
-        logo: (val) => val.length,
-        name: (val) => val.length,
-        region: (val) => val.length,
-        url: (val) => val.length,
-        type: (val) => val.length
+        description: String(org.description).length,
+        name: String(org.name).length,
+        type: this.organizationTypeOptions.includes(org.type),
+        region: this.countryOptions.includes(org.region),
+        url: String(org.url).length
       }
     },
+
+    isValid () {
+      const { validation } = this
+      return Object.keys(validation).every(k => validation[k])
+    },
+
     ...mapGetters(['uid'])
   },
 
@@ -124,22 +130,15 @@ export default {
 
   methods: {
     submit (ev) {
-      if (!Object.values(this.validations).every(v => v)) {
+      if (!this.isValid) {
         return this.$store.dispatch('showNotification', {
           type: 'error',
           message: 'There are problems with your registration'
         })
       }
 
-      // validate fields
-      if (!this.validate()) return
-
       // submit
       this.createOrganization()
-    },
-
-    validate () {
-      return Object.values(this.validations).every(v => v)
     },
 
     async createOrganization () {
