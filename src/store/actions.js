@@ -4,7 +4,7 @@ import * as types from './mutation-types'
 
 import { signIn, signOut, getCurrentUser, db, auth } from '@/services/firebase'
 
-const TOKEN_REFRESH_INTERVAL = 60 * 1 * 1000 // 10 minutes
+const TOKEN_REFRESH_INTERVAL = 60 * 1000 * 10 // 10 minutes
 
 /**
  * Trigger login
@@ -36,15 +36,17 @@ export const login = async ({ commit, dispatch }) => {
 }
 
 /**
- * Refresh the current auth token
+ * Force refresh the current auth token to ensure it doesn't expire
  */
 export const authTokenRefresh = async ({ dispatch }) => {
-  try {
-    await auth().currentUser.getIdToken(true)
-    setTimeout(() => dispatch(authTokenRefresh), TOKEN_REFRESH_INTERVAL)
-  } catch (err) {
-    console.log(err)
-  }
+  setTimeout(async () => {
+    try {
+      await auth().currentUser.getIdToken(true)
+      dispatch('authTokenRefresh')
+    } catch (err) {
+      console.error(err)
+    }
+  }, TOKEN_REFRESH_INTERVAL)
 }
 
 /**
