@@ -19,21 +19,26 @@
 import { storage } from '@/services/firebase'
 
 export default {
-  props: ['url', 'fileTypes', 'maxFileSize', 'filePath', 'fileName', 'label'],
+  props: [
+    'url',
+    'fileTypes',
+    'maxFileSize',
+    'filePath',
+    'fileName',
+    'label'
+  ],
+
+  data () {
+    return {
+      progress: 0,
+      uploading: false
+    }
+  },
 
   methods: {
     removeUpload () {
-      if (!this.uploadUrl) return
-      this.uploadUrl = null
-      this.$emit('update:url', this.url)
-    },
-
-    data () {
-      return {
-        progress: 0,
-        uploadUrl: this.url,
-        uploading: false
-      }
+      if (!this.url) return
+      this.$emit('update:url', null)
     },
 
     async upload (ev) {
@@ -64,8 +69,7 @@ export default {
         })
 
         const { downloadURL } = await task
-        this.uploadUrl = downloadURL
-        this.$emit('update:url', this.uploadUrl)
+        this.$emit('update:url', downloadURL)
       } finally {
         this.uploading = false
       }
@@ -105,8 +109,12 @@ export default {
     background: #fff
     border: 0
 
-    &:hover &Icon
-      fill: colorPrimaryBlue
+    &:hover &Icon,
+    &:focus &Icon
+      fill: colorDarkBlue
+
+    &:focus
+      outline: 0
 
     &Icon
       transition: transitionBase

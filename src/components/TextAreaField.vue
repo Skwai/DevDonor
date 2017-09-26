@@ -72,7 +72,7 @@ export default {
     border: 0
     line-height: lineHeightBase
     font-size: 1rem
-    font-weight: 500
+    font-weight: 400
     z-index: 2
     position: relative
     padding: 2rem spacingSmall 1rem
