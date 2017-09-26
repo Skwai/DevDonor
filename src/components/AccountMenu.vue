@@ -15,11 +15,13 @@
           :key="key"
           :to="'/organization/' + key"
           class="AccountMenu__Option"
-        >
-        <img
+        >{{org.name}}
+          <img
+            class="AccountMenu__OptionsLogo"
             :src="org.logo"
             :alt="org.name"
-          >{{org.name}}</router-link>
+            >
+        </router-link>
         <router-link to="/project/create" class="AccountMenu__Option">Create a project</router-link>
       </div>
       <div class="AccountMenu__OptionGroup">
@@ -170,12 +172,6 @@ export default {
     align-items: center
     min-width: 16rem
 
-    img
-      width: 2rem
-      height: 2rem
-      border-radius: borderRadiusBase
-      margin-right: spacingTiny
-
     &:hover,
     &:focus
       background: colorHighlight
@@ -184,4 +180,12 @@ export default {
     border-top: rgba(0,0,0,.1) solid 1px
     margin-top: spacingTiny
     padding-top: spacingTiny
+
+  &__OptionsLogo
+    margin-left: auto
+    width: 2rem
+    height: 2rem
+    object-fit: cover
+    border-radius: 2px
+
 </style>
