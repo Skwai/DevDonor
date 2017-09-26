@@ -55,6 +55,7 @@ body
   font-family: fontFamilyBase
   line-height: lineHeightBase
   color: fontColorBase
+  background: colorOffWhite
 
 button, input, textarea
   font-size: 1rem

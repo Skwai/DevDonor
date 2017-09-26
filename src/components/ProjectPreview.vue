@@ -113,7 +113,7 @@ export default {
       align-items: center
       justify-content: center
       background: #fff
-      box-shadow: rgba(0,0,0,.1) 0 1px 2px, colorLightGray 0 0 0 1px
+      box-shadow: rgba(0,0,0,.1) 0 1px 2px, colorGray 0 0 0 1px
       border: #fff 4px solid
 
     &Image

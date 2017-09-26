@@ -6,7 +6,7 @@
         :required="required"
         v-model="inputValue"
         :disabled="disabled"
-        rows="5"
+        rows="15"
         cols="40"
         @focus="onFocus"
         @blur="onBlur"

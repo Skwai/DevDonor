@@ -110,24 +110,6 @@ export default {
       height: 100%
       object-fit: cover
 
-  &__Remove
-    top: 0
-    right: 0
-    position: absolute
-    background: #fff
-    border: 0
-
-    &:hover &Icon,
-    &:focus &Icon
-      fill: colorDarkBlue
-
-    &:focus
-      outline: 0
-
-    &Icon
-      transition: transitionBase
-      fill: colorGray
-
   &__File
     position: absolute
     opacity: 0
@@ -172,9 +154,27 @@ export default {
     border: 0
     width: 2rem
     height: 2rem
+    background #fff
+    transition: transitionBase
 
     &Icon
       height: 1.25rem
       width: 1.25rem
+
+    &:hover,
+    &:focus
+      opacity: 1
+
+    &:hover &Icon,
+    &:focus &Icon
+      opacity: 1
+
+    &:focus
+      outline: 0
+
+    &Icon
+      opacity: .5
+      transition: transitionBase
+
 
 </style>
