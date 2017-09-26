@@ -1,5 +1,5 @@
 <template>
-  <div class="AccountMenu" :class="{ '-show': showAccountMenu }">
+  <div class="AccountMenu" :class="{ '-open': showAccountMenu }">
     <button
       @click.prevent="toggleAccountMenu"
       class="AccountMenu__Toggle"
@@ -8,20 +8,27 @@
       <svg class="AccountMenu__ToggleIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
     </button>
     <div class="AccountMenu__Options" @click="onOptionsClick">
-      <router-link to="/organization/create" class="AccountMenu__Option">Register a charity</router-link>
-      <router-link
-        v-for="(org, key) in orgs"
-        :key="key"
-        :to="'/organization/' + key"
-        class="AccountMenu__Option"
-      >
-      <img
-          :src="org.logo"
-          :alt="org.name"
-        >{{org.name}}</router-link>
-      <router-link to="/project/create" class="AccountMenu__Option">Create a project</router-link>
-      <router-link to="/profile" class="AccountMenu__Option">Your profile</router-link>
-      <span tabindex="0" class="AccountMenu__Option" @click="logout">Logout</span>
+      <div class="AccountMenu__OptionGroup">
+        <router-link to="/organization/create" class="AccountMenu__Option">Register a charity</router-link>
+        <router-link
+          v-for="(org, key) in orgs"
+          :key="key"
+          :to="'/organization/' + key"
+          class="AccountMenu__Option"
+        >
+        <img
+            :src="org.logo"
+            :alt="org.name"
+          >{{org.name}}</router-link>
+        <router-link to="/project/create" class="AccountMenu__Option">Create a project</router-link>
+      </div>
+      <div class="AccountMenu__OptionGroup">
+        <router-link to="/profile" class="AccountMenu__Option">Your profile</router-link>
+        <router-link to="/profile" class="AccountMenu__Option">Your projects <Counter>0</Counter></router-link>
+      </div>
+      <div class="AccountMenu__OptionGroup">
+        <span tabindex="0" class="AccountMenu__Option" @click="logout">Logout</span>
+      </div>
     </div>
   </div>
 </template>
@@ -115,7 +122,8 @@ export default {
     padding: spacingSmall spacingBase
 
     &:hover,
-    &:focus
+    &:focus,
+    .-open &
       background: rgba(0,0,0,.05)
 
     &:focus
@@ -128,7 +136,7 @@ export default {
       margin-left: spacingTiny
       transition: transitionBase
 
-      .-show &
+      .-open &
         transform: rotate(180deg)
 
   &__Options
@@ -145,8 +153,9 @@ export default {
     margin: 0
     padding: spacingTiny 0
     color: fontColorBase
+    font-size: 0.9375rem
 
-    .-show &
+    .-open &
       transform: translate(0, 0) scale(1, 1)
       opacity: 1
       top: 100%
@@ -154,7 +163,7 @@ export default {
   &__Option
     display: flex
     white-space: nowrap
-    padding: 0.75rem spacingBase
+    padding: spacingTiny spacingBase
     cursor: pointer
     transition: 0.2s
     white-space: nowrap
@@ -170,4 +179,9 @@ export default {
     &:hover,
     &:focus
       background: colorHighlight
+
+  &__OptionGroup + &__OptionGroup
+    border-top: rgba(0,0,0,.1) solid 1px
+    margin-top: spacingTiny
+    padding-top: spacingTiny
 </style>

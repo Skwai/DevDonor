@@ -15,5 +15,4 @@ export default {
   width: 2rem
   height: 2rem
   border-radius: 50%
-  box-shadow: #fff 0 0 0 1px
 </style>

@@ -27,6 +27,7 @@ import Avatar from '@/components/Avatar'
 import MediaObject from '@/components/MediaObject'
 import FormBlock from '@/components/FormBlock'
 import CheckboxGroup from '@/components/CheckboxGroup'
+import Counter from '@/components/Counter'
 
 Vue.component('TextField', TextField)
 Vue.component('SelectField', SelectField)
@@ -47,3 +48,4 @@ Vue.component('TextAreaField', TextAreaField)
 Vue.component('MediaObject', MediaObject)
 Vue.component('FormBlock', FormBlock)
 Vue.component('CheckboxGroup', CheckboxGroup)
+Vue.component('Counter', Counter)

@@ -24,5 +24,4 @@ export default {
   display: inline-block
   margin: 2px
   color: #fff
-
 </style>
