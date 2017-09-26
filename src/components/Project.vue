@@ -142,7 +142,6 @@ export default {
     font-weight: 500
 
   &__Description
-    textLead()
     textMarkdown()
 
   &__Join,

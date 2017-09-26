@@ -13,15 +13,17 @@ export default {
 @require "../styles/text.styl"
 
 .Tag
-  font-size: 0.875rem
-  background: colorPrimaryBlue
-  padding: 0.5rem 0.75rem
+  // background: colorPrimaryBlue
+  // color: #fff
+  color: fontColorBase
+  border: currentColor solid 1px
+  padding: 0.5rem 0.65rem
   border-radius: borderRadiusLarge
   textSmallCaps()
-  font-weight: 600
+  font-size: 11px
+  font-weight: 500
   line-height: 1
   transition: 0.2s
   display: inline-block
   margin: 2px
-  color: #fff
 </style>

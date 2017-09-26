@@ -3,7 +3,11 @@
     <Loading v-if="loading" />
     <div v-else class="OrganizationPreview__Inner">
       <div class="OrganizationPreview__Logo">
-        <img class="OrganizationPreview__LogoImage" :src="organization.logo" :alt="organization.name + ' logo'">
+        <img
+          class="OrganizationPreview__LogoImage"
+          :src="organization.logo"
+          :alt="organization.name + ' logo'"
+        >
       </div>
       <header class="OrganizationPreview__Header">
         <SmallCaps>{{organization.region}}</SmallCaps>
@@ -48,7 +52,6 @@ export default {
         source: db.ref(`organizations/${this.organizationId}`),
         asObject: true,
         readyCallback (snapshot) {
-          console.log(snapshot.val())
           this.loading = false
         }
       }
@@ -81,10 +84,11 @@ export default {
     width: 5rem
     height: 5rem
     background: #fff
-    box-shadow: rgba(0,0,0,.1) 0 1px 2px, colorLightGray 0 0 0 1px
+    box-shadow: rgba(0,0,0,.1) 0 1px 2px, colorGray 0 0 0 1px
     display: flex
     align-items: center
     justify-content: center
+    border: #fff solid 4px
 
     &Image
       max-width: 100%

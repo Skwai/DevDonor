@@ -186,6 +186,6 @@ export default {
     width: 2rem
     height: 2rem
     object-fit: cover
-    border-radius: 2px
+    border-radius: borderRadiusSmall
 
 </style>

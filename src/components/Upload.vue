@@ -2,7 +2,7 @@
   <div class="Upload">
     <div v-if="url" class="Upload__Preview">
       <img :src="url" class="Upload__PreviewImage">
-      <button class="Upload__Remove">x</button>
+      <button type="button" @click.prevent="removeUpload" class="Upload__Remove"><svg class="Upload__RemoveIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
     </div>
     <label class="Upload__Drop" v-else>
       <Loading v-if="uploading" />
@@ -22,6 +22,12 @@ export default {
   props: ['fileTypes', 'maxFileSize', 'filePath', 'fileName', 'label'],
 
   methods: {
+    removeUpload () {
+      if (!this.url) return
+      this.url = null
+      this.$emit('update:url', this.url)
+    },
+
     async upload (ev) {
       const [file] = ev.target.files
       if (!file) return
@@ -59,13 +65,6 @@ export default {
     }
   },
 
-  remove () {
-    if (!this.url) return
-
-    // TODO: remove uploaded image
-    this.url = null
-  },
-
   data () {
     return {
       progress: 0,
@@ -84,17 +83,19 @@ export default {
   margin-bottom: spacingBase
 
   &__Preview
-    size = 6rem
-    width: 6rem
-    height: 6rem
+    size = 7rem
+    width: size
+    height: size
     display: flex
     align-items: center
     justify-content: center
     position: relative
+    border: #fff solid 4px
+    box-shadow: colorGray 0 0 0 1px
 
     &Image
-      width: 6rem
-      height: 6rem
+      width: 100%
+      height: 100%
       object-fit: cover
 
   &__Remove
@@ -103,6 +104,15 @@ export default {
     position: absolute
     background: #fff
     border: 0
+
+    &:hover &Icon
+      fill: colorPrimaryBlue
+
+    &Icon
+      transition: transitionBase
+      fill: colorGray
+
+
 
   &__File
     position: absolute
@@ -137,5 +147,21 @@ export default {
   &__Label
     textSmallCaps()
     font-weight: 600
+
+  &__Remove
+    top: -4px
+    right: -4px
+    position: absolute
+    display: flex
+    justify-content: center
+    align-items: center
+    padding: 0
+    border: 0
+    width: 2rem
+    height: 2rem
+
+    &Icon
+      height: 1.25rem
+      width: 1.25rem
 
 </style>

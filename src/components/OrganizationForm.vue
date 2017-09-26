@@ -102,6 +102,7 @@ export default {
       const { org } = this
       return {
         description: String(org.description).length,
+        logo: String(org.logo).length,
         name: String(org.name).length,
         type: this.organizationTypeOptions.includes(org.type),
         region: this.countryOptions.includes(org.region),

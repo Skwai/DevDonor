@@ -47,10 +47,6 @@ export default {
     UserOrganization
   },
 
-  computed: {
-    ...mapGetters(['uid'])
-  },
-
   data () {
     return {
       loading: true,
@@ -58,29 +54,38 @@ export default {
       skillOptions: [],
 
       project: {
-        name: null,
+        title: null,
         description: null,
         skills: []
       }
     }
   },
 
+  computed: {
+    ...mapGetters(['uid'])
+  },
+
   methods: {
     async submit () {
       const projectId = db.ref('projects').push().key
-      const { description, name } = this.project
+      const { description, title } = this.project
       const organization = this.userOrgs[0]['.key']
       const skills = this.project.skills.reduce((obj, v) => Object.assign(obj, { [v]: true }), {})
-      const createdAt = new Date().toISOString()
       this.saving = true
       try {
-        await db.ref(`projects/${projectId}`).update({
-          // TODO: make organizations selectable
-          organization,
-          description,
-          name,
-          skills,
-          createdAt
+        await db.ref(`projects/${projectId}`).transaction((data) => {
+          // Add the author to the project if they're not already
+          const volunteers = (data && data.volunteers && this.uid in data.volunteers)
+            ? data.volunteers
+            : { [this.uid]: true }
+          return {
+            organization: data && data.organization ? data.organization : organization,
+            createdAt: data && data.createdAt ? data.createdAt : new Date().toISOString(),
+            title,
+            skills,
+            description,
+            volunteers
+          }
         })
         this.$store.dispatch('showNotification', {
           message: 'Your project has been created',
@@ -88,6 +93,7 @@ export default {
         })
         this.$router.push({ name: 'project', params: { projectId } })
       } catch (err) {
+        console.log(err)
       } finally {
         this.saving = false
       }

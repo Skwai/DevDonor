@@ -79,7 +79,6 @@ export default {
 @require "../styles/config.styl"
 @require "../styles/text.styl"
 
-
 .Btn
   background: #fff
   border-radius: 99rem
@@ -96,6 +95,10 @@ export default {
   cursor: pointer
   box-shadow: inset rgba(0,0,0,.1) 0 0 0 1px
   position: relative
+
+  &[disabled]
+    cursor: not-allowed
+    opacity: .5
 
   &:focus,
   &:active

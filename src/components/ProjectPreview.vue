@@ -5,7 +5,6 @@
         <div class="ProjectPreview__LogoWrap">
           <img class="ProjectPreview__LogoImage" :src="organization.logo">
         </div>
-        <div class="ProjectPreview__Category">{{organization.type}}</div>
       </div>
       <div class="ProjectPreview__Details">
         <header class="ProjectPreview__Header">
@@ -20,7 +19,7 @@
         </header>
         <div class="ProjectPreview__Description">{{project.title}}</div>
         <div class="ProjectPreview__Tags">
-          <Tag v-for="(tag, key) in project.skills":key="key" :tag="tag" />
+          <Tag v-for="(tag, key) in project.skills" :key="key" :tag="key" />
         </div>
       </div>
     </router-link>
@@ -115,14 +114,14 @@ export default {
       justify-content: center
       background: #fff
       box-shadow: rgba(0,0,0,.1) 0 1px 2px, colorLightGray 0 0 0 1px
+      border: #fff 4px solid
 
     &Image
       max-width: 100%
       max-height: 100%
 
   &__Organization
-    textHeading()
-    color: colorPrimaryBlue
+    textSubheading()
 
   &__Details
     flex: 1
@@ -150,6 +149,9 @@ export default {
 
     &Inner
       margin-right: spacingSmall
+
+  &__Tags
+    margin-top: 0.35rem
 
   &__CreatedAt
     text-align: right
