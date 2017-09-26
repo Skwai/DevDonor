@@ -170,7 +170,7 @@ export default {
     white-space: nowrap
     padding: spacingTiny spacingBase
     cursor: pointer
-    transition: 0.2s
+    transition: transitionBase
     white-space: nowrap
     align-items: center
     min-width: 16rem

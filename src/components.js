@@ -28,6 +28,7 @@ import MediaObject from '@/components/MediaObject'
 import FormBlock from '@/components/FormBlock'
 import CheckboxGroup from '@/components/CheckboxGroup'
 import Counter from '@/components/Counter'
+import FilterMenu from '@/components/FilterMenu'
 
 Vue.component('TextField', TextField)
 Vue.component('SelectField', SelectField)
@@ -49,3 +50,4 @@ Vue.component('MediaObject', MediaObject)
 Vue.component('FormBlock', FormBlock)
 Vue.component('CheckboxGroup', CheckboxGroup)
 Vue.component('Counter', Counter)
+Vue.component('FilterMenu', FilterMenu)

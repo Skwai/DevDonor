@@ -4,8 +4,8 @@
     <div v-else>
       <div v-if="projects.length">
         <Filters>
-          <Btn color="light">Skill: Any</Btn>
-          <Btn color="light">Region: All</Btn>
+          <FilterMenu label="Skill" />
+          <FilterMenu label="Skill" />
         </Filters>
         <ProjectPreview
           v-for="(project, index) in projects"

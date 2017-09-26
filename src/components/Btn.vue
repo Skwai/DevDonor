@@ -93,7 +93,7 @@ export default {
   textSmallCaps()
   white-space: nowrap
   cursor: pointer
-  box-shadow: inset rgba(0,0,0,.1) 0 0 0 1px
+  box-shadow: inset colorGray 0 0 0 1px
   position: relative
 
   &[disabled]
