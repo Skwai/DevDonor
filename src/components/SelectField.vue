@@ -48,7 +48,7 @@ export default {
       isDirty: false,
       open: false,
       filterValue: '',
-      inputValue: ''
+      inputValue: this.value
     }
   },
 
@@ -70,12 +70,6 @@ export default {
     }
   },
 
-  watch: {
-    value (newValue) {
-      this.inputValue = newValue
-    }
-  },
-
   methods: {
     preventScroll (ev) {
       if ([32, 37, 38, 39, 40].includes(ev.keyCode)) {
@@ -84,6 +78,7 @@ export default {
     },
 
     filterOptions (ev) {
+      this.$emit('update:value', null)
       this.filterValue = ev.target.value
     },
 

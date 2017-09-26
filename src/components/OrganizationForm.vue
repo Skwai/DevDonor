@@ -1,5 +1,5 @@
 <template>
-  <Loading v-if="loading" />
+  <Loading v-if="isLoading" />
   <Page v-else>
     <form @submit.prevent="submit" slot="content">
 
@@ -20,7 +20,7 @@
         :value.sync="org.type"
         :error="!validation.type"
         errorMessage="Please select a charity type"
-        :options="organizationTypeOptions"
+        :options="typeOptions"
       />
 
       <TextField
@@ -84,7 +84,7 @@ export default {
       submitted: false,
 
       countryOptions: [],
-      organizationTypeOptions: [],
+      typeOptions: [],
 
       org: {
         description: null,
@@ -104,7 +104,7 @@ export default {
         description: String(org.description).length,
         logo: String(org.logo).length,
         name: String(org.name).length,
-        type: this.organizationTypeOptions.includes(org.type),
+        type: this.typeOptions.includes(org.type),
         region: this.countryOptions.includes(org.region),
         url: String(org.url).length
       }
@@ -113,6 +113,10 @@ export default {
     isValid () {
       const { validation } = this
       return Object.keys(validation).every(k => validation[k])
+    },
+
+    isLoading () {
+      return this.loading || !this.typeOptions.length || !this.countryOptions.length
     },
 
     ...mapGetters(['uid'])
@@ -158,7 +162,6 @@ export default {
         })
         this.$router.push({ name: 'organization', params: { organizationId } })
       } catch (err) {
-        console.log(err)
         this.$store.dispatch('showNotification', {
           type: 'error',
           message: 'Error submitting form'
@@ -180,7 +183,7 @@ export default {
       organizationTypes: {
         source: db.ref('organizationTypes'),
         readyCallback (snapshot) {
-          this.organizationTypeOptions = Object.keys(snapshot.val())
+          this.typeOptions = Object.keys(snapshot.val())
         }
       }
     }

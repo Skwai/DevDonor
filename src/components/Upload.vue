@@ -19,13 +19,21 @@
 import { storage } from '@/services/firebase'
 
 export default {
-  props: ['fileTypes', 'maxFileSize', 'filePath', 'fileName', 'label'],
+  props: ['url', 'fileTypes', 'maxFileSize', 'filePath', 'fileName', 'label'],
 
   methods: {
     removeUpload () {
-      if (!this.url) return
-      this.url = null
+      if (!this.uploadUrl) return
+      this.uploadUrl = null
       this.$emit('update:url', this.url)
+    },
+
+    data () {
+      return {
+        progress: 0,
+        uploadUrl: this.url,
+        uploading: false
+      }
     },
 
     async upload (ev) {
@@ -56,20 +64,12 @@ export default {
         })
 
         const { downloadURL } = await task
-        this.url = downloadURL
-        this.$emit('update:url', this.url)
+        this.uploadUrl = downloadURL
+        this.$emit('update:url', this.uploadUrl)
       } finally {
         this.uploading = false
       }
       // TODO: resize image: https://gist.github.com/dcollien/312bce1270a5f511bf4a
-    }
-  },
-
-  data () {
-    return {
-      progress: 0,
-      url: null,
-      uploading: false
     }
   }
 }
@@ -111,8 +111,6 @@ export default {
     &Icon
       transition: transitionBase
       fill: colorGray
-
-
 
   &__File
     position: absolute
