@@ -44,7 +44,8 @@
         filePath="logos"
         :fileName="organizationId"
         :url.sync="org.logo"
-        label="Upload your logo"
+        label="Upload Your Logo"
+        description="Upload a picture to use as your logo"
       />
 
       <TextAreaField

@@ -14,7 +14,10 @@
           </div>
         </label>
       </template>
-      <div class="Upload__Label" slot="body">{{label}}</div>
+      <div slot="body">
+        <p v-if="label" class="Upload__Label">{{label}}</p>
+        <HelpText v-if="description">{{description}}</HelpText>
+      </div>
     </MediaObject>
   </div>
 </template>
@@ -29,7 +32,8 @@ export default {
     'maxFileSize',
     'filePath',
     'fileName',
-    'label'
+    'label',
+    'description'
   ],
 
   data () {
