@@ -15,20 +15,21 @@
     <div slot="sidebar">
       <div class="Project__Join">
         <ContentBlock textAlign="center">
-          <div v-if="!userInProject">
+          <template v-if="userInProject">
+            <p v-if="userPending">You've applied to join this project</p>
+            <p v-else>You've joined this project</p>
+            <Btn
+              :click="leaveProject"
+              :loading="leaving"
+            >Leave Project</Btn>
+          </template>
+          <template v-else>
             <p>Interested in helping out?</p>
             <Btn
               :click="joinProject"
               :loading="joining"
             >Volunteer for this project</Btn>
-          </div>
-          <div v-else>
-            <p>You've applied to join this project.</p>
-            <Btn
-              :click="leaveProject"
-              :loading="leaving"
-            >Leave Project</Btn>
-          </div>
+          </template>
         </ContentBlock>
       </div>
       <OrganizationPreview :organizationId="project.organization" />
@@ -100,6 +101,14 @@ export default {
   },
 
   computed: {
+    userPending () {
+      const { project, uid } = this
+      return project &&
+        uid &&
+        project.volunteers &&
+        uid in project.volunteers &&
+        project.volunteers[uid] === false
+    },
     userInProject () {
       const { project, uid } = this
       return project && uid && project.volunteers && Object.keys(project.volunteers).includes(uid)
@@ -117,7 +126,6 @@ export default {
         source: db.ref(`projects/${this.$route.params.projectId}`),
         asObject: true,
         readyCallback (snapshot) {
-          console.log(snapshot.val())
           this.loading = false
         }
       }

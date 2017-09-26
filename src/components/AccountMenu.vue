@@ -20,7 +20,7 @@
             class="AccountMenu__OptionsLogo"
             :src="org.logo"
             :alt="org.name"
-            >
+          >
         </router-link>
         <router-link to="/project/create" class="AccountMenu__Option">Create a project</router-link>
       </div>
@@ -94,9 +94,12 @@ export default {
         source: db.ref(`users/${this.uid}/organizations`),
         async readyCallback (snapshot) {
           const promises = []
-          snapshot.forEach(({ key }) => promises.push(db.ref(`organizations/${key}`).once('value')))
-          const orgs = await Promise.all(promises)
-          this.orgs = orgs.reduce((obj, s) => Object.assign(obj, { [s.key]: s.val() }), {})
+          snapshot.forEach(({ key }) => {
+            promises.push(db.ref(`organizations/${key}`).once('value'))
+          })
+          const orgSnapshots = await Promise.all(promises)
+          const orgs = orgSnapshots.reduce((obj, s) => Object.assign(obj, { [s.key]: s.val() }), {})
+          this.orgs = orgs
         }
       }
     }
@@ -183,9 +186,9 @@ export default {
 
   &__OptionsLogo
     margin-left: auto
-    width: 2rem
-    height: 2rem
+    width: 1.5rem
+    height: 1.5rem
     object-fit: cover
-    border-radius: borderRadiusSmall
+    border-radius: 50%
 
 </style>

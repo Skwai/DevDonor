@@ -1,9 +1,9 @@
 {
-  "Desktop Software Development": true,
-  "Web Development": true,
-  "Mobile Development": true,
+  "Desktop": true,
+  "Web": true,
+  "Mobile": true,
   "Product Management": true,
   "Systems Administration": true,
-  "UX Design": true,
+  "UX": true,
   "Design": true
 }

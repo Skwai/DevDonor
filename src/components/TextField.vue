@@ -97,4 +97,5 @@ export default {
   &__Input:focus + &__Label
     transform: translate(0, -100%) scale(0.875)
     opacity: 1
+    color: colorPrimaryBlue
 </style>
