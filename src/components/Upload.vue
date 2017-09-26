@@ -1,17 +1,21 @@
 <template>
-  <div class="Upload">
-    <div v-if="url" class="Upload__Preview">
-      <img :src="url" class="Upload__PreviewImage">
-      <button type="button" @click.prevent="removeUpload" class="Upload__Remove"><svg class="Upload__RemoveIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
-    </div>
-    <label class="Upload__Drop" v-else>
-      <Loading v-if="uploading" />
-      <div v-else>
-        <svg class="Upload__Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke-width="1" stroke-miterlimit="10"><path d="M12 22V9" data-cap="butt"/><path d="M9 12l3-3 3 3" stroke-linecap="square"/><path d="M16 17h3c2.209 0 4-1.791 4-4 0-2.197-1.782-4.013-4.025-3.997C18.718 5.093 15.474 2 11.5 2 7.481 2 4.21 5.164 4.018 9.136 2.287 9.575 1 11.132 1 13c0 2.209 1.791 4 4 4h3" stroke-linecap="square"/></g></svg>
-        <div class="Upload__Label">{{label}}</div>
-        <input type="file" @change="upload" class="Upload__File">
-      </div>
-    </label>
+  <div class="Upload" slot="object">
+    <MediaObject align="center">
+      <template slot="object">
+        <div v-if="url" class="Upload__Preview">
+          <img :src="url" class="Upload__PreviewImage">
+          <button type="button" @click.prevent="removeUpload" class="Upload__Remove"><svg class="Upload__RemoveIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+        </div>
+        <label class="Upload__Drop" v-else>
+          <Loading v-if="uploading" />
+          <div v-else>
+            <svg class="Upload__Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke-width="1" stroke-miterlimit="10"><path d="M12 22V9" data-cap="butt"/><path d="M9 12l3-3 3 3" stroke-linecap="square"/><path d="M16 17h3c2.209 0 4-1.791 4-4 0-2.197-1.782-4.013-4.025-3.997C18.718 5.093 15.474 2 11.5 2 7.481 2 4.21 5.164 4.018 9.136 2.287 9.575 1 11.132 1 13c0 2.209 1.791 4 4 4h3" stroke-linecap="square"/></g></svg>
+            <input type="file" @change="upload" class="Upload__File">
+          </div>
+        </label>
+      </template>
+      <div class="Upload__Label" slot="body">{{label}}</div>
+    </MediaObject>
   </div>
 </template>
 
@@ -84,10 +88,10 @@ export default {
 @require "../styles/text.styl"
 
 .Upload
+  size = 7rem
   margin-bottom: spacingBase
 
   &__Preview
-    size = 7rem
     width: size
     height: size
     display: flex
@@ -131,8 +135,8 @@ export default {
 
   &__Drop
     position: relative
-    width: 100%
-    height: 6rem
+    width: size
+    height: size
     border-radius: borderRadiusBase
     border: colorGray dashed 2px
     display: flex
@@ -151,8 +155,7 @@ export default {
     stroke: currentColor
 
   &__Label
-    textSmallCaps()
-    font-weight: 600
+    font-weight: 500
 
   &__Remove
     top: -4px
