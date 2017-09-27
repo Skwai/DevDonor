@@ -1,6 +1,7 @@
 <template>
   <article class="ProjectPreview" :class="{ '-loading': loading }">
     <router-link :to="{ name: 'project', params: { projectId: project['.key'] } }" class="ProjectPreview__Link">
+      <div class="ProjectPreview__Count">3/3</div>
       <img class="ProjectPreview__Logo" :src="organization.logo">
       <div class="ProjectPreview__Body">
         <header class="ProjectPreview__Header">
@@ -79,6 +80,22 @@ export default {
     opacity: .4
     width: 100%
     margin-top: spacingSmall
+
+  &__Count
+    position: absolute
+    right: 0
+    top: 0
+    background: colorPrimaryBlue
+    transform: translate(25%, -25%)
+    border-radius: 50%
+    color: #fff
+    border: #fff solid 4px
+    font-size: fontSizeSmall
+    width: 3em
+    height: 3em
+    display: flex
+    align-items: center
+    justify-content: center
 
   &__Link
     display: flex

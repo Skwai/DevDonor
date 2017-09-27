@@ -1,37 +1,36 @@
 <template>
   <div class="Projects">
     <Loading v-if="loading" />
-    <div v-else>
-        <Filters>
-          <FilterMenu
-            label="Skill"
-            :options="skillOptions"
-            :value.sync="filters.skill"
+    <template v-else>
+      <Filters>
+        <FilterMenu
+          label="Skill"
+          :options="skillOptions"
+          :value.sync="filters.skill"
+        />
+        <FilterMenu
+          label="Region"
+          :options="regionOptions"
+          :value.sync="filters.region"
+        />
+        <FilterMenu
+          label="Status"
+          :options="statusOptions"
+          :value.sync="filters.status"
+        />
+      </Filters>
+      <div v-if="projects.length" class="Projects__List">
+        <div class="Projects__ListItem"
+          v-for="(project, index) in projects"
+          :key="index"
+        >
+          <ProjectPreview
+            :project="project"
           />
-          <FilterMenu
-            label="Region"
-            :options="regionOptions"
-            :value.sync="filters.region"
-          />
-          <FilterMenu
-            label="Status"
-            :options="statusOptions"
-            :value.sync="filters.status"
-          />
-        </Filters>
-        <div v-if="projects.length" class="Projects__List">
-          <div class="Projects__ListItem"
-            v-for="(project, index) in projects"
-            :key="index"
-          >
-            <ProjectPreview
-              :project="project"
-            />
-          </div>
         </div>
-        <Alert v-else>Sorry, no projects found</Alert>
       </div>
-    </div>
+      <Alert v-else>Sorry, no projects found</Alert>
+    </template>
   </div>
 </template>
 
@@ -94,7 +93,7 @@ export default {
   &__List
     display: flex
     flex-wrap: wrap
-    margin: (-1 * spacingBase / 2)
+    margin: (spacingBase / -2)
 
   &__ListItem
     display: flex

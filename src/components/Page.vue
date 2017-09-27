@@ -16,7 +16,6 @@ export default {}
 @require "../styles/grid.styl"
 
 .Page
-  background: colorOffWhite
   min-height: 100vh
   border-bottom: colorLightGray solid 1px
 
