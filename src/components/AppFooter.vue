@@ -31,7 +31,7 @@ export default {
 
   &__Container
     container()
-    padding: spacingBase
+    padding: spacingBase spacingBase spacingLarge
 
   &__License
     margin-bottom: spacingSmall

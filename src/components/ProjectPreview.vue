@@ -76,9 +76,6 @@ export default {
   text-align: center
   width: 100%
 
-  *
-    transform: translate3d(0,0,0)
-
   &:hover
     z-index: 2
 
@@ -118,16 +115,23 @@ export default {
     background: #fff
     flex-direction: column
     align-items: stretch
-    transform: translate3d(0,0,0,0)
     transition: transitionBase
     box-shadow: colorGray 0 0 0 1px
     width: 100%
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0) scale(1.0, 1.0);
 
-    &:hover
-      box-shadow: rgba(35,47,65,.1) 0 2px 2rem, colorGray 0 0 0 1px
+    &:focus
+      outline: 0
 
-      @media (min-width: 1024px)
-        transform: scale(1.02)
+    &:hover,
+    &:focus
+      box-shadow: rgba(colorPrimaryBlue,.2) 0 2px 2rem, colorPrimaryBlue 0 0 0 1px
+
+    &:hover .ProjectPreview__Logo,
+    &focus .ProjectPreview__Logo
+      box-shadow: rgba(0,0,0,.1) 0 1px 2px, colorPrimaryBlue 0 0 0 1px
+
 
   &__Skills
     margin-top: spacingSmall
@@ -146,6 +150,7 @@ export default {
     box-shadow: rgba(0,0,0,.1) 0 1px 2px, colorGray 0 0 0 1px
     border: #fff 4px solid
     object-fit: cover
+    transition: transitionBase
 
   &__Organization
     textSubheading()
