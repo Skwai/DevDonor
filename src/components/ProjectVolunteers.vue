@@ -1,7 +1,7 @@
 <template>
   <section class="ProjectVolunteers">
     <h3 class="ProjectVolunteers__Heading">Project Members ({{userCount}})</h3>
-    <ul class="ProjectVolunteers__Users">
+    <ul class="ProjectVolunteers__Users" v-if="userCount > 0">
       <li class="ProjectVolunteers__User"
         v-for="(user, key) in projectUserIds"
         v-if="user"
@@ -9,6 +9,9 @@
       >
       <VolunteerAvatar :userId="key" :showDetails="true" /></li>
     </ul>
+    <div v-else class="ProjectVolunteers__Empty">
+      <p>This project needs your help!</p>
+    </div>
   </section>
 </template>
 
@@ -24,7 +27,7 @@ export default {
 
   computed: {
     userCount () {
-      return Object.values(this.projectUserIds).filter((v) => v === true).length
+      return this.projectUserIds ? Object.values(this.projectUserIds).filter((v) => v === true).length : 0
     }
   }
 }
@@ -47,5 +50,6 @@ export default {
   &__User + &__User
     margin-top: spacingSmall
 
-
+  &__Empty
+    text-align: center
 </style>

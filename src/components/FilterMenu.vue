@@ -5,6 +5,7 @@
       <div
         class="FilterMenu__Option"
         :class="{ '-selected': !value }"
+        @click="selectOPtion(null)"
       >All</div>
       <div
         v-for="(option, key) in options"

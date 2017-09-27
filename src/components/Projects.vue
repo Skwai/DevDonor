@@ -13,11 +13,6 @@
           :options="regionOptions"
           :value.sync="filters.region"
         />
-        <FilterMenu
-          label="Status"
-          :options="statusOptions"
-          :value.sync="filters.status"
-        />
       </Filters>
       <div v-if="projects.length" class="Projects__List">
         <div class="Projects__ListItem"
@@ -35,9 +30,11 @@
 </template>
 
 <script>
-import { db } from '@/services/firebase'
+import { db, formatObjects } from '@/services/firebase'
 import ProjectPreview from '@/components/ProjectPreview'
 import Filters from '@/components/Filters'
+
+const PROJECTS_PER_PAGE = 100
 
 export default {
   components: {
@@ -48,37 +45,74 @@ export default {
   data () {
     return {
       loading: true,
+      projects: [],
 
       skillOptions: [],
       regionOptions: [],
-      statusOptions: [],
 
       filters: {
         skill: null,
-        region: null,
-        status: null
+        region: null
+      }
+    }
+  },
+
+  watch: {
+    'filters.skill' (val) {
+      this.getProjects()
+    },
+    'filters.region' (val) {
+      this.getProjects()
+    }
+  },
+
+  created () {
+    this.getProjects()
+  },
+
+  methods: {
+    async getProjects () {
+      this.loading = true
+      try {
+        const ref = db.ref('projects')
+        const snapshot = await ref.limitToFirst(PROJECTS_PER_PAGE).once('value')
+        const projects = formatObjects(snapshot)
+        const { skill, region } = this.filters
+        const { countries } = this
+        const filtered = projects
+          .filter((v) => skill ? (v.skills && skill in v.skills) : true)
+          .filter((v) => {
+            // Get the region of the project country
+            const [r] = Object.values(countries)
+              .filter((c) => c['.key'] === v.country)
+              .map((c) => c['.value'])
+            return region ? r === region : true
+          })
+        this.projects = filtered
+      } catch (err) {
+        console.log(err)
+        this.$store.dispatch('showNotification', {
+          message: 'Error retrieving projects',
+          type: 'error'
+        })
+      } finally {
+        this.loading = false
       }
     }
   },
 
   firebase () {
     return {
-      projects: {
-        source: db.ref('projects').limitToFirst(20),
-        readyCallback () {
-          this.loading = false
-        }
-      },
       skills: {
         source: db.ref('skills'),
         readyCallback (snapshot) {
           this.skillOptions = Object.keys(snapshot.val())
         }
       },
-      regions: {
+      countries: {
         source: db.ref('countries'),
         readyCallback (snapshot) {
-          this.regionOptions = Object.keys(snapshot.val())
+          this.regionOptions = [...new Set(Object.values(snapshot.val()))]
         }
       }
     }
@@ -90,14 +124,21 @@ export default {
 @require "../styles/config.styl"
 
 .Projects
+  padding: 0 spacingBase
+
   &__List
     display: flex
     flex-wrap: wrap
-    margin: (spacingBase / -2)
+    margin: (spacingBase / 2) (spacingBase / -2)
 
   &__ListItem
     display: flex
-    flex: 0 0 (100% / 3)
     padding: (spacingBase / 2)
+    flex: 0 0 100%
 
+    @media (min-width: 640px)
+      flex: 0 0 50%
+
+    @media (min-width: 1024px)
+      flex: 0 0 (100% / 3)
 </style>

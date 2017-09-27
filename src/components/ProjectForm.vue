@@ -94,6 +94,10 @@ export default {
         this.$router.push({ name: 'project', params: { projectId } })
       } catch (err) {
         console.log(err)
+        this.$dispatch('showNotification', {
+          message: 'There was an error saving your project',
+          type: 'error'
+        })
       } finally {
         this.saving = false
       }

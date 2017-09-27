@@ -1,7 +1,7 @@
 <template>
   <article class="ProjectPreview" :class="{ '-loading': loading }">
     <router-link :to="{ name: 'project', params: { projectId: project['.key'] } }" class="ProjectPreview__Link">
-      <div class="ProjectPreview__Count">3/3</div>
+      <div class="ProjectPreview__Count" v-if="isNew">NEW</div>
       <img class="ProjectPreview__Logo" :src="organization.logo">
       <div class="ProjectPreview__Body">
         <header class="ProjectPreview__Header">
@@ -24,12 +24,25 @@
 <script>
 import { db } from '@/services/firebase'
 
+const NEW_THRESHOLD_DAYS = 14
+
 export default {
   props: ['project'],
 
   data () {
     return {
       loading: true
+    }
+  },
+
+  computed: {
+    isNew () {
+      const { project } = this
+      if (!project || !project.createdAt) return false
+      const delta = new Date().getTime() - new Date(project.createdAt).getTime()
+      const microtime = 24 * 60 * 60 * 1000 * NEW_THRESHOLD_DAYS
+      console.log(delta, microtime)
+      return delta < microtime
     }
   },
 
@@ -61,6 +74,7 @@ export default {
   transform-origin: center center
   display: flex
   text-align: center
+  width: 100%
 
   *
     transform: translate3d(0,0,0)
@@ -87,11 +101,11 @@ export default {
     top: 0
     background: colorPrimaryBlue
     transform: translate(25%, -25%)
-    border-radius: 50%
+    border-radius: 99rem
     color: #fff
-    border: #fff solid 4px
+    border: colorOffWhite solid 4px
     font-size: fontSizeSmall
-    width: 3em
+    padding: 0 1em
     height: 3em
     display: flex
     align-items: center
@@ -107,6 +121,7 @@ export default {
     transform: translate3d(0,0,0,0)
     transition: transitionBase
     box-shadow: colorGray 0 0 0 1px
+    width: 100%
 
     &:hover
       box-shadow: rgba(35,47,65,.1) 0 2px 2rem, colorGray 0 0 0 1px
@@ -122,7 +137,7 @@ export default {
     left: 50%
     top: 0
     transform: translate(-50%, -50%)
-    width: logoSize
+    width: auto
     height: logoSize
     display: flex
     align-items: center

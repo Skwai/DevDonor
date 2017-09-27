@@ -8,7 +8,7 @@
           <h1>{{user.name}}</h1>
           <div><SmallCaps>{{user.role}}, {{user.region}}</SmallCaps></div>
           <div class="Volunteer__Tags">
-            <Tag v-for="(tag, key) in user.skills" :key="key" :tag="tag" />
+            <Tag v-for="(skill, key) in user.skills" :key="key" :tag="key" />
           </div>
         </div>
       </header>
@@ -78,5 +78,8 @@ export default {
 
   &__Bio
     textMarkdown()
+
+  &__Tags
+    margin-top: 0.5rem
 
 </style>

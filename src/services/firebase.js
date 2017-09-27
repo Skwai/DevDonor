@@ -24,3 +24,8 @@ export const getCurrentUser = () => new Promise((resolve, reject) => {
     auth().onAuthStateChanged((u) => u ? resolve(u) : reject(null))
   }
 })
+
+export const formatObjects = (snapshot) => Object.keys(snapshot.val()).map((k) => ({
+  '.key': k,
+  ...(snapshot.val()[k])
+}))

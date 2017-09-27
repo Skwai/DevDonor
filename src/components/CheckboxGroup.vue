@@ -44,7 +44,6 @@ export default {
 
   &__Label
     font-weight: 600
-    color: colorPrimaryBlue
 
   &__Options
     display: flex
@@ -85,8 +84,6 @@ export default {
       &:hover::before
         background: #fff
         box-shadow: inset colorPrimaryBlue 0 0 0 1px
-
-      input:checked + &
 
       input:checked + &
         color: colorPrimaryBlue

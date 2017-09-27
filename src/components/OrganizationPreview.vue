@@ -46,7 +46,6 @@ export default {
   },
 
   firebase () {
-    console.log(this.organizationId)
     return {
       organization: {
         source: db.ref(`organizations/${this.organizationId}`),

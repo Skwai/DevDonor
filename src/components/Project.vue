@@ -15,20 +15,26 @@
     <div slot="sidebar">
       <div class="Project__Join">
         <ContentBlock textAlign="center">
-          <template v-if="userInProject">
-            <p v-if="userPending">You've applied to join this project</p>
-            <p v-else>You've joined this project</p>
-            <Btn
-              :click="leaveProject"
-              :loading="leaving"
-            >Leave Project</Btn>
+          <!-- TODO: refactor this -->
+          <template v-if="!uid">
+            Sign up to volunter for this project
           </template>
           <template v-else>
-            <p>Interested in helping out?</p>
-            <Btn
-              :click="joinProject"
-              :loading="joining"
-            >Volunteer for this project</Btn>
+            <template v-if="currentUserInProject">
+              <p v-if="currentUserPending">You've applied to join this project</p>
+              <p v-else>You've joined this project</p>
+              <Btn
+                :click="leaveProject"
+                :loading="leaving"
+              >Leave Project</Btn>
+            </template>
+            <template v-else>
+              <p>Interested in helping out?</p>
+              <Btn
+                :click="joinProject"
+                :loading="joining"
+              >Volunteer for this project</Btn>
+            </template>
           </template>
         </ContentBlock>
       </div>
@@ -101,7 +107,7 @@ export default {
   },
 
   computed: {
-    userPending () {
+    currentUserPending () {
       const { project, uid } = this
       return project &&
         uid &&
@@ -109,7 +115,7 @@ export default {
         uid in project.volunteers &&
         project.volunteers[uid] === false
     },
-    userInProject () {
+    currentUserInProject () {
       const { project, uid } = this
       return project && uid && project.volunteers && Object.keys(project.volunteers).includes(uid)
     },

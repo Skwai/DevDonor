@@ -7,62 +7,36 @@
         Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback.
       </ContentBlock>
 
-      <FormBlock legend="Profile picture">
-        <MediaObject align="center">
-          <div slot="object">
-            <Avatar v-if="user.picture" :url="user.picture" description="Your profile picture" />
-            <Upload v-else
-              :maxFileSize="2"
-              filePath="avatars"
-              :fileName="organizationId"
-              :url.sync="user.picture"
-              label="Upload a profile picture"
-            />
-          </div>
-          <div slot="body">
-            <p>Upload a professional portrait that clearly shows your face</p>
-          </div>
-        </MediaObject>
-      </FormBlock>
-
       <FormBlock legend="Basic information">
-
         <TextField
           label="Name"
           :value.sync="profile.name"
         />
-
         <SelectField
           label="Country"
           :value.sync="user.country"
           :options="countryOptions"
         />
-
       </FormBlock>
 
       <FormBlock legend="Professional history">
-
         <TextField
           label="Professional title"
           :value.sync="profile.role"
           description='A professional title that describes the work you do. Eg. "Web Developer" or "UX Designer"'
         />
-
         <CheckboxGroup
           label="Professional skills"
           :options="skillOptions"
           description="Select the type of work you have expertise in"
           :value.sync="profile.skills"
         />
-
       </FormBlock>
       <FormBlock legend="Your biography">
-
         <TextAreaField
           label="A little bit about yourself"
           :value.sync="profile.bio"
         />
-
       </FormBlock>
 
       <Btn

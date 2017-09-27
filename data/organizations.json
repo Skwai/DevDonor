@@ -3,7 +3,7 @@
     "status": "approved",
     "name" : "World Wildlife Fund",
     "logo" : "https://c402277.ssl.cf1.rackcdn.com/photos/9031/images/original/WWF_25mm_no_tab.png",
-    "region" : "Worldwide",
+    "country" : "Australia",
     "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "type" : "NFP",
     "url": "https://www.worldwildlife.org"
@@ -12,7 +12,7 @@
     "status": "approved",
     "name" : "Red",
     "logo" : "https://red.org/wp-content/uploads/2016/11/red-logo.jpg",
-    "region" : "Worldwide",
+    "country" : "Australia",
     "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "type" : "NFP",
     "url": "https://red.org"
@@ -21,7 +21,7 @@
     "status": "approved",
     "name" : "Red Cross",
     "logo" : "https://i.kinja-img.com/gawker-media/image/upload/s--QNLRzYHX--/c_fill,fl_progressive,g_center,h_450,q_80,w_800/edjsz6yzvuhbzo2mi5lt.jpg",
-    "region" : "Worldwide",
+    "country" : "Australia",
     "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "type" : "Charity",
     "url": "https://wellcome.ac.uk"
@@ -30,7 +30,7 @@
     "status": "approved",
     "name" : "Bill & Melinda Gates Foundation",
     "logo" : "https://www.gatesfoundation.org/~/media/GFO/Site/Logo-Images/Gates_logo_1200x1200.jpg",
-    "region" : "USA",
+    "country" : "Australia",
     "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "type" : "Charity",
     "url": "https://www.gatesfoundation.org"
@@ -39,7 +39,7 @@
     "status": "approved",
     "name" : "Wellcome Trust",
     "logo" : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Wellcome_Trust_logo.svg/250px-Wellcome_Trust_logo.svg.png",
-    "region" : "UK",
+    "country" : "Australia",
     "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "type" : "Charity",
     "url": "https://wellcome.ac.uk/"
@@ -48,7 +48,7 @@
     "status": "approved",
     "name" : "UNICEF",
     "logo" : "https://www.spellbrand.com/images/blog/images/united-nations-childrens-fund-logo-design-trend.jpg",
-    "region" : "Australia",
+    "country" : "Australia",
     "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "type" : "NFP",
     "url": "https://www.unicef.org"
