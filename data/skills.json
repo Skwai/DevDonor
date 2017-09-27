@@ -2,8 +2,8 @@
   "Desktop": true,
   "Web": true,
   "Mobile": true,
-  "Product Management": true,
-  "Systems Administration": true,
+  "Product": true,
+  "DevOps": true,
   "UX": true,
   "Design": true
 }

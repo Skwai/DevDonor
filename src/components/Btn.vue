@@ -128,10 +128,12 @@ export default {
 
   &--dark
     background: colorDarkBlue
+    box-shadow: none
     color: #fff
 
   &--primary
     background: colorPrimaryBlue
+    box-shadow: none
     color: #fff
 
   &:hover,

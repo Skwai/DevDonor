@@ -2,19 +2,34 @@
   <div class="Projects">
     <Loading v-if="loading" />
     <div v-else>
-      <div v-if="projects.length">
         <Filters>
-          <FilterMenu label="Skill" />
-          <FilterMenu label="Skill" />
+          <FilterMenu
+            label="Skill"
+            :options="skillOptions"
+            :value.sync="filters.skill"
+          />
+          <FilterMenu
+            label="Region"
+            :options="regionOptions"
+            :value.sync="filters.region"
+          />
+          <FilterMenu
+            label="Status"
+            :options="statusOptions"
+            :value.sync="filters.status"
+          />
         </Filters>
-        <ProjectPreview
-          v-for="(project, index) in projects"
-          :project="project"
-          :key="index"
-        />
-      </div>
-      <div v-else>
-        <Alert>Sorry, no projects found</Alert>
+        <div v-if="projects.length" class="Projects__List">
+          <div class="Projects__ListItem"
+            v-for="(project, index) in projects"
+            :key="index"
+          >
+            <ProjectPreview
+              :project="project"
+            />
+          </div>
+        </div>
+        <Alert v-else>Sorry, no projects found</Alert>
       </div>
     </div>
   </div>
@@ -33,7 +48,17 @@ export default {
 
   data () {
     return {
-      loading: true
+      loading: true,
+
+      skillOptions: [],
+      regionOptions: [],
+      statusOptions: [],
+
+      filters: {
+        skill: null,
+        region: null,
+        status: null
+      }
     }
   },
 
@@ -44,6 +69,18 @@ export default {
         readyCallback () {
           this.loading = false
         }
+      },
+      skills: {
+        source: db.ref('skills'),
+        readyCallback (snapshot) {
+          this.skillOptions = Object.keys(snapshot.val())
+        }
+      },
+      regions: {
+        source: db.ref('countries'),
+        readyCallback (snapshot) {
+          this.regionOptions = Object.keys(snapshot.val())
+        }
       }
     }
   }
@@ -51,4 +88,17 @@ export default {
 </script>
 
 <style lang="stylus">
+@require "../styles/config.styl"
+
+.Projects
+  &__List
+    display: flex
+    flex-wrap: wrap
+    margin: (-1 * spacingBase / 2)
+
+  &__ListItem
+    display: flex
+    flex: 0 0 (100% / 3)
+    padding: (spacingBase / 2)
+
 </style>

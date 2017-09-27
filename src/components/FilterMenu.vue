@@ -1,22 +1,29 @@
 <template>
   <div class="FilterMenu" :class="{ '-open': open }">
-    <Btn :click="toggle">{{label}}: {{value}}</Btn>
+    <Btn :click="toggle">{{label}}: {{displayValue}}</Btn>
     <div class="FilterMenu__Options" @click="onOptionsClick">
-      <div class="FilterMenu__Option">All</div>
-      <div class="FilterMenu__Option -selected">Foo</div>
-      <div class="FilterMenu__Option">Bar</div>
+      <div
+        class="FilterMenu__Option"
+        :class="{ '-selected': !value }"
+      >All</div>
+      <div
+        v-for="(option, key) in options"
+        :key="key"
+        class="FilterMenu__Option"
+        :class="{ '-selected': value === option }"
+        @click="selectOption(option)"
+      >{{option}}</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['label'],
+  props: ['label', 'value', 'options'],
 
   data () {
     return {
-      open: false,
-      value: 'Any'
+      open: false
     }
   },
 
@@ -29,9 +36,19 @@ export default {
     document.removeEventListener('click', this.onDocumentClick)
   },
 
+  computed: {
+    displayValue () {
+      return this.value || 'All'
+    }
+  },
+
   methods: {
     toggle () {
       this.open = !this.open
+    },
+
+    selectOption (value) {
+      this.$emit('update:value', value)
     },
 
     onOptionsClick (ev) {
@@ -69,6 +86,8 @@ export default {
     opacity: 0
     transition-duration: transitionBase
     transition-property: opacity, transform
+    max-height: 30vh
+    overflow-y: scroll
 
     .-open &
       transform: translate(0, 0) scale(1, 1)
@@ -79,6 +98,7 @@ export default {
     padding: spacingTiny spacingBase
     cursor: pointer
     transition: transitionBase
+    white-space: nowrap
 
     &.-selected
       color: colorPrimaryBlue
