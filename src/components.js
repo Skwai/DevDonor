@@ -29,6 +29,7 @@ import FormBlock from '@/components/FormBlock'
 import CheckboxGroup from '@/components/CheckboxGroup'
 import Counter from '@/components/Counter'
 import FilterMenu from '@/components/FilterMenu'
+import GlyphIcon from '@/components/GlyphIcon'
 
 Vue.component('TextField', TextField)
 Vue.component('SelectField', SelectField)
@@ -51,3 +52,4 @@ Vue.component('FormBlock', FormBlock)
 Vue.component('CheckboxGroup', CheckboxGroup)
 Vue.component('Counter', Counter)
 Vue.component('FilterMenu', FilterMenu)
+Vue.component('GlyphIcon', GlyphIcon)

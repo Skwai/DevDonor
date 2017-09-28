@@ -2,6 +2,7 @@
   <div class="Account">
     <Loading size="small" color="white" v-if="authenticating" />
     <template v-else>
+      <!--<AccountLinks />-->
       <AccountMenu v-if="auth" />
       <template v-else>
         <button class="Account__Login" @click.prevent="login">
@@ -17,10 +18,12 @@
 <script>
 import { mapGetters } from 'vuex'
 import AccountMenu from '@/components/AccountMenu'
+import AccountLinks from '@/components/AccountLinks'
 
 export default {
   components: {
-    AccountMenu
+    AccountMenu,
+    AccountLinks
   },
 
   computed: {

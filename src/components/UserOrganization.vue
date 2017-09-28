@@ -26,9 +26,7 @@ export default {
 @require "../styles/config.styl"
 
 .UserOrganization
-  padding: spacingTiny
   display: flex
-  border: colorGray solid 1px
   align-items: center
 
   &__Logo

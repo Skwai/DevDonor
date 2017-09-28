@@ -6,8 +6,24 @@
         <p>We will review your application to make sure everything is in order and and email you soon.</p>
       </ContentBlock>
 
-      <div class="ProjectForm__Organizations">
-        <UserOrganization :organizationId="org['.key']" v-for="(org, key) in userOrgs" :key="key" />
+      <div
+        class="ProjectForm__Organization"
+        :class="{ '-open': showOrganizations }"
+      >
+        <button
+          v-if="Object.keys(userOrgs).length"
+          class="ProjectForm__OrganizationToggle"
+          @click.prevent="toggleOrganizations"
+        ><UserOrganization :organizationId="project.organization" /></button>
+        <Loading size="small" v-else />
+        <div class="ProjectForm__OrganizationOptions">
+          <div
+            class="ProjectForm__OrganizationOption"
+            v-for="(org, key) in userOrgs"
+            :key="key"
+            @click="selectOrganization(org['.key'])"
+          ><UserOrganization :organizationId="org['.key']" /></div>
+        </div>
       </div>
 
       <TextField
@@ -31,7 +47,7 @@
     </form>
     <div slot="sidebar">
       <Card>
-        <p>Test</p>
+        <p>Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback, we need to leverage our synergies, for helicopter view cannibalize, and herding cats gain traction. Staff engagement herding cats killing it, nor bottleneck mice.</p>
       </Card>
     </div>
   </Page>
@@ -52,8 +68,10 @@ export default {
       loading: true,
       saving: false,
       skillOptions: [],
+      showOrganizations: false,
 
       project: {
+        organization: null,
         title: null,
         description: null,
         skills: []
@@ -66,10 +84,19 @@ export default {
   },
 
   methods: {
+    toggleOrganizations () {
+      this.showOrganizations = !this.showOrganizations
+    },
+
+    selectOrganization (orgId) {
+      this.project.organization = orgId
+      this.showOrganizations = false
+    },
+
     async submit () {
       const projectId = db.ref('projects').push().key
-      const { description, title } = this.project
-      const organization = this.userOrgs[0]['.key']
+      const { description, title, organization } = this.project
+      // const organization = this.userOrgs[0]['.key']
       const skills = this.project.skills.reduce((obj, v) => Object.assign(obj, { [v]: true }), {})
       this.saving = true
       try {
@@ -93,7 +120,6 @@ export default {
         })
         this.$router.push({ name: 'project', params: { projectId } })
       } catch (err) {
-        console.log(err)
         this.$dispatch('showNotification', {
           message: 'There was an error saving your project',
           type: 'error'
@@ -110,8 +136,10 @@ export default {
         source: db.ref(`users/${this.uid}/organizations`),
         readyCallback (snapshot) {
           if (!snapshot.exists()) {
-            // TODO: empty organizations
+            this.$router.push({ name: '404' })
           }
+          const [org] = Object.keys(snapshot.val())
+          this.project.organization = org
           this.loading = false
         }
       },
@@ -128,8 +156,32 @@ export default {
 
 <style lang="stylus">
 @require "../styles/config.styl"
+@require "../styles/options.styl"
+@require "../styles/forms.styl"
 
 .ProjectForm
-  &__Organizations
+  &__Organization
+    position: relative
+    field()
     margin-bottom: spacingBase
+    line-height: 0
+
+    &Toggle
+      border: 0
+      padding: 0
+      background: transparent
+      cursor: pointer
+      padding: spacingTiny
+      width: 100%
+
+      &:focus
+        outline: 0
+
+    &Options
+      optionsList()
+
+    &Option
+      optionsItem()
+      padding: spacingTiny
+
 </style>

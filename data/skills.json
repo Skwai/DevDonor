@@ -1,9 +1,9 @@
 {
-  "Desktop": true,
-  "Web": true,
-  "Mobile": true,
-  "Product": true,
-  "DevOps": true,
-  "UX": true,
-  "Design": true
+  "Desktop": "Desktop software development",
+  "Web": "Web development",
+  "Mobile": "Mobile development",
+  "Product": "Product design and management",
+  "DevOps": "Systems management",
+  "UX": "User-experience design",
+  "Design": "Graphical Design"
 }

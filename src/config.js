@@ -12,5 +12,6 @@ export default {
     'nfp': 'Not for profit'
   },
   USER_ID_KEY: 'devdonor:uid',
-  SPLASH_SEEN_KEY: 'devdonor:splash'
+  SPLASH_SEEN_KEY: 'devdonor:splash',
+  NEW_THRESHOLD_DAYS: 14
 }

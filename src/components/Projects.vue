@@ -2,18 +2,6 @@
   <div class="Projects">
     <Loading v-if="loading" />
     <template v-else>
-      <Filters>
-        <FilterMenu
-          label="Skill"
-          :options="skillOptions"
-          :value.sync="filters.skill"
-        />
-        <FilterMenu
-          label="Region"
-          :options="regionOptions"
-          :value.sync="filters.region"
-        />
-      </Filters>
       <div v-if="projects.length" class="Projects__List">
         <div class="Projects__ListItem"
           v-for="(project, index) in projects"
@@ -30,11 +18,11 @@
 </template>
 
 <script>
-import { db, formatObjects } from '@/services/firebase'
+import { db } from '@/services/firebase'
 import ProjectPreview from '@/components/ProjectPreview'
 import Filters from '@/components/Filters'
 
-const PROJECTS_PER_PAGE = 100
+const PROJECTS_PER_PAGE = 30
 
 export default {
   components: {
@@ -57,52 +45,14 @@ export default {
     }
   },
 
-  watch: {
-    'filters.skill' (val) {
-      this.getProjects()
-    },
-    'filters.region' (val) {
-      this.getProjects()
-    }
-  },
-
-  created () {
-    this.getProjects()
-  },
-
-  methods: {
-    async getProjects () {
-      this.loading = true
-      try {
-        const ref = db.ref('projects')
-        const snapshot = await ref.limitToFirst(PROJECTS_PER_PAGE).once('value')
-        const projects = formatObjects(snapshot)
-        const { skill, region } = this.filters
-        const { countries } = this
-        const filtered = projects
-          .filter((v) => skill ? (v.skills && skill in v.skills) : true)
-          .filter((v) => {
-            // Get the region of the project country
-            const [r] = Object.values(countries)
-              .filter((c) => c['.key'] === v.country)
-              .map((c) => c['.value'])
-            return region ? r === region : true
-          })
-        this.projects = filtered
-      } catch (err) {
-        console.log(err)
-        this.$store.dispatch('showNotification', {
-          message: 'Error retrieving projects',
-          type: 'error'
-        })
-      } finally {
-        this.loading = false
-      }
-    }
-  },
-
   firebase () {
     return {
+      projects: {
+        source: db.ref('projects').limitToFirst(PROJECTS_PER_PAGE),
+        readyCallback () {
+          this.loading = false
+        }
+      },
       skills: {
         source: db.ref('skills'),
         readyCallback (snapshot) {

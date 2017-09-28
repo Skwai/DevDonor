@@ -16,13 +16,14 @@ export default {}
 @require "../styles/grid.styl"
 
 .Page
-  min-height: 100vh
-  border-bottom: colorLightGray solid 1px
+  // min-height: 100vh
+  padding: spacingLarge
 
   &__Container
     container()
     display: flex
     flex-wrap: wrap
+    justify-content: center
 
     @media (min-width: 768px)
       flex-wrap: nowrap
@@ -34,13 +35,15 @@ export default {}
     @media (min-width: 768px)
       flex: 0 0 24rem
       max-width: 24rema
-      padding: spacingLarge spacingBase
+      padding: 0 spacingBase
 
   &__Content
     flex: 1 0
     background: #fff
     padding: spacingBase
-    min-height: 100vh
+    // min-height: 80vh
+    max-width: 700px
+    border: colorGray solid 1px
 
     @media (min-width: 768px)
       padding: spacingLarge

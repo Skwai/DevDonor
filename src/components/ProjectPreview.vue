@@ -1,19 +1,22 @@
 <template>
   <article class="ProjectPreview" :class="{ '-loading': loading }">
     <router-link :to="{ name: 'project', params: { projectId: project['.key'] } }" class="ProjectPreview__Link">
-      <div class="ProjectPreview__Count" v-if="isNew">NEW</div>
+      <div class="ProjectPreview__Label" v-if="isNew">NEW</div>
       <img class="ProjectPreview__Logo" :src="organization.logo">
       <div class="ProjectPreview__Body">
         <header class="ProjectPreview__Header">
           <h1 class="ProjectPreview__Organization">{{organization.name}}</h1>
-          <div class="ProjectPreview__Region">{{organization.region}}</div>
+          <div class="ProjectPreview__Region">
+            <Glyph><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></Glyph>
+          {{organization.country}}
+        </div>
         </header>
         <div class="ProjectPreview__Title">{{project.title}}</div>
         <div class="ProjectPreview__Tags">
-          <Tag v-for="(tag, key) in project.skills" :key="key" :tag="key" />
+          <Tag v-for="(skill, key) in project.skills" :key="key" :tag="key" />
         </div>
         <time class="ProjectPreview__CreatedAt" :datetime="project.createdAt">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="#444" stroke-width="1" stroke-linecap="square" stroke-miterlimit="10"><path d="M12 10v4h4"/><circle cx="12" cy="14" r="9"/><path d="M10 1h4M12 1v4"/></g></svg>
+          <Glyph><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="#444" stroke-width="1" stroke-linecap="square" stroke-miterlimit="10"><path d="M12 10v4h4"/><circle cx="12" cy="14" r="9"/><path d="M10 1h4M12 1v4"/></g></svg></Glyph>
           <span>{{project.createdAt | moment('from', 'now')}}</span>
         </time>
       </div>
@@ -23,8 +26,7 @@
 
 <script>
 import { db } from '@/services/firebase'
-
-const NEW_THRESHOLD_DAYS = 14
+import config from '@/config'
 
 export default {
   props: ['project'],
@@ -40,8 +42,7 @@ export default {
       const { project } = this
       if (!project || !project.createdAt) return false
       const delta = new Date().getTime() - new Date(project.createdAt).getTime()
-      const microtime = 24 * 60 * 60 * 1000 * NEW_THRESHOLD_DAYS
-      console.log(delta, microtime)
+      const microtime = 24 * 60 * 60 * 1000 * config.NEW_THRESHOLD_DAYS
       return delta < microtime
     }
   },
@@ -63,6 +64,7 @@ export default {
 <style lang="stylus">
 @require "../styles/config.styl"
 @require "../styles/text.styl"
+@require "../styles/label.styl"
 
 .ProjectPreview
   logoSize = 5rem
@@ -92,21 +94,12 @@ export default {
     width: 100%
     margin-top: spacingSmall
 
-  &__Count
+  &__Label
     position: absolute
     right: 0
     top: 0
-    background: colorPrimaryBlue
-    transform: translate(25%, -25%)
-    border-radius: 99rem
-    color: #fff
-    border: colorOffWhite solid 4px
-    font-size: fontSizeSmall
-    padding: 0 1em
-    height: 3em
-    display: flex
-    align-items: center
-    justify-content: center
+    transform: translate(8px, -8px)
+    label()
 
   &__Link
     display: flex
@@ -126,12 +119,12 @@ export default {
 
     &:hover,
     &:focus
-      box-shadow: rgba(colorPrimaryBlue,.2) 0 2px 2rem, colorPrimaryBlue 0 0 0 1px
+      box-shadow: rgba(colorPrimaryBlue, .2) 0 2px 2rem, colorPrimaryBlue 0 0 0 1px
 
     &:hover .ProjectPreview__Logo,
-    &focus .ProjectPreview__Logo
-      box-shadow: rgba(0,0,0,.1) 0 1px 2px, colorPrimaryBlue 0 0 0 1px
-
+    &:focus .ProjectPreview__Logo
+      box-shadow: rgba(colorPrimaryBlue, .2) 0 1px 1rem, colorPrimaryBlue 0 0 0 1px
+      transform: translate(-50%, -50%) scale(1.1)
 
   &__Skills
     margin-top: spacingSmall
@@ -142,6 +135,8 @@ export default {
     top: 0
     transform: translate(-50%, -50%)
     width: auto
+    max-width: 50%
+    min-width: logoSize
     height: logoSize
     display: flex
     align-items: center
@@ -151,6 +146,8 @@ export default {
     border: #fff 4px solid
     object-fit: cover
     transition: transitionBase
+    -webkit-backface-visibility: hidden;
+
 
   &__Organization
     textSubheading()
@@ -166,7 +163,6 @@ export default {
     textSmallCaps()
     flex: 0 0 100%
     opacity: .5
-    font-size: 0.75rem
     font-weight: 500
 
   &__Header

@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Home from '@/components/Home'
+import About from '@/components/About'
+import NotFound from '@/components/NotFound'
 import Project from '@/components/Project'
 import Profile from '@/components/Profile'
 import Volunteer from '@/components/Volunteer'
@@ -10,6 +13,8 @@ import OrganizationForm from '@/components/OrganizationForm'
 Vue.use(Router)
 
 const router = new Router({
+  mode: 'history',
+
   scrollBehavior () {
     return { x: 0, y: 0 }
   },
@@ -20,9 +25,9 @@ const router = new Router({
       component: Home
     },
     {
-      name: 'browse',
-      path: '/browse',
-      component: Home
+      name: 'about',
+      path: '/about',
+      component: About
     },
     {
       name: 'createOrganization',
@@ -53,6 +58,11 @@ const router = new Router({
       name: 'profile',
       path: '/profile',
       component: Profile
+    },
+    {
+      name: '404',
+      path: '*',
+      component: NotFound
     }
   ]
 })

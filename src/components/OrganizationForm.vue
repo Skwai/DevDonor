@@ -1,63 +1,60 @@
 <template>
   <Loading v-if="isLoading" />
   <Page v-else>
-    <form @submit.prevent="submit" slot="content">
+    <template slot="content">
+      <Alert v-if="isPendingApproval">
+        Your charity registration has been submitted and is pending approval.
+      </Alert>
+      <form @submit.prevent="submit" v-else>
 
-      <Heading>Charity Registration</Heading>
-      <ContentBlock>
-        Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback.
-      </ContentBlock>
+        <Heading>Charity Registration</Heading>
+        <ContentBlock>
+          Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback.
+        </ContentBlock>
 
-      <TextField
-        label="Organization Name"
-        :value.sync="org.name"
-        :error="!validation.name"
-        errorMessage="Please enter your charity name"
-      />
+        <TextField
+          label="Organization Name"
+          :value.sync="org.name"
+          :error="!validation.name"
+          errorMessage="Please enter your charity name"
+        />
 
-      <SelectField
-        label="Charity Type"
-        :value.sync="org.type"
-        :error="!validation.type"
-        errorMessage="Please select a charity type"
-        :options="typeOptions"
-      />
+        <TextField
+          label="Website URL"
+          :value.sync="org.url"
+          :error="!validation.url"
+          description="If you don't have a website, paste a link to your Facebook page"
+        />
 
-      <TextField
-        label="Website URL"
-        :value.sync="org.url"
-        :error="!validation.url"
-        description="If you don't have a website, paste a link to your Facebook page"
-      />
+        <SelectField
+          label="Country"
+          :value.sync="org.country"
+          :options="countryOptions"
+          :error="!validation.country"
+          errorMessage="Please select a country"
+          description="The country that your organization is based"
+        />
 
-      <SelectField
-        label="Region"
-        :value.sync="org.region"
-        :options="countryOptions"
-        :error="!validation.region"
-        errorMessage="Please select a region"
-        description="The region that your organization mainly operates"
-      />
+        <Upload
+          :maxFileSize="2"
+          filePath="logos"
+          :fileName="organizationId"
+          :url.sync="org.logo"
+          label="Upload Your Logo"
+          description="Upload a picture to use as your logo"
+        />
 
-      <Upload
-        :maxFileSize="2"
-        filePath="logos"
-        :fileName="organizationId"
-        :url.sync="org.logo"
-        label="Upload Your Logo"
-        description="Upload a picture to use as your logo"
-      />
+        <TextAreaField
+          label="Short Description"
+          :value.sync="org.description"
+          :error="!validation.description"
+          errorMessage="Please enter a description"
+          description="Write a brief description about your charity for users to see"
+        />
 
-      <TextAreaField
-        label="Short Description"
-        :value.sync="org.description"
-        :error="!validation.description"
-        errorMessage="Please enter a description"
-        description="Write a brief description about your organization for users to see"
-      />
-
-      <Btn color="primary" size="large" :loading="saving" :disabled="!isValid">Submit Application</Btn>
-    </form>
+        <Btn color="primary" size="large" :loading="saving" :disabled="!isValid">Submit Application</Btn>
+      </form>
+    </template>
     <template slot="sidebar">
       <Card v-if="!submitted">
         <Subheading>Before you register&hellip;</Subheading>
@@ -85,28 +82,30 @@ export default {
       submitted: false,
 
       countryOptions: [],
-      typeOptions: [],
 
       org: {
         description: null,
         logo: null,
         name: null,
-        type: null,
-        region: null,
+        country: null,
         url: null
       }
     }
   },
 
   computed: {
+    isPendingApproval () {
+      return this.$route.params.organizationId &&
+        this.org.status !== 'APPROVED'
+    },
+
     validation () {
       const { org } = this
       return {
         description: String(org.description).length,
         logo: String(org.logo).length,
         name: String(org.name).length,
-        type: this.typeOptions.includes(org.type),
-        region: this.countryOptions.includes(org.region),
+        country: this.countryOptions.includes(org.country),
         url: String(org.url).length
       }
     },
@@ -117,7 +116,7 @@ export default {
     },
 
     isLoading () {
-      return this.loading || !this.typeOptions.length || !this.countryOptions.length
+      return this.loading
     },
 
     ...mapGetters(['uid'])
@@ -179,12 +178,6 @@ export default {
         source: db.ref('countries'),
         readyCallback (snapshot) {
           this.countryOptions = Object.keys(snapshot.val())
-        }
-      },
-      organizationTypes: {
-        source: db.ref('organizationTypes'),
-        readyCallback (snapshot) {
-          this.typeOptions = Object.keys(snapshot.val())
         }
       }
     }

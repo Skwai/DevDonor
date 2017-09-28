@@ -1,8 +1,11 @@
+@require "./config.styl"
+
 field()
   position: relative
   display: block
   position: relative
   border: colorGray solid 1px
+  transition: transitionBase
 
   .-disabled &
     cursor: not-allowed
@@ -11,6 +14,11 @@ field()
   .-open &
     background: #fff
     border-color: colorPrimaryBlue
+
+  &:hover,
+  &:focus
+    border-color: colorPrimaryBlue
+
 
   .-focused &
     border-color: colorPrimaryBlue

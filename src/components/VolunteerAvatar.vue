@@ -1,12 +1,13 @@
 <template>
   <router-link class="VolunteerAvatar" :to="{ name: 'volunteer', params: { userId } }">
-    <div class="VolunteerAvatar__ImageWrap">
-      <img class="VolunteerAvatar__Image" :src="volunteer.picture" :alt="volunteer.name">
-    </div>
-    <div class="VolunteerAvatar__Details" v-if="showDetails">
-      <div class="VolunteerAvatar__Name">{{volunteer.name}}</div>
-      <SmallCaps>{{volunteer.role}}</SmallCaps>
-    </div>
+    <MediaObject align="center">
+      <img slot="object" class="VolunteerAvatar__Image" :src="volunteer.picture" :alt="volunteer.name">
+
+      <template slot="body" v-if="showDetails">
+        <div class="VolunteerAvatar__Name">{{volunteer.name}}</div>
+        <SmallCaps>{{volunteer.role}}</SmallCaps>
+      </template>
+    </MediaObject>
   </router-link>
 </template>
 
@@ -57,29 +58,18 @@ export default {
 
   &__Details
     flex: 1
-    margin-left: spacingSmall
 
   &__Name
     font-weight: 500
 
-  &__ImageWrap
-    size = 3.5rem
+  &__Image
+    object-fit: cover
+    size = 4rem
     width: size
     height: size
-    display: inline-flex
-    line-height: 1
-    justify-content: stretch
-    align-items: stretch
     border-radius: borderRadiusBase
     overflow: hidden
     transition: transitionBase
-    transform: translate3d(0,0,0)
-
-  &__Image
-    width: 100%
-    height: 100%
-    object-fit: cover
-    display: block
     transform: translate3d(0,0,0)
 
 </style>

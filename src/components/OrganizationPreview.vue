@@ -10,12 +10,11 @@
         >
       </div>
       <header class="OrganizationPreview__Header">
-        <SmallCaps>{{organization.region}}</SmallCaps>
         <h2 class="OrganizationPreview__Name">{{organization.name}}</h2>
+        <SmallCaps>{{organization.country}}</SmallCaps>
       </header>
       <div class="OrganizationPreview__Description" v-html="description"></div>
       <footer class="OrganizationPreview__Footer">
-        <div><SmallCaps>{{getCharityType(organization.type)}}</SmallCaps></div>
         <a class="OrganizationPreview__Link" :href="organization.url">{{organization.url}}</a>
       </footer>
     </div>

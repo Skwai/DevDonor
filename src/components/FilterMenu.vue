@@ -67,45 +67,15 @@ export default {
 
 <style lang="stylus">
 @require "../styles/config.styl"
+@require "../styles/options.styl"
 
 .FilterMenu
   position: relative
 
   &__Options
-    position: absolute
-    background: #fff
-    box-shadow: rgba(0,0,0,0.1) 0 2px 5px, rgba(0,0,0,0.1) 0 0 0 1px
-    width: auto
-    left: 0
-    top: -999rem
-    z-index: zIndexCover
-    min-width: 100%
-    padding: spacingTiny 0
-    font-size: 0.9375rem;
-    margin-top: 0.5rem
-    transform: translate(0, 0.5rem) scale(.7, .7)
-    opacity: 0
-    transition-duration: transitionBase
-    transition-property: opacity, transform
-    max-height: 30vh
-    overflow-y: scroll
-
-    .-open &
-      transform: translate(0, 0) scale(1, 1)
-      opacity: 1
-      top: 100%
+    optionsList()
 
   &__Option
-    padding: spacingTiny spacingBase
-    cursor: pointer
-    transition: transitionBase
-    white-space: nowrap
-
-    &.-selected
-      color: colorPrimaryBlue
-
-    &:hover,
-    &:focus
-      background: colorHighlight
+    optionsItem()
 
 </style>

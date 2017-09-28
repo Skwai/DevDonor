@@ -25,6 +25,7 @@ export default {
   background: colorPrimaryBlue
   color: #fff
   transition: transitionBase
+  box-shadow: rgba(colorDarkBlue,.1) 0 1px 0
   display: flex
   align-items: stretch
   position: relative
