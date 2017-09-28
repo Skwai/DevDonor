@@ -1,11 +1,12 @@
 <template>
-  <div class="Projects">
-    <Loading v-if="loading" />
-    <template v-else>
+  <Loading v-if="loading" />
+  <div v-else>
+    <Container>
+      <h2>Your Projects</h2>
       <div v-if="projects.length" class="Projects__List">
         <div class="Projects__ListItem"
-          v-for="(project, index) in projects"
-          :key="index"
+          v-for="(project, key) in projects"
+          :key="key"
         >
           <ProjectPreview
             :project="project"
@@ -13,35 +14,43 @@
         </div>
       </div>
       <Alert v-else>Sorry, no projects found</Alert>
-    </template>
+    </Container>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { db } from '@/services/firebase'
 import ProjectPreview from '@/components/ProjectPreview'
-import Filters from '@/components/Filters'
-
-const PROJECTS_PER_PAGE = 30
 
 export default {
   components: {
-    ProjectPreview,
-    Filters
+    ProjectPreview
+  },
+
+  computed: {
+    ...mapGetters(['uid'])
   },
 
   data () {
     return {
-      loading: true,
-      projects: []
+      loading: true
     }
   },
 
   firebase () {
     return {
-      projects: {
-        source: db.ref('projects').limitToFirst(PROJECTS_PER_PAGE),
-        readyCallback () {
+      userProjectIds: {
+        source: db.ref(`users/${this.uid}/projects`),
+        async readyCallback (snapshot) {
+          const promises = Object.keys(snapshot.val()).map(k => db.ref(`projects/${k}`).once('value'))
+          const snapshots = await Promise.all(promises)
+          this.projects = snapshots.map((s) => {
+            return {
+              '.key': s.key,
+              ...s.val()
+            }
+          })
           this.loading = false
         }
       }

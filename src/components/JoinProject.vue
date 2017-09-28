@@ -47,12 +47,26 @@ export default {
     ...mapGetters(['uid'])
   },
 
+  data () {
+    return {
+      joining: false,
+      leaving: false
+    }
+  },
+
   methods: {
+    updateProjectMember (joined = true) {
+      const updates = {
+        [`projects/${this.$route.params.projectId}/volunteers/${this.uid}`]: joined ? true : null,
+        [`users/${this.uid}/projects/${this.$route.params.projectId}`]: joined ? true : null
+      }
+      return db.ref().update(updates)
+    },
+
     async joinProject () {
-      const path = `projects/${this.$route.params.projectId}/volunteers`
       this.joining = false
       try {
-        await db.ref(path).update({ [this.uid]: false })
+        await this.updateProjectMember(true)
         this.$store.dispatch('showNotification', {
           type: 'success',
           message: 'You\'ve applied to join the project'
@@ -68,10 +82,9 @@ export default {
     },
 
     async leaveProject () {
-      const path = `projects/${this.$route.params.projectId}/volunteers`
       this.leaving = true
       try {
-        await db.ref(path).child(this.uid).remove()
+        await this.updateProjectMember(null)
         this.$store.dispatch('showNotification', {
           type: 'success',
           message: 'You\'ve left this project'

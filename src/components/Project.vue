@@ -56,9 +56,7 @@ export default {
 
   data () {
     return {
-      loading: true,
-      joining: false,
-      leaving: false
+      loading: true
     }
   },
 

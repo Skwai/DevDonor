@@ -24,7 +24,7 @@
       <router-link to="/project/create" class="AccountMenu__Option">Create a project</router-link>
       <div class="AccountMenu__OptionsDivider"></div>
       <router-link to="/profile" class="AccountMenu__Option">Your profile</router-link>
-      <router-link to="/profile" class="AccountMenu__Option">Your projects <Counter>0</Counter></router-link>
+      <router-link to="/projects" class="AccountMenu__Option">Your projects <Counter>0</Counter></router-link>
       <div class="AccountMenu__OptionsDivider"></div>
       <span tabindex="0" class="AccountMenu__Option" @click="logout">Logout</span>
     </div>

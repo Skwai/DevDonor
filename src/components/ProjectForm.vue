@@ -28,7 +28,7 @@
 
       <TextField
         label="Project title"
-        :value="project.title"
+        :value.sync="project.title"
       />
 
       <CheckboxGroup
@@ -71,6 +71,7 @@ export default {
       showOrganizations: false,
 
       project: {
+        country: null,
         organization: null,
         title: null,
         description: null,
@@ -95,25 +96,10 @@ export default {
 
     async submit () {
       const projectId = db.ref('projects').push().key
-      const { description, title, organization } = this.project
-      // const organization = this.userOrgs[0]['.key']
-      const skills = this.project.skills.reduce((obj, v) => Object.assign(obj, { [v]: true }), {})
       this.saving = true
       try {
-        await db.ref(`projects/${projectId}`).transaction((data) => {
-          // Add the author to the project if they're not already
-          const volunteers = (data && data.volunteers && this.uid in data.volunteers)
-            ? data.volunteers
-            : { [this.uid]: true }
-          return {
-            organization: data && data.organization ? data.organization : organization,
-            createdAt: data && data.createdAt ? data.createdAt : new Date().toISOString(),
-            title,
-            skills,
-            description,
-            volunteers
-          }
-        })
+        await this.updateProject()
+        await db.ref(`users/${this.uid}/projects/${projectId}`).update(true)
         this.$store.dispatch('showNotification', {
           message: 'Your project has been created',
           type: 'success'
@@ -127,6 +113,24 @@ export default {
       } finally {
         this.saving = false
       }
+    },
+
+    updateProject (projectId) {
+      const { description, title, organization } = this.project
+      const skills = this.project.skills.reduce((obj, v) => Object.assign(obj, { [v]: true }), {})
+      return db.ref(`projects/${this.projectId}`).transaction((data) => {
+        const volunteers = (data && data.volunteers && this.uid in data.volunteers)
+          ? data.volunteers
+          : { [this.uid]: true }
+        return {
+          organization: data && data.organization ? data.organization : organization,
+          createdAt: data && data.createdAt ? data.createdAt : new Date().toISOString(),
+          title,
+          skills,
+          description,
+          volunteers
+        }
+      })
     }
   },
 

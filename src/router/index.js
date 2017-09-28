@@ -8,13 +8,13 @@ import Project from '@/components/Project'
 import Profile from '@/components/Profile'
 import Volunteer from '@/components/Volunteer'
 import ProjectForm from '@/components/ProjectForm'
+import UserProjects from '@/components/UserProjects'
 import OrganizationForm from '@/components/OrganizationForm'
 
 Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
-
   scrollBehavior () {
     return { x: 0, y: 0 }
   },
@@ -58,6 +58,11 @@ const router = new Router({
       name: 'profile',
       path: '/profile',
       component: Profile
+    },
+    {
+      name: 'userProjects',
+      path: '/projects',
+      component: UserProjects
     },
     {
       name: '404',
