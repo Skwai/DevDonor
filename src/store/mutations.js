@@ -1,6 +1,8 @@
 import * as types from './mutation-types'
 
-export default {
+import { toObject } from '@/services/firebase'
+
+const mutations = {
   [types.AUTH_START] (state) {
     state.authenticating = true
   },
@@ -44,5 +46,15 @@ export default {
 
   [types.HIDE_SIGNUP_SPLASH] (state) {
     state.showSignupSplash = false
+  },
+
+  [types.HIDE_SIGNUP_SPLASH] (state) {
+    state.showSignupSplash = false
+  },
+
+  [types.ADD_PROJECT] (state, snapshot) {
+    state.projects[snapshot.key] = toObject(snapshot)
   }
 }
+
+export default mutations

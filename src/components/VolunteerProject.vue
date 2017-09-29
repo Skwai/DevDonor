@@ -10,7 +10,7 @@
 
 <script>
 import SmallCaps from '@/components/SmallCaps'
-import { db } from '@/services/firebase'
+import db from '@/services/firebase'
 
 export default {
   props: ['projectId'],

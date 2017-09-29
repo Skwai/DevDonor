@@ -2,9 +2,12 @@
   <Loading v-if="loading" />
   <div v-else>
     <Container>
-      <h2>Your Projects</h2>
-      <div v-if="projects.length" class="Projects__List">
-        <div class="Projects__ListItem"
+      <header class="UserProjects__Header">
+        <Heading>Your Projects</Heading>
+        <p>These are the projects you're currently participating in</p>
+      </header>
+      <div v-if="projects.length" class="UserProjects__List">
+        <div class="UserProjects__ListItem"
           v-for="(project, key) in projects"
           :key="key"
         >
@@ -20,7 +23,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { db } from '@/services/firebase'
+import db from '@/services/firebase'
 import ProjectPreview from '@/components/ProjectPreview'
 
 export default {
@@ -62,8 +65,12 @@ export default {
 <style lang="stylus">
 @require "../styles/config.styl"
 
-.Projects
+.UserProjects
   padding: 0 spacingBase
+
+  &__Header
+    text-align: center
+    padding: spacingBase 0
 
   &__List
     display: flex

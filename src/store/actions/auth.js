@@ -1,8 +1,6 @@
 import config from '@/config'
-
-import * as types from './mutation-types'
-
-import { signIn, signOut, getCurrentUser, db, auth } from '@/services/firebase'
+import * as types from '@/store/mutation-types'
+import db, { signIn, signOut, getCurrentUser, currentUser } from '@/services/firebase'
 
 const TOKEN_REFRESH_INTERVAL = 60 * 1000 * 10 // 10 minutes
 
@@ -27,7 +25,6 @@ export const login = async ({ commit, dispatch }) => {
     commit(types.AUTH_SUCCESS, user)
     commit(types.AUTH_COMPLETE)
     dispatch('authTokenRefresh')
-    dispatch('showSignupSplash')
   } catch (err) {
     commit(types.AUTH_FAILED)
   }
@@ -36,20 +33,12 @@ export const login = async ({ commit, dispatch }) => {
 export const authTokenRefresh = async ({ dispatch }) => {
   setTimeout(async () => {
     try {
-      await auth().currentUser.getIdToken(true)
+      await currentUser.getIdToken(true)
       dispatch('authTokenRefresh')
     } catch (err) {
       console.error(err)
     }
   }, TOKEN_REFRESH_INTERVAL)
-}
-
-export const showNotification = async ({ commit, dispatch }, { message, type }) => {
-  commit(types.ADD_NOTIFICATION, { message, type })
-}
-
-export const removeNotification = async ({ commit }) => {
-  commit(types.REMOVE_NOTIFICATION)
 }
 
 export const tryCreateUser = async (context, { uid, ...data }) => {
@@ -83,15 +72,6 @@ export const getAuthStatus = async ({ commit, dispatch }) => {
   } catch (err) {
     commit(types.AUTH_FAILED)
   }
-}
-
-export const showSignupSplash = async ({ commit }) => {
-  commit(types.SHOW_SIGNUP_SPLASH)
-}
-
-export const hideSignupSplash = async ({ commit }) => {
-  localStorage.setItem(config.SPLASH_SEEN_KEY, true)
-  commit(types.HIDE_SIGNUP_SPLASH)
 }
 
 export const logout = ({ commit, dispatch }) => {

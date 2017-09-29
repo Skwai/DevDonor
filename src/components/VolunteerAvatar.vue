@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { db } from '@/services/firebase'
+import db from '@/services/firebase'
 import SmallCaps from '@/components/SmallCaps'
 
 export default {

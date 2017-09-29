@@ -38,14 +38,11 @@
 </template>
 
 <script>
-import { db } from '@/services/firebase'
 import marked from 'marked'
 import { mapGetters } from 'vuex'
-
 import ProjectVolunteers from '@/components/ProjectVolunteers'
 import OrganizationPreview from '@/components/OrganizationPreview'
 import JoinProject from '@/components/JoinProject'
-import config from '@/config'
 
 export default {
   components: {
@@ -61,28 +58,24 @@ export default {
   },
 
   computed: {
+    project () {
+      return this.getProject(this.$route.params.projectId)
+    },
     isNew () {
-      const { project } = this
-      if (!project || !project.createdAt) return false
-      const delta = new Date().getTime() - new Date(project.createdAt).getTime()
-      const microtime = 24 * 60 * 60 * 1000 * config.NEW_THRESHOLD_DAYS
-      return delta < microtime
+      return this.getProjectIsNew(this.$route.params.projectId)
     },
     description () {
       const { project } = this
       return project && project.description.length ? marked(project.description) : ''
     },
-    ...mapGetters(['uid'])
+    ...mapGetters(['getProject', 'getProjectIsNew'])
   },
-  firebase () {
-    return {
-      project: {
-        source: db.ref(`projects/${this.$route.params.projectId}`),
-        asObject: true,
-        readyCallback (snapshot) {
-          this.loading = false
-        }
-      }
+
+  async created () {
+    try {
+      await this.$store.dispatch('getProject', this.$route.params.projectId)
+    } finally {
+      this.loading = false
     }
   }
 }

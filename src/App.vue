@@ -4,7 +4,6 @@
     <AppHeader />
     <router-view></router-view>
     <AppFooter />
-    <SignupSplash v-if="auth && showSignupSplash" />
   </main>
 </template>
 
@@ -12,25 +11,22 @@
 import { mapGetters } from 'vuex'
 import AppHeader from '@/components/AppHeader'
 import AppFooter from '@/components/AppFooter'
-import SignupSplash from '@/components/SignupSplash'
 import Notification from '@/components/Notification'
 
 export default {
   components: {
     AppFooter,
     AppHeader,
-    SignupSplash,
     Notification
   },
 
   computed: {
     ...mapGetters([
-      'auth',
-      'showSignupSplash'
+      'auth'
     ])
   },
 
-  created () {
+  async created () {
     this.$store.dispatch('getAuthStatus')
   }
 }

@@ -14,7 +14,7 @@
         />
         <SelectField
           label="Country"
-          :value.sync="user.country"
+          :value.sync="profile.country"
           :options="countryOptions"
         />
       </FormBlock>
@@ -57,7 +57,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { db } from '@/services/firebase'
+import db from '@/services/firebase'
 import Upload from '@/components/Upload'
 
 export default {

@@ -6,16 +6,32 @@
 </template>
 
 <script>
-import { db } from '@/services/firebase'
+import db from '@/services/firebase'
 
 export default {
   props: ['organizationId'],
 
-  firebase () {
+  data () {
     return {
-      organization: {
-        source: db.ref(`organizations/${this.organizationId}`),
-        asObject: true
+      organization: null
+    }
+  },
+
+  methods: {
+    async getOrganization () {
+      const snapshot = await db.ref(`organizations/${this.organizationId}`).once('value')
+      this.organization = snapshot.val()
+    }
+  },
+
+  created () {
+    this.getOrganization()
+  },
+
+  watch: {
+    organizationId (newVal, oldVal) {
+      if (newVal) {
+        this.getOrganization()
       }
     }
   }

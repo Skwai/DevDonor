@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { db } from '@/services/firebase'
+import db from '@/services/firebase'
 import marked from 'marked'
 import VolunteerProjects from '@/components/VolunteerProjects'
 

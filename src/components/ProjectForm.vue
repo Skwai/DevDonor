@@ -55,7 +55,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { db } from '@/services/firebase'
+import db from '@/services/firebase'
 import UserOrganization from '@/components/UserOrganization'
 
 export default {

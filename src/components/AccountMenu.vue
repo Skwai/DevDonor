@@ -34,7 +34,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import AccountAvatar from '@/components/AccountAvatar'
-import { db } from '@/services/firebase'
+import db from '@/services/firebase'
 
 export default {
   components: {

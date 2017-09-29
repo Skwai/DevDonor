@@ -1,18 +1,19 @@
 import config from '../config'
 import Firebase from 'firebase'
 
-export const app = Firebase.initializeApp(config.FIREBASE)
-export const db = app.database()
-export const provider = new Firebase.auth.GoogleAuthProvider()
-provider.addScope('https://www.googleapis.com/auth/userinfo.email')
+Firebase.initializeApp(config.FIREBASE)
 
-export const auth = () => app.auth()
+const db = Firebase.database()
+export default db
 
-export const currentUser = () => auth().currentUser
+const google = new Firebase.auth.GoogleAuthProvider()
+google.addScope('https://www.googleapis.com/auth/userinfo.email')
 
-export const signIn = () => auth().signInWithPopup(provider)
+export const currentUser = () => Firebase.auth().currentUser
 
-export const signOut = () => auth().signOut()
+export const signIn = () => Firebase.auth().signInWithPopup(google)
+
+export const signOut = () => Firebase.auth().signOut()
 
 export const storage = Firebase.storage()
 
@@ -21,7 +22,7 @@ export const getCurrentUser = () => new Promise((resolve, reject) => {
   if (user) {
     resolve(user)
   } else {
-    auth().onAuthStateChanged((u) => u ? resolve(u) : reject(null))
+    Firebase.auth().onAuthStateChanged((u) => u ? resolve(u) : reject(null))
   }
 })
 
@@ -29,3 +30,8 @@ export const formatObjects = (snapshot) => Object.keys(snapshot.val()).map((k) =
   '.key': k,
   ...(snapshot.val()[k])
 }))
+
+export const toObject = (snapshot) => ({
+  '.key': snapshot.key,
+  ...snapshot.val()
+})

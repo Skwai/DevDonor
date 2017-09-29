@@ -2,7 +2,7 @@
   <div class="Projects">
     <Loading v-if="loading" />
     <template v-else>
-      <div v-if="projects.length" class="Projects__List">
+      <div v-if="hasProjects" class="Projects__List">
         <div class="Projects__ListItem"
           v-for="(project, index) in projects"
           :key="index"
@@ -18,33 +18,35 @@
 </template>
 
 <script>
-import { db } from '@/services/firebase'
+import { mapGetters } from 'vuex'
 import ProjectPreview from '@/components/ProjectPreview'
-import Filters from '@/components/Filters'
-
-const PROJECTS_PER_PAGE = 30
 
 export default {
   components: {
-    ProjectPreview,
-    Filters
+    ProjectPreview
   },
 
   data () {
     return {
-      loading: true,
-      projects: []
+      loading: true
     }
   },
 
-  firebase () {
-    return {
-      projects: {
-        source: db.ref('projects').limitToFirst(PROJECTS_PER_PAGE),
-        readyCallback () {
-          this.loading = false
-        }
-      }
+  computed: {
+    projects () {
+      return this.getProjects()
+    },
+    hasProjects () {
+      return Object.keys(this.projects).length
+    },
+    ...mapGetters(['getProjects'])
+  },
+
+  async created () {
+    try {
+      await this.$store.dispatch('getProjects')
+    } finally {
+      this.loading = false
     }
   }
 }
@@ -66,9 +68,9 @@ export default {
     padding: (spacingBase / 2)
     flex: 0 0 100%
 
-    @media (min-width: 640px)
+    @media (min-width: 480px)
       flex: 0 0 50%
 
-    @media (min-width: 1024px)
+    @media (min-width: 768px)
       flex: 0 0 (100% / 3)
 </style>

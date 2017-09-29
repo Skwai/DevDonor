@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import config from '@/config'
-import * as actions from './actions'
+import actions from './actions/'
 import * as getters from './getters'
 import mutations from './mutations'
 
@@ -15,6 +15,7 @@ export default new Vuex.Store({
   getters,
   mutations,
   state: {
+    projects: {},
     uid: localStorage.getItem(config.USER_ID_KEY) || null,
     auth: null,
     authenticating: false,

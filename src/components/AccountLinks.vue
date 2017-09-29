@@ -8,7 +8,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { db } from '@/services/firebase'
+import db from '@/services/firebase'
 
 export default {
   computed: {

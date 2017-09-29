@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { db } from '@/services/firebase'
+import db from '@/services/firebase'
 import { mapGetters } from 'vuex'
 
 export default {
