@@ -55,6 +55,7 @@ export const getAuthStatus = async ({ commit, dispatch }) => {
     const user = await getCurrentUser()
     if (user) {
       commit(types.AUTH_SUCCESS, user.toJSON())
+      dispatch('getUser', user.uid)
     }
     dispatch('authTokenRefresh')
     commit(types.AUTH_COMPLETE)

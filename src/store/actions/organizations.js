@@ -9,9 +9,16 @@ export const getOrganization = async ({ state, commit }, key) => {
   }
 }
 
-export const updateOrganization = async ({ commit }, { key, ...newData }) => {
+export const updateOrganization = async ({ state, commit, dispatch }, { key, ...newData }) => {
   if (!key) throw Error('key missing')
   const { snapshot } = await db.ref('organizations').child(key)
-    .transaction((currData) => skeleton(currData, newData))
+    .transaction((currData) => {
+      const data = skeleton(currData, newData)
+      data.volunteers = data.volunteers || {}
+      if (!(state.uid in data.volunteers)) {
+        data.volunteers[state.uid] = true
+      }
+      return data
+    })
   commit(ADD_ORGANIZATION, snapshot)
 }

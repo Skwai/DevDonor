@@ -39,7 +39,6 @@
 
 <script>
 import marked from 'marked'
-import { mapGetters } from 'vuex'
 import ProjectVolunteers from '@/components/ProjectVolunteers'
 import OrganizationPreview from '@/components/OrganizationPreview'
 import JoinProject from '@/components/JoinProject'
@@ -53,27 +52,27 @@ export default {
 
   data () {
     return {
+      projectId: this.$route.params.projectId,
       loading: true
     }
   },
 
   computed: {
     project () {
-      return this.getProject(this.$route.params.projectId)
+      return this.$store.getters.getProject(this.projectId)
     },
     isNew () {
-      return this.isNewProject(this.$route.params.projectId)
+      return this.$store.getters.isNewProject(this.projectId)
     },
     description () {
       const { project } = this
       return project && project.description.length ? marked(project.description) : ''
-    },
-    ...mapGetters(['getProject', 'isNewProject'])
+    }
   },
 
   async created () {
     try {
-      await this.$store.dispatch('getProject', this.$route.params.projectId)
+      await this.$store.dispatch('getProject', this.projectId)
     } finally {
       this.loading = false
     }

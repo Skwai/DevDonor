@@ -11,7 +11,7 @@
         :class="{ '-open': showOrganizations }"
       >
         <button
-          v-if="Object.keys(userOrgs).length"
+          v-if="Object.keys(organizations).length"
           class="ProjectForm__OrganizationToggle"
           @click.prevent="toggleOrganizations"
         ><UserOrganization :organizationId="project.organization" /></button>
@@ -19,7 +19,7 @@
         <div class="ProjectForm__OrganizationOptions">
           <div
             class="ProjectForm__OrganizationOption"
-            v-for="(org, key) in userOrgs"
+            v-for="(org, key) in organizations"
             :key="key"
             @click="selectOrganization(org['.key'])"
           ><UserOrganization :organizationId="org['.key']" /></div>
@@ -33,7 +33,7 @@
 
       <CheckboxGroup
         label="Skills required"
-        :options="skillOptions"
+        :options="skills"
         :value.sync="project.skills"
         description="Select the type of work required for this project"
       />
@@ -67,7 +67,7 @@ export default {
     return {
       loading: true,
       saving: false,
-      skillOptions: [],
+
       showOrganizations: false,
 
       project: {
@@ -81,7 +81,31 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['uid'])
+    organizations () {
+      return this.$store.getters.getUserProjects(this.uid)
+    },
+    validation () {
+      const { project } = this
+      return {
+        country: this.countries.includes(project.country),
+        organization: !!String(project.organization).length,
+        title: !!String(project.title).length,
+        description: !!String(project.description).length,
+        skills: !!String(project.skills).length
+      }
+    },
+    isValid () {
+      const { validation } = this
+      return Object.keys(validation).every(k => validation[k])
+    },
+    ...mapGetters(['uid', 'countries', 'skills'])
+  },
+
+  async created () {
+    this.projectId = db.ref('projects').push().key
+    await this.$store.dispatch('getUserProjects', this.uid)
+    await this.$store.dispatch('getCountries')
+    await this.$store.dispatch('getSkills')
   },
 
   methods: {
@@ -95,28 +119,28 @@ export default {
     },
 
     async submit () {
-      const projectId = db.ref('projects').push().key
-      this.saving = true
+      if (!this.isValid) {
+        return this.$store.dispatch('errorNotification', 'There are problems with your registration')
+      }
+
       try {
-        await this.updateProject()
-        await db.ref(`users/${this.uid}/projects/${projectId}`).update(true)
-        this.$store.dispatch('showNotification', {
-          message: 'Your project has been created',
-          type: 'success'
+        this.saving = true
+        const { description, title, organization, skills } = this.project
+        await this.dispatch('updateProject', {
+          description,
+          title,
+          organization,
+          skills
         })
-        this.$router.push({ name: 'project', params: { projectId } })
       } catch (err) {
-        this.$dispatch('showNotification', {
-          message: 'There was an error saving your project',
-          type: 'error'
-        })
+        this.$dispatch('errorNotification', 'There was an error saving your project')
       } finally {
         this.saving = false
       }
-    },
-
+    }
+  }
+  /*
     updateProject (projectId) {
-      const { description, title, organization } = this.project
       const skills = this.project.skills.reduce((obj, v) => Object.assign(obj, { [v]: true }), {})
       return db.ref(`projects/${this.projectId}`).transaction((data) => {
         const volunteers = (data && data.volunteers && this.uid in data.volunteers)
@@ -133,28 +157,7 @@ export default {
       })
     }
   },
-
-  firebase () {
-    return {
-      userOrgs: {
-        source: db.ref(`users/${this.uid}/organizations`),
-        readyCallback (snapshot) {
-          if (!snapshot.exists()) {
-            this.$router.push({ name: '404' })
-          }
-          const [org] = Object.keys(snapshot.val())
-          this.project.organization = org
-          this.loading = false
-        }
-      },
-      skills: {
-        source: db.ref('skills'),
-        readyCallback (snapshot) {
-          this.skillOptions = Object.keys(snapshot.val())
-        }
-      }
-    }
-  }
+  */
 }
 </script>
 

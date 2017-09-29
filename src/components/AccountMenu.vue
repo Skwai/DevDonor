@@ -10,7 +10,7 @@
     <div class="AccountMenu__Options" @click="onOptionsClick">
       <router-link to="/organization/create" class="AccountMenu__Option">Register a charity</router-link>
       <router-link
-        v-for="(org, key) in orgs"
+        v-for="(org, key) in organizations"
         :key="key"
         :to="'/organization/' + key"
         class="AccountMenu__Option"
@@ -34,18 +34,32 @@
 <script>
 import { mapGetters } from 'vuex'
 import AccountAvatar from '@/components/AccountAvatar'
-import db from '@/services/firebase'
 
 export default {
   components: {
     AccountAvatar
   },
 
+  data () {
+    return {
+      showAccountMenu: false
+    }
+  },
+
   computed: {
+    organizations () {
+      return this.$store.getters.getUserOrganizations(this.uid)
+    },
+
     ...mapGetters([
       'uid',
       'auth'
     ])
+  },
+
+  async created () {
+    await this.$store.dispatch('getUserOrganizations', this.uid)
+    console.log(this.$store.getters.getUserOrganizations(this.uid))
   },
 
   mounted () {
@@ -74,30 +88,6 @@ export default {
 
     toggleAccountMenu () {
       this.showAccountMenu = !this.showAccountMenu
-    }
-  },
-
-  data () {
-    return {
-      orgs: {},
-      showAccountMenu: false
-    }
-  },
-
-  firebase () {
-    return {
-      userOrgs: {
-        source: db.ref(`users/${this.uid}/organizations`),
-        async readyCallback (snapshot) {
-          const promises = []
-          snapshot.forEach(({ key }) => {
-            promises.push(db.ref(`organizations/${key}`).once('value'))
-          })
-          const orgSnapshots = await Promise.all(promises)
-          const orgs = orgSnapshots.reduce((obj, s) => Object.assign(obj, { [s.key]: s.val() }), {})
-          this.orgs = orgs
-        }
-      }
     }
   }
 }

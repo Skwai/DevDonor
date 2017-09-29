@@ -19,4 +19,12 @@ export const isNewProject = ({ projects }) => (key) => {
 }
 export const currentUser = ({ uid, users }) => uid in users ? users[uid] : null
 export const getUserProjectIds = ({ users }) => (uid) => users[uid].projects
+export const getUserProjects = ({ users, projects }) => (uid) => {
+  if (uid in users) {
+    const ids = Object.keys(users[uid].projects)
+    return ids.reduce((obj, k) => Object.assign(obj, { [k]: projects }), {})
+  }
+  return {}
+}
+export const getUserOrganizations = ({ users, organizations }) => (uid) => {}
 export const getOrganization = ({ organizations }) => (key) => key in organizations ? organizations[key] : null

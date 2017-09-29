@@ -99,11 +99,11 @@ export default {
     validation () {
       const { organization } = this
       return {
-        description: String(organization.description).length,
-        logo: String(organization.logo).length,
-        name: String(organization.name).length,
+        description: !!String(organization.description).length,
+        logo: !!String(organization.logo).length,
+        name: !!String(organization.name).length,
         country: this.countries.includes(organization.country),
-        url: String(organization.url).length
+        url: !!String(organization.url).length
       }
     },
     isValid () {

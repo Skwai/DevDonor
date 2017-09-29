@@ -22,11 +22,12 @@ export default {
 
   computed: {
     ...mapGetters([
-      'auth'
+      'auth',
+      'uid'
     ])
   },
 
-  async created () {
+  created () {
     this.$store.dispatch('getAuthStatus')
   }
 }
