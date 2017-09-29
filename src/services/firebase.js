@@ -35,3 +35,9 @@ export const toObject = (snapshot) => ({
   '.key': snapshot.key,
   ...snapshot.val()
 })
+
+export const skeleton = (currData = {}, newData = {}) => {
+  const createdAt = currData || new Date().toISOString()
+  const modifiedAt = new Date().toISOString()
+  return Object.assign({}, currData, newData, { createdAt, modifiedAt })
+}

@@ -1,5 +1,5 @@
 <template>
-  <Loading v-if="isLoading" />
+  <Loading v-if="loading" />
   <Page v-else>
     <template slot="content">
       <form @submit.prevent="submit">
@@ -49,7 +49,12 @@
           description="Write a brief description about your charity for users to see"
         />
 
-        <Btn color="primary" size="large" :loading="saving" :disabled="!isValid">Submit Application</Btn>
+        <Btn
+          color="primary"
+          size="large"
+          :loading="saving"
+          :disabled="!isValid"
+        >Submit Application</Btn>
       </form>
     </template>
     <template slot="sidebar">
@@ -97,7 +102,7 @@ export default {
         description: String(organization.description).length,
         logo: String(organization.logo).length,
         name: String(organization.name).length,
-        country: this.countryOptions.includes(organization.country),
+        country: this.countries.includes(organization.country),
         url: String(organization.url).length
       }
     },
@@ -105,67 +110,44 @@ export default {
       const { validation } = this
       return Object.keys(validation).every(k => validation[k])
     },
-    isLoading () {
-      return this.loading
-    },
     ...mapGetters(['uid', 'countries'])
   },
 
   async created () {
+    this.organizationId = this.$route.params.organizationId || db.ref('organizations').push().key
+    await this.$store.dispatch('getCountries')
     if (this.$route.params.organizationId) {
-      this.organizationId = this.$route.params.organizationId
-      await this.$store.dispatch('getOrganization', this.$route.params.organizationId)
-      const organization = this.$store.getters.getOrganization(this.organizationId)
-      Object.assign(this.organization, organization)
-    } else {
-      this.organizationId = db.ref('organizations').push().key
+      await this.$store.dispatch('getOrganization', this.organizationId)
+      Object.assign(this.organization, this.$store.getters.getOrganization(this.organizationId))
     }
     this.loading = false
   },
 
   methods: {
-    async submit (ev) {
+    async submit () {
       if (!this.isValid) {
         return this.$store.dispatch('errorNotification', 'There are problems with your registration')
       }
-
       try {
         this.saving = true
+        const { description, logo, name, country, url } = this.organization
         await this.$store.dispatch('updateOrganization', {
-          key: this.organizationId
+          key: this.organizationId,
+          description,
+          logo,
+          name,
+          country,
+          url
         })
+        this.$store.dispatch('successNotification', 'Your registration has been submitted')
+        this.$router.push({ name: 'organization', params: { organizationId: this.organizationId } })
+      } catch (err) {
+        this.$store.dispatch('errorNotification', 'There was an error submitting your registration')
       } finally {
         this.saving = false
       }
     }
   }
-
-  /*
-  async createOrganization () {
-    this.saving = true
-    const { organizationId } = this
-
-    try {
-      const updates = {
-        [`organizations/${organizationId}`]: this.org,
-        [`users/${this.uid}/organizations/${organizationId}`]: true
-      }
-      await db.ref().update(updates)
-      this.$store.dispatch('showNotification', {
-        type: 'success',
-        message: 'Your registration has been submitted'
-      })
-      this.$router.push({ name: 'organization', params: { organizationId } })
-    } catch (err) {
-      this.$store.dispatch('showNotification', {
-        type: 'error',
-        message: 'Error submitting form'
-      })
-    } finally {
-      this.saving = false
-    }
-  }
-  */
 }
 </script>
 

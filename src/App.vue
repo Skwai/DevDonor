@@ -2,7 +2,7 @@
   <main class="App">
     <Notification />
     <AppHeader />
-    <router-view></router-view>
+    <router-view :key="$route.fullPath"></router-view>
     <AppFooter />
   </main>
 </template>

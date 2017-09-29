@@ -1,6 +1,6 @@
 import config from '@/config'
 import * as types from '@/store/mutation-types'
-import db, { signIn, signOut, getCurrentUser, currentUser } from '@/services/firebase'
+import { signIn, signOut, getCurrentUser, currentUser } from '@/services/firebase'
 
 const TOKEN_REFRESH_INTERVAL = 60 * 1000 * 10 // 10 minutes
 
@@ -16,7 +16,7 @@ export const login = async ({ commit, dispatch }) => {
       photoURL: picture
     } = user
     dispatch('setUID', uid)
-    dispatch('tryCreateUser', {
+    dispatch('createUser', {
       uid,
       email,
       name,
@@ -35,19 +35,8 @@ export const authTokenRefresh = async ({ dispatch }) => {
     try {
       await currentUser.getIdToken(true)
       dispatch('authTokenRefresh')
-    } catch (err) {
-      console.error(err)
-    }
+    } catch (err) {}
   }, TOKEN_REFRESH_INTERVAL)
-}
-
-export const tryCreateUser = async (context, { uid, ...data }) => {
-  const ref = db.ref('users').child(uid)
-  ref.transaction((userData) => {
-    if (userData === null) {
-      return data
-    }
-  })
 }
 
 export const setUID = async ({ commit }, uid) => {
