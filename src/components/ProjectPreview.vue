@@ -1,6 +1,7 @@
 <template>
-  <article class="ProjectPreview" :class="{ '-loading': loading }">
-    <router-link :to="{ name: 'project', params: { projectId: project['.key'] } }" class="ProjectPreview__Link">
+  <article class="ProjectPreview">
+    <Loading v-if="loading" />
+    <router-link v-else :to="{ name: 'project', params: { projectId: projectId } }" class="ProjectPreview__Link">
       <div class="ProjectPreview__Label" v-if="isNew">NEW</div>
       <img class="ProjectPreview__Logo" :src="organization.logo">
       <div class="ProjectPreview__Body">
@@ -25,11 +26,10 @@
 </template>
 
 <script>
-import db from '@/services/firebase'
-import config from '@/config'
+import { mapGetters } from 'vuex'
 
 export default {
-  props: ['project'],
+  props: ['projectId'],
 
   data () {
     return {
@@ -37,26 +37,26 @@ export default {
     }
   },
 
-  computed: {
-    isNew () {
-      const { project } = this
-      if (!project || !project.createdAt) return false
-      const delta = new Date().getTime() - new Date(project.createdAt).getTime()
-      const microtime = 24 * 60 * 60 * 1000 * config.NEW_THRESHOLD_DAYS
-      return delta < microtime
-    }
+  async created () {
+    await this.$store.dispatch('getProject', this.projectId)
+    await this.$store.dispatch('getOrganization', this.project.organization)
+    this.loading = false
   },
 
-  firebase () {
-    return {
-      organization: {
-        source: db.ref(`organizations`).child(this.project.organization),
-        asObject: true,
-        readyCallback () {
-          this.loading = false
-        }
+  computed: {
+    isNew () {
+      return this.isNewProject(this.projectId)
+    },
+    project () {
+      return this.getProject(this.projectId)
+    },
+    organization () {
+      if (this.project && this.project.organization) {
+        return this.getOrganization(this.project.organization)
       }
-    }
+      return {}
+    },
+    ...mapGetters(['getProject', 'getOrganization', 'isNewProject'])
   }
 }
 </script>

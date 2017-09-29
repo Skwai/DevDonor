@@ -16,11 +16,15 @@ export default new Vuex.Store({
   mutations,
   state: {
     projects: {},
+    countries: {},
+    skills: {},
+    users: {},
+    organizations: {},
+
     uid: localStorage.getItem(config.USER_ID_KEY) || null,
     auth: null,
     authenticating: false,
-    notification: null,
-    showSignupSplash: !localStorage.getItem(config.SPLASH_SEEN_KEY)
+    notification: null
   },
   strict: debug
 })

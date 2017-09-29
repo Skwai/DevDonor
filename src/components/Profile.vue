@@ -10,32 +10,42 @@
       <FormBlock legend="Basic information">
         <TextField
           label="Name"
-          :value.sync="profile.name"
+          :value.sync="currentUser.name"
+          :error="!validation.name"
+          errorMessage="Please enter a name"
         />
         <SelectField
           label="Country"
-          :value.sync="profile.country"
-          :options="countryOptions"
+          :value.sync="currentUser.country"
+          :options="countries"
+          :error="!validation.country"
+          errorMessage="Please select a country"
         />
       </FormBlock>
 
       <FormBlock legend="Professional history">
         <TextField
           label="Professional title"
-          :value.sync="profile.role"
+          :value.sync="currentUser.role"
+          :error="!validation.role"
+          errorMessage="Please enter a professional title"
           description='A professional title that describes the work you do. Eg. "Web Developer" or "UX Designer"'
         />
         <CheckboxGroup
           label="Professional skills"
-          :options="skillOptions"
+          :options="skills"
+          :error="!validation.skills"
+          errorMessage="Please select some skills"
           description="Select the type of work you have expertise in"
-          :value.sync="profile.skills"
+          :value.sync="currentUser.skills"
         />
       </FormBlock>
       <FormBlock legend="Your biography">
         <TextAreaField
           label="A little bit about yourself"
-          :value.sync="profile.bio"
+          :value.sync="currentUser.bio"
+          :error="!validation.bio"
+          errorMessage="Please enter a brief biography"
         />
       </FormBlock>
 
@@ -57,7 +67,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import db from '@/services/firebase'
 import Upload from '@/components/Upload'
 
 export default {
@@ -69,78 +78,51 @@ export default {
     return {
       loading: true,
       saving: false,
-
-      countryOptions: [],
-      skillOptions: [],
-      organizationId: null,
-
-      profile: {
-        bio: null,
-        role: null,
-        country: null
-      }
+      organizationId: null
     }
   },
 
   computed: {
-    validations () {
+    validation () {
+      const { currentUser, countries, skills } = this
       return {
+        bio: String(currentUser.bio).length,
+        role: String(currentUser.role).length,
+        country: countries.includes(currentUser.country),
+        skills: skills.includes(currentUser.skill)
       }
     },
-    ...mapGetters(['uid'])
+    ...mapGetters(['uid', 'currentUser', 'skills', 'countries'])
   },
 
   methods: {
-    async submit (ev) {
-      ev.preventDefault()
+    async submit () {
       this.saving = true
       this.error = false
-      const { bio, country, role } = this.profile
-      const skills = this.profile.skills.reduce((obj, v) => Object.assign(obj, { [v]: true }), {})
+      const { bio, country, role, skills } = this.currentUser
+
       try {
-        await this.$firebaseRefs.user.update({
+        await this.$store.dispatch('updateUser', {
+          key: this.uid,
           bio,
           country,
           role,
           skills
         })
-        this.$store.dispatch('showNotification', {
-          type: 'success',
-          message: 'Your profile has been updated'
-        })
+        this.$store.dispatch('successNotification', 'Your profile has been updated')
       } catch (err) {
-        console.log(err)
+        this.$store.dispatch('errorNotification', 'Could not update your profile')
       } finally {
         this.saving = false
       }
     }
   },
 
-  firebase () {
-    return {
-      countries: {
-        source: db.ref('countries'),
-        readyCallback (snapshot) {
-          this.countryOptions = Object.keys(snapshot.val())
-        }
-      },
-      user: {
-        source: db.ref(`users/${this.uid}`),
-        asObject: true,
-        readyCallback (snapshot) {
-          const data = snapshot.val()
-          const skills = data.skills && data.skills instanceof Object ? Object.keys(data.skills) : []
-          Object.assign(this.profile, data, { skills })
-          this.loading = false
-        }
-      },
-      skills: {
-        source: db.ref('skills'),
-        readyCallback (snapshot) {
-          this.skillOptions = Object.keys(snapshot.val())
-        }
-      }
-    }
+  async created () {
+    await this.$store.dispatch('getSkills')
+    await this.$store.dispatch('getCountries')
+    await this.$store.dispatch('getUser', this.uid)
+    this.loading = false
   }
 }
 </script>

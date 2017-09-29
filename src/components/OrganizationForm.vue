@@ -2,10 +2,7 @@
   <Loading v-if="isLoading" />
   <Page v-else>
     <template slot="content">
-      <Alert v-if="isPendingApproval">
-        Your charity registration has been submitted and is pending approval.
-      </Alert>
-      <form @submit.prevent="submit" v-else>
+      <form @submit.prevent="submit">
 
         <Heading>Charity Registration</Heading>
         <ContentBlock>
@@ -14,21 +11,21 @@
 
         <TextField
           label="Organization Name"
-          :value.sync="org.name"
+          :value.sync="organization.name"
           :error="!validation.name"
           errorMessage="Please enter your charity name"
         />
 
         <TextField
           label="Website URL"
-          :value.sync="org.url"
+          :value.sync="organization.url"
           :error="!validation.url"
           description="If you don't have a website, paste a link to your Facebook page"
         />
 
         <SelectField
           label="Country"
-          :value.sync="org.country"
+          :value.sync="organization.country"
           :options="countryOptions"
           :error="!validation.country"
           errorMessage="Please select a country"
@@ -39,14 +36,14 @@
           :maxFileSize="2"
           filePath="logos"
           :fileName="organizationId"
-          :url.sync="org.logo"
+          :url.sync="organization.logo"
           label="Upload Your Logo"
           description="Upload a picture to use as your logo"
         />
 
         <TextAreaField
           label="Short Description"
-          :value.sync="org.description"
+          :value.sync="organization.description"
           :error="!validation.description"
           errorMessage="Please enter a description"
           description="Write a brief description about your charity for users to see"
@@ -83,7 +80,7 @@ export default {
 
       countryOptions: [],
 
-      org: {
+      organization: {
         description: null,
         logo: null,
         name: null,
@@ -94,39 +91,32 @@ export default {
   },
 
   computed: {
-    isPendingApproval () {
-      return this.$route.params.organizationId &&
-        this.org.status !== 'APPROVED'
-    },
-
     validation () {
-      const { org } = this
+      const { organization } = this
       return {
-        description: String(org.description).length,
-        logo: String(org.logo).length,
-        name: String(org.name).length,
-        country: this.countryOptions.includes(org.country),
-        url: String(org.url).length
+        description: String(organization.description).length,
+        logo: String(organization.logo).length,
+        name: String(organization.name).length,
+        country: this.countryOptions.includes(organization.country),
+        url: String(organization.url).length
       }
     },
-
     isValid () {
       const { validation } = this
       return Object.keys(validation).every(k => validation[k])
     },
-
     isLoading () {
       return this.loading
     },
-
-    ...mapGetters(['uid'])
+    ...mapGetters(['uid', 'countries'])
   },
 
   async created () {
     if (this.$route.params.organizationId) {
       this.organizationId = this.$route.params.organizationId
-      const snapshot = await db.ref(`organizations/${this.organizationId}`).once('value')
-      this.org = snapshot.val()
+      await this.$store.dispatch('getOrganization', this.$route.params.organizationId)
+      const organization = this.$store.getters.getOrganization(this.organizationId)
+      Object.assign(this.organization, organization)
     } else {
       this.organizationId = db.ref('organizations').push().key
     }
@@ -134,54 +124,48 @@ export default {
   },
 
   methods: {
-    submit (ev) {
+    async submit (ev) {
       if (!this.isValid) {
-        return this.$store.dispatch('showNotification', {
-          type: 'error',
-          message: 'There are problems with your registration'
-        })
+        return this.$store.dispatch('errorNotification', 'There are problems with your registration')
       }
 
-      // submit
-      this.createOrganization()
-    },
-
-    async createOrganization () {
-      this.saving = true
-      const { organizationId } = this
-
       try {
-        const updates = {
-          [`organizations/${organizationId}`]: this.org,
-          [`users/${this.uid}/organizations/${organizationId}`]: true
-        }
-        await db.ref().update(updates)
-        this.$store.dispatch('showNotification', {
-          type: 'success',
-          message: 'Your registration has been submitted'
-        })
-        this.$router.push({ name: 'organization', params: { organizationId } })
-      } catch (err) {
-        this.$store.dispatch('showNotification', {
-          type: 'error',
-          message: 'Error submitting form'
+        this.saving = true
+        await this.$store.dispatch('updateOrganization', {
+          key: this.organizationId
         })
       } finally {
         this.saving = false
       }
     }
-  },
+  }
 
-  firebase () {
-    return {
-      countries: {
-        source: db.ref('countries'),
-        readyCallback (snapshot) {
-          this.countryOptions = Object.keys(snapshot.val())
-        }
+  /*
+  async createOrganization () {
+    this.saving = true
+    const { organizationId } = this
+
+    try {
+      const updates = {
+        [`organizations/${organizationId}`]: this.org,
+        [`users/${this.uid}/organizations/${organizationId}`]: true
       }
+      await db.ref().update(updates)
+      this.$store.dispatch('showNotification', {
+        type: 'success',
+        message: 'Your registration has been submitted'
+      })
+      this.$router.push({ name: 'organization', params: { organizationId } })
+    } catch (err) {
+      this.$store.dispatch('showNotification', {
+        type: 'error',
+        message: 'Error submitting form'
+      })
+    } finally {
+      this.saving = false
     }
   }
+  */
 }
 </script>
 

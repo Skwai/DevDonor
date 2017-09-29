@@ -3,7 +3,7 @@
     <div class="CheckboxGroup__Label">{{label}}</div>
     <HelpText v-if="description">{{description}}</HelpText>
     <div class="CheckboxGroup__Options">
-      <label class="CheckboxGroup__Option" v-for="(option, key) in options" :key="key">
+      <label class="CheckboxGroup__Option" v-for="(option, key) in optionsArray" :key="key">
         <input
           class="CheckboxGroup__OptionInput"
           type="checkbox"
@@ -13,22 +13,37 @@
         <span class="CheckboxGroup__OptionLabel">{{option}}</span>
       </label>
     </div>
+    <div class="CheckboxGroup__Error" v-if="error">{{errorMessage || "InvalidInvalid"}}</div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['label', 'description', 'options', 'value'],
+  props: [
+    'label',
+    'description',
+    'options',
+    'value',
+    'error',
+    'errorMessage'
+  ],
 
   data () {
     return {
-      selected: this.value || []
+      selected: Object.keys(this.value) || []
+    }
+  },
+
+  computed: {
+    optionsArray () {
+      return this.options.constructor === Object ? Object.keys(this.options) : this.options
     }
   },
 
   watch: {
-    selected () {
-      this.$emit('update:value', this.selected)
+    selected (value) {
+      const obj = value.reduce((obj, v) => Object.assign(obj, { [v]: true }), {})
+      this.$emit('update:value', obj)
     }
   }
 }

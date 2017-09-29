@@ -62,13 +62,13 @@ export default {
       return this.getProject(this.$route.params.projectId)
     },
     isNew () {
-      return this.getProjectIsNew(this.$route.params.projectId)
+      return this.isNewProject(this.$route.params.projectId)
     },
     description () {
       const { project } = this
       return project && project.description.length ? marked(project.description) : ''
     },
-    ...mapGetters(['getProject', 'getProjectIsNew'])
+    ...mapGetters(['getProject', 'isNewProject'])
   },
 
   async created () {

@@ -6,7 +6,7 @@
         <Heading>Your Projects</Heading>
         <p>These are the projects you're currently participating in</p>
       </header>
-      <div v-if="projects.length" class="UserProjects__List">
+      <div v-if="hasProjects" class="UserProjects__List">
         <div class="UserProjects__ListItem"
           v-for="(project, key) in projects"
           :key="key"
@@ -23,7 +23,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import db from '@/services/firebase'
 import ProjectPreview from '@/components/ProjectPreview'
 
 export default {
@@ -32,7 +31,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['uid'])
+    hasProjects () {
+      return !!Object.keys(this.projects).length
+    },
+    projects () {
+      return this.getUserProjects(this.uid)
+    },
+    ...mapGetters(['uid', 'getUserProjects'])
   },
 
   data () {
@@ -41,23 +46,9 @@ export default {
     }
   },
 
-  firebase () {
-    return {
-      userProjectIds: {
-        source: db.ref(`users/${this.uid}/projects`),
-        async readyCallback (snapshot) {
-          const promises = Object.keys(snapshot.val()).map(k => db.ref(`projects/${k}`).once('value'))
-          const snapshots = await Promise.all(promises)
-          this.projects = snapshots.map((s) => {
-            return {
-              '.key': s.key,
-              ...s.val()
-            }
-          })
-          this.loading = false
-        }
-      }
-    }
+  async created () {
+    await this.$store.dispatch('getUserProjects', this.uid)
+    this.loading = false
   }
 }
 </script>

@@ -40,20 +40,28 @@ const mutations = {
     state.notification = null
   },
 
-  [types.SHOW_SIGNUP_SPLASH] (state) {
-    state.showSignupSplash = true
-  },
-
-  [types.HIDE_SIGNUP_SPLASH] (state) {
-    state.showSignupSplash = false
-  },
-
-  [types.HIDE_SIGNUP_SPLASH] (state) {
-    state.showSignupSplash = false
-  },
-
   [types.ADD_PROJECT] (state, snapshot) {
     state.projects[snapshot.key] = toObject(snapshot)
+  },
+
+  [types.ADD_USER] (state, snapshot) {
+    state.users[snapshot.key] = toObject(snapshot)
+  },
+
+  [types.UPDATE_USER] (state, snapshot) {
+    state.users[snapshot.key] = toObject(snapshot)
+  },
+
+  [types.ADD_COUNTRIES] (state, snapshot) {
+    state.countries = snapshot.val()
+  },
+
+  [types.ADD_SKILLS] (state, snapshot) {
+    state.skills = snapshot.val()
+  },
+
+  [types.ADD_ORGANIZATION] (state, snapshot) {
+    state.organizations[snapshot.key] = toObject(snapshot)
   }
 }
 

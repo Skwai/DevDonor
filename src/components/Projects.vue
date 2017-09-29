@@ -4,12 +4,10 @@
     <template v-else>
       <div v-if="hasProjects" class="Projects__List">
         <div class="Projects__ListItem"
-          v-for="(project, index) in projects"
-          :key="index"
+          v-for="(project, key) in projects"
+          :key="key"
         >
-          <ProjectPreview
-            :project="project"
-          />
+          <ProjectPreview :projectId="key" />
         </div>
       </div>
       <Alert v-else>Sorry, no projects found</Alert>
