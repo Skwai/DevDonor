@@ -14,8 +14,8 @@ export const updateOrganization = async ({ state, commit, dispatch }, { key, ...
   const { snapshot } = await db.ref('organizations').child(key)
     .transaction((currData) => {
       const data = skeleton(currData, newData)
-      data.volunteers = data.volunteers || {}
-      if (!(state.uid in data.volunteers)) {
+      data.users = data.users || {}
+      if (!(state.uid in data.users)) {
         data.volunteers[state.uid] = true
       }
       return data
