@@ -16,7 +16,7 @@ export const updateOrganization = async ({ state, commit, dispatch }, { key, ...
       const data = skeleton(currData, newData)
       data.users = data.users && data.users instanceof Object || {}
       if (!(state.uid in data.users)) {
-        data.volunteers[state.uid] = true
+        data.users[state.uid] = true
       }
       return data
     })

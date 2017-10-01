@@ -8,10 +8,10 @@ export const getUser = async ({ state, commit }, uid) => {
   }
 }
 
-export const createUser = async (context, { uid, ...newData }) => {
+export const createUser = async ({ commit }, { uid, ...newData }) => {
   const ref = db.ref('users').child(uid)
   const { snapshot } = await ref.transaction((currData) => skeleton(currData, newData))
-  this.commit(ADD_USER, snapshot)
+  commit(ADD_USER, snapshot)
 }
 
 export const updateUser = async ({ commit }, { key, ...newData }) => {

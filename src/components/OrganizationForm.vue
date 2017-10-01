@@ -26,7 +26,7 @@
         <SelectField
           label="Country"
           :value.sync="organization.country"
-          :options="countryOptions"
+          :options="countries"
           :error="!validation.country"
           errorMessage="Please select a country"
           description="The country that your organization is based"
@@ -126,7 +126,8 @@ export default {
   methods: {
     async submit () {
       if (!this.isValid) {
-        return this.$store.dispatch('errorNotification', 'There are problems with your registration')
+        this.$store.dispatch('errorNotification', 'There are problems with your registration')
+        return
       }
       try {
         this.saving = true
@@ -152,5 +153,4 @@ export default {
 </script>
 
 <style lang="stylus">
-
 </style>
