@@ -1,7 +1,7 @@
 <template>
   <Loading v-if="loading" />
   <Page v-else>
-    <div slot="content">
+    <template slot="content">
       <header class="Volunteer__Header">
         <Avatar :src="user.picture" :label="user.name" />
         <div class="Volunteer__HeaderDetails">
@@ -14,15 +14,14 @@
       </header>
       <Subheading>About me</Subheading>
       <div v-html="bio" class="Volunteer__Bio"></div>
-    </div>
-    <div slot="sidebar">
-      <VolunteerProjects :projectIds="user.projects" />
-    </div>
+    </template>
+    <template slot="sidebar">
+      <!--<VolunteerProjects :projectIds="user.projects" />-->
+    </template>
   </Page>
 </template>
 
 <script>
-import db from '@/services/firebase'
 import marked from 'marked'
 import VolunteerProjects from '@/components/VolunteerProjects'
 
@@ -33,6 +32,7 @@ export default {
 
   data () {
     return {
+      user: {},
       loading: true
     }
   },
@@ -43,15 +43,12 @@ export default {
     }
   },
 
-  firebase () {
-    return {
-      user: {
-        source: db.ref('users').child(this.$route.params.userId),
-        asObject: true,
-        readyCallback () {
-          this.loading = false
-        }
-      }
+  async created () {
+    try {
+      await this.$store.dispatch('getUser', this.$route.params.userId)
+      this.user = this.$store.getters.getUser(this.$route.params.userId)
+    } finally {
+      this.loading = false
     }
   }
 }
@@ -63,7 +60,6 @@ export default {
 @require "../styles/card.styl"
 
 .Volunteer
-
   &__Skills
     margin-top: spacingSmall
 

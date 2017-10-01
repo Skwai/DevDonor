@@ -18,6 +18,7 @@ export const isNewProject = ({ projects }) => (key) => {
   return delta < microtime
 }
 export const currentUser = ({ uid, users }) => uid in users ? users[uid] : null
+export const getUser = ({ users }) => (uid) => uid in users ? users[uid] : null
 export const getUserProjectIds = ({ users }) => (uid) => users[uid].projects
 export const getUserProjects = ({ users, projects }) => (uid) => {
   if (uid in users) {

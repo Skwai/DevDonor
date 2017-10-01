@@ -59,7 +59,6 @@ export default {
 
   async created () {
     await this.$store.dispatch('getUserOrganizations', this.uid)
-    console.log(this.$store.getters.getUserOrganizations(this.uid))
   },
 
   mounted () {

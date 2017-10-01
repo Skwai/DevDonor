@@ -22,9 +22,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import marked from 'marked'
-import db from '@/services/firebase'
 
 export default {
   props: ['organizationId'],
@@ -35,24 +33,17 @@ export default {
     }
   },
 
-  computed: {
-    ...mapGetters([
-      'getCharityType'
-    ]),
-    description () {
-      return this.organization && this.organization.description ? marked(this.organization.description) : null
-    }
+  async created () {
+    await this.$store.dispatch('getOrganization', this.organizationId)
+    this.loading = false
   },
 
-  firebase () {
-    return {
-      organization: {
-        source: db.ref(`organizations/${this.organizationId}`),
-        asObject: true,
-        readyCallback (snapshot) {
-          this.loading = false
-        }
-      }
+  computed: {
+    organization () {
+      return this.$store.getters.getOrganization(this.organizationId)
+    },
+    description () {
+      return this.organization && this.organization.description ? marked(this.organization.description) : null
     }
   }
 }
@@ -79,7 +70,8 @@ export default {
     top: 0
     left: 50%
     transform: translate(-50%, -50%)
-    width: 5rem
+    width: auto
+    min-width: 2rem
     height: 5rem
     background: #fff
     box-shadow: rgba(0,0,0,.1) 0 1px 2px, colorGray 0 0 0 1px

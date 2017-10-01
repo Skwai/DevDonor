@@ -1,18 +1,17 @@
 <template>
-  <router-link class="VolunteerAvatar" :to="{ name: 'volunteer', params: { userId } }">
+  <router-link class="VolunteerAvatar" :to="{ name: 'volunteer', params: { userId } }" v-if="!loading">
     <MediaObject align="center">
-      <img slot="object" class="VolunteerAvatar__Image" :src="volunteer.picture" :alt="volunteer.name">
+      <img slot="object" class="VolunteerAvatar__Image" :src="user.picture" :alt="user.name">
 
       <template slot="body" v-if="showDetails">
-        <div class="VolunteerAvatar__Name">{{volunteer.name}}</div>
-        <SmallCaps>{{volunteer.role}}</SmallCaps>
+        <div class="VolunteerAvatar__Name">{{user.name}}</div>
+        <SmallCaps>{{user.role}}</SmallCaps>
       </template>
     </MediaObject>
   </router-link>
 </template>
 
 <script>
-import db from '@/services/firebase'
 import SmallCaps from '@/components/SmallCaps'
 
 export default {
@@ -24,19 +23,17 @@ export default {
 
   data () {
     return {
+      user: null,
       loading: true
     }
   },
 
-  firebase () {
-    return {
-      volunteer: {
-        source: db.ref('users').child(this.userId),
-        asObject: true,
-        readyCallback (snapshot) {
-          this.loading = false
-        }
-      }
+  async created () {
+    try {
+      await this.$store.dispatch('getUser', this.userId)
+      this.user = this.$store.getters.getUser(this.userId)
+    } finally {
+      this.loading = false
     }
   }
 }

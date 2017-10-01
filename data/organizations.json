@@ -6,7 +6,11 @@
     "country" : "Australia",
     "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "type" : "NFP",
-    "url": "https://www.worldwildlife.org"
+    "url": "https://www.worldwildlife.org",
+    "users": {
+      "user1": true,
+      "user2": true
+    }
   },
   "organization2" : {
     "status": "approved",
@@ -15,7 +19,11 @@
     "country" : "Australia",
     "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "type" : "NFP",
-    "url": "https://red.org"
+    "url": "https://red.org",
+    "users": {
+      "user1": true,
+      "user2": true
+    }
   },
   "organization3" : {
     "status": "approved",
@@ -24,7 +32,11 @@
     "country" : "Australia",
     "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "type" : "Charity",
-    "url": "https://wellcome.ac.uk"
+    "url": "https://wellcome.ac.uk",
+    "users": {
+      "user1": true,
+      "user2": true
+    }
   },
   "organization4" : {
     "status": "approved",
@@ -33,7 +45,11 @@
     "country" : "Australia",
     "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "type" : "Charity",
-    "url": "https://www.gatesfoundation.org"
+    "url": "https://www.gatesfoundation.org",
+    "users": {
+      "user1": true,
+      "user2": true
+    }
   },
   "organization5" : {
     "status": "approved",
@@ -42,7 +58,11 @@
     "country" : "Australia",
     "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "type" : "Charity",
-    "url": "https://wellcome.ac.uk/"
+    "url": "https://wellcome.ac.uk/",
+    "users": {
+      "user1": true,
+      "user2": true
+    }
   },
   "organization6" : {
     "status": "approved",
@@ -51,6 +71,10 @@
     "country" : "Australia",
     "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "type" : "NFP",
-    "url": "https://www.unicef.org"
+    "url": "https://www.unicef.org",
+    "users": {
+      "user1": true,
+      "user2": true
+    }
   }
 }

@@ -30,7 +30,7 @@ export default {}
 
   &__Sidebar
     flex: 0 0 100%
-    padding: spacingBase
+    padding: spacingBase 0
 
     @media (min-width: 768px)
       flex: 0 0 24rem

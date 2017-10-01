@@ -36,7 +36,7 @@ export default {
 
   computed: {
     optionsArray () {
-      return this.options.constructor === Object ? Object.keys(this.options) : this.options
+      return this.options instanceof Object ? Object.keys(this.options) : this.options
     }
   },
 

@@ -8,22 +8,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import db from '@/services/firebase'
 
 export default {
   computed: {
     ...mapGetters([
       'uid'
     ])
-  },
-
-  firebase () {
-    const { uid } = this
-    return {
-      userProjects: {
-        source: db.ref(`users/${uid}/projects`)
-      }
-    }
   }
 }
 </script>

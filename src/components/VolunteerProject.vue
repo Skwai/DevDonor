@@ -10,7 +10,6 @@
 
 <script>
 import SmallCaps from '@/components/SmallCaps'
-import db from '@/services/firebase'
 
 export default {
   props: ['projectId'],
@@ -21,26 +20,17 @@ export default {
 
   data () {
     return {
-      loading: true
+      loading: true,
+      project: null
     }
   },
 
-  firebase () {
-    return {
-      project: {
-        source: db.ref('projects').child(this.projectId),
-        asObject: true,
-        async readyCallback (projectSnapshot) {
-          this.$bindAsObject(
-            'organization',
-            db.ref('organizations').child(projectSnapshot.val().organization),
-            null,
-            () => {
-              this.loading = false
-            }
-          )
-        }
-      }
+  async created () {
+    try {
+      await this.$store.dispatch('getProject', this.projectId)
+      this.project = this.$store.getters.getProject(this.projectId)
+    } finally {
+      this.loading = false
     }
   }
 }
