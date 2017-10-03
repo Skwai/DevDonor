@@ -12,7 +12,7 @@
           :key="key"
         >
           <ProjectPreview
-            :project="project"
+            :projectId="key"
           />
         </div>
       </div>

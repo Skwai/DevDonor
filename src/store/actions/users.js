@@ -33,3 +33,7 @@ export const getUserProjects = async ({ dispatch }, uid) => {
   snapshot.forEach(({ key }) => promises.push(dispatch('getProject', key)))
   await Promise.all(promises)
 }
+
+export const addProjectToUser = async ({ commit }, { projectId, uid }) => {
+  await db.ref(`users/${uid}/projects/${projectId}`).update(true)
+}

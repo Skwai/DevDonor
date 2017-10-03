@@ -19,11 +19,16 @@ export const isNewProject = ({ projects }) => (key) => {
   const microtime = 24 * 60 * 60 * 1000 * config.NEW_THRESHOLD_DAYS
   return delta < microtime
 }
+
+export const currentUserProjectCount = ({ users, uid }) => {
+  return uid in users && users[uid].projects instanceof Object ? Object.keys(users[uid].projects).length : 0
+}
+
 export const currentUser = ({ uid, users }) => uid in users ? users[uid] : null
 export const getUser = ({ users }) => (uid) => uid in users ? users[uid] : null
 export const getUserProjectIds = ({ users }) => (uid) => users[uid].projects
-export const getUserProjects = ({ users, projects }) =>
-  (uid) => filterObject(projects, (k, v) => uid in v.projects)
+export const getUserProjects = ({ projects }) =>
+  (uid) => filterObject(projects, (k, v) => v.volunteers instanceof Object && uid in v.volunteers)
 export const getUserOrganizations = ({ organizations }) =>
-  (uid) => filterObject(organizations, (k, v) => uid in v.users)
+  (uid) => filterObject(organizations, (k, v) => v.users instanceof Object && uid in v.users)
 export const getOrganization = ({ organizations }) => (key) => key in organizations ? organizations[key] : null

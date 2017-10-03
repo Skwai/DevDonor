@@ -108,7 +108,7 @@ export default {
     },
     isValid () {
       const { validation } = this
-      return Object.keys(validation).every(k => validation[k])
+      return Object.values(validation).every((v) => v)
     },
     ...mapGetters(['uid', 'countries'])
   },
@@ -129,6 +129,7 @@ export default {
         this.$store.dispatch('errorNotification', 'There are problems with your registration')
         return
       }
+
       try {
         this.saving = true
         const { description, logo, name, country, url } = this.organization

@@ -71,6 +71,8 @@ export default {
 
       showOrganizations: false,
 
+      organizations: {},
+
       project: {
         country: null,
         organization: null,
@@ -82,9 +84,6 @@ export default {
   },
 
   computed: {
-    organizations () {
-      return this.$store.getters.getUserProjects(this.uid)
-    },
     validation () {
       const { project } = this
       return {
@@ -97,16 +96,19 @@ export default {
     },
     isValid () {
       const { validation } = this
-      return Object.keys(validation).every(k => validation[k])
+      return Object.values(validation).every((v) => v)
     },
     ...mapGetters(['uid', 'countries', 'skills'])
   },
 
   async created () {
-    this.projectId = db.ref('projects').push().key
-    await this.$store.dispatch('getUserProjects', this.uid)
+    this.projectId = this.$route.params.projectId || db.ref('projects').push().key
+    await this.$store.dispatch('getUserOrganizations', this.uid)
     await this.$store.dispatch('getCountries')
     await this.$store.dispatch('getSkills')
+    this.organizations = this.$store.getters.getUserOrganizations(this.uid)
+    // set initial organization as the first
+    this.selectOrganization(Object.keys(this.organizations).pop())
     this.loading = false
   },
 
@@ -115,8 +117,9 @@ export default {
       this.showOrganizations = !this.showOrganizations
     },
 
-    selectOrganization (orgId) {
-      this.project.organization = orgId
+    selectOrganization (organizationId) {
+      this.project.organization = organizationId
+      this.project.country = this.organizations[organizationId].country
       this.showOrganizations = false
     },
 
@@ -128,38 +131,24 @@ export default {
       try {
         this.saving = true
         const { description, title, organization, skills } = this.project
-        await this.dispatch('updateProject', {
+        await this.$store.dispatch('updateProject', {
+          key: this.projectId,
           description,
           title,
           organization,
           skills
         })
+        if (!this.$route.params.projectId) {
+          this.$router.push({ name: 'poject', params: { projectId: this.projectId } })
+        }
+        this.$store.dispatch('successNotification', 'Your project has been created')
       } catch (err) {
-        this.$dispatch('errorNotification', 'There was an error saving your project')
+        this.$store.dispatch('errorNotification', 'There was an error saving your project')
       } finally {
         this.saving = false
       }
     }
   }
-  /*
-    updateProject (projectId) {
-      const skills = this.project.skills.reduce((obj, v) => Object.assign(obj, { [v]: true }), {})
-      return db.ref(`projects/${this.projectId}`).transaction((data) => {
-        const volunteers = (data && data.volunteers && this.uid in data.volunteers)
-          ? data.volunteers
-          : { [this.uid]: true }
-        return {
-          organization: data && data.organization ? data.organization : organization,
-          createdAt: data && data.createdAt ? data.createdAt : new Date().toISOString(),
-          title,
-          skills,
-          description,
-          volunteers
-        }
-      })
-    }
-  },
-  */
 }
 </script>
 
