@@ -27,7 +27,7 @@
         <router-link to="/project/create" class="AccountMenu__Option">Create a project</router-link>
         <div class="AccountMenu__OptionsDivider"></div>
         <router-link to="/profile" class="AccountMenu__Option">Your profile</router-link>
-        <router-link to="/projects" class="AccountMenu__Option">Your projects <Counter>{{currentUserProjectCount}}</Counter></router-link>
+        <router-link to="/projects" class="AccountMenu__Option">Your projects <Counter>{{projectCount}}</Counter></router-link>
         <div class="AccountMenu__OptionsDivider"></div>
         <span tabindex="0" class="AccountMenu__Option" @click="logout">Logout</span>
       </template>
@@ -52,19 +52,23 @@ export default {
   },
 
   computed: {
+    projectCount () {
+      return this.$store.getters.getUserProjectCount(this.uid)
+    },
+
     organizations () {
       return this.$store.getters.getUserOrganizations(this.uid)
     },
 
     ...mapGetters([
       'uid',
-      'auth',
-      'currentUserProjectCount'
+      'auth'
     ])
   },
 
   async created () {
     await this.$store.dispatch('getUserOrganizations', this.uid)
+    await this.$store.dispatch('getUserProjects', this.uid)
     this.loading = false
   },
 

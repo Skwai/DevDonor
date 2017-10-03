@@ -20,8 +20,10 @@ export const isNewProject = ({ projects }) => (key) => {
   return delta < microtime
 }
 
-export const currentUserProjectCount = ({ users, uid }) => {
-  return uid in users && users[uid].projects instanceof Object ? Object.keys(users[uid].projects).length : 0
+export const getUserProjectCount = ({ users }) => (uid) => {
+  if (!(uid in users)) return 0
+  const user = users[uid]
+  return user.projects instanceof Object ? Object.keys(user.projects).length : 0
 }
 
 export const currentUser = ({ uid, users }) => uid in users ? users[uid] : null

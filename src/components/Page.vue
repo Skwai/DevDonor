@@ -17,7 +17,10 @@ export default {}
 
 .Page
   // min-height: 100vh
-  padding: spacingLarge
+  padding: spacingBase
+
+  @media (min-width: 768px)
+    padding: spacingLarge
 
   &__Container
     container()

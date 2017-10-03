@@ -1,6 +1,6 @@
 <template>
   <Loading v-if="loading" />
-  <div v-else>
+  <div v-else class="UserProjects">
     <Container>
       <header class="UserProjects__Header">
         <Heading>Your Projects</Heading>

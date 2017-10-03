@@ -1,5 +1,9 @@
 <template>
-  <router-link :to="{ name: 'project', params: { projectId: projectId } }" v-if="!loading" class="VolunteerProject">
+  <router-link
+    :to="{ name: 'project', params: { projectId: projectId } }"
+    v-if="!loading"
+    class="VolunteerProject"
+  >
     <img :src="organization.logo" class="VolunteerProject__Logo">
     <div class="VolunteerProject__Details">
       <div class="VolunteerProject__Name">{{organization.name}}</div>
@@ -21,7 +25,8 @@ export default {
   data () {
     return {
       loading: true,
-      project: null
+      project: {},
+      organization: {}
     }
   },
 
@@ -29,6 +34,8 @@ export default {
     try {
       await this.$store.dispatch('getProject', this.projectId)
       this.project = this.$store.getters.getProject(this.projectId)
+      await this.$store.dispatch('getOrganization', this.project.organization)
+      this.organization = this.$store.getters.getOrganization(this.project.organization)
     } finally {
       this.loading = false
     }

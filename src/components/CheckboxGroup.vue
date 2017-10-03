@@ -10,7 +10,10 @@
           v-model="selected"
           :value="value"
         >
-        <span class="CheckboxGroup__OptionLabel">{{value}} <small class="CheckboxGroup__OptionDescription">{{description}}</small></span>
+        <span class="CheckboxGroup__OptionLabel">
+          {{value}}
+          <small class="CheckboxGroup__OptionDescription">{{description}}</small>
+        </span>
       </label>
     </div>
     <div class="CheckboxGroup__Error" v-if="error">{{errorMessage || "InvalidInvalid"}}</div>

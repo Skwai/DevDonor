@@ -7,53 +7,41 @@
         Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback.
       </ContentBlock>
 
-      <FormBlock legend="Basic information">
-        <TextField
-          label="Name"
-          :value.sync="currentUser.name"
-          :error="!validation.name"
-          errorMessage="Please enter a name"
-        />
-        <SelectField
-          label="Country"
-          :value.sync="currentUser.country"
-          :options="countries"
-          :error="!validation.country"
-          errorMessage="Please select a country"
-        />
-      </FormBlock>
-
-      <FormBlock legend="Professional history">
-        <TextField
-          label="Professional title"
-          :value.sync="currentUser.role"
-          :error="!validation.role"
-          errorMessage="Please enter a professional title"
-          description='A professional title that describes the work you do. Eg. "Web Developer" or "UX Designer"'
-        />
-        <CheckboxGroup
-          label="Professional skills"
-          :options="skills"
-          :error="!validation.skills"
-          errorMessage="Please select some skills"
-          description="Select the type of work you have expertise in"
-          :value.sync="currentUser.skills"
-        />
-      </FormBlock>
-      <FormBlock legend="Your biography">
-        <TextAreaField
-          label="A little bit about yourself"
-          :value.sync="currentUser.bio"
-          :error="!validation.bio"
-          errorMessage="Please enter a brief biography"
-        />
-      </FormBlock>
+      <TextField
+        label="Professional title"
+        :value.sync="profile.role"
+        :error="!validation.role"
+        errorMessage="Please enter a professional title"
+        description='A professional title that describes the work you do. Eg. "Web Developer" or "UX Designer"'
+      />
+      <SelectField
+        label="Country"
+        :value.sync="profile.country"
+        :options="countries"
+        :error="!validation.country"
+        errorMessage="Please select a country"
+      />
+      <CheckboxGroup
+        label="Professional skills"
+        :options="skills"
+        :error="!validation.skills"
+        errorMessage="Please select some skills"
+        description="Select the type of work you have expertise in"
+        :value.sync="profile.skills"
+      />
+      <TextAreaField
+        label="A little bit about yourself"
+        :value.sync="profile.bio"
+        :error="!validation.bio"
+        errorMessage="Please enter a brief biography"
+      />
 
       <Btn
         color="primary"
         size="large"
         type="submit"
         :loading="saving"
+        :disabled="!isValid"
       >Update your profile</Btn>
     </form>
     <div slot="sidebar">
@@ -67,40 +55,48 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Upload from '@/components/Upload'
 
 export default {
-  components: {
-    Upload
-  },
-
   data () {
     return {
       loading: true,
       saving: false,
-      organizationId: null
+      organizationId: null,
+
+      profile: {
+        bio: null,
+        country: null,
+        role: null,
+        skills: []
+      }
     }
   },
 
   computed: {
     validation () {
-      const { currentUser, countries, skills } = this
+      const { profile, countries } = this
       return {
-        bio: String(currentUser.bio).length,
-        role: String(currentUser.role).length,
-        country: countries.includes(currentUser.country),
-        skills: skills.includes(currentUser.skill)
+        bio: !!String(profile.bio).length,
+        country: countries.includes(profile.country),
+        role: !!String(profile.role).length,
+        skills: !!Object.keys(profile.skills).length
       }
     },
-    ...mapGetters(['uid', 'currentUser', 'skills', 'countries'])
+    isValid () {
+      return Object.values(this.validation).every(v => v)
+    },
+    ...mapGetters(['uid', 'skills', 'countries'])
   },
 
   methods: {
     async submit () {
+      if (!this.isValid) {
+        this.$store.dispatch('errorNotification', 'There are problems with your details')
+        return
+      }
       this.saving = true
       this.error = false
-      const { bio, country, role, skills } = this.currentUser
-
+      const { bio, country, role, skills } = this.profile
       try {
         await this.$store.dispatch('updateUser', {
           key: this.uid,
@@ -122,6 +118,7 @@ export default {
     await this.$store.dispatch('getSkills')
     await this.$store.dispatch('getCountries')
     await this.$store.dispatch('getUser', this.uid)
+    Object.assign(this.profile, await this.$store.getters.getUser(this.uid))
     this.loading = false
   }
 }

@@ -27,7 +27,7 @@ export const getUserOrganizations = async ({ state, dispatch }, uid) => {
   await Promise.all(promises)
 }
 
-export const getUserProjects = async ({ dispatch }, uid) => {
+export const getUserProjects = async ({ state, dispatch }, uid) => {
   const snapshot = await db.ref(`users/${uid}/projects`).once('value')
   const promises = []
   snapshot.forEach(({ key }) => promises.push(dispatch('getProject', key)))
