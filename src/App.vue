@@ -57,6 +57,7 @@ body
 button, input, textarea
   font-size: 1rem
   line-height: lineHeightBase
+  font-family: inherit
 
 button
   cursor: pointer

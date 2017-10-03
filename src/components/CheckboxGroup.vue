@@ -3,14 +3,14 @@
     <div class="CheckboxGroup__Label">{{label}}</div>
     <HelpText v-if="description">{{description}}</HelpText>
     <div class="CheckboxGroup__Options">
-      <label class="CheckboxGroup__Option" v-for="(option, key) in optionsArray" :key="key">
+      <label class="CheckboxGroup__Option" v-for="(description, value) in options" :key="value">
         <input
           class="CheckboxGroup__OptionInput"
           type="checkbox"
           v-model="selected"
-          :value="option"
+          :value="value"
         >
-        <span class="CheckboxGroup__OptionLabel">{{option}}</span>
+        <span class="CheckboxGroup__OptionLabel">{{value}} <small class="CheckboxGroup__OptionDescription">{{description}}</small></span>
       </label>
     </div>
     <div class="CheckboxGroup__Error" v-if="error">{{errorMessage || "InvalidInvalid"}}</div>
@@ -31,12 +31,6 @@ export default {
   data () {
     return {
       selected: Object.keys(this.value) || []
-    }
-  },
-
-  computed: {
-    optionsArray () {
-      return this.options instanceof Object ? Object.keys(this.options) : this.options
     }
   },
 
@@ -73,6 +67,12 @@ export default {
       position: absolute
       opacity: 0
       left: -999rem
+
+    &Description
+      font-size: 100%
+      opacity: .5
+      display: inline-block
+      margin-left: 0.5rem
 
     &Label
       font-size: fontSizeSmall

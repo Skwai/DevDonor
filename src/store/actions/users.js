@@ -20,20 +20,16 @@ export const updateUser = async ({ commit }, { key, ...newData }) => {
   commit(UPDATE_USER, snapshot)
 }
 
-export const getUserOrganizations = async ({ store, dispatch }, uid) => {
+export const getUserOrganizations = async ({ state, dispatch }, uid) => {
   const snapshot = await db.ref(`users/${uid}/organizations`).once('value')
-  await Promise.all((() => {
-    const promises = []
-    snapshot.forEach(({ key }) => dispatch('getOrganization', key))
-    return promises
-  })())
+  const promises = []
+  snapshot.forEach(({ key }) => promises.push(dispatch('getOrganization', key)))
+  await Promise.all(promises)
 }
 
 export const getUserProjects = async ({ dispatch }, uid) => {
   const snapshot = await db.ref(`users/${uid}/projects`).once('value')
-  await Promise.all((() => {
-    const promises = []
-    snapshot.forEach(({ key }) => dispatch('getProject', key))
-    return promises
-  })())
+  const promises = []
+  snapshot.forEach(({ key }) => promises.push(dispatch('getProject', key)))
+  await Promise.all(promises)
 }

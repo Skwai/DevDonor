@@ -1,6 +1,6 @@
 import * as types from './mutation-types'
 
-import { toObject } from '@/services/firebase'
+import { toObject } from '@/misc'
 
 const mutations = {
   [types.AUTH_START] (state) {

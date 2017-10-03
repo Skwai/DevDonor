@@ -31,11 +31,6 @@ export const formatObjects = (snapshot) => Object.keys(snapshot.val()).map((k) =
   ...(snapshot.val()[k])
 }))
 
-export const toObject = (snapshot) => ({
-  '.key': snapshot.key,
-  ...snapshot.val()
-})
-
 export const skeleton = (currData = {}, newData = {}) => {
   const createdAt = currData || new Date().toISOString()
   const modifiedAt = new Date().toISOString()

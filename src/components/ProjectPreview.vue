@@ -1,7 +1,10 @@
 <template>
   <article class="ProjectPreview">
-    <Loading v-if="loading" />
-    <router-link v-else :to="{ name: 'project', params: { projectId: projectId } }" class="ProjectPreview__Link">
+    <router-link
+      v-if="!loading"
+      :to="{ name: 'project', params: { projectId: projectId } }"
+      class="ProjectPreview__Link"
+    >
       <div class="ProjectPreview__Label" v-if="isNew">NEW</div>
       <img class="ProjectPreview__Logo" :src="organization.logo">
       <div class="ProjectPreview__Body">

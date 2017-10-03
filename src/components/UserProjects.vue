@@ -34,10 +34,7 @@ export default {
     hasProjects () {
       return !!Object.keys(this.projects).length
     },
-    projects () {
-      return this.getUserProjects(this.uid)
-    },
-    ...mapGetters(['uid', 'getUserProjects'])
+    ...mapGetters(['uid'])
   },
 
   data () {
@@ -48,6 +45,7 @@ export default {
 
   async created () {
     await this.$store.dispatch('getUserProjects', this.uid)
+    this.projects = this.$store.getters.getUserProjects(this.uid)
     this.loading = false
   }
 }

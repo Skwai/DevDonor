@@ -14,7 +14,7 @@ export const updateOrganization = async ({ state, commit, dispatch }, { key, ...
   const { snapshot } = await db.ref('organizations').child(key)
     .transaction((currData) => {
       const data = skeleton(currData, newData)
-      data.users = data.users && data.users instanceof Object || {}
+      data.users = data.users instanceof Object ? data.users : {}
       if (!(state.uid in data.users)) {
         data.users[state.uid] = true
       }

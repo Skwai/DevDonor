@@ -1,6 +1,7 @@
 <template>
-  <Page>
-    <form slot="content" @submit.prevent="submit">
+  <loading slot="content" v-if="loading" />
+  <Page v-else>
+    <form @submit.prevent="submit">
       <Subheading>Create a Project</Subheading>
       <ContentBlock>
         <p>We will review your application to make sure everything is in order and and email you soon.</p>
@@ -106,6 +107,7 @@ export default {
     await this.$store.dispatch('getUserProjects', this.uid)
     await this.$store.dispatch('getCountries')
     await this.$store.dispatch('getSkills')
+    this.loading = false
   },
 
   methods: {

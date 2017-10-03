@@ -1,11 +1,13 @@
 import config from '@/config'
 
+import { filterObject } from '@/misc'
+
 export const getCharityType = () => (type) => config.CHARITY_TYPES[type.toLowerCase()]
 export const authenticating = ({ authenticating }) => authenticating
 export const auth = ({ auth }) => auth
 export const uid = ({ uid }) => uid
 export const notification = ({ notification }) => notification
-export const skills = ({ skills }) => Object.keys(skills)
+export const skills = ({ skills }) => skills
 export const countries = ({ countries }) => Object.keys(countries)
 
 export const getProjects = ({ projects }) => (filters) => projects
@@ -20,12 +22,8 @@ export const isNewProject = ({ projects }) => (key) => {
 export const currentUser = ({ uid, users }) => uid in users ? users[uid] : null
 export const getUser = ({ users }) => (uid) => uid in users ? users[uid] : null
 export const getUserProjectIds = ({ users }) => (uid) => users[uid].projects
-export const getUserProjects = ({ users, projects }) => (uid) => {
-  if (uid in users) {
-    const ids = Object.keys(users[uid].projects)
-    return ids.reduce((obj, k) => Object.assign(obj, { [k]: projects }), {})
-  }
-  return {}
-}
-export const getUserOrganizations = ({ users, organizations }) => (uid) => {}
+export const getUserProjects = ({ users, projects }) =>
+  (uid) => filterObject(projects, (k, v) => uid in v.projects)
+export const getUserOrganizations = ({ organizations }) =>
+  (uid) => filterObject(organizations, (k, v) => uid in v.users)
 export const getOrganization = ({ organizations }) => (key) => key in organizations ? organizations[key] : null
