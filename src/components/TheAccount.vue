@@ -1,6 +1,6 @@
 <template>
   <div class="Account">
-    <Loading size="small" color="white" v-if="authenticating" />
+    <AppLoading size="small" color="white" v-if="authenticating" />
     <template v-else>
       <!--<TheAccountLinks />-->
       <TheAccountMenu v-if="auth" />

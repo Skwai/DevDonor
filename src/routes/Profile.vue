@@ -1,27 +1,27 @@
 <template>
-  <Loading v-if="loading" />
-  <Page v-else>
+  <AppLoading v-if="loading" />
+  <AppPage v-else>
     <form slot="content" @submit.prevent="submit">
-      <Heading>Your Profile</Heading>
-      <ContentBlock>
+      <AppHeading>Your Profile</AppHeading>
+      <AppContentBlock>
         Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback.
-      </ContentBlock>
+      </AppContentBlock>
 
-      <TextField
+      <AppTextField
         label="Professional title"
         :value.sync="profile.role"
         :error="!validation.role"
         errorMessage="Please enter a professional title"
         description='A professional title that describes the work you do. Eg. "Web Developer" or "UX Designer"'
       />
-      <SelectField
+      <AppSelectField
         label="Country"
         :value.sync="profile.country"
         :options="countries"
         :error="!validation.country"
         errorMessage="Please select a country"
       />
-      <CheckboxGroup
+      <AppCheckboxGroup
         label="Professional skills"
         :options="skills"
         :error="!validation.skills"
@@ -29,28 +29,28 @@
         description="Select the type of work you have expertise in"
         :value.sync="profile.skills"
       />
-      <TextAreaField
+      <AppTextAreaField
         label="A little bit about yourself"
         :value.sync="profile.bio"
         :error="!validation.bio"
         errorMessage="Please enter a brief biography"
       />
 
-      <Btn
+      <AppBtn
         color="primary"
         size="large"
         type="submit"
         :loading="saving"
         :disabled="!isValid"
-      >Update your profile</Btn>
+      >Update your profile</AppBtn>
     </form>
     <div slot="sidebar">
-      <Card>
-        <Subheading>Before you register&hellip;</Subheading>
+      <AppCard>
+        <AppSubheading>Before you register&hellip;</AppSubheading>
         Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback, we need to leverage our synergies, for helicopter view cannibalize, and herding cats gain traction. Staff engagement herding cats killing it, nor bottleneck mice.
-      </Card>
+      </AppCard>
     </div>
-  </Page>
+  </AppPage>
 </template>
 
 <script>

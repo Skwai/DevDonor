@@ -1,29 +1,29 @@
 <template>
-  <Loading v-if="loading" />
-  <Page v-else>
+  <AppLoading v-if="loading" />
+  <AppPage v-else>
     <template slot="content">
       <form @submit.prevent="submit">
 
-        <Heading>Charity Registration</Heading>
-        <ContentBlock>
+        <AppHeading>Charity Registration</AppHeading>
+        <AppContentBlock>
           Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback.
-        </ContentBlock>
+        </AppContentBlock>
 
-        <TextField
+        <AppTextField
           label="Organization Name"
           :value.sync="organization.name"
           :error="!validation.name"
           errorMessage="Please enter your charity name"
         />
 
-        <TextField
+        <AppTextField
           label="Website URL"
           :value.sync="organization.url"
           :error="!validation.url"
           description="If you don't have a website, paste a link to your Facebook page"
         />
 
-        <SelectField
+        <AppSelectField
           label="Country"
           :value.sync="organization.country"
           :options="countries"
@@ -32,7 +32,7 @@
           description="The country that your organization is based"
         />
 
-        <Upload
+        <AppUpload
           :maxFileSize="2"
           filePath="logos"
           :fileName="organizationId"
@@ -41,7 +41,7 @@
           description="Upload a picture to use as your logo"
         />
 
-        <TextAreaField
+        <AppTextAreaField
           label="Short Description"
           :value.sync="organization.description"
           :error="!validation.description"
@@ -49,32 +49,31 @@
           description="Write a brief description about your charity for users to see"
         />
 
-        <Btn
+        <AppBtn
           color="primary"
           size="large"
           :loading="saving"
           :disabled="!isValid"
-        >Submit Application</Btn>
+        >Submit Application</AppBtn>
       </form>
     </template>
     <template slot="sidebar">
-      <Card v-if="!submitted">
-        <Subheading>Before you register&hellip;</Subheading>
+      <AppCard v-if="!submitted">
+        <AppSubheading>Before you register&hellip;</AppSubheading>
         Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback, we need to leverage our synergies, for helicopter view cannibalize, and herding cats gain traction. Staff engagement herding cats killing it, nor bottleneck mice.
-      </Card>
+      </AppCard>
     </template>
-    </Page>
-  </div>
+  </AppPage>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import db from '@/services/firebase'
-import Upload from '@/components/Upload'
+import AppUpload from '@/components/AppUpload'
 
 export default {
   components: {
-    Upload
+    AppUpload
   },
 
   data () {

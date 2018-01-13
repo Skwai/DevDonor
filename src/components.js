@@ -2,54 +2,54 @@
 import Vue from 'vue'
 
 // Forms
-import SelectField from '@/components/SelectField'
-import TextField from '@/components/TextField'
-import HelpText from '@/components/HelpText'
-import Btn from '@/components/Btn'
-import Alert from '@/components/Alert'
-import TextAreaField from '@/components/TextAreaField'
+import AppSelectField from '@/components/AppSelectField'
+import AppTextField from '@/components/AppTextField'
+import AppHelpText from '@/components/AppHelpText'
+import AppBtn from '@/components/AppBtn'
+import AppAlert from '@/components/AppAlert'
+import AppTextAreaField from '@/components/AppTextAreaField'
 
 // Headings
-import Heading from '@/components/Heading'
-import Subheading from '@/components/Subheading'
+import AppHeading from '@/components/AppHeading'
+import AppSubheading from '@/components/AppSubheading'
 
 // Layout
-import ContentBlock from '@/components/ContentBlock'
-import Card from '@/components/Card'
-import Page from '@/components/Page'
-import Container from '@/components/Container'
+import AppContentBlock from '@/components/AppContentBlock'
+import AppCard from '@/components/AppCard'
+import AppPage from '@/components/AppPage'
+import AppContainer from '@/components/AppContainer'
 
 // Other
-import SmallCaps from '@/components/SmallCaps'
-import Tag from '@/components/Tag'
-import Loading from '@/components/Loading'
-import Avatar from '@/components/Avatar'
-import MediaObject from '@/components/MediaObject'
-import FormBlock from '@/components/FormBlock'
-import CheckboxGroup from '@/components/CheckboxGroup'
-import Counter from '@/components/Counter'
-import FilterMenu from '@/components/FilterMenu'
-import GlyphIcon from '@/components/GlyphIcon'
+import AppSmallCaps from '@/components/AppSmallCaps'
+import AppTag from '@/components/AppTag'
+import AppLoading from '@/components/AppLoading'
+import AppAvatar from '@/components/AppAvatar'
+import AppMediaObject from '@/components/AppMediaObject'
+import AppFormBlock from '@/components/AppFormBlock'
+import AppCheckboxGroup from '@/components/AppCheckboxGroup'
+import AppCounter from '@/components/AppCounter'
+import AppFilterMenu from '@/components/AppFilterMenu'
+import AppGlyphIcon from '@/components/AppGlyphIcon'
 
-Vue.component('TextField', TextField)
-Vue.component('SelectField', SelectField)
-Vue.component('HelpText', HelpText)
-Vue.component('Btn', Btn)
-Vue.component('ContentBlock', ContentBlock)
-Vue.component('Heading', Heading)
-Vue.component('Subheading', Subheading)
-Vue.component('Card', Card)
-Vue.component('SmallCaps', SmallCaps)
-Vue.component('Tag', Tag)
-Vue.component('Loading', Loading)
-Vue.component('Page', Page)
-Vue.component('Alert', Alert)
-Vue.component('Avatar', Avatar)
-Vue.component('Container', Container)
-Vue.component('TextAreaField', TextAreaField)
-Vue.component('MediaObject', MediaObject)
-Vue.component('FormBlock', FormBlock)
-Vue.component('CheckboxGroup', CheckboxGroup)
-Vue.component('Counter', Counter)
-Vue.component('FilterMenu', FilterMenu)
-Vue.component('GlyphIcon', GlyphIcon)
+Vue.component('AppTextField', AppTextField)
+Vue.component('AppSelectField', AppSelectField)
+Vue.component('AppHelpText', AppHelpText)
+Vue.component('AppBtn', AppBtn)
+Vue.component('AppContentBlock', AppContentBlock)
+Vue.component('AppHeading', AppHeading)
+Vue.component('AppSubheading', AppSubheading)
+Vue.component('AppCard', AppCard)
+Vue.component('AppSmallCaps', AppSmallCaps)
+Vue.component('AppTag', AppTag)
+Vue.component('AppLoading', AppLoading)
+Vue.component('AppPage', AppPage)
+Vue.component('AppAlert', AppAlert)
+Vue.component('AppAvatar', AppAvatar)
+Vue.component('AppContainer', AppContainer)
+Vue.component('AppTextAreaField', AppTextAreaField)
+Vue.component('AppMediaObject', AppMediaObject)
+Vue.component('AppFormBlock', AppFormBlock)
+Vue.component('AppCheckboxGroup', AppCheckboxGroup)
+Vue.component('AppCounter', AppCounter)
+Vue.component('AppFilterMenu', AppFilterMenu)
+Vue.component('AppGlyphIcon', AppGlyphIcon)

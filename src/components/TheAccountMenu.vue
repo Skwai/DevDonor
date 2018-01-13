@@ -8,7 +8,7 @@
       <svg class="TheAccountMenu__ToggleIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
     </button>
     <div class="TheAccountMenu__Options" @click="onOptionsClick">
-      <Loading v-if="loading" size="small" />
+      <AppLoading v-if="loading" size="small" />
       <template v-else>
         <router-link to="/organization/create" class="TheAccountMenu__Option">Register a charity</router-link>
         <router-link
@@ -27,7 +27,7 @@
         <router-link to="/project/create" class="TheAccountMenu__Option">Create a project</router-link>
         <div class="TheAccountMenu__OptionsDivider"></div>
         <router-link to="/profile" class="TheAccountMenu__Option">Your profile</router-link>
-        <router-link to="/projects" class="TheAccountMenu__Option">Your projects <Counter>{{projectCount}}</Counter></router-link>
+        <router-link to="/projects" class="TheAccountMenu__Option">Your projects <AppCounter>{{projectCount}}</AppCounter></router-link>
         <div class="TheAccountMenu__OptionsDivider"></div>
         <span tabindex="0" class="TheAccountMenu__Option" @click="logout">Logout</span>
       </template>

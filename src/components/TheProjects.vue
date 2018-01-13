@@ -1,27 +1,27 @@
 <template>
   <div class="Projects">
-    <Loading v-if="loading" />
+    <AppLoading v-if="loading" />
     <template v-else>
       <div v-if="hasProjects" class="Projects__List">
         <div class="Projects__ListItem"
           v-for="(project, key) in projects"
           :key="key"
         >
-          <ProjectPreview :projectId="key" />
+          <AppProjectPreview :projectId="key" />
         </div>
       </div>
-      <Alert v-else>Sorry, no projects found</Alert>
+      <AppAlert v-else>Sorry, no projects found</AppAlert>
     </template>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import ProjectPreview from '@/components/ProjectPreview'
+import AppProjectPreview from '@/components/AppProjectPreview'
 
 export default {
   components: {
-    ProjectPreview
+    AppProjectPreview
   },
 
   data () {

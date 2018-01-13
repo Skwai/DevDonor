@@ -13,7 +13,7 @@
       <span class="TextField__Label">{{label}}</span>
     </label>
     <div class="TextField__Error" v-if="error && isDirty">{{errorMessage || "Invalid"}}</div>
-    <HelpText v-if="description" class="TextField__Description">{{description}}</HelpText>
+    <AppHelpText v-if="description" class="TextField__Description">{{description}}</AppHelpText>
   </div>
 </template>
 

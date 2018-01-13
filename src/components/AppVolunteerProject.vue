@@ -7,20 +7,14 @@
     <img :src="organization.logo" class="VolunteerProject__Logo">
     <div class="VolunteerProject__Details">
       <div class="VolunteerProject__Name">{{organization.name}}</div>
-      <SmallCaps><time :datetime="project.createdAt">{{project.createdAt | moment('from', 'now')}}</time></SmallCaps>
+      <AppSmallCaps><time :datetime="project.createdAt">{{project.createdAt | moment('from', 'now')}}</time></AppSmallCaps>
     </div>
   </router-link>
 </template>
 
 <script>
-import SmallCaps from '@/components/SmallCaps'
-
 export default {
   props: ['projectId'],
-
-  components: {
-    SmallCaps
-  },
 
   data () {
     return {

@@ -1,11 +1,11 @@
 <template>
   <loading slot="content" v-if="loading" />
-  <Page v-else>
+  <AppPage v-else>
     <form @submit.prevent="submit">
-      <Subheading>Create a Project</Subheading>
-      <ContentBlock>
+      <AppSubheading>Create a Project</AppSubheading>
+      <AppContentBlock>
         <p>We will review your application to make sure everything is in order and and email you soon.</p>
-      </ContentBlock>
+      </AppContentBlock>
 
       <div
         class="ProjectForm__Organization"
@@ -15,53 +15,57 @@
           v-if="Object.keys(organizations).length"
           class="ProjectForm__OrganizationToggle"
           @click.prevent="toggleOrganizations"
-        ><UserOrganization :organizationId="project.organization" /></button>
-        <Loading size="small" v-else />
+        >
+          <AppUserOrganization :organizationId="project.organization" />
+        </button>
+        <AppLoading size="small" v-else />
         <div class="ProjectForm__OrganizationOptions">
           <div
             class="ProjectForm__OrganizationOption"
             v-for="(org, key) in organizations"
             :key="key"
             @click="selectOrganization(org['.key'])"
-          ><UserOrganization :organizationId="org['.key']" /></div>
+          >
+            <AppUserOrganization :organizationId="org['.key']" />
+          </div>
         </div>
       </div>
 
-      <TextField
+      <AppTextField
         label="Project title"
         :value.sync="project.title"
       />
 
-      <CheckboxGroup
+      <AppCheckboxGroup
         label="Skills required"
         :options="skills"
         :value.sync="project.skills"
         description="Select the type of work required for this project"
       />
 
-      <TextAreaField
+      <AppTextAreaField
         label="Project description"
         :value.sync="project.description"
       />
 
-      <Btn color="primary" size="large" :loading="saving">Create Project</Btn>
+      <AppBtn color="primary" size="large" :loading="saving">Create Project</AppBtn>
     </form>
     <div slot="sidebar">
-      <Card>
+      <AppCard>
         <p>Nail jelly to the hothouse wall screw the pooch, or we are running out of runway. Touch base. On-brand but completeley fresh pushback, we need to leverage our synergies, for helicopter view cannibalize, and herding cats gain traction. Staff engagement herding cats killing it, nor bottleneck mice.</p>
-      </Card>
+      </AppCard>
     </div>
-  </Page>
+  </AppPage>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import db from '@/services/firebase'
-import UserOrganization from '@/components/UserOrganization'
+import AppUserOrganization from '@/components/AppUserOrganization'
 
 export default {
   components: {
-    UserOrganization
+    AppUserOrganization
   },
 
   data () {

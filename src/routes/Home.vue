@@ -1,20 +1,20 @@
 <template>
   <div>
-    <Intro />
-    <Container>
-      <Projects />
-    </Container>
+    <TheIntro />
+    <AppContainer>
+      <TheProjects />
+    </AppContainer>
   </div>
 </template>
 
 <script>
-import Intro from '@/components/Intro'
-import Projects from '@/components/Projects'
+import TheIntro from '@/components/TheIntro'
+import TheProjects from '@/components/TheProjects'
 
 export default {
   components: {
-    Intro,
-    Projects
+    TheIntro,
+    TheProjects
   }
 }
 </script>

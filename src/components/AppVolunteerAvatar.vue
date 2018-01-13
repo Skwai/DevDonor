@@ -1,25 +1,19 @@
 <template>
-  <router-link class="VolunteerAvatar" :to="{ name: 'volunteer', params: { userId } }" v-if="!loading">
-    <MediaObject align="center">
-      <img slot="object" class="VolunteerAvatar__Image" :src="user.picture" :alt="user.name">
+  <router-link class="AppVolunteerAvatar" :to="{ name: 'volunteer', params: { userId } }" v-if="!loading">
+    <AppMediaObject align="center">
+      <img slot="object" class="AppVolunteerAvatar__Image" :src="user.picture" :alt="user.name">
 
       <template slot="body" v-if="showDetails">
-        <div class="VolunteerAvatar__Name">{{user.name}}</div>
-        <SmallCaps>{{user.role}}</SmallCaps>
+        <div class="AppVolunteerAvatar__Name">{{user.name}}</div>
+        <AppSmallCaps>{{user.role}}</AppSmallCaps>
       </template>
-    </MediaObject>
+    </AppMediaObject>
   </router-link>
 </template>
 
 <script>
-import SmallCaps from '@/components/SmallCaps'
-
 export default {
   props: ['userId', 'showDetails'],
-
-  components: {
-    SmallCaps
-  },
 
   data () {
     return {
@@ -43,7 +37,7 @@ export default {
 @require "../styles/config.styl"
 @require "../styles/text.styl"
 
-.VolunteerAvatar
+.AppVolunteerAvatar
   display: flex
   align-items: center
 

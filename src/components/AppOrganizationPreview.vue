@@ -1,6 +1,6 @@
 <template>
   <article class="OrganizationPreview">
-    <Loading v-if="loading" />
+    <AppLoading v-if="loading" />
     <div v-else class="OrganizationPreview__Inner">
       <div class="OrganizationPreview__Logo">
         <img
@@ -11,7 +11,7 @@
       </div>
       <header class="OrganizationPreview__Header">
         <h2 class="OrganizationPreview__Name">{{organization.name}}</h2>
-        <SmallCaps>{{organization.country}}</SmallCaps>
+        <AppSmallCaps>{{organization.country}}</AppSmallCaps>
       </header>
       <div class="OrganizationPreview__Description" v-html="description"></div>
       <footer class="OrganizationPreview__Footer">

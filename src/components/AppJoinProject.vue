@@ -7,18 +7,18 @@
       <template v-if="currentUserInProject">
         <p v-if="currentUserPending">You've applied to join this project</p>
         <p v-else>You've joined this project</p>
-        <Btn
+        <AppBtn
           :click="leaveProject"
           :loading="leaving"
-        >Leave Project</Btn>
+        >Leave Project</AppBtn>
       </template>
       <template v-else>
         <p>Interested in helping out?</p>
-        <Btn
+        <AppBtn
           color="dark"
           :click="joinProject"
           :loading="joining"
-        >Volunteer for this project</Btn>
+        >Volunteer for this project</AppBtn>
       </template>
     </template>
   </div>

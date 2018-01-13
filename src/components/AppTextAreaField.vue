@@ -14,7 +14,7 @@
       <span class="TextAreaField__Label">{{label}}</span>
     </label>
     <div class="TextAreaField__Error" v-if="error && isDirty">{{errorMessage || "Invalid"}}</div>
-    <HelpText v-if="description" class="TextAreaField__Description">{{description}}</HelpText>
+    <AppHelpText v-if="description" class="TextAreaField__Description">{{description}}</AppHelpText>
   </div>
 </template>
 
