@@ -12,6 +12,7 @@
     class="Btn"
     :disabled="disabled"
     :class="[colorClassName, sizeClassName, loadingClassName, successClassName]"
+    :type="type"
     @click="onClick"
   >
     <span class="Btn__Icon" v-if="$slots.icon">
@@ -26,15 +27,30 @@ const COLORS = ['dark', 'light', 'primary', 'stroke', 'link']
 const SIZES = ['large']
 
 export default {
-  props: [
-    'to',
-    'color',
-    'size',
-    'click',
-    'disabled',
-    'loading',
-    'success'
-  ],
+  props: {
+    to: {
+      type: String
+    },
+    color: {
+      type: String
+    },
+    size: {
+      type: String
+    },
+    disabled: {
+      type: Boolean
+    },
+    loading: {
+      type: Boolean
+    },
+    success: {
+      type: Boolean
+    },
+    type: {
+      type: String,
+      default: 'button'
+    }
+  },
 
   methods: {
     onClick (ev) {
@@ -43,10 +59,7 @@ export default {
         return false
       }
 
-      if (this.click) {
-        ev.preventDefault()
-        this.click(ev)
-      }
+      this.$emit('click', ev)
     }
   },
 

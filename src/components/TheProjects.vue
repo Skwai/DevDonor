@@ -1,5 +1,6 @@
 <template>
   <div class="Projects">
+    <AppProjectFilters></AppProjectFilters>
     <AppLoading v-if="loading" />
     <template v-else>
       <div v-if="hasProjects" class="Projects__List">
@@ -17,10 +18,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import AppProjectFilters from '@/components/AppProjectFilters'
 import AppProjectPreview from '@/components/AppProjectPreview'
 
 export default {
   components: {
+    AppProjectFilters,
     AppProjectPreview
   },
 

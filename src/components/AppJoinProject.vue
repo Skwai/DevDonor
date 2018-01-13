@@ -8,7 +8,7 @@
         <p v-if="currentUserPending">You've applied to join this project</p>
         <p v-else>You've joined this project</p>
         <AppBtn
-          :click="leaveProject"
+          @click="leaveProject"
           :loading="leaving"
         >Leave Project</AppBtn>
       </template>
@@ -16,7 +16,7 @@
         <p>Interested in helping out?</p>
         <AppBtn
           color="dark"
-          :click="joinProject"
+          @click="joinProject"
           :loading="joining"
         >Volunteer for this project</AppBtn>
       </template>

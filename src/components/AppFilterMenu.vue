@@ -1,6 +1,6 @@
 <template>
   <div class="FilterMenu" :class="{ '-open': open }">
-    <AppBtn :click="toggle">{{label}}: {{displayValue}}</AppBtn>
+    <AppBtn @click="toggle">{{label}}: {{displayValue}}</AppBtn>
     <div class="FilterMenu__Options" @click="onOptionsClick">
       <div
         class="FilterMenu__Option"
@@ -20,7 +20,20 @@
 
 <script>
 export default {
-  props: ['label', 'value', 'options'],
+  props: {
+    label: {
+      type: Object,
+      required: true
+    },
+    value: {
+      type: Object,
+      required: true
+    },
+    options: {
+      type: Object,
+      required: true
+    }
+  },
 
   data () {
     return {
