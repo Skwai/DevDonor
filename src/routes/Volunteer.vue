@@ -16,7 +16,7 @@
       <div v-html="bio" class="Volunteer__Bio"></div>
     </template>
     <template slot="sidebar">
-      <VolunteerProjects :projectIds="user.projects" />
+    <VolunteerProjects :projectIds="user.projects" />
     </template>
   </Page>
 </template>

@@ -1,16 +1,19 @@
 <template>
   <header class="AppHeader">
-    <router-link to="/" class="AppHeader__Logo"><h1>DevDonor</h1></router-link>
-    <Account />
+    <router-link
+      to="/"
+      class="AppHeader__Logo"
+    ><h1>DevDonor</h1></router-link>
+    <AccountMenu />
   </header>
 </template>
 
 <script>
-import Account from '@/components/Account'
+import AccountMenu from '@/components/AccountMenu'
 
 export default {
   components: {
-    Account
+    AccountMenu
   }
 }
 </script>

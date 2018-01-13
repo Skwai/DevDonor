@@ -15,5 +15,4 @@ export default {
   width: 2rem
   height: 2rem
   border-radius: 50%
-  // border: currentColor solid 1px
 </style>
