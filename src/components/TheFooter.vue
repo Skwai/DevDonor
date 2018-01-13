@@ -1,7 +1,7 @@
 <template>
-  <footer class="AppFooter">
-    <div class="AppFooter__Container">
-      <nav class="AppFooter__Legals">
+  <footer class="Footer">
+    <div class="Footer__Container">
+      <nav class="Footer__Legals">
         <span>&copy; DevDonor</span>
         <a href="#">Privacy Policy</a>
         <a href="#">Terms of Use</a>
@@ -11,9 +11,7 @@
 </template>
 
 <script>
-export default {
-  props: ['project']
-}
+export default {}
 </script>
 
 <style lang="stylus">
@@ -22,7 +20,7 @@ export default {
 @require "../styles/text"
 @require "../styles/navbar"
 
-.AppFooter
+.Footer
   textMuted()
   text-align: center
 

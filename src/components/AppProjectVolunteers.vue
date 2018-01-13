@@ -7,7 +7,7 @@
         v-if="user"
         :key="key"
       >
-      <VolunteerAvatar :userId="key" :showDetails="true" /></li>
+      <AppVolunteerAvatar :userId="key" :showDetails="true" /></li>
     </ul>
     <div v-else class="ProjectVolunteers__Empty">
       <p>This project needs your help!</p>
@@ -16,13 +16,13 @@
 </template>
 
 <script>
-import VolunteerAvatar from '@/components/VolunteerAvatar'
+import AppVolunteerAvatar from '@/components/AppVolunteerAvatar'
 
 export default {
   props: ['projectUserIds'],
 
   components: {
-    VolunteerAvatar
+    AppVolunteerAvatar
   },
 
   computed: {

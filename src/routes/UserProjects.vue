@@ -1,9 +1,9 @@
 <template>
-  <Loading v-if="loading" />
+  <AppLoading v-if="loading" />
   <div v-else class="UserProjects">
-    <Container>
+    <AppContainer>
       <header class="UserProjects__Header">
-        <Heading>Your Projects</Heading>
+        <AppHeading>Your Projects</AppHeading>
         <p>These are the projects you're currently participating in</p>
       </header>
       <div v-if="hasProjects" class="UserProjects__List">
@@ -11,23 +11,23 @@
           v-for="(project, key) in projects"
           :key="key"
         >
-          <ProjectPreview
+          <AppProjectPreview
             :projectId="key"
           />
         </div>
       </div>
-      <Alert v-else>Sorry, no projects found</Alert>
-    </Container>
+      <AppAlert v-else>Sorry, no projects found</AppAlert>
+    </AppContainer>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import ProjectPreview from '@/components/ProjectPreview'
+import AppProjectPreview from '@/components/AppProjectPreview'
 
 export default {
   components: {
-    ProjectPreview
+    AppProjectPreview
   },
 
   computed: {

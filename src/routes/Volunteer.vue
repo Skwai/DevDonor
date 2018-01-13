@@ -1,33 +1,33 @@
 <template>
-  <Loading v-if="loading" />
-  <Page v-else>
+  <AppLoading v-if="loading" />
+  <AppPage v-else>
     <template slot="content">
       <header class="Volunteer__Header">
-        <Avatar :src="user.picture" :label="user.name" />
+        <AppAvatar :src="user.picture" :label="user.name" />
         <div class="Volunteer__HeaderDetails">
           <h1>{{user.name}}</h1>
-          <div><SmallCaps>{{user.role}}, {{user.region}}</SmallCaps></div>
+          <div><AppSmallCaps>{{user.role}}, {{user.region}}</AppSmallCaps></div>
           <div class="Volunteer__Tags">
-            <Tag v-for="(skill, key) in user.skills" :key="key" :tag="key" />
+            <AppTag v-for="(skill, key) in user.skills" :key="key" :tag="key" />
           </div>
         </div>
       </header>
-      <Subheading>About me</Subheading>
+      <AppSubheading>About me</AppSubheading>
       <div v-html="bio" class="Volunteer__Bio"></div>
     </template>
     <template slot="sidebar">
-      <VolunteerProjects :projectIds="user.projects" />
+      <AppVolunteerProject :projectIds="user.projects" />
     </template>
-  </Page>
+  </AppPage>
 </template>
 
 <script>
 import marked from 'marked'
-import VolunteerProjects from '@/components/VolunteerProjects'
+import AppVolunteerProject from '@/components/AppVolunteerProject'
 
 export default {
   components: {
-    VolunteerProjects
+    AppVolunteerProject
   },
 
   data () {

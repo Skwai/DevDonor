@@ -1,7 +1,7 @@
 <template>
   <div class="CheckboxGroup">
     <div class="CheckboxGroup__Label">{{label}}</div>
-    <HelpText v-if="description">{{description}}</HelpText>
+    <AppHelpText v-if="description">{{description}}</AppHelpText>
     <div class="CheckboxGroup__Options">
       <label class="CheckboxGroup__Option" v-for="(description, value) in options" :key="value">
         <input

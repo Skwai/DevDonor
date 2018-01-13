@@ -6,20 +6,20 @@
     </div>
     <ul class="VolunteerProjects__Projects" v-else>
       <li class="VolunteerProjects__Project" v-for="(project, key) in projectIds" :key="key">
-        <VolunteerProject :projectId="key" />
+        <AppVolunteerProject :projectId="key" />
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import VolunteerProject from '@/components/VolunteerProject'
+import AppVolunteerProject from '@/components/AppVolunteerProject'
 
 export default {
   props: ['projectIds'],
 
   components: {
-    VolunteerProject
+    AppVolunteerProject
   }
 }
 </script>

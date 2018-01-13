@@ -1,23 +1,23 @@
 <template>
   <main class="App">
-    <Notification />
-    <AppHeader />
+    <TheNotification />
+    <TheHeader />
     <router-view :key="$route.fullPath"></router-view>
-    <AppFooter />
+    <TheFooter />
   </main>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import AppHeader from '@/components/AppHeader'
-import AppFooter from '@/components/AppFooter'
-import Notification from '@/components/Notification'
+import TheHeader from '@/components/TheHeader'
+import TheFooter from '@/components/TheFooter'
+import TheNotification from '@/components/TheNotification'
 
 export default {
   components: {
-    AppFooter,
-    AppHeader,
-    Notification
+    TheHeader,
+    TheFooter,
+    TheNotification
   },
 
   computed: {

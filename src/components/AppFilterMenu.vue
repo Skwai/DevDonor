@@ -1,6 +1,6 @@
 <template>
   <div class="FilterMenu" :class="{ '-open': open }">
-    <Btn :click="toggle">{{label}}: {{displayValue}}</Btn>
+    <AppBtn :click="toggle">{{label}}: {{displayValue}}</AppBtn>
     <div class="FilterMenu__Options" @click="onOptionsClick">
       <div
         class="FilterMenu__Option"

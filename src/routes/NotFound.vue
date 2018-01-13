@@ -1,10 +1,10 @@
 <template>
   <div>
-    <Page>
-      <Alert block="content">
+    <AppPage>
+      <AppAlert block="content">
         Page not found
-      </Alert>
-    </Page>
+      </AppAlert>
+    </AppPage>
   </div>
 </template>
 

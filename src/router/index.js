@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from '@/components/Home'
-import About from '@/components/About'
-import NotFound from '@/components/NotFound'
-import Project from '@/components/Project'
-import Profile from '@/components/Profile'
-import Volunteer from '@/components/Volunteer'
-import ProjectForm from '@/components/ProjectForm'
-import UserProjects from '@/components/UserProjects'
-import OrganizationForm from '@/components/OrganizationForm'
+import Home from '@/routes/Home'
+import About from '@/routes/About'
+import NotFound from '@/routes/NotFound'
+import Project from '@/routes/Project'
+import Profile from '@/routes/Profile'
+import Volunteer from '@/routes/Volunteer'
+import ProjectForm from '@/routes/ProjectForm'
+import UserProjects from '@/routes/UserProjects'
+import OrganizationForm from '@/routes/OrganizationForm'
 
 Vue.use(Router)
 
