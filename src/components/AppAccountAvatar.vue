@@ -1,5 +1,5 @@
 <template>
-  <img class="AccountAvatar" :src="picture">
+  <img class="AppAccountAvatar" :src="picture">
 </template>
 
 <script>
@@ -11,7 +11,7 @@ export default {
 <style lang="stylus">
 @require "../styles/config.styl"
 
-.AccountAvatar
+.AppAccountAvatar
   width: 2rem
   height: 2rem
   border-radius: 50%

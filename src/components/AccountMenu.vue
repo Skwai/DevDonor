@@ -4,7 +4,7 @@
       @click.prevent="toggleAccountMenu"
       class="AccountMenu__Toggle"
     >
-      <AccountAvatar :picture="auth.photoURL" />
+      <AppAccountAvatar :picture="auth.photoURL" />
       <svg class="AccountMenu__ToggleIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
     </button>
     <div class="AccountMenu__Options" @click="onOptionsClick">
@@ -37,11 +37,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import AccountAvatar from '@/components/AccountAvatar'
+import AppAccountAvatar from '@/components/AppAccountAvatar'
 
 export default {
   components: {
-    AccountAvatar
+    AppAccountAvatar
   },
 
   data () {
