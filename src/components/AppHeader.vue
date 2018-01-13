@@ -4,16 +4,16 @@
       to="/"
       class="AppHeader__Logo"
     ><h1>DevDonor</h1></router-link>
-    <AccountMenu />
+    <TheAccountMenu />
   </header>
 </template>
 
 <script>
-import AccountMenu from '@/components/AccountMenu'
+import TheAccountMenu from '@/components/TheAccountMenu'
 
 export default {
   components: {
-    AccountMenu
+    TheAccountMenu
   }
 }
 </script>

@@ -1,35 +1,35 @@
 <template>
-  <div class="AccountMenu" :class="{ '-open': showAccountMenu }">
+  <div class="TheAccountMenu" :class="{ '-open': showTheAccountMenu }">
     <button
-      @click.prevent="toggleAccountMenu"
-      class="AccountMenu__Toggle"
+      @click.prevent="toggleTheAccountMenu"
+      class="TheAccountMenu__Toggle"
     >
       <AppAccountAvatar :picture="auth.photoURL" />
-      <svg class="AccountMenu__ToggleIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
+      <svg class="TheAccountMenu__ToggleIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
     </button>
-    <div class="AccountMenu__Options" @click="onOptionsClick">
+    <div class="TheAccountMenu__Options" @click="onOptionsClick">
       <Loading v-if="loading" size="small" />
       <template v-else>
-        <router-link to="/organization/create" class="AccountMenu__Option">Register a charity</router-link>
+        <router-link to="/organization/create" class="TheAccountMenu__Option">Register a charity</router-link>
         <router-link
           v-if="Object.keys(organizations)"
           v-for="(org, key) in organizations"
           :key="key"
           :to="'/organization/' + key"
-          class="AccountMenu__Option"
+          class="TheAccountMenu__Option"
         >{{org.name}}
           <img
-            class="AccountMenu__OptionsLogo"
+            class="TheAccountMenu__OptionsLogo"
             :src="org.logo"
             :alt="org.name"
           >
         </router-link>
-        <router-link to="/project/create" class="AccountMenu__Option">Create a project</router-link>
-        <div class="AccountMenu__OptionsDivider"></div>
-        <router-link to="/profile" class="AccountMenu__Option">Your profile</router-link>
-        <router-link to="/projects" class="AccountMenu__Option">Your projects <Counter>{{projectCount}}</Counter></router-link>
-        <div class="AccountMenu__OptionsDivider"></div>
-        <span tabindex="0" class="AccountMenu__Option" @click="logout">Logout</span>
+        <router-link to="/project/create" class="TheAccountMenu__Option">Create a project</router-link>
+        <div class="TheAccountMenu__OptionsDivider"></div>
+        <router-link to="/profile" class="TheAccountMenu__Option">Your profile</router-link>
+        <router-link to="/projects" class="TheAccountMenu__Option">Your projects <Counter>{{projectCount}}</Counter></router-link>
+        <div class="TheAccountMenu__OptionsDivider"></div>
+        <span tabindex="0" class="TheAccountMenu__Option" @click="logout">Logout</span>
       </template>
     </div>
   </div>
@@ -46,7 +46,7 @@ export default {
 
   data () {
     return {
-      showAccountMenu: false,
+      showTheAccountMenu: false,
       loading: true
     }
   },
@@ -87,17 +87,17 @@ export default {
     },
 
     onOptionsClick (ev) {
-      this.showAccountMenu = false
+      this.showTheAccountMenu = false
     },
 
     onDocumentClick (ev) {
       if (!this.$el.contains(ev.target)) {
-        this.showAccountMenu = false
+        this.showTheAccountMenu = false
       }
     },
 
-    toggleAccountMenu () {
-      this.showAccountMenu = !this.showAccountMenu
+    toggleTheAccountMenu () {
+      this.showTheAccountMenu = !this.showTheAccountMenu
     }
   }
 }
@@ -108,7 +108,7 @@ export default {
 @require "../styles/text.styl"
 @require "../styles/options.styl"
 
-.AccountMenu
+.TheAccountMenu
   position: relative
   margin-right: (-1 * spacingBase)
 
