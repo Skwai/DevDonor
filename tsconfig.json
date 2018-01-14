@@ -5,6 +5,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "sourceMap": true,
+    "experimentalDecorators": true,
     "lib": [
       "dom",
       "es5",
@@ -16,7 +17,8 @@
     "./src/**/*.ts",
     "./src/**/*.vue"
   ],
-  "files" : [
-    "vue-shims.d.ts"
+  "typeRoots": [
+    "./src/types",
+    "./node_modules/@types"
   ]
 }

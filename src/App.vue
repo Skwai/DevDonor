@@ -1,15 +1,24 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
-  </div>
+  <main id="app">
+    <TheHeader />
+    <router-view />
+    <TheFooter />
+  </main>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
-  name: 'App'
+import { Vue, Component } from 'vue-property-decorator'
+import TheHeader from '@/components/TheHeader'
+import TheFooter from '@/components/TheFooter'
+
+@Component({
+  components: {
+    TheHeader,
+    TheFooter
+  }
 })
+export default class App extends Vue {
+}
 </script>
 
 <style>

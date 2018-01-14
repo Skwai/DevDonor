@@ -14,8 +14,13 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "firebase": "^4.8.2",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-class-component": "^6.1.2",
+    "vue-property-decorator": "^6.0.0",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1",
+    "vuex-class": "^0.3.0"
   },
   "devDependencies": {
     "@types/jest": "^21.1.6",
@@ -65,6 +70,8 @@
     "selenium-server": "^3.0.1",
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
     "ts-jest": "^21.2.3",
     "ts-loader": "^2.3.7",
     "tslint": "^5.9.1",
