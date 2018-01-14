@@ -1,0 +1,51 @@
+@require "./config.styl"
+
+field()
+  position: relative
+  display: block
+  position: relative
+  border: $colorGray solid 1px
+  transition: $transitionBase
+  box-shadow: none
+  padding: 2rem 0.75rem 0.75rem
+  width: 100%
+  border-radius: 0
+  -webkit-appearance: none
+  transition: border-color $transitionBase
+  will-change: border-color
+  flex: 1
+
+  .-disabled &
+    cursor: not-allowed
+    opacity: .5
+
+  .-open &
+    background: #fff
+    border-color: $colorPrimaryBlue
+
+  &:hover,
+  &:focus
+    border-color: $colorPrimaryBlue
+    box-shadow: none
+    outline: 0
+
+  .-focused &
+    border-color: $colorPrimaryBlue
+
+fieldLabel()
+  cursor: text
+  top: ($spacingSmall + 1rem)
+  left: 0.75rem
+  position: absolute
+  display: block
+  cursor: text
+  z-index: 1
+  transition: transitionBase
+  transform: translate(0, -100%) scale(0.875)
+  transform-origin: left top
+  font-weight: 500
+  color: $colorPrimaryBlue
+
+  [empty] &
+    transform: translate(0, -50%)
+    opacity: 1

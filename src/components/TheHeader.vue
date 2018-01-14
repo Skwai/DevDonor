@@ -2,7 +2,7 @@
   <header :class="$style.TheHeader">
     <router-link
       to="/"
-      class="TheHeader__Logo"
+      :class="$style.TheHeader__Logo"
     ><h1>DevDonor</h1></router-link>
   </header>
 </template>
@@ -15,19 +15,21 @@ export default class TheHeader extends Vue {}
 </script>
 
 <style lang="stylus" module>
+@require "../styles/config.styl"
+
 .TheHeader
-  background: colorPrimaryBlue
-  color: #fff
   transition: transitionBase
-  // box-shadow: rgba(colorDarkBlue,.1) 0 1px 0
+  box-shadow: rgba(0,0,0,.1) 0 0.25rem 1rem
   display: flex
   align-items: stretch
   position: relative
   z-index: 2
+  background: #fff
+  padding: $spacingSmall $spacingBase
 
   &__Logo
-    padding: spacingSmall spacingBase
     transition: transitionBase
+    color: $colorPrimaryBlue
 
     &:hover
       background: rgba(0,0,0,.05)

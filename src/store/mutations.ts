@@ -1,7 +1,12 @@
 import Project from '@/types/Project'
 import State from './State'
-import { MutationTree, Mutation } from 'vuex'
+import { Mutation } from 'vuex'
+import Firebase from 'firebase'
 
 export const ADD_PROJECT: Mutation<State> = (state, project: Project) => {
   state.projects.push(project)
+}
+
+export const SET_CURRENT_USER: Mutation<State> = (state, user: Firebase.User) => {
+  state.currentUser = user
 }
