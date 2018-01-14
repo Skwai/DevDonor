@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import { Getter } from 'vuex-class'
+import { Getter, Action } from 'vuex-class'
 import ProjectListItem from '@/components/ProjectListItem'
 import Project from '@/types/Project'
 
@@ -17,5 +17,15 @@ import Project from '@/types/Project'
 })
 export default class ProjectList extends Vue {
   @Getter projects: Project[]
+
+  @Action getProjects: () => Promise<void>
+
+  async created () {
+    try {
+      await this.getProjects()
+    } catch (err) {
+      console.error(err)
+    }
+  }
 }
 </script>

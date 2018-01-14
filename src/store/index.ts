@@ -4,10 +4,10 @@
 import Vuex, { ActionTree, Module, Store } from 'vuex'
 import Vue from 'vue'
 
-import actions from './actions'
-import getters from './getters'
-import mutations from './mutations'
 import State from './state'
+import * as actions from './actions'
+import * as getters from './getters'
+import * as mutations from './mutations'
 
 Vue.use(Vuex)
 
