@@ -3,13 +3,17 @@
     <AppLoading v-if="loading" />
     <div
       v-else-if="projects.length"
-      v-for="project in projects"
-      class="$style.ProjectList__Item"
-      :key="project.id"
+      :class="$style.ProjectList__Items"
     >
-      <ProjectPreview
-        :project="project"
-      />
+      <div
+        v-for="project in projects"
+        :class="$style.ProjectList__Item"
+        :key="project.id"
+      >
+        <ProjectPreview
+          :project="project"
+        />
+      </div>
     </div>
     <div v-else :class="$style.ProjectList__Empty">
       <AppHeading>No Projects</AppHeading>
@@ -48,18 +52,23 @@ export default class ProjectList extends Vue {
 </script>
 
 <style lang="stylus" module>
+@import "../styles/config.styl"
 @import "../styles/container.styl"
 
 .ProjectList
   container()
-  display: grid
-  grid-template-columns: 20rem 20rem 20rem
-  grid-gap: 1rem
-  justify-content: center
+
+  /*
+  &__Items
+    display: grid
+    grid-template-columns: 20rem 20rem 20rem
+    grid-gap: $spacingBase
+    justify-content: center
 
   &__Item
     justify-self: stretch
 
   &__Empty
     text-align: center
+  */
 </style>
