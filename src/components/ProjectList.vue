@@ -1,13 +1,18 @@
 <template>
-  <div>
+  <div :class="$style.ProjectList">
     <AppLoading v-if="loading" />
-    <ProjectListItem
+    <div
       v-else-if="projects.length"
       v-for="project in projects"
+      class="$style.ProjectList__Item"
       :key="project.id"
-    />
-    <div v-else>
-      No Projects
+    >
+      <ProjectPreview
+        :project="project"
+      />
+    </div>
+    <div v-else :class="$style.ProjectList__Empty">
+      <AppHeading>No Projects</AppHeading>
     </div>
   </div>
 </template>
@@ -15,14 +20,12 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { Getter, Action } from 'vuex-class'
-import ProjectListItem from '@/components/ProjectListItem'
-import AppLoading from '@/components/AppLoading'
-import Project from '@/types/Project'
+import ProjectPreview from '@/components/ProjectPreview'
+import Project from '@/models/Project'
 
 @Component({
   components: {
-    ProjectListItem,
-    AppLoading
+    ProjectPreview
   }
 })
 export default class ProjectList extends Vue {
@@ -43,3 +46,20 @@ export default class ProjectList extends Vue {
   }
 }
 </script>
+
+<style lang="stylus" module>
+@import "../styles/container.styl"
+
+.ProjectList
+  container()
+  display: grid
+  grid-template-columns: 20rem 20rem 20rem
+  grid-gap: 1rem
+  justify-content: center
+
+  &__Item
+    justify-self: stretch
+
+  &__Empty
+    text-align: center
+</style>

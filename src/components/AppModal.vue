@@ -65,28 +65,38 @@ export default class AppModal extends Vue {
 <style lang="stylus" module>
 @import "../styles/config.styl"
 @import "../styles/card.styl"
-@import "../styles/dialog.styl"
 
 @keyframes AppModal
   0%
-    transform: translate(0, calc(-50% - 3rem))
+    transform: translate(0, -3rem)
     opacity: 0
   50%
     opacity: 1
   100%
     opacity: 1
-    transform: translate(0, -50%)
+    transform: translate(0, 0)
 
 .AppModal
-  dialog()
-  card()
-  border: 0
-  box-shadow: rgba(0,0,0,.1) 0 0 0 1px, rgba(0,0,0,.075) 0 0.25rem 1rem, rgba($colorLightGray, 0.5) 0 0 0 9999rem
-  width: 30rem
-  animation: AppModal ease-in-out 0.5s 1 forwards
-  max-width: 90vw
-  z-index: 1000
+  position: fixed
+  left: 0
+  top: 0
+  right: 0
+  bottom: 0
+  background: rgba($colorLightGray, 0.5)
+  z-index: $zIndexCover
+  overflow-y: auto
 
-  &__Title
-    margin-bottom: $spacingBase
+  &__Content
+    top: 7vmin
+    background: #ffff
+    box-shadow: rgba(0,0,0,.1) 0 0 0 1px, rgba(0,0,0,.075) 0 0.25rem 1rem
+    padding: 2rem
+    position: absolute
+    left: 0
+    right: 0
+    // width: fit-content
+    height: fit-content
+    width: 30rem
+    margin: auto auto 7vmin
+    max-width: 90vw
 </style>

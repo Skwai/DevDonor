@@ -1,5 +1,5 @@
 <template>
-  <h1 :class="$style.AppSubheading"><slot /></h1>
+  <h2 :class="$style.AppSubheading"><slot /></h2>
 </template>
 
 <script lang="ts">
@@ -13,5 +13,10 @@ export default class AppSubheading extends Vue {}
 @require "../styles/config"
 
 .AppSubheading
+  margin-top: $spacingLarge
   margin-bottom: $spacingBase
+  font-size: 1.25rem
+
+  &:first-child
+    margin-top: 0
 </style>

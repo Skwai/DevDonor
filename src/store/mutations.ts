@@ -1,4 +1,4 @@
-import Project from '@/types/Project'
+import Project from '@/models/Project'
 import State from './State'
 import { Mutation } from 'vuex'
 import Firebase from 'firebase'

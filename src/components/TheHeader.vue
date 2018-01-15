@@ -5,8 +5,8 @@
       :class="$style.TheHeader__Logo"
     ><h1>DevDonor</h1></router-link>
     <nav :class="$style.TheHeader__Nav" data-foo="true">
-      <router-link to="/" :class="$style.TheHeader__NavItem">Browser Projects</router-link>
-      <router-link to="/" :class="$style.TheHeader__NavItem">Create a Project</router-link>
+      <router-link to="/" :class="$style.TheHeader__NavItem">Browse Projects</router-link>
+      <router-link to="/create" :class="$style.TheHeader__NavItem">Create Project</router-link>
       <router-link to="/" :class="$style.TheHeader__NavItem">How It Works</router-link>
     </nav>
   </header>

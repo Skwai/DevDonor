@@ -74,6 +74,9 @@ a
   text-decoration: none
   color: inherit
 
+*
+  box-sizing: border-box
+
 .App
   display: flex
   flex-direction: column

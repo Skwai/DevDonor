@@ -6,13 +6,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import AppSpinner from './AppSpinner.vue'
 
-@Component({
-  components: {
-    AppSpinner
-  }
-})
+@Component
 export default class AppLoading extends Vue {}
 </script>
 

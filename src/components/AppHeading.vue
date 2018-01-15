@@ -13,5 +13,9 @@ export default class AppHeading extends Vue {}
 @require "../styles/config"
 
 .AppHeading
+  margin-top: $spacingBase
   margin-bottom: $spacingBase
+
+  &:first-child
+    margin-top: 0
 </style>

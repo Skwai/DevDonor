@@ -1,9 +1,16 @@
-import Firebase from 'firebase'
+import firebase from 'firebase'
 import 'firebase/firestore'
 import config from '../config'
 
-const app = Firebase.initializeApp(config.FIREBASE)
+const app = firebase.initializeApp(config.FIREBASE)
 
-export const storage = Firebase.storage()
+const db = app.firestore()
 
-export default app.firestore()
+export default db
+
+export const storage = firebase.storage()
+
+export const createID = (): string => {
+  const collection = db.collection('collection')
+  return collection.doc().id
+}

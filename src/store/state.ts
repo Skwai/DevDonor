@@ -1,4 +1,4 @@
-import Project from '@/types/Project'
+import Project from '@/models/Project'
 
 export default class State {
   projects: Project[] = []

@@ -2,6 +2,7 @@ import { ActionContext, ActionTree, Action } from 'vuex'
 import State from './state'
 import * as auth from '@/services/auth'
 import db from '@/services/db'
+import Project from '@/models/Project'
 
 export const login = async ({ commit }: ActionContext<State, any>): Promise<void> => {
   const userRecord = await auth.signIn()
@@ -18,6 +19,16 @@ export const getCurrentUser = async ({ commit }: ActionContext<State, any>): Pro
   }
 }
 
-export const getProjects = async (store: ActionContext<State, any>): Promise<void> => {
-  const result = await db.collection('projects').get()
+export const getProjects = async ({ commit }: ActionContext<State, any>): Promise<void> => {
+  const querySnapshot = await db.collection('projects').get()
+  querySnapshot.forEach((docSnapshot: firebase.firestore.DocumentSnapshot) => {
+    const id = docSnapshot.id
+    commit('ADD_PROJECT', { ...docSnapshot.data(), id })
+  })
+}
+
+export const createProject = async ({ commit }: ActionContext<State, any>, project: Project) => {
+  const docRef: firebase.firestore.DocumentReference = await db.collection('projects').add({ ...project })
+  const id = docRef.id
+  commit('ADD_PROJECT', { ...project, id })
 }

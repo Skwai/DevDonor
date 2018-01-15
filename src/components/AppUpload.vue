@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.AppUpload" slot="object">
+  <div :class="$style.AppUpload">
     <AppMediaObject align="center">
       <template slot="object">
         <div v-if="url" :class="$style.AppUpload__Preview">
@@ -25,13 +25,8 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { storage } from '@/services/db'
-import AppMediaObject from './AppMediaObject'
 
-@Component({
-  components: {
-    AppMediaObject
-  }
-})
+@Component
 export default class AppUpload extends Vue {
   @Prop()
   url: string
@@ -117,8 +112,6 @@ export default class AppUpload extends Vue {
     align-items: center
     justify-content: center
     position: relative
-    border: #fff solid 4px
-    box-shadow: $colorGray 0 0 0 1px
 
     &Image
       width: 100%
@@ -138,13 +131,13 @@ export default class AppUpload extends Vue {
     position: relative
     width: size
     height: size
-    border-radius: $borderRadiusBase
-    border: $colorGray dashed 2px
+    border-radius: 4px
     display: flex
     align-items: center
     justify-content: center
     text-align: center
     transition: $transitionBase
+    border: $colorGray dashed 2px
 
     &:hover
       border-color: $colorPrimaryBlue
@@ -157,6 +150,7 @@ export default class AppUpload extends Vue {
 
   &__Label
     font-weight: 500
+    // color: $colorPrimaryBlue
 
   &__Remove
     top: -4px

@@ -1,5 +1,8 @@
 <template>
-  <div :class="$style.AppField">
+  <div
+    :class="$style.AppField"
+    :empty="empty"
+  >
     <label
       v-if="showLabel"
       :class="$style.AppField__Label"
@@ -8,10 +11,9 @@
     <div :class="$style.AppField__Wrap">
       <textarea v-if="type === 'textarea'"
         :class="$style.AppField__Input"
-        :value="value"
+        v-model="inputValue"
         :required="required"
         :disabled="disabled"
-        @input="$emit('input', $event.target.value)"
         rows="5"
         cols="20"
         :id="inputID"
@@ -20,21 +22,22 @@
         :autocorrect="autocorrect"
         :spellcheck="spellcheck"
         :placeholder="placeholder"
+        @input="change"
       ></textarea>
       <input
         v-else
         :type="type"
         :class="$style.AppField__Input"
-        :value="value"
+        v-model="inputValue"
         :required="required"
         :disabled="disabled"
-        @input="$emit('input', $event.target.value)"
         :id="inputID"
         :autocomplete="autocomplete"
         :autocapitalize="autocapitalize"
         :autocorrect="autocorrect"
         :spellcheck="spellcheck"
         :placeholder="placeholder"
+        @input="change"
       >
       <slot></slot>
     </div>
@@ -46,6 +49,8 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component
 export default class AppField extends Vue {
+  inputValue: string | number | null = null
+
   @Prop({ required: true })
   label: string
 
@@ -79,6 +84,20 @@ export default class AppField extends Vue {
   @Prop({ default: true })
   showLabel: boolean
 
+  change (ev: Event) {
+    const value = (ev.target as HTMLInputElement).value
+    this.inputValue = value
+    this.$emit('input', value)
+  }
+
+  created () {
+    this.inputValue = this.value
+  }
+
+  get empty (): boolean {
+    return !String(this.inputValue).length
+  }
+
   get uid (): string {
     return Math.random().toString(36).substr(2)
   }
@@ -94,7 +113,7 @@ export default class AppField extends Vue {
 @import "../styles/forms.styl"
 
 .AppField
-  margin: $spacingBase 0
+  margin: 1rem 0 $spacingBase
   position: relative
   text-align: left
 

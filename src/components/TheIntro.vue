@@ -16,13 +16,8 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
-import AppBtn from './AppBtn'
 
-@Component({
-  components: {
-    AppBtn
-  }
-})
+@Component
 export default class TheIntro extends Vue {
   @Action('login') actionLogin: () => Promise<void>
 

@@ -35,13 +35,8 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import AppSpinner from './AppSpinner'
 
-@Component({
-  components: {
-    AppSpinner
-  }
-})
+@Component
 export default class AppBtn extends Vue {
   @Prop()
   to: string
@@ -96,7 +91,6 @@ export default class AppBtn extends Vue {
   textSmallCaps()
   white-space: nowrap
   cursor: pointer
-  box-shadow: inset colorGray 0 0 0 1px
   position: relative
 
   &[disabled]

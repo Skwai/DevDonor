@@ -10,13 +10,12 @@
 </template>
 
 <script lang="ts">
-export default {
-  props: {
-    align: {
-      type: String,
-      default: 'center'
-    }
-  }
+import { Vue, Component, Prop } from 'vue-property-decorator'
+
+@Component
+export default class AppMediaObject extends Vue {
+  @Prop({ default: 'center' })
+  align: string
 }
 </script>
 
@@ -27,16 +26,18 @@ export default {
   display: flex
   margin()
 
-  [align="top"]
+  &[align="top"]
     align-items: flex-start
 
-  [align="center"]
+  &[align="center"]
     align-items: center
 
-  [align="bottom"]
+  &[align="bottom"]
     align-item: flex-end
 
-  &__Object
-    margin-right: spacingBase
+  &__Body
+    text-align: left
 
+  &__Object
+    margin-right: $spacingBase
 </style>
