@@ -6,6 +6,9 @@ import CreateProjectPage from '@/pages/CreateProject.vue'
 Vue.use(Router)
 
 export default new Router({
+  linkActiveClass: '-active',
+  linkExactActiveClass: '-exact',
+
   routes: [
     {
       path: '/',

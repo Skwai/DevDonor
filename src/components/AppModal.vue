@@ -80,7 +80,8 @@ export default class AppModal extends Vue {
 .AppModal
   dialog()
   card()
-  box-shadow: rgba(0,0,0,.05) 0 0.125rem 0.5rem, rgba($colorLightGray, 0.3) 0 0 0 9999rem
+  border: 0
+  box-shadow: rgba(0,0,0,.1) 0 0 0 1px, rgba(0,0,0,.075) 0 0.25rem 1rem, rgba($colorLightGray, 0.5) 0 0 0 9999rem
   width: 30rem
   animation: AppModal ease-in-out 0.5s 1 forwards
   max-width: 90vw

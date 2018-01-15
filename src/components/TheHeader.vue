@@ -4,6 +4,11 @@
       to="/"
       :class="$style.TheHeader__Logo"
     ><h1>DevDonor</h1></router-link>
+    <nav :class="$style.TheHeader__Nav" data-foo="true">
+      <router-link to="/" :class="$style.TheHeader__NavItem">Browser Projects</router-link>
+      <router-link to="/" :class="$style.TheHeader__NavItem">Create a Project</router-link>
+      <router-link to="/" :class="$style.TheHeader__NavItem">How It Works</router-link>
+    </nav>
   </header>
 </template>
 
@@ -21,16 +26,29 @@ export default class TheHeader extends Vue {}
   transition: transitionBase
   box-shadow: rgba(0,0,0,.1) 0 0.25rem 1rem
   display: flex
-  align-items: stretch
+  align-items: center
   position: relative
   z-index: 2
   background: #fff
-  padding: $spacingSmall $spacingBase
+  padding: 0 $spacingBase
 
   &__Logo
     transition: transitionBase
     color: $colorPrimaryBlue
+    padding: $spacingBase 0
 
     &:hover
       background: rgba(0,0,0,.05)
+
+  &__Nav
+    display: flex
+    margin-left: auto
+
+    &Item
+      padding: $spacingBase
+      font-weight: 500
+
+      &:hover,
+      &:focus
+        color: $colorPrimaryBlue
 </style>
