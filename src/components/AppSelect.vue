@@ -9,36 +9,16 @@
       :for="inputID"
     >{{label}}</Label>
     <div :class="$style.AppField__Wrap">
-      <textarea v-if="type === 'textarea'"
-        :class="$style.AppField__Input"
-        v-model="inputValue"
-        :required="required"
-        :disabled="disabled"
-        rows="5"
-        cols="20"
-        :id="inputID"
-        :autocomplete="autocomplete"
-        :autocapitalize="autocapitalize"
-        :autocorrect="autocorrect"
-        :spellcheck="spellcheck"
-        :placeholder="placeholder"
-        @input="change"
-      ></textarea>
-      <input
-        v-else
-        :type="type"
+      <select
         :class="$style.AppField__Input"
         v-model="inputValue"
         :required="required"
         :disabled="disabled"
         :id="inputID"
-        :autocomplete="autocomplete"
-        :autocapitalize="autocapitalize"
-        :autocorrect="autocorrect"
-        :spellcheck="spellcheck"
-        :placeholder="placeholder"
         @input="change"
       >
+        <option v-for="(option, index) in options" :value="option" :key="index">{{option}}</option>
+      </select>
       <slot></slot>
     </div>
   </div>
@@ -54,9 +34,6 @@ export default class AppField extends Vue {
   @Prop({ required: true })
   label: string
 
-  @Prop({ default: 'text', required: false })
-  type: string
-
   @Prop({ default: false, required: false })
   required: boolean
 
@@ -66,23 +43,11 @@ export default class AppField extends Vue {
   @Prop({ default: false, required: false })
   disabled: boolean
 
-  @Prop({ default: 'on', required: false })
-  autocomplete: string
-
-  @Prop({ default: 'on', required: false })
-  autocapitalize: string
-
-  @Prop({ default: 'on', required: false })
-  autocorrect: string
-
-  @Prop({ default: 'on', required: false })
-  spellcheck: string
-
-  @Prop({ required: false })
-  placeholder: string
-
   @Prop({ default: true })
   showLabel: boolean
+
+  @Prop({ required: true })
+  options: (string | number)[]
 
   change (ev: Event) {
     const value = (ev.target as HTMLInputElement).value

@@ -40,7 +40,7 @@ export default class TheIntro extends Vue {
   &__Body
     container()
     text-align: center
-    padding: 8vmin $spacingBase 8vmin
+    padding: 10vmin $spacingBase 10vmin
 
   &__Title
     font-size: (1rem + 1vmin)

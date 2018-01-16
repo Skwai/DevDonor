@@ -12,6 +12,8 @@ import AppUpload from '@/components/AppUpload'
 import AppHelpText from '@/components/AppHelpText'
 import AppGlyph from '@/components/AppGlyph'
 import AppTag from '@/components/AppTag'
+import AppFieldRow from '@/components/AppFieldRow'
+import AppSelect from '@/components/AppSelect'
 
 Vue.component('AppBtn', AppBtn)
 Vue.component('AppField', AppField)
@@ -25,3 +27,5 @@ Vue.component('AppUpload', AppUpload)
 Vue.component('AppHelpText', AppHelpText)
 Vue.component('AppGlyph', AppGlyph)
 Vue.component('AppTag', AppTag)
+Vue.component('AppFieldRow', AppFieldRow)
+Vue.component('AppSelect', AppSelect)

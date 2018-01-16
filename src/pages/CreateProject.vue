@@ -5,10 +5,15 @@
       <p>Have an idea for a great project? Fill out the form below to find developers to help you with it.</p>
 
       <AppSubheading>About your organization</AppSubheading>
-      <AppField label="Organization name" v-model="project.organizationName" />
-      <AppField label="Organization type" v-model="project.organizationType" />
-      <AppField label="Region" v-model="project.region" />
-      <AppField label="City" v-model="project.city" />
+      <AppFieldRow>
+        <AppField label="Organization name" v-model="project.organizationName" />
+        <AppSelect label="Organization type" v-model="project.organizationType" :options="['Animals', 'People']" />
+      </AppFieldRow>
+      <AppField type="textarea" label="Organization description" v-model="project.organizationType" />
+      <AppFieldRow>
+        <AppField label="Country" v-model="project.country" />
+        <AppField label="City" v-model="project.city" />
+      </AppFieldRow>
       <AppFiled label="Organization description" type="textarea" v-model="project.organizationDescription" />
 
       <AppUpload
