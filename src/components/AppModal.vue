@@ -96,7 +96,8 @@ export default class AppModal extends Vue {
     right: 0
     // width: fit-content
     height: fit-content
-    width: 30rem
-    margin: auto auto 7vmin
+    width: 42rem
+    margin: auto
+    margin-bottom: 7vmin
     max-width: 90vw
 </style>

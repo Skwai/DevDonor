@@ -2,7 +2,7 @@
   <AppModal>
     <form @submit.prevent="submit">
       <AppHeading>Create a new project</AppHeading>
-      <p>Hi! Have an idea for a great project? Fill out the form below to find developers to help you with it.</p>
+      <p>Have an idea for a great project? Fill out the form below to find developers to help you with it.</p>
 
       <AppSubheading>About your organization</AppSubheading>
       <AppField label="Organization name" v-model="project.organizationName" />

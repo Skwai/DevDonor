@@ -1,5 +1,5 @@
 export default class Project {
-  id: string = ''
+  id?: string = ''
   title: string = ''
   organizationName: string = ''
   organizationType: string = ''
@@ -7,7 +7,7 @@ export default class Project {
   organizationDescription: string = ''
   description: string = ''
   type: string = ''
-  region: string = ''
+  country: string = ''
   city: string = ''
   createdAt: Date = new Date()
 }
