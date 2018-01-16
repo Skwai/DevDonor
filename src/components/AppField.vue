@@ -14,7 +14,7 @@
         v-model="inputValue"
         :required="required"
         :disabled="disabled"
-        rows="5"
+        :rows="rows"
         cols="20"
         :id="inputID"
         :autocomplete="autocomplete"
@@ -83,6 +83,9 @@ export default class AppField extends Vue {
 
   @Prop({ default: true })
   showLabel: boolean
+
+  @Prop({ default: 5 })
+  rows: number
 
   change (ev: Event) {
     const value = (ev.target as HTMLInputElement).value

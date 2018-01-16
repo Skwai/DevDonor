@@ -38,6 +38,7 @@
 
       <AppField
         type="textarea"
+        rows="10"
         label="Project description"
         v-model="project.description"
       />
