@@ -140,8 +140,8 @@ export default class AppUpload extends Vue {
     border: $colorGray dashed 2px
 
     &:hover
-      border-color: $colorPrimaryBlue
-      color: $colorPrimaryBlue
+      border-color: $colorPrimary
+      color: $colorPrimary
 
   &__Icon
     width: 2.5rem
@@ -150,7 +150,7 @@ export default class AppUpload extends Vue {
 
   &__Label
     font-weight: 500
-    // color: $colorPrimaryBlue
+    // color: $colorPrimary
 
   &__Remove
     top: -4px

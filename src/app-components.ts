@@ -11,6 +11,7 @@ import AppSubheading from '@/components/AppSubheading'
 import AppUpload from '@/components/AppUpload'
 import AppHelpText from '@/components/AppHelpText'
 import AppGlyph from '@/components/AppGlyph'
+import AppTag from '@/components/AppTag'
 
 Vue.component('AppBtn', AppBtn)
 Vue.component('AppField', AppField)
@@ -23,3 +24,4 @@ Vue.component('AppSubheading', AppSubheading)
 Vue.component('AppUpload', AppUpload)
 Vue.component('AppHelpText', AppHelpText)
 Vue.component('AppGlyph', AppGlyph)
+Vue.component('AppTag', AppTag)

@@ -33,7 +33,7 @@ export default class TheIntro extends Vue {
 @require "../styles/config.styl"
 
 .TheIntro
-  background: $colorPrimaryBlue linear-gradient(150deg, darken($colorPrimaryBlue, 10) 0%, $colorPrimaryBlue 100%)
+  background: $colorPrimary linear-gradient(150deg, darken($colorPrimary, 10) 0%, $colorPrimary 100%)
   color: #fff
   margin-bottom: $spacingBase
 

@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HomePage from '@/pages/Home.vue'
-import CreateProjectPage from '@/pages/CreateProject.vue'
+import HomePage from '@/pages/Home'
+import Project from '@/pages/Project'
+import CreateProjectPage from '@/pages/CreateProject'
 
 Vue.use(Router)
 
@@ -19,6 +20,11 @@ export default new Router({
           path: '/create',
           name: 'CreateProject',
           component: CreateProjectPage
+        },
+        {
+          path: '/project/:projectID',
+          name: 'Project',
+          component: Project
         }
       ]
     }

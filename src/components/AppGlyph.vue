@@ -18,7 +18,7 @@ export default class AppGlyph extends Vue {}
   display: inline-flex
   align-items: center
   justify-content: center
-  margin-right: 0.5rem
+  margin-right: 0.5em
 
   &, svg
     width: $size

@@ -131,7 +131,7 @@ export default class AppBtn extends Vue {
     color: #fff
 
   &[color=primary]
-    background: $colorPrimaryBlue
+    background: $colorPrimary
     box-shadow: none
     color: #fff
 

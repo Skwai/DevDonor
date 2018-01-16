@@ -1,17 +1,17 @@
 <template>
   <article class="ProjectPreview">
     <router-link
-      :to="{ name: 'project', params: { projectId: project.id } }"
+      :to="{ name: 'Project', params: { projectID: project.id } }"
       class="ProjectPreview__Link"
     >
       <img class="ProjectPreview__Logo" :src="project.organizationLogo">
       <div class="ProjectPreview__Body">
         <header class="ProjectPreview__Header">
           <h3 class="ProjectPreview__Title">
-            <div class="ProjectPreview__Label" v-if="isNew">New</div>
             {{project.title}}
           </h3>
           <time class="ProjectPreview__CreatedAt" :datetime="project.createdAt">
+            <div class="ProjectPreview__Label" v-if="isNew">New</div>
             <AppGlyph>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"></path></svg>
             </AppGlyph>
@@ -24,18 +24,10 @@
             {{project.organizationName}}
           </span>
           <span class="ProjectPreview__Region">
-            <!--<AppGlyph><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></AppGlyph>-->
+            <AppGlyph><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></AppGlyph>
             {{project.city}}, {{project.country}}
           </span>
         </div>
-
-        <!--<div class="ProjectPreview__Title">{{project.title}}</div>-->
-
-        <!--
-        <div class="ProjectPreview__Tags">
-          <AppTag v-for="(skill, key) in project.skills" :key="key" :tag="key" />
-        </div>
-        -->
       </div>
     </router-link>
   </article>
@@ -45,6 +37,8 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import Project from '@/models/Project'
 import moment from 'moment'
+
+const DESCRIPTION_WORD_LENGTH = 30
 
 @Component
 export default class ProjectPreview extends Vue {
@@ -60,7 +54,11 @@ export default class ProjectPreview extends Vue {
   }
 
   get description () {
-    return this.project.description.split(' ').splice(0, 50).join(' ')
+    return this.project.description.split(' ').splice(0, DESCRIPTION_WORD_LENGTH).join(' ')
+  }
+
+  get skills () {
+    return ['UX', 'Apps']
   }
 }
 </script>
@@ -71,16 +69,17 @@ export default class ProjectPreview extends Vue {
 @require "../styles/label.styl"
 
 .ProjectPreview
-  $logoSize = 6rem
+  $logoSize = 5rem
 
-  position: relative
   transition: transitionLong
   transform: translate3d(0,0,0)
   transform-origin: center center
   width: 100%
-  margin-bottom: $spacingBase
+  // margin-bottom: $spacingBase
 
-  &:hover
+  &:hover,
+  &:focus
+    position: relative
     z-index: 2
 
   &__Category
@@ -92,7 +91,7 @@ export default class ProjectPreview extends Vue {
 
   &__Label
     label()
-    margin-right: 0.5rem
+    margin-right: 1rem
 
   &__Link
     display: flex
@@ -100,20 +99,24 @@ export default class ProjectPreview extends Vue {
     flex-direction: row
     transition: $transitionLong
     background: #fff
-    // align-items: stretch
+    // box-shadow: rgba(0,0,0,.125) 0 1px 1px
     transition: $transitionBase
     padding: $spacingBase
     width: 100%
     -webkit-backface-visibility: hidden
-    -webkit-transform: translateZ(0) scale(1.0, 1.0)
-    box-shadow: rgba(0,0,0,.125) 0 1px 1px
+    -webkit-transform: translateZ(0) scale(1, 1)
+    box-shadow: $colorGray 0 0 0 1px
+    // border-bottom: $colorGray solid 1px
 
     &:focus
       outline: 0
 
     &:hover,
     &:focus
-      box-shadow: rgba($colorPrimaryBlue, .2) 0 2px 2rem, $colorPrimaryBlue 0 0 0 1px
+      box-shadow: rgba($colorPrimary, .2) 0 2px 2rem, $colorPrimary 0 0 0 1px
+
+      .ProjectPreview__Logo
+        box-shadow: $colorPrimary 0 0 0 1px
 
   &__Skills
     margin-top: $spacingSmall
@@ -126,8 +129,9 @@ export default class ProjectPreview extends Vue {
     display: flex
     justify-content: center
     background: #fff
-    box-shadow: rgba(0,0,0,.125) 0 1px 1px
-    border: #fff 6px solid
+    // box-shadow: rgba(0,0,0,.125) 0 1px 1px
+    box-shadow: $colorGray 0 0 0 1px
+    border: #fff solid 5px
     object-fit: cover
     transition: $transitionBase
     -webkit-backface-visibility: hidden
@@ -136,10 +140,15 @@ export default class ProjectPreview extends Vue {
   &__Title
     textSubheading()
     margin: 0
-    color: $colorPrimaryBlue
+    color: $colorPrimary
 
   &__Organization
     margin-right: $spacingBase
+
+  &__Region
+    margin-left: auto
+    display: flex
+    align-items: center
 
   &__Body
     flex: 1
@@ -151,17 +160,16 @@ export default class ProjectPreview extends Vue {
     align-items: center
 
   &__Header
-    margin-bottom: 0.75rem
+    margin-bottom: 1rem
     display: flex
 
   &__Description
     font-size: $fontSizeSmall
     opacity: .7
-    margin-bottom: 0.75rem
+    margin-bottom: 1rem
 
   &__CreatedAt
     textSmallCaps()
-    opacity: .5
     display: flex
     align-items: center
     align-self: center

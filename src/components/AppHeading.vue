@@ -15,7 +15,7 @@ export default class AppHeading extends Vue {}
 .AppHeading
   margin-top: $spacingBase
   margin-bottom: $spacingBase
-  color: $colorPrimaryBlue
+  color: $colorPrimary
   font-size: 2rem
 
   &:first-child

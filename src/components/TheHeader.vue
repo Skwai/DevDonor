@@ -34,7 +34,7 @@ export default class TheHeader extends Vue {}
 
   &__Logo
     transition: transitionBase
-    color: $colorPrimaryBlue
+    color: $colorPrimary
     padding: $spacingBase 0
 
     &:hover
@@ -50,5 +50,5 @@ export default class TheHeader extends Vue {}
 
       &:hover,
       &:focus
-        color: $colorPrimaryBlue
+        color: $colorPrimary
 </style>

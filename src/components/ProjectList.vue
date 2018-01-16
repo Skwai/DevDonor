@@ -1,22 +1,27 @@
 <template>
   <div :class="$style.ProjectList">
-    <AppLoading v-if="loading" />
-    <div
-      v-else-if="projects.length"
-      :class="$style.ProjectList__Items"
-    >
-      <div
-        v-for="project in projects"
-        :class="$style.ProjectList__Item"
-        :key="project.id"
-      >
-        <ProjectPreview
-          :project="project"
-        />
-      </div>
+    <div :class="$style.ProjectList__Filters">
+      <ProjectFilters />
     </div>
-    <div v-else :class="$style.ProjectList__Empty">
-      <AppHeading>No Projects</AppHeading>
+    <div :class="$style.ProjectList__Projects">
+      <AppLoading v-if="loading" />
+      <div
+        v-else-if="projects.length"
+        :class="$style.ProjectList__Items"
+      >
+        <div
+          v-for="project in projects"
+          :class="$style.ProjectList__Item"
+          :key="project.id"
+        >
+          <ProjectPreview
+            :project="project"
+          />
+        </div>
+      </div>
+      <div v-else :class="$style.ProjectList__Empty">
+        <AppHeading>No Projects</AppHeading>
+      </div>
     </div>
   </div>
 </template>
@@ -25,11 +30,13 @@
 import { Vue, Component } from 'vue-property-decorator'
 import { Getter, Action } from 'vuex-class'
 import ProjectPreview from '@/components/ProjectPreview'
+import ProjectFilters from '@/components/ProjectFilters'
 import Project from '@/models/Project'
 
 @Component({
   components: {
-    ProjectPreview
+    ProjectPreview,
+    ProjectFilters
   }
 })
 export default class ProjectList extends Vue {
@@ -57,18 +64,12 @@ export default class ProjectList extends Vue {
 
 .ProjectList
   container()
+  display: grid
+  grid-gap: 2rem
+  grid-template-columns: 14rem auto
 
-  /*
-  &__Items
-    display: grid
-    grid-template-columns: 20rem 20rem 20rem
-    grid-gap: $spacingBase
-    justify-content: center
+  // &__Filters
 
-  &__Item
-    justify-self: stretch
+  // &__Projects
 
-  &__Empty
-    text-align: center
-  */
 </style>
