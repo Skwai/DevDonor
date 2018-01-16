@@ -4,11 +4,11 @@
       :to="{ name: 'project', params: { projectId: project.id } }"
       class="ProjectPreview__Link"
     >
-      <div class="ProjectPreview__Label" v-if="isNew">New</div>
       <img class="ProjectPreview__Logo" :src="project.organizationLogo">
       <div class="ProjectPreview__Body">
         <header class="ProjectPreview__Header">
           <h3 class="ProjectPreview__Title">
+            <div class="ProjectPreview__Label" v-if="isNew">New</div>
             {{project.title}}
           </h3>
           <time class="ProjectPreview__CreatedAt" :datetime="project.createdAt">
@@ -91,25 +91,22 @@ export default class ProjectPreview extends Vue {
     margin-top: $spacingSmall
 
   &__Label
-    position: absolute
-    left: 0
-    top: 0
-    transform: translate(-8px, -8px)
     label()
+    margin-right: 0.5rem
 
   &__Link
     display: flex
     color: inherit
     flex-direction: row
     transition: $transitionLong
-    // background: #fff
+    background: #fff
     // align-items: stretch
     transition: $transitionBase
-    // box-shadow: $colorGray 0 0 0 1px
-    padding: 1rem
+    padding: $spacingBase
     width: 100%
     -webkit-backface-visibility: hidden
     -webkit-transform: translateZ(0) scale(1.0, 1.0)
+    box-shadow: rgba(0,0,0,.125) 0 1px 1px
 
     &:focus
       outline: 0
