@@ -1,5 +1,5 @@
 <template>
-  <AppModal>
+  <AppModal @close="cancel">
     <form @submit.prevent="submit">
       <AppHeading>Create a new project</AppHeading>
       <p>Have an idea for a great project? Fill out the form below to find developers to help you with it.</p>
@@ -14,7 +14,7 @@
         <AppField label="Country" v-model="project.country" />
         <AppField label="City" v-model="project.city" />
       </AppFieldRow>
-      <AppFiled label="Organization description" type="textarea" v-model="project.organizationDescription" />
+      <AppField label="Organization description" type="textarea" v-model="project.organizationDescription" />
 
       <AppUpload
         :maxFileSize="2"
@@ -50,27 +50,29 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import { Action } from 'vuex-class'
+
 import Project from '@/models/Project'
 import { createID } from '@/services/db'
 
 @Component
 export default class CreateProjectPage extends Vue {
-  project = { ...new Project() }
-  fileName: string = ''
+  private project = { ...new Project() }
+  private fileName: string = ''
 
-  @Action createProject: (project: Project) => Promise<void>
+  @Action private createProject: (project: Project) => Promise<void>
 
-  cancel () {
+  private cancel() {
+    console.log('cancelled')
     this.$router.push('/')
   }
 
-  created () {
+  private created() {
     this.fileName = createID()
   }
 
-  async submit (ev: Event) {
+  private async submit(ev: Event) {
     console.log(this.project)
     try {
       await this.createProject(this.project)

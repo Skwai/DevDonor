@@ -4,6 +4,7 @@
       <ProjectFilters />
     </div>
     <div :class="$style.ProjectList__Projects">
+      <AppSubheading justify="center">Current Projects</AppSubheading>
       <AppLoading v-if="loading" />
       <div
         v-else-if="projects.length"
@@ -27,25 +28,25 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
-import { Getter, Action } from 'vuex-class'
-import ProjectPreview from '@/components/ProjectPreview'
-import ProjectFilters from '@/components/ProjectFilters'
-import Project from '@/models/Project'
+import { Component, Vue } from 'vue-property-decorator'
+import { Action, Getter } from 'vuex-class'
+import Project from '../models/Project'
+import ProjectFilters from './ProjectFilters.vue'
+import ProjectPreview from './ProjectPreview.vue'
 
 @Component({
   components: {
-    ProjectPreview,
-    ProjectFilters
+    ProjectFilters,
+    ProjectPreview
   }
 })
 export default class ProjectList extends Vue {
-  loading: boolean = false
+  private loading: boolean = false
 
-  @Getter projects: Project[]
-  @Action getProjects: () => Promise<void>
+  @Getter private projects: Project[]
+  @Action private getProjects: () => Promise<void>
 
-  async created () {
+  private async created () {
     this.loading = true
     try {
       await this.getProjects()

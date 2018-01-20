@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { Prop, Component, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import { Action } from 'vuex-class'
 
 const ESCAPE_KEYCODE = 27
@@ -18,18 +18,20 @@ const ESCAPE_KEYCODE = 27
 @Component
 export default class AppModal extends Vue {
   @Prop({ default: true })
-  open: boolean
+  private open: boolean
 
-  close (ev: Event) {
+  private close(ev: Event) {
     this.$emit('close', ev)
   }
 
-  get inDOM () {
+  get inDOM() {
     return document.body.contains(this.$el)
   }
 
-  focus () {
-    let target = this.$el.querySelector('[autofocus]:not([disabled])') as HTMLElement
+  private focus() {
+    let target = this.$el.querySelector(
+      '[autofocus]:not([disabled])'
+    ) as HTMLElement
 
     if (!target && this.$el.tabIndex >= 0) {
       target = this.$el
@@ -37,7 +39,7 @@ export default class AppModal extends Vue {
 
     if (!target) {
       const opts = ['button', 'input', 'keygen', 'select', 'textarea']
-      const query = opts.map((el) => `${el}:not([disabled])`)
+      const query = opts.map(el => `${el}:not([disabled])`)
       query.push('[tabindex]:not([disabled]):not([tabindex=""])')
       target = this.$el.querySelector(query.join(', ')) as HTMLElement
     }
@@ -45,18 +47,18 @@ export default class AppModal extends Vue {
     target && target.focus()
   }
 
-  documentKeypress (ev: KeyboardEvent) {
+  private documentKeypress(ev: KeyboardEvent) {
     if (ev.keyCode === ESCAPE_KEYCODE) {
       this.close(ev)
     }
   }
 
-  mounted () {
+  private mounted() {
     this.focus()
     document.addEventListener('keydown', this.documentKeypress)
   }
 
-  destroyed () {
+  private destroyed() {
     document.removeEventListener('keydown', this.documentKeypress)
   }
 }

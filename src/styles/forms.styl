@@ -4,8 +4,8 @@ field()
   position: relative
   display: block
   position: relative
-  border: 0
-  border-bottom: $colorGray solid 1px
+  // border: 0
+  // border-bottom: $colorGray solid 1px
   transition: $transitionBase
   box-shadow: none
   width: 100%
@@ -14,7 +14,9 @@ field()
   transition: border-color $transitionBase
   will-change: border-color
   flex: 1
-  padding: 1.5rem 0 0.5rem
+  // padding: 1.5rem 0 0.5rem
+  padding: 1rem
+  border: $colorGray solid 1px
 
   &[disabled]
     cursor: not-allowed
@@ -28,19 +30,20 @@ field()
 
 fieldLabel()
   cursor: text
-  top: 0
-  left: 0
+  top: 1.25rem
+  left: 1rem
   position: absolute
   display: block
   cursor: text
   z-index: 1
   transition: $transitionBase
-  transform: translate(0, 0) scale(0.8125)
+  transform: translate(0, -50%) scale(0.8125)
   transform-origin: left top
   font-weight: 500
   color: $colorPrimary
-  opacity: .75
+  opacity: .5
+  line-height: 1
 
   [empty] &
-    transform: translate(0, 100%)
+    transform: translate(0, 0)
     opacity: 1
