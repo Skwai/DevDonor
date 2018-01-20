@@ -4,6 +4,15 @@
     @close="close"
   >
     <div :class="$style.AppModal__Content">
+      <button
+        v-if="canClose"
+        type="button"
+        @click.prevent="close"
+        aria-label="Close"
+        :class="$style.AppModal__Close"
+      >
+        <svg :class="$style.AppModal__CloseIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10"><path d="M19.5 5.5l-14 14M19.5 19.5l-14-14"/></g></svg>
+      </button>
       <slot />
     </div>
   </section>
@@ -19,6 +28,9 @@ const ESCAPE_KEYCODE = 27
 export default class AppModal extends Vue {
   @Prop({ default: true })
   private open: boolean
+
+  @Prop({ default: true })
+  private canClose: boolean
 
   private close(ev: Event) {
     this.$emit('close', ev)
@@ -102,4 +114,28 @@ export default class AppModal extends Vue {
     margin: auto
     margin-bottom: 7vmin
     max-width: 90vw
+
+  &__Close
+    position: absolute
+    right: 1rem
+    top: 1rem
+    line-height: 0
+    height: auto
+    background: transparent
+    border: 0
+    padding: 0
+    opacity: .5
+    transition: $transitionBase
+    transform-origin: center center
+
+    &:hover,
+    &:focus
+      opacity: 1
+      transform: scale(1.15)
+      color: $colorPrimary
+
+    &Icon
+      width: 2rem
+      height: 2rem
+
 </style>

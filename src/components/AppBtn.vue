@@ -34,29 +34,26 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class AppBtn extends Vue {
-  @Prop()
-  to: string
+  @Prop() private to: string
 
-  @Prop()
-  color: string
+  @Prop() private color: string
 
-  @Prop()
-  size: string
+  @Prop() private size: string
 
   @Prop({ default: false })
-  loading: boolean
+  private loading: boolean
 
   @Prop({ default: 'button' })
-  type: string
+  private type: string
 
   @Prop({ default: false })
-  disabled: boolean
+  private disabled: boolean
 
-  click (ev: Event) {
+  private click(ev: Event) {
     if (this.loading) {
       ev.preventDefault()
       return false
@@ -118,7 +115,8 @@ export default class AppBtn extends Vue {
 
   &[size=large]
     padding: spacingSmall 2rem
-    font-size: 0.8125rem
+    font-size: 0.9125rem
+    font-weight: 600
 
   &[color=white]
     background: #fff

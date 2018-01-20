@@ -46,7 +46,7 @@ export default class ProjectList extends Vue {
   @Getter private projects: Project[]
   @Action private getProjects: () => Promise<void>
 
-  private async created () {
+  private async created() {
     this.loading = true
     try {
       await this.getProjects()

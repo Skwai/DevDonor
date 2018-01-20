@@ -15,14 +15,17 @@ field()
   will-change: border-color
   flex: 1
   // padding: 1.5rem 0 0.5rem
-  padding: 1rem
+  padding: 1.5rem 1rem 0.5rem
   border: $colorGray solid 1px
+  background: transparent
+
+  [empty] &
+    padding: 1rem
 
   &[disabled]
     cursor: not-allowed
     opacity: .5
 
-  &:hover,
   &:focus
     border-color: $colorPrimary
     box-shadow: none
@@ -37,11 +40,11 @@ fieldLabel()
   cursor: text
   z-index: 1
   transition: $transitionBase
-  transform: translate(0, -50%) scale(0.8125)
+  transform: translate(0, -50%) scale(0.75)
   transform-origin: left top
   font-weight: 500
   color: $colorPrimary
-  opacity: .5
+  // opacity: .5
   line-height: 1
 
   [empty] &

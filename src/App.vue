@@ -21,7 +21,7 @@ import TheFooter from '@/components/TheFooter'
 export default class App extends Vue {
   @Action getCurrentUser: () => Promise<void>
 
-  async created () {
+  async created() {
     await this.getCurrentUser()
   }
 }
@@ -66,6 +66,8 @@ h1
 
 h2
   textHeading()
+  margin-top: $spacingBase
+  margin-bottom: $spacingBase
 
 h3
   textSubheading()
@@ -76,6 +78,10 @@ a
 
 *
   box-sizing: border-box
+
+:focus
+  box-shadow: none
+  outline: 0
 
 .App
   display: flex

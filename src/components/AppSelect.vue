@@ -11,63 +11,76 @@
     <div :class="$style.AppField__Wrap">
       <select
         :class="$style.AppField__Input"
-        v-model="inputValue"
         :required="required"
         :disabled="disabled"
         :id="inputID"
+        v-model="inputValue"
         @input="change"
       >
-        <option v-for="(option, index) in options" :value="option" :key="index">{{option}}</option>
+        <option
+          v-for="(option, index) in options"
+          :value="option"
+          :key="index"
+        >{{option}}</option>
       </select>
+      <label
+        :for="inputID"
+        aria-hidden="true"
+        :class="$style.AppField__Toggle"
+      >
+        <svg :class="$style.AppField__ToggleIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
+      </label>
       <slot></slot>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class AppField extends Vue {
-  inputValue: string | number | null = null
+  private inputValue: string | number | null = null
 
   @Prop({ required: true })
-  label: string
+  private label: string
 
   @Prop({ default: false, required: false })
-  required: boolean
+  private required: boolean
 
   @Prop({ required: true })
-  value: string | number
+  private value: string | number
 
   @Prop({ default: false, required: false })
-  disabled: boolean
+  private disabled: boolean
 
   @Prop({ default: true })
-  showLabel: boolean
+  private showLabel: boolean
 
   @Prop({ required: true })
-  options: (string | number)[]
+  private options: Array<string | number>
 
-  change (ev: Event) {
+  private change(ev: Event) {
     const value = (ev.target as HTMLInputElement).value
     this.inputValue = value
     this.$emit('input', value)
   }
 
-  created () {
+  private created() {
     this.inputValue = this.value
   }
 
-  get empty (): boolean {
+  get empty(): boolean {
     return !String(this.inputValue).length
   }
 
-  get uid (): string {
-    return Math.random().toString(36).substr(2)
+  get uid(): string {
+    return Math.random()
+      .toString(36)
+      .substr(2)
   }
 
-  get inputID (): string {
+  get inputID(): string {
     return `${this.uid}__Input`
   }
 }
@@ -78,20 +91,29 @@ export default class AppField extends Vue {
 @import "../styles/forms.styl"
 
 .AppField
-  margin: 0 0 $spacingBase
   position: relative
   text-align: left
 
   &__Wrap
     display: flex
 
-    button
-      border-top-left-radius: 0
-      border-bottom-left-radius: 0
+  &__Toggle
+    position: absolute
+    right: 1rem
+    top: 50%
+    transform: translateY(-50%)
+    line-height: 0
+    height: auto
+    z-index: 1
+
+    &Icon
+      width: 1rem
+      height: 1rem
 
   &__Label
     fieldLabel()
 
   &__Input
+    z-index: 2
     field()
 </style>

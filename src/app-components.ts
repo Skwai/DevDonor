@@ -2,18 +2,18 @@ import Vue from 'vue'
 
 import AppBtn from '@/components/AppBtn'
 import AppField from '@/components/AppField'
+import AppFieldGroup from '@/components/AppFieldGroup'
+import AppGlyph from '@/components/AppGlyph'
 import AppHeading from '@/components/AppHeading'
+import AppHelpText from '@/components/AppHelpText'
 import AppLoading from '@/components/AppLoading'
 import AppMediaObject from '@/components/AppMediaObject'
 import AppModal from '@/components/AppModal'
+import AppSelect from '@/components/AppSelect'
 import AppSpinner from '@/components/AppSpinner'
 import AppSubheading from '@/components/AppSubheading'
-import AppUpload from '@/components/AppUpload'
-import AppHelpText from '@/components/AppHelpText'
-import AppGlyph from '@/components/AppGlyph'
 import AppTag from '@/components/AppTag'
-import AppFieldRow from '@/components/AppFieldRow'
-import AppSelect from '@/components/AppSelect'
+import AppUpload from '@/components/AppUpload'
 
 Vue.component('AppBtn', AppBtn)
 Vue.component('AppField', AppField)
@@ -27,5 +27,5 @@ Vue.component('AppUpload', AppUpload)
 Vue.component('AppHelpText', AppHelpText)
 Vue.component('AppGlyph', AppGlyph)
 Vue.component('AppTag', AppTag)
-Vue.component('AppFieldRow', AppFieldRow)
+Vue.component('AppFieldGroup', AppFieldGroup)
 Vue.component('AppSelect', AppSelect)

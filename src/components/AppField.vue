@@ -2,6 +2,7 @@
   <div
     :class="$style.AppField"
     :empty="empty"
+    :type="type"
   >
     <label
       v-if="showLabel"
@@ -45,67 +46,69 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class AppField extends Vue {
-  inputValue: string | number | null = null
+  private inputValue: string | number | null = null
 
   @Prop({ required: true })
-  label: string
+  private label: string
 
   @Prop({ default: 'text', required: false })
-  type: string
+  private type: string
 
   @Prop({ default: false, required: false })
-  required: boolean
+  private required: boolean
 
   @Prop({ required: true })
-  value: string | number
+  private value: string | number
 
   @Prop({ default: false, required: false })
-  disabled: boolean
+  private disabled: boolean
 
   @Prop({ default: 'on', required: false })
-  autocomplete: string
+  private autocomplete: string
 
   @Prop({ default: 'on', required: false })
-  autocapitalize: string
+  private autocapitalize: string
 
   @Prop({ default: 'on', required: false })
-  autocorrect: string
+  private autocorrect: string
 
   @Prop({ default: 'on', required: false })
-  spellcheck: string
+  private spellcheck: string
 
   @Prop({ required: false })
-  placeholder: string
+  private placeholder: string
 
   @Prop({ default: true })
-  showLabel: boolean
+  private showLabel: boolean
 
   @Prop({ default: 5 })
-  rows: number
+  private rows: number
 
-  change (ev: Event) {
+  private change(ev: Event) {
     const value = (ev.target as HTMLInputElement).value
     this.inputValue = value
     this.$emit('input', value)
   }
 
-  created () {
+  private created() {
     this.inputValue = this.value
   }
 
-  get empty (): boolean {
+  get empty(): boolean {
     return !String(this.inputValue).length
   }
 
-  get uid (): string {
-    return Math.random().toString(36).substr(2)
+  get uid(): string {
+    return Math.random()
+      .toString(36)
+      .substr(2)
   }
 
-  get inputID (): string {
+  get inputID(): string {
     return `${this.uid}__Input`
   }
 }
@@ -116,16 +119,14 @@ export default class AppField extends Vue {
 @import "../styles/forms.styl"
 
 .AppField
-  margin: 0 0 $spacingBase
   position: relative
   text-align: left
 
+  &[type="textarea"]
+    grid-column: span 2
+
   &__Wrap
     display: flex
-
-    button
-      border-top-left-radius: 0
-      border-bottom-left-radius: 0
 
   &__Label
     fieldLabel()

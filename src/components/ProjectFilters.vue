@@ -16,7 +16,8 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
+
 import ProjectFilterCategory from '@/components/ProjectFilterCategory'
 
 @Component({
@@ -25,25 +26,16 @@ import ProjectFilterCategory from '@/components/ProjectFilterCategory'
   }
 })
 export default class ProjectFilters extends Vue {
-  skillOptions: string[] = [
-    'Apps',
-    'Frontend',
-    'Backend',
-    'UX'
-  ]
+  private skillOptions: string[] = ['Apps', 'Frontend', 'Backend', 'UX']
 
-  regionOptions: string[] = [
+  private regionOptions: string[] = [
     'Australia',
     'USA',
     'Canada',
     'New Zealand'
   ]
 
-  typeOptions: string[] = [
-    'Animal welfare',
-    'Homeless',
-    'Sports clubs'
-  ]
+  private typeOptions: string[] = ['Animal welfare', 'Homeless', 'Sports clubs']
 }
 </script>
 
