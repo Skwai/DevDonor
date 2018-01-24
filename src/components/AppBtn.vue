@@ -85,10 +85,11 @@ export default class AppBtn extends Vue {
   background: #fff
   color: inherit
   border: 0
-  textSmallCaps()
+  textCaps()
   white-space: nowrap
   cursor: pointer
   position: relative
+  font-size: 0.9125rem
 
   &[disabled]
     cursor: not-allowed
@@ -114,8 +115,7 @@ export default class AppBtn extends Vue {
     transform: translate(-50%, -50%)
 
   &[size=large]
-    padding: spacingSmall 2rem
-    font-size: 0.9125rem
+    padding: 1rem 2rem
     font-weight: 600
 
   &[color=white]

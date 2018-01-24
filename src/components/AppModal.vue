@@ -4,6 +4,7 @@
     @close="close"
   >
     <div :class="$style.AppModal__Content">
+      <slot />
       <button
         v-if="canClose"
         type="button"
@@ -13,7 +14,6 @@
       >
         <svg :class="$style.AppModal__CloseIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10"><path d="M19.5 5.5l-14 14M19.5 19.5l-14-14"/></g></svg>
       </button>
-      <slot />
     </div>
   </section>
 </template>
@@ -67,10 +67,12 @@ export default class AppModal extends Vue {
 
   private mounted() {
     this.focus()
+    document.body.style.overflow = 'hidden'
     document.addEventListener('keydown', this.documentKeypress)
   }
 
   private destroyed() {
+    document.body.style.overflow = 'visible'
     document.removeEventListener('keydown', this.documentKeypress)
   }
 }
@@ -82,13 +84,19 @@ export default class AppModal extends Vue {
 
 @keyframes AppModal
   0%
-    transform: translate(0, -3rem)
     opacity: 0
+  100%
+    opacity: 1
+
+@keyframes AppModal__Content
+  0%
+    opacity: 0
+    transform: translateY(-3rem)
   50%
     opacity: 1
   100%
     opacity: 1
-    transform: translate(0, 0)
+    transform: translateY(0rem)
 
 .AppModal
   position: fixed
@@ -96,24 +104,30 @@ export default class AppModal extends Vue {
   top: 0
   right: 0
   bottom: 0
-  background: rgba($colorLightGray, 0.5)
+  background: rgba($colorOffWhite, 0.9)
   z-index: $zIndexCover
   overflow-y: auto
+  opacity: 0
+  animation: AppModal 0.5s 1 forwards
 
   &__Content
     top: 7vmin
     background: #ffff
-    box-shadow: rgba(0,0,0,.1) 0 0 0 1px, rgba(0,0,0,.075) 0 0.25rem 1rem
-    padding: 2rem
+    box-shadow: rgba(0,0,0,.1) 0 0.25rem 1rem, rgba(0,0,0,.1) 0 1px 1px
+    padding: 2rem 3rem
     position: absolute
     left: 0
     right: 0
     // width: fit-content
     height: fit-content
-    width: 42rem
+    width: 46rem
     margin: auto
     margin-bottom: 7vmin
     max-width: 90vw
+    opacity: 0
+    transform: translate(0, -3rem)
+    animation AppModal__Content 0.5s 0.25s 1 forwards
+    border-radius: 2px
 
   &__Close
     position: absolute
@@ -127,6 +141,7 @@ export default class AppModal extends Vue {
     opacity: .5
     transition: $transitionBase
     transform-origin: center center
+    display: none
 
     &:hover,
     &:focus
@@ -137,5 +152,4 @@ export default class AppModal extends Vue {
     &Icon
       width: 2rem
       height: 2rem
-
 </style>

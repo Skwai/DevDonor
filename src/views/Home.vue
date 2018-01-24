@@ -7,7 +7,8 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
+
 import ProjectList from '@/components/ProjectList.vue'
 import TheIntro from '@/components/TheIntro.vue'
 

@@ -5,11 +5,21 @@
       :class="$style.TheHeader__Logo"
     ><h1>DevDonor</h1></router-link>
     <nav :class="$style.TheHeader__Nav" data-foo="true">
-      <router-link to="/" :class="$style.TheHeader__NavItem">Browse Projects</router-link>
       <router-link
-        to="/create" :class="$style.TheHeader__NavItem"
+        to="/"
+        :class="$style.TheHeader__NavItem"
+        :exact-active-class="$style.TheHeader__NavItemActive"
+      >Browse Projects</router-link>
+      <router-link
+        to="/create"
+        :class="$style.TheHeader__NavItem"
+        :active-class="$style.TheHeader__NavItemActive"
       >Create Project</router-link>
-      <router-link to="/" :class="$style.TheHeader__NavItem">How It Works</router-link>
+      <router-link
+        to="/about"
+        :class="$style.TheHeader__NavItem"
+        :active-class="$style.TheHeader__NavItemActive"
+      >How It Works</router-link>
     </nav>
   </header>
 </template>
@@ -52,5 +62,8 @@ export default class TheHeader extends Vue {}
 
       &:hover,
       &:focus
+        color: $colorPrimary
+
+      &Active
         color: $colorPrimary
 </style>

@@ -2,7 +2,7 @@
   <div
     :class="$style.AppField"
     :empty="empty"
-    :type="type"
+    :span="span"
   >
     <label
       v-if="showLabel"
@@ -42,6 +42,7 @@
       >
       <slot></slot>
     </div>
+    <AppHelpText v-if="description">{{description}}</AppHelpText>
   </div>
 </template>
 
@@ -88,6 +89,12 @@ export default class AppField extends Vue {
   @Prop({ default: 5 })
   private rows: number
 
+  @Prop({ required: false })
+  private description: string
+
+  @Prop({ default: 1 })
+  private span: number
+
   private change(ev: Event) {
     const value = (ev.target as HTMLInputElement).value
     this.inputValue = value
@@ -122,8 +129,13 @@ export default class AppField extends Vue {
   position: relative
   text-align: left
 
-  &[type="textarea"]
-    grid-column: span 2
+  grid-column: span 2
+
+  @media (min-width: 768px)
+    grid-column: span 1
+
+    &[span="2"]
+      grid-column: span 2
 
   &__Wrap
     display: flex

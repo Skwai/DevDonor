@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 
 @Component
 export default class AppHeading extends Vue {}
@@ -15,7 +15,6 @@ export default class AppHeading extends Vue {}
 .AppHeading
   margin-top: $spacingBase
   margin-bottom: $spacingBase
-  color: $colorPrimary
   font-size: 2rem
 
   &:first-child

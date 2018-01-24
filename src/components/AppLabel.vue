@@ -1,20 +1,20 @@
 <template>
-  <span :class="$style.AppTag"><slot /></span>
+  <span :class="$style.AppLabel"><slot /></span>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component
-export default class AppTag extends Vue {}
+export default class AppLabel extends Vue {}
 </script>
 
 <style lang="stylus" module>
-@import "../styles/tag.styl"
+@import "../styles/label.styl"
 
-.AppTag
-  tag()
+.AppLabel
+  label()
 
-  + .AppTag
+  + .AppLabel
     margin-left: 0.25rem
 </style>

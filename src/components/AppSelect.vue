@@ -2,6 +2,7 @@
   <div
     :class="$style.AppField"
     :empty="empty"
+    :span="span"
   >
     <label
       v-if="showLabel"
@@ -60,6 +61,9 @@ export default class AppField extends Vue {
   @Prop({ required: true })
   private options: Array<string | number>
 
+  @Prop({ default: 1 })
+  private span: number
+
   private change(ev: Event) {
     const value = (ev.target as HTMLInputElement).value
     this.inputValue = value
@@ -91,11 +95,19 @@ export default class AppField extends Vue {
 @import "../styles/forms.styl"
 
 .AppField
-  position: relative
   text-align: left
+
+  grid-column: span 2
+
+  @media (min-width: 768px)
+    grid-column: span 1
+
+    &[span="2"]
+      grid-column: span 2
 
   &__Wrap
     display: flex
+    position: relative
 
   &__Toggle
     position: absolute
@@ -107,8 +119,8 @@ export default class AppField extends Vue {
     z-index: 1
 
     &Icon
-      width: 1rem
-      height: 1rem
+      width: 1.5rem
+      height: 1.5rem
 
   &__Label
     fieldLabel()

@@ -7,7 +7,7 @@
       <AppSubheading justify="center">Current Projects</AppSubheading>
       <AppLoading v-if="loading" />
       <div
-        v-else-if="projects.length"
+        v-else-if="hasProjects"
         :class="$style.ProjectList__Items"
       >
         <div
@@ -31,6 +31,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 import Project from '../models/Project'
+import { IStateProjectList } from '../store/State'
 import ProjectFilters from './ProjectFilters.vue'
 import ProjectPreview from './ProjectPreview.vue'
 
@@ -43,18 +44,22 @@ import ProjectPreview from './ProjectPreview.vue'
 export default class ProjectList extends Vue {
   private loading: boolean = false
 
-  @Getter private projects: Project[]
-  @Action private getProjects: () => Promise<void>
+  @Getter('getProjects') private projects: IStateProjectList
+  @Action private loadProjects: () => Promise<void>
 
   private async created() {
     this.loading = true
     try {
-      await this.getProjects()
+      await this.loadProjects()
     } catch (err) {
       console.error(err)
     } finally {
       this.loading = false
     }
+  }
+
+  private hasProjects(): boolean {
+    return !!Object.keys(this.projects).length
   }
 }
 </script>
@@ -67,7 +72,9 @@ export default class ProjectList extends Vue {
   container()
   display: grid
   grid-gap: 2rem
-  grid-template-columns: 14rem auto
+
+  @media (min-width: 1024px)
+    grid-template-columns: 14rem auto
 
   // &__Filters
 

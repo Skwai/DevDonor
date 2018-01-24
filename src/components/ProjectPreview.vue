@@ -4,7 +4,9 @@
       :to="{ name: 'Project', params: { projectID: project.id } }"
       class="ProjectPreview__Link"
     >
-      <img class="ProjectPreview__Logo" :src="project.organizationLogo">
+      <div class="ProjectPreview__LogoWrap">
+        <img class="ProjectPreview__Logo" :src="project.organizationLogo">
+      </div>
       <div class="ProjectPreview__Body">
         <header class="ProjectPreview__Header">
           <h3 class="ProjectPreview__Title">
@@ -18,11 +20,9 @@
             <span>{{createdAt}}</span>
           </time>
         </header>
+        <div class="ProjectPreview__Organization">{{project.organizationName}}</div>
         <div class="ProjectPreview__Description">{{description}}</div>
         <div class="ProjectPreview__Meta">
-          <span class="ProjectPreview__Organization">
-            {{project.organizationName}}
-          </span>
           <span class="ProjectPreview__Region">
             <AppGlyph><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></AppGlyph>
             {{project.city}}, {{project.country}}
@@ -34,30 +34,33 @@
 </template>
 
 <script lang="ts" >
-import { Vue, Component, Prop } from 'vue-property-decorator'
-import Project from '@/models/Project'
 import moment from 'moment'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
+import Project from '../models/Project'
 const DESCRIPTION_WORD_LENGTH = 30
 
 @Component
 export default class ProjectPreview extends Vue {
   @Prop({ required: true })
-  project: Project
+  private project: Project
 
-  get isNew () {
+  get isNew() {
     return new Date()
   }
 
-  get createdAt () {
+  get createdAt() {
     return moment(this.project.createdAt).fromNow()
   }
 
-  get description () {
-    return this.project.description.split(' ').splice(0, DESCRIPTION_WORD_LENGTH).join(' ')
+  get description() {
+    return this.project.description
+      .split(' ')
+      .splice(0, DESCRIPTION_WORD_LENGTH)
+      .join(' ')
   }
 
-  get skills () {
+  get skills() {
     return ['UX', 'Apps']
   }
 }
@@ -77,8 +80,7 @@ export default class ProjectPreview extends Vue {
   width: 100%
   // margin-bottom: $spacingBase
 
-  &:hover,
-  &:focus
+  &:hover
     position: relative
     z-index: 2
 
@@ -92,6 +94,10 @@ export default class ProjectPreview extends Vue {
   &__Label
     label()
     margin-right: 1rem
+
+  &__Organization
+    margin-bottom: 0.5rem
+    textSmallCaps()
 
   &__Link
     display: flex
@@ -111,39 +117,38 @@ export default class ProjectPreview extends Vue {
     &:focus
       outline: 0
 
-    &:hover,
-    &:focus
+    &:hover
       box-shadow: rgba($colorPrimary, .2) 0 2px 2rem, $colorPrimary 0 0 0 1px
-
-      .ProjectPreview__Logo
-        box-shadow: $colorPrimary 0 0 0 1px
 
   &__Skills
     margin-top: $spacingSmall
 
   &__Logo
     width: auto
-    max-width: 50%
     min-width: $logoSize
-    height: $logoSize
-    display: flex
-    justify-content: center
-    background: #fff
+    height: auto
+    // display: flex
+    // justify-content: center
+    // background: #fff
     // box-shadow: rgba(0,0,0,.125) 0 1px 1px
-    box-shadow: $colorGray 0 0 0 1px
-    border: #fff solid 5px
-    object-fit: cover
-    transition: $transitionBase
+    // box-shadow: $colorGray 0 0 0 1px
+    // border: #fff solid 5px
+    // object-fit: cover
+    // transition: $transitionBase
     -webkit-backface-visibility: hidden
-    margin-right: $spacingBase
+    width: 10vw
+
+    &Wrap
+      height: $logoSize
+      width: $logoSize
+      margin-right: $spacingBase
+      display: flex
+      align-items: center
 
   &__Title
     textSubheading()
-    margin: 0
+    margin-bottom: 0.5rem
     color: $colorPrimary
-
-  &__Organization
-    margin-right: $spacingBase
 
   &__Region
     margin-left: auto
@@ -160,8 +165,8 @@ export default class ProjectPreview extends Vue {
     align-items: center
 
   &__Header
-    margin-bottom: 1rem
     display: flex
+    align-items: flex-start
 
   &__Description
     font-size: $fontSizeSmall
@@ -172,9 +177,9 @@ export default class ProjectPreview extends Vue {
     textSmallCaps()
     display: flex
     align-items: center
-    align-self: center
     margin-left: auto
     padding-left: $spacingBase
+    white-space: nowrap
 
     svg
       width: 1rem

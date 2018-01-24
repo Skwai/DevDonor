@@ -1,6 +1,10 @@
-import Project from '@/models/Project'
+import Project from '../models/Project'
+
+export interface IStateProjectList {
+  [key: string]: Project
+}
 
 export default class State {
-  projects: Project[] = []
-  currentUser: any = null
+  public projects: IStateProjectList = {}
+  public currentUser: any = null
 }

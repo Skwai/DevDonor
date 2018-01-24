@@ -1,8 +1,8 @@
 // https://github.com/utahta/vue-vuex-typescript-example/blob/master/src/store/modules/counter.ts
 // https://github.com/Anonyfox/vuex-store-module-example
 
-import Vuex, { ActionTree, Module, Store } from 'vuex'
 import Vue from 'vue'
+import Vuex, { Store } from 'vuex'
 
 import State from './state'
 import * as actions from './actions'

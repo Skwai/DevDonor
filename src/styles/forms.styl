@@ -15,7 +15,9 @@ field()
   will-change: border-color
   flex: 1
   // padding: 1.5rem 0 0.5rem
-  padding: 1.5rem 1rem 0.5rem
+  // padding: 1.5rem 1rem 0.5rem
+  border-radius: 3px
+  padding: 1rem 1rem
   border: $colorGray solid 1px
   background: transparent
 
@@ -33,20 +35,17 @@ field()
 
 fieldLabel()
   cursor: text
-  top: 1.25rem
-  left: 1rem
-  position: absolute
+  // top: 1.25rem
+  // left: 1rem
+  // position: absolute
+  // transition: $transitionBase
+  // transform: translate(0, -50%) scale(0.75)
+  // transform-origin: left top
+  // opacity: .5
   display: block
   cursor: text
   z-index: 1
-  transition: $transitionBase
-  transform: translate(0, -50%) scale(0.75)
-  transform-origin: left top
   font-weight: 500
-  color: $colorPrimary
-  // opacity: .5
+  // color: $colorPrimary
   line-height: 1
-
-  [empty] &
-    transform: translate(0, 0)
-    opacity: 1
+  margin-bottom: 0.875rem

@@ -23,69 +23,63 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
-import { storage } from '@/services/db'
+import { Component, Prop, Vue } from 'vue-property-decorator'
+
+import { storage } from '../services/db'
 
 @Component
 export default class AppUpload extends Vue {
-  @Prop()
-  url: string
+  @Prop() private url: string
 
-  @Prop()
-  fileTypes: string[]
+  @Prop() private fileTypes: string[]
 
-  @Prop()
-  maxFileSize: number
+  @Prop() private maxFileSize: number
 
-  @Prop()
-  filePath: string
+  @Prop() private filePath: string
 
-  @Prop()
-  fileName: string
+  @Prop() private fileName: string
 
-  @Prop()
-  label: string
+  @Prop() private label: string
 
-  @Prop()
-  description: string
+  @Prop() private description: string
 
-  progress: number = 0
-  uploading: boolean = false
+  private progress: number = 0
+  private uploading: boolean = false
 
-  removeUpload () {
+  private removeUpload() {
     if (!this.url) return
     this.$emit('update:url', null)
   }
 
-  async upload (ev: Event) {
+  private async upload(ev: Event) {
     const el = ev.target as HTMLInputElement
 
     if (!el.files || !el.files.length) return
 
     const file: File = el.files[0]
-    const { maxFileSize } = this
 
-    if (maxFileSize && file.size / Math.pow(1024, 2) > maxFileSize) {
-      throw Error(`File is larger than ${maxFileSize}MB`)
+    if (this.maxFileSize && file.size / Math.pow(1024, 2) > this.maxFileSize) {
+      throw Error(`File is larger than ${this.maxFileSize}MB`)
     }
 
     this.uploading = true
 
     try {
-      const { filePath, fileName } = this
       const ext = file.name.split('.').pop()
-      const path = `${filePath}/${fileName}.${ext}`
+      const path = `${this.filePath}/${this.fileName}.${ext}`
       const ref = storage.ref().child(path)
-      const metadata = {
-        contentType: file.type
-      }
+      const metadata = { contentType: file.type }
       const task = ref.put(file, metadata)
 
-      task.on('state_changed', (ev: any) => {
-        this.progress = (ev.bytesTransferred / ev.totalBytes) * 100
-      }, (err: Error) => {
-        throw err
-      })
+      task.on(
+        'state_changed',
+        (ev: any) => {
+          this.progress = ev.bytesTransferred / ev.totalBytes * 100
+        },
+        (err: Error) => {
+          throw err
+        }
+      )
 
       const { downloadURL } = await task
       this.$emit('update:url', downloadURL)
@@ -100,10 +94,11 @@ export default class AppUpload extends Vue {
 <style lang="stylus" module>
 @require "../styles/config.styl"
 @require "../styles/text.styl"
+@require "../styles/forms.styl"
 
 .AppUpload
   size = 7rem
-  margin-bottom: spacingBase
+  grid-column: span 2
 
   &__Preview
     width: size
@@ -149,8 +144,7 @@ export default class AppUpload extends Vue {
     stroke: currentColor
 
   &__Label
-    font-weight: 500
-    // color: $colorPrimary
+    fieldLabel()
 
   &__Remove
     top: -4px

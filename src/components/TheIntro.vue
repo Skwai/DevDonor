@@ -3,30 +3,16 @@
     <div :class="$style.TheIntro__Body">
       <h1 :class="$style.TheIntro__Title">Connecting developers with charities</h1>
       <p :class="$style.TheIntro__Description">Pitch a charitable project for developer to work on</p>
-      <div
-        v-if="!currentUser"
-        :class="$style.TheIntro__Login"
-      >
-        <AppBtn @click="login" color="white">Sign in with Google</AppBtn>
-      </div>
     </div>
   </header>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 
 @Component
-export default class TheIntro extends Vue {
-  @Action('login') actionLogin: () => Promise<void>
-
-  @Getter currentUser: any
-
-  login () {
-    this.actionLogin()
-  }
-}
+export default class TheIntro extends Vue {}
 </script>
 
 <style lang="stylus" module>

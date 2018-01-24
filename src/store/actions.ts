@@ -1,16 +1,22 @@
-import { ActionContext, ActionTree, Action } from 'vuex'
-import State from './state'
-import * as auth from '@/services/auth'
-import db from '@/services/db'
-import Project from '@/models/Project'
+import firebase from 'firebase'
+import { Action, ActionContext } from 'vuex'
 
-export const login = async ({ commit }: ActionContext<State, any>): Promise<void> => {
+import Project from '../models/Project'
+import * as auth from '../services/auth'
+import db from '../services/db'
+import State from './state'
+
+interface IActionContext extends ActionContext<State, any> {}
+
+export const login = async ({ commit }: IActionContext): Promise<void> => {
   const userRecord = await auth.signIn()
   const userData = userRecord.user.toJSON()
   commit('SET_CURRENT_USER', userData)
 }
 
-export const getCurrentUser = async ({ commit }: ActionContext<State, any>): Promise<void> => {
+export const loadCurrentUser = async ({
+  commit
+}: IActionContext): Promise<void> => {
   const userRecord = await auth.getCurrentUser()
 
   if (userRecord) {
@@ -19,7 +25,9 @@ export const getCurrentUser = async ({ commit }: ActionContext<State, any>): Pro
   }
 }
 
-export const getProjects = async ({ commit }: ActionContext<State, any>): Promise<void> => {
+export const loadProjects = async ({
+  commit
+}: IActionContext): Promise<void> => {
   const querySnapshot = await db.collection('projects').get()
   querySnapshot.forEach((docSnapshot: firebase.firestore.DocumentSnapshot) => {
     const id = docSnapshot.id
@@ -27,8 +35,34 @@ export const getProjects = async ({ commit }: ActionContext<State, any>): Promis
   })
 }
 
-export const createProject = async ({ commit }: ActionContext<State, any>, project: Project) => {
-  const docRef: firebase.firestore.DocumentReference = await db.collection('projects').add({ ...project })
-  const id = docRef.id
+export const createProject = async (
+  { commit }: IActionContext,
+  project: Project
+) => {
+  const ref: firebase.firestore.DocumentReference = await db
+    .collection('projects')
+    .add({ ...project })
+  const id = ref.id
   commit('ADD_PROJECT', { ...project, id })
+}
+
+export const loadProjectByID = async (
+  { commit, state }: IActionContext,
+  projectID: string
+) => {
+  // Check if project is already in store
+  if (projectID in state.projects) {
+    return
+  }
+  // Load project from Firestore
+  const ref = db.collection('projects').doc(projectID)
+  const doc = await ref.get()
+  if (!doc.exists) {
+    throw Error('Project does not exist')
+  }
+  const project = {
+    ...doc.data(),
+    id: doc.id
+  }
+  commit('ADD_PROJECT', project)
 }

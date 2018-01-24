@@ -7,30 +7,28 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import { Action } from 'vuex-class'
-import TheHeader from '@/components/TheHeader'
+
 import TheFooter from '@/components/TheFooter'
+import TheHeader from '@/components/TheHeader'
 
 @Component({
   components: {
-    TheHeader,
-    TheFooter
+    TheFooter,
+    TheHeader
   }
 })
-export default class App extends Vue {
-  @Action getCurrentUser: () => Promise<void>
-
-  async created() {
-    await this.getCurrentUser()
-  }
-}
+export default class App extends Vue {}
 </script>
 
 <style lang="stylus" module>
 @require "styles/config.styl"
 @require "styles/reset.styl"
 @require "styles/text.styl"
+
+body.-modal
+  overflow: hidden
 
 html
   font-size: $fontSizeBase
