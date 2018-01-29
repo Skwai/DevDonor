@@ -2,7 +2,6 @@
   <article>
     <TheIntro />
     <ProjectList />
-    <router-view />
   </article>
 </template>
 

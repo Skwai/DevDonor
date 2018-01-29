@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 
 @Component
 export default class TheFooter extends Vue {}
@@ -26,6 +26,7 @@ export default class TheFooter extends Vue {}
   textMuted()
   text-align: center
   margin-top: auto
+  padding-top: $spacingBase
 
   a
     textLink()

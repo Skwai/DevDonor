@@ -36,13 +36,16 @@ export default class TheHeader extends Vue {}
 
 .TheHeader
   transition: transitionBase
-  box-shadow: rgba(0,0,0,.1) 0 0.25rem 1rem
+  box-shadow: rgba(0,0,0,.1) 0 0.25rem 1rem //, rgba($colorGray, 1) 0 1px 1px
   display: flex
   align-items: center
-  position: relative
   z-index: 2
   background: #fff
   padding: 0 $spacingBase
+  position: sticky
+  top: 0
+  left: 0
+  width: 100vw
 
   &__Logo
     transition: transitionBase

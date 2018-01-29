@@ -12,19 +12,17 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: HomePage,
-      children: [
-        {
-          path: '/create',
-          name: 'CreateProject',
-          component: CreateProject,
-        },
-        {
-          path: '/project/:projectID',
-          name: 'Project',
-          component: Project
-        }
-      ]
+      component: HomePage
+    },
+    {
+      path: '/create',
+      name: 'CreateProject',
+      component: CreateProject
+    },
+    {
+      path: '/project/:projectID',
+      name: 'Project',
+      component: Project
     }
   ]
 })
