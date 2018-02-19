@@ -2,25 +2,18 @@ const path = require('path')
 
 module.exports = {
   rootDir: path.resolve(__dirname, '../../'),
-  moduleFileExtensions: [
-    'js',
-    'ts',
-    'json',
-    'vue'
-  ],
-  testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+  moduleFileExtensions: ['js', 'ts', 'json', 'vue'],
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(ts?|jsx?|tsx?)$',
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
+    // '^@/(.*)$': '<rootDir>/src/$1'
   },
   transform: {
-    '^.+\\.js$': '<rootDir>/node_modules/babel-jest',
-    '^.+\\.ts$': 'ts-jest',
-    '.*\\.(vue)$': '<rootDir>/node_modules/vue-jest'
+    '.*\\.(vue)$': '<rootDir>/node_modules/jest-vue-preprocessor',
+    '.(ts|tsx)': '<rootDir>/node_modules/ts-jest/preprocessor.js',
+    '.*': '<rootDir>/node_modules/babel-jest'
   },
-  testPathIgnorePatterns: [
-    '<rootDir>/test/e2e'
-  ],
-  snapshotSerializers: ['<rootDir>/node_modules/jest-serializer-vue'],
+  testPathIgnorePatterns: ['<rootDir>/test/e2e'],
+  // snapshotSerializers: ['<rootDir>/node_modules/jest-serializer-vue'],
   setupFiles: ['<rootDir>/test/unit/setup'],
   mapCoverage: true,
   coverageDirectory: '<rootDir>/test/unit/coverage',

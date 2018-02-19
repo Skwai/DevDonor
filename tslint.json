@@ -1,11 +1,17 @@
 {
-  "extends": [
-    "tslint:latest",
-    "tslint-config-standard",
-    "tslint-config-prettier"
-  ],
-  "rulesDirectory": ["tslint-plugin-prettier"],
+  "defaultSeverity": "warning",
+  "extends": ["tslint:latest", "tslint:recommended", "tslint-config-prettier"],
   "rules": {
-    "prettier": true
+    "no-implicit-dependencies": false,
+    "no-submodule-imports": false,
+    "quotemark": [true, "single"],
+    "indent": [true, "spaces", 2],
+    "interface-name": false,
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "no-consecutive-blank-lines": true,
+    "prettier": true,
+    "no-shadowed-variable": false,
+    "no-this-assignment": [true, { "allow-destructuring": true }]
   }
 }

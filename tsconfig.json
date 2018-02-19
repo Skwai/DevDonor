@@ -1,15 +1,22 @@
 {
   "compilerOptions": {
-    "module": "es2015",
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "sourceMap": true,
     "target": "es5",
-    "allowJs": true,
+    "module": "es2015",
+    "strict": true,
+    "jsx": "preserve",
+    "lib": ["dom", "es5", "es6", "es2015", "es2017"],
+    "moduleResolution": "node",
     "experimentalDecorators": true,
-    "lib": ["dom", "es5", "es6", "es2015", "es2017"]
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+    "strictPropertyInitialization": false,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "types": ["node", "jest"],
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
-  "include": ["./src/**/*.ts", "./src/**/*.vue"],
-  "typeRoots": ["./src/types", "./node_modules/@types"]
+  "include": ["src/**/*.ts", "src/**/*.vue", "test/**/*.ts"],
+  "exclude": ["node_modules"]
 }

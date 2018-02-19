@@ -12,14 +12,15 @@ export default class AppLoading extends Vue {}
 </script>
 
 <style lang="stylus" module>
-@require "../styles/config"
+@require '../styles/config';
 
-.AppLoading
-  size = 3rem
-  max-width: size
-  max-height: size
-  display: flex
-  align-items: center
-  justify-content: center
-  margin: $spacingBase auto
+.AppLoading {
+  size = 3rem;
+  max-width: size;
+  max-height: size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: $spacingBase auto;
+}
 </style>

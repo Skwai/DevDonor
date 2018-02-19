@@ -18,7 +18,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-import ProjectFilterCategory from '@/components/ProjectFilterCategory'
+import ProjectFilterCategory from './ProjectFilterCategory.vue'
 
 @Component({
   components: {
@@ -28,22 +28,19 @@ import ProjectFilterCategory from '@/components/ProjectFilterCategory'
 export default class ProjectFilters extends Vue {
   private skillOptions: string[] = ['Apps', 'Frontend', 'Backend', 'UX']
 
-  private regionOptions: string[] = [
-    'Australia',
-    'USA',
-    'Canada',
-    'New Zealand'
-  ]
+  private regionOptions: string[] = ['Australia', 'USA', 'Canada', 'New Zealand']
 
   private typeOptions: string[] = ['Animal welfare', 'Homeless', 'Sports clubs']
 }
 </script>
 
 <style lang="stylus" module>
-@import "../styles/config.styl"
+@import '../styles/config.styl';
 
-.ProjectFilters
-  &__Category
+.ProjectFilters {
+  &__Category {
     // background: #fff
-    border-top: $colorLightGray solid 1px
+    border-top: $colorLightGray solid 1px;
+  }
+}
 </style>

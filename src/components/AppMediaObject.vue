@@ -15,29 +15,35 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 @Component
 export default class AppMediaObject extends Vue {
   @Prop({ default: 'center' })
-  align: string
+  private align: string
 }
 </script>
 
 <style lang="stylus" module>
-@require "../styles/config.styl"
+@require '../styles/config.styl';
 
-.AppMediaObject
-  display: flex
-  margin()
+.AppMediaObject {
+  display: flex;
+  margin();
 
-  &[align="top"]
-    align-items: flex-start
+  &[align='top'] {
+    align-items: flex-start;
+  }
 
-  &[align="center"]
-    align-items: center
+  &[align='center'] {
+    align-items: center;
+  }
 
-  &[align="bottom"]
-    align-item: flex-end
+  &[align='bottom'] {
+    align-item: flex-end;
+  }
 
-  &__Body
-    text-align: left
+  &__Body {
+    text-align: left;
+  }
 
-  &__Object
-    margin-right: $spacingBase
+  &__Object {
+    margin-right: $spacingBase;
+  }
+}
 </style>

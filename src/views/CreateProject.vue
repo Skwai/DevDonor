@@ -90,9 +90,9 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Action } from 'vuex-class'
 
-import Project from '@/models/Project'
-import { createID } from '@/services/db'
-import countries from '@/utils/countries'
+import Project from '../models/Project'
+import { createID } from '../services/db'
+import countries from '../utils/countries'
 
 const CAUSE_OPTIONS = [
   'Art & Culture',
@@ -111,15 +111,12 @@ export default class CreateProjectPage extends Vue {
   private fileName: string = ''
   private step: number = 1
   private causeOptions: string[] = CAUSE_OPTIONS
-  private countryOptions: string[] = countries.map(
-    (c: { name: string }) => c.name
-  )
+  private countryOptions: string[] = countries.map((c: { name: string }) => c.name)
   private projectTypeOptions: string[] = PROJECT_TYPE_OPTIONS.slice(0)
 
   @Action private createProject: (project: Project) => Promise<void>
 
   private cancel() {
-    console.log('cancelled')
     this.$router.push('/')
   }
 
@@ -158,34 +155,35 @@ export default class CreateProjectPage extends Vue {
   }
 
   get isValid() {
-    return Object.values(this.validations).every(v => !!v)
+    return Object.values(this.validations).every((v) => !!v)
   }
 
   private async submit(ev: Event) {
     if (!this.isValid) {
       return
     }
-    console.log(this.project)
     try {
       await this.createProject(this.project)
-    } catch (err) {
-      console.error(err)
-    }
+    } catch (err) {}
   }
 }
 </script>
 
 <style lang="stylus" module>
-@import "../styles/config.styl"
-@import "../styles/text.styl"
+@import '../styles/config.styl';
+@import '../styles/text.styl';
 
-.CreateProject
-  h3
-    margin-bottom: $spacingBase
+.CreateProject {
+  h3 {
+    margin-bottom: $spacingBase;
+  }
 
-  &__Step
-    margin: 2rem 0 2rem
+  &__Step {
+    margin: 2rem 0 2rem;
+  }
 
-  &__Actions
-    text-align: right
+  &__Actions {
+    text-align: right;
+  }
+}
 </style>

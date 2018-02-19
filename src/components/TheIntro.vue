@@ -16,30 +16,36 @@ export default class TheIntro extends Vue {}
 </script>
 
 <style lang="stylus" module>
-@require "../styles/config.styl"
+@require '../styles/config.styl';
 
-.TheIntro
-  background: $colorPrimary linear-gradient(150deg, darken($colorPrimary, 10) 0%, $colorPrimary 100%)
-  color: #fff
-  margin-bottom: $spacingBase
+.TheIntro {
+  background: $colorPrimary linear-gradient(150deg, darken($colorPrimary, 10) 0%, $colorPrimary 100%);
+  color: #fff;
+  margin-bottom: $spacingBase;
 
-  &__Body
-    container()
-    text-align: center
-    padding: 10vmin $spacingBase 10vmin
+  &__Body {
+    container();
+    text-align: center;
+    padding: 10vmin $spacingBase 10vmin;
+  }
 
-  &__Title
-    font-size: (1rem + 1vmin)
-    margin-bottom: 0.5rem
+  &__Title {
+    font-size: 1rem + 1vmin;
+    margin-bottom: 0.5rem;
+  }
 
-  &__Description
-    textHeading()
-    font-weight: 400
-    opacity: .7
+  &__Description {
+    textHeading();
+    font-weight: 400;
+    opacity: 0.7;
+  }
 
-  &__Btns
-    navbar()
+  &__Btns {
+    navbar();
+  }
 
-  &__Login
-    margin-top: $spacingBase
+  &__Login {
+    margin-top: $spacingBase;
+  }
+}
 </style>

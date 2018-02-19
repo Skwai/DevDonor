@@ -52,7 +52,6 @@ export default class ProjectList extends Vue {
     try {
       await this.loadProjects()
     } catch (err) {
-      console.error(err)
     } finally {
       this.loading = false
     }
@@ -65,19 +64,16 @@ export default class ProjectList extends Vue {
 </script>
 
 <style lang="stylus" module>
-@import "../styles/config.styl"
-@import "../styles/container.styl"
+@import '../styles/config.styl';
+@import '../styles/container.styl';
 
-.ProjectList
-  container()
-  display: grid
-  grid-gap: 2rem
+.ProjectList {
+  container();
+  display: grid;
+  grid-gap: 2rem;
 
-  @media (min-width: 1024px)
-    grid-template-columns: 14rem auto
-
-  // &__Filters
-
-  // &__Projects
-
+  @media (min-width: 1024px) {
+    grid-template-columns: 14rem auto;
+  }
+}
 </style>

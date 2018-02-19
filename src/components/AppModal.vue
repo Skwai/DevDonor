@@ -41,9 +41,7 @@ export default class AppModal extends Vue {
   }
 
   private focus() {
-    let target = this.$el.querySelector(
-      '[autofocus]:not([disabled])'
-    ) as HTMLElement
+    let target = this.$el.querySelector('[autofocus]:not([disabled])') as HTMLElement
 
     if (!target && this.$el.tabIndex >= 0) {
       target = this.$el
@@ -51,12 +49,12 @@ export default class AppModal extends Vue {
 
     if (!target) {
       const opts = ['button', 'input', 'keygen', 'select', 'textarea']
-      const query = opts.map(el => `${el}:not([disabled])`)
+      const query = opts.map((el) => `${el}:not([disabled])`)
       query.push('[tabindex]:not([disabled]):not([tabindex=""])')
       target = this.$el.querySelector(query.join(', ')) as HTMLElement
     }
 
-    target && target.focus()
+    target.focus()
   }
 
   private documentKeypress(ev: KeyboardEvent) {
@@ -79,77 +77,91 @@ export default class AppModal extends Vue {
 </script>
 
 <style lang="stylus" module>
-@import "../styles/config.styl"
-@import "../styles/card.styl"
+@import '../styles/config.styl';
+@import '../styles/card.styl';
 
-@keyframes AppModal
-  0%
-    opacity: 0
-  100%
-    opacity: 1
+@keyframes AppModal {
+  0% {
+    opacity: 0;
+  }
 
-@keyframes AppModal__Content
-  0%
-    opacity: 0
-    transform: translateY(-3rem)
-  50%
-    opacity: 1
-  100%
-    opacity: 1
-    transform: translateY(0rem)
+  100% {
+    opacity: 1;
+  }
+}
 
-.AppModal
-  position: fixed
-  left: 0
-  top: 0
-  right: 0
-  bottom: 0
-  background: rgba($colorOffWhite, 0.9)
-  z-index: $zIndexCover
-  overflow-y: auto
-  opacity: 0
-  animation: AppModal 0.5s 1 forwards
+@keyframes AppModal__Content {
+  0% {
+    opacity: 0;
+    transform: translateY(-3rem);
+  }
 
-  &__Content
-    top: 7vmin
-    background: #ffff
-    box-shadow: rgba(0,0,0,.1) 0 0.25rem 1rem, rgba(0,0,0,.1) 0 1px 1px
-    padding: 2rem 3rem
-    position: absolute
-    left: 0
-    right: 0
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0rem);
+  }
+}
+
+.AppModal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba($colorOffWhite, 0.9);
+  z-index: $zIndexCover;
+  overflow-y: auto;
+  opacity: 0;
+  animation: AppModal 0.5s 1 forwards;
+
+  &__Content {
+    top: 7vmin;
+    background: #ffff;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0.25rem 1rem, rgba(0, 0, 0, 0.1) 0 1px 1px;
+    padding: 2rem 3rem;
+    position: absolute;
+    left: 0;
+    right: 0;
     // width: fit-content
-    height: fit-content
-    width: 46rem
-    margin: auto
-    margin-bottom: 7vmin
-    max-width: 90vw
-    opacity: 0
-    transform: translate(0, -3rem)
-    animation AppModal__Content 0.5s 0.25s 1 forwards
-    border-radius: 2px
+    height: fit-content;
+    width: 46rem;
+    margin: auto;
+    margin-bottom: 7vmin;
+    max-width: 90vw;
+    opacity: 0;
+    transform: translate(0, -3rem);
+    animation: AppModal__Content 0.5s 0.25s 1 forwards;
+    border-radius: 2px;
+  }
 
-  &__Close
-    position: absolute
-    right: 1rem
-    top: 1rem
-    line-height: 0
-    height: auto
-    background: transparent
-    border: 0
-    padding: 0
-    opacity: .5
-    transition: $transitionBase
-    transform-origin: center center
-    display: none
+  &__Close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    line-height: 0;
+    height: auto;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    opacity: 0.5;
+    transition: $transitionBase;
+    transform-origin: center center;
+    display: none;
 
-    &:hover,
-    &:focus
-      opacity: 1
-      transform: scale(1.15)
-      color: $colorPrimary
+    &:hover, &:focus {
+      opacity: 1;
+      transform: scale(1.15);
+      color: $colorPrimary;
+    }
 
-    &Icon
-      width: 2rem
-      height: 2rem
+    &Icon {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}
 </style>

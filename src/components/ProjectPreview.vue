@@ -67,66 +67,73 @@ export default class ProjectPreview extends Vue {
 </script>
 
 <style lang="stylus">
-@require "../styles/config.styl"
-@require "../styles/text.styl"
-@require "../styles/label.styl"
+@require '../styles/config.styl';
+@require '../styles/text.styl';
+@require '../styles/label.styl';
 
-.ProjectPreview
-  $logoSize = 5rem
+.ProjectPreview {
+  $logoSize = 5rem;
+  transition: transitionLong;
+  transform: translate3d(0, 0, 0);
+  transform-origin: center center;
+  width: 100%;
 
-  transition: transitionLong
-  transform: translate3d(0,0,0)
-  transform-origin: center center
-  width: 100%
   // margin-bottom: $spacingBase
+  &:hover {
+    position: relative;
+    z-index: 2;
+  }
 
-  &:hover
-    position: relative
-    z-index: 2
+  &__Category {
+    textSmallCaps();
+    font-size: 0.75rem;
+    opacity: 0.4;
+    width: 100%;
+    margin-top: $spacingSmall;
+  }
 
-  &__Category
-    textSmallCaps()
-    font-size: 0.75rem
-    opacity: .4
-    width: 100%
-    margin-top: $spacingSmall
+  &__Label {
+    label();
+    margin-right: 1rem;
+  }
 
-  &__Label
-    label()
-    margin-right: 1rem
+  &__Organization {
+    margin-bottom: 0.5rem;
+    textSmallCaps();
+  }
 
-  &__Organization
-    margin-bottom: 0.5rem
-    textSmallCaps()
-
-  &__Link
-    display: flex
-    color: inherit
-    flex-direction: row
-    transition: $transitionLong
-    background: #fff
+  &__Link {
+    display: flex;
+    color: inherit;
+    flex-direction: row;
+    transition: $transitionLong;
+    background: #fff;
     // box-shadow: rgba(0,0,0,.125) 0 1px 1px
-    transition: $transitionBase
-    padding: $spacingBase
-    width: 100%
-    -webkit-backface-visibility: hidden
-    -webkit-transform: translateZ(0) scale(1, 1)
-    box-shadow: $colorGray 0 0 0 1px
+    transition: $transitionBase;
+    padding: $spacingBase;
+    width: 100%;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0) scale(1, 1);
+    box-shadow: $colorGray 0 0 0 1px;
+
     // border-bottom: $colorGray solid 1px
+    &:focus {
+      outline: 0;
+    }
 
-    &:focus
-      outline: 0
+    &:hover {
+      box-shadow: rgba($colorPrimary, 0.2) 0 2px 2rem, $colorPrimary 0 0 0 1px;
+    }
+  }
 
-    &:hover
-      box-shadow: rgba($colorPrimary, .2) 0 2px 2rem, $colorPrimary 0 0 0 1px
+  &__Skills {
+    margin-top: $spacingSmall;
+  }
 
-  &__Skills
-    margin-top: $spacingSmall
-
-  &__Logo
-    width: auto
-    min-width: $logoSize
-    height: auto
+  &__Logo {
+    width: auto;
+    min-width: $logoSize;
+    height: auto;
     // display: flex
     // justify-content: center
     // background: #fff
@@ -135,54 +142,65 @@ export default class ProjectPreview extends Vue {
     // border: #fff solid 5px
     // object-fit: cover
     // transition: $transitionBase
-    -webkit-backface-visibility: hidden
-    width: 10vw
+    -webkit-backface-visibility: hidden;
+    width: 10vw;
 
-    &Wrap
-      height: $logoSize
-      width: $logoSize
-      margin-right: $spacingBase
-      display: flex
-      align-items: center
+    &Wrap {
+      height: $logoSize;
+      width: $logoSize;
+      margin-right: $spacingBase;
+      display: flex;
+      align-items: center;
+    }
+  }
 
-  &__Title
-    textSubheading()
-    margin-bottom: 0.5rem
-    color: $colorPrimary
+  &__Title {
+    textSubheading();
+    margin-bottom: 0.5rem;
+    color: $colorPrimary;
+  }
 
-  &__Region
-    margin-left: auto
-    display: flex
-    align-items: center
+  &__Region {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
 
-  &__Body
-    flex: 1
+  &__Body {
+    flex: 1;
+  }
 
-  &__Meta
-    textSmallCaps()
-    font-weight: 500
-    display: flex
-    align-items: center
+  &__Meta {
+    textSmallCaps();
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+  }
 
-  &__Header
-    display: flex
-    align-items: flex-start
+  &__Header {
+    display: flex;
+    align-items: flex-start;
+  }
 
-  &__Description
-    font-size: $fontSizeSmall
-    opacity: .7
-    margin-bottom: 1rem
+  &__Description {
+    font-size: $fontSizeSmall;
+    opacity: 0.7;
+    margin-bottom: 1rem;
+  }
 
-  &__CreatedAt
-    textSmallCaps()
-    display: flex
-    align-items: center
-    margin-left: auto
-    padding-left: $spacingBase
-    white-space: nowrap
+  &__CreatedAt {
+    textSmallCaps();
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding-left: $spacingBase;
+    white-space: nowrap;
 
-    svg
-      width: 1rem
-      height: 1rem
-      margin-right: 0.5rem
+    svg {
+      width: 1rem;
+      height: 1rem;
+      margin-right: 0.5rem;
+    }
+  }
+}
 </style>

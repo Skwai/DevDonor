@@ -10,10 +10,11 @@ export default class AppHelpText extends Vue {}
 </script>
 
 <style lang="stylus" module>
-@require "../styles/config.styl"
+@require '../styles/config.styl';
 
-.AppHelpText
-  margin: $spacingTiny 0 0
-  opacity: .7
-  font-size: $fontSizeSmall
+.AppHelpText {
+  margin: $spacingTiny 0 0;
+  opacity: 0.7;
+  font-size: $fontSizeSmall;
+}
 </style>

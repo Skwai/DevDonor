@@ -18,23 +18,27 @@ export default class TheFooter extends Vue {}
 </script>
 
 <style lang="stylus" module>
-@import "../styles/config.styl"
-@import "../styles/text.styl"
-@import "../styles/navbar.styl"
+@import '../styles/config.styl';
+@import '../styles/text.styl';
+@import '../styles/navbar.styl';
 
-.TheFooter
-  textMuted()
-  text-align: center
-  margin-top: auto
-  padding-top: $spacingBase
+.TheFooter {
+  textMuted();
+  text-align: center;
+  margin-top: auto;
+  padding-top: $spacingBase;
 
-  a
-    textLink()
+  a {
+    textLink();
+  }
 
-  &__Container
-    container()
-    padding: $spacingBase $spacingBase $spacingBase
+  &__Container {
+    container();
+    padding: $spacingBase $spacingBase $spacingBase;
+  }
 
-  &__Legals
-    navbar()
+  &__Legals {
+    navbar();
+  }
+}
 </style>

@@ -14,9 +14,7 @@ export const login = async ({ commit }: IActionContext): Promise<void> => {
   commit('SET_CURRENT_USER', userData)
 }
 
-export const loadCurrentUser = async ({
-  commit
-}: IActionContext): Promise<void> => {
+export const loadCurrentUser = async ({ commit }: IActionContext): Promise<void> => {
   const userRecord = await auth.getCurrentUser()
 
   if (userRecord) {
@@ -25,9 +23,7 @@ export const loadCurrentUser = async ({
   }
 }
 
-export const loadProjects = async ({
-  commit
-}: IActionContext): Promise<void> => {
+export const loadProjects = async ({ commit }: IActionContext): Promise<void> => {
   const querySnapshot = await db.collection('projects').get()
   querySnapshot.forEach((docSnapshot: firebase.firestore.DocumentSnapshot) => {
     const id = docSnapshot.id
@@ -35,10 +31,7 @@ export const loadProjects = async ({
   })
 }
 
-export const createProject = async (
-  { commit }: IActionContext,
-  project: Project
-) => {
+export const createProject = async ({ commit }: IActionContext, project: Project) => {
   const ref: firebase.firestore.DocumentReference = await db
     .collection('projects')
     .add({ ...project })
@@ -46,10 +39,7 @@ export const createProject = async (
   commit('ADD_PROJECT', { ...project, id })
 }
 
-export const loadProjectByID = async (
-  { commit, state }: IActionContext,
-  projectID: string
-) => {
+export const loadProjectByID = async ({ commit, state }: IActionContext, projectID: string) => {
   // Check if project is already in store
   if (projectID in state.projects) {
     return

@@ -13,21 +13,27 @@ export default class AppSpinner extends Vue {}
 </script>
 
 <style lang="stylus" module>
-@keyframes AppSpinner
-  from
-    transform: rotate(0deg)
-  to
-    transform: rotate(359deg)
+@keyframes AppSpinner {
+  from {
+    transform: rotate(0deg);
+  }
 
-.AppSpinner
-  width: 100%
-  height: 100%
-  animation: AppSpinner 1s infinite
+  to {
+    transform: rotate(359deg);
+  }
+}
 
-  &__Inner,
-  &__Outer
-    fill: currentColor
+.AppSpinner {
+  width: 100%;
+  height: 100%;
+  animation: AppSpinner 1s infinite;
 
-  &__Outer
-    opacity: .2
+  &__Inner, &__Outer {
+    fill: currentColor;
+  }
+
+  &__Outer {
+    opacity: 0.2;
+  }
+}
 </style>

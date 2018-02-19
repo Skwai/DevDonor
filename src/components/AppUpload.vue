@@ -47,14 +47,18 @@ export default class AppUpload extends Vue {
   private uploading: boolean = false
 
   private removeUpload() {
-    if (!this.url) return
+    if (!this.url) {
+      return
+    }
     this.$emit('update:url', null)
   }
 
   private async upload(ev: Event) {
     const el = ev.target as HTMLInputElement
 
-    if (!el.files || !el.files.length) return
+    if (!el.files || !el.files.length) {
+      return
+    }
 
     const file: File = el.files[0]
 
@@ -92,90 +96,102 @@ export default class AppUpload extends Vue {
 </script>
 
 <style lang="stylus" module>
-@require "../styles/config.styl"
-@require "../styles/text.styl"
-@require "../styles/forms.styl"
+@require '../styles/config.styl';
+@require '../styles/text.styl';
+@require '../styles/forms.styl';
 
-.AppUpload
-  size = 7rem
-  grid-column: span 2
+.AppUpload {
+  size = 7rem;
+  grid-column: span 2;
 
-  &__Preview
-    width: size
-    height: size
-    display: flex
-    align-items: center
-    justify-content: center
-    position: relative
+  &__Preview {
+    width: size;
+    height: size;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 
-    &Image
-      width: 100%
-      height: 100%
-      object-fit: cover
+    &Image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
 
-  &__File
-    position: absolute
-    opacity: 0
-    top: 0
-    left: 0
-    width: 100%
-    height: 100%
-    cursor: pointer
+  &__File {
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
 
-  &__Drop
-    position: relative
-    width: size
-    height: size
-    border-radius: 4px
-    display: flex
-    align-items: center
-    justify-content: center
-    text-align: center
-    transition: $transitionBase
-    border: $colorGray dashed 2px
+  &__Drop {
+    position: relative;
+    width: size;
+    height: size;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: $transitionBase;
+    border: $colorGray dashed 2px;
 
-    &:hover
-      border-color: $colorPrimary
-      color: $colorPrimary
+    &:hover {
+      border-color: $colorPrimary;
+      color: $colorPrimary;
+    }
+  }
 
-  &__Icon
-    width: 2.5rem
-    height: 2.5rem
-    stroke: currentColor
+  &__Icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    stroke: currentColor;
+  }
 
-  &__Label
-    fieldLabel()
+  &__Label {
+    fieldLabel();
+  }
 
-  &__Remove
-    top: -4px
-    right: -4px
-    position: absolute
-    display: flex
-    justify-content: center
-    align-items: center
-    padding: 0
-    border: 0
-    width: 2rem
-    height: 2rem
-    background #fff
-    transition: $transitionBase
+  &__Remove {
+    top: -4px;
+    right: -4px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border: 0;
+    width: 2rem;
+    height: 2rem;
+    background: #fff;
+    transition: $transitionBase;
 
-    &Icon
-      height: 1.25rem
-      width: 1.25rem
+    &Icon {
+      height: 1.25rem;
+      width: 1.25rem;
+    }
 
-    &:hover,
-    &:focus
-      opacity: 1
+    &:hover, &:focus {
+      opacity: 1;
+    }
 
-    &:hover &Icon,
-    &:focus &Icon
-      opacity: 1
+    &:hover &Icon, &:focus &Icon {
+      opacity: 1;
+    }
 
-    &:focus
-      outline: 0
+    &:focus {
+      outline: 0;
+    }
 
-    &Icon
-      opacity: .5
-      transition: $transitionBase
+    &Icon {
+      opacity: 0.5;
+      transition: $transitionBase;
+    }
+  }
+}
 </style>

@@ -22,80 +22,93 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component
 export default class ProjectFilterCategory extends Vue {
-  @Prop({ required: true }) label: string
-  @Prop({ required: true }) options: string[]
+  @Prop({ required: true })
+  private label: string
+  @Prop({ required: true })
+  private options: string[]
 
-  open: boolean = false
+  private open: boolean = false
 
-  toggle () {
+  private toggle() {
     this.open = !this.open
   }
 }
 </script>
 
 <style lang="stylus" module>
-@import "../styles/config.styl"
+@import '../styles/config.styl';
 
-.ProjectFilterCategory
-  border-bottom: $colorGray solid 1px
+.ProjectFilterCategory {
+  border-bottom: $colorGray solid 1px;
 
-  &__List
-    list-style: none
-    font-size: 0.8125rem
-    padding-bottom: 1rem
-    display: none
+  &__List {
+    list-style: none;
+    font-size: 0.8125rem;
+    padding-bottom: 1rem;
+    display: none;
 
-    [open] &
-      display: block
+    [open] & {
+      display: block;
+    }
 
-    &Item
-      padding: 0.5rem 1rem 0.5rem 2rem
-      position: relative
-      user-select: none
+    &Item {
+      padding: 0.5rem 1rem 0.5rem 2rem;
+      position: relative;
+      user-select: none;
 
-      &:hover
-        color: $colorPrimary
-        cursor: pointer
+      &:hover {
+        color: $colorPrimary;
+        cursor: pointer;
 
-        &::before
-          opacity: 1
-          transform: scale(2)
+        &::before {
+          opacity: 1;
+          transform: scale(2);
+        }
+      }
 
-      &::before
-        position: absolute
-        content: ""
-        left: 1rem
-        top: 50%
-        margin: -2px 0 0 0
-        width: 4px
-        height: 4px
-        border-radius: 50%
-        background: currentColor
-        opacity: 0
-        transition: $transitionBase
-        transform-origin: center center
+      &::before {
+        position: absolute;
+        content: '';
+        left: 1rem;
+        top: 50%;
+        margin: -2px 0 0 0;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: currentColor;
+        opacity: 0;
+        transition: $transitionBase;
+        transform-origin: center center;
+      }
+    }
+  }
 
-  &__Label
-    display: flex
-    padding: 1rem
-    cursor: pointer
-    align-items: center
-    font-size: $fontSizeSmall
-    user-select: none
+  &__Label {
+    display: flex;
+    padding: 1rem;
+    cursor: pointer;
+    align-items: center;
+    font-size: $fontSizeSmall;
+    user-select: none;
 
-    &:hover
-      color: $colorPrimary
+    &:hover {
+      color: $colorPrimary;
+    }
 
-    &Icon
-      width: 1em
-      height: 1em
-      margin-left: auto
+    &Icon {
+      width: 1em;
+      height: 1em;
+      margin-left: auto;
 
-      &Vertical
-        transition: 0.2s
-        transform-origin: center center
+      &Vertical {
+        transition: 0.2s;
+        transform-origin: center center;
 
-        [open] &
-          transform: scale(1, 0)
-
+        [open] & {
+          transform: scale(1, 0);
+        }
+      }
+    }
+  }
+}
 </style>

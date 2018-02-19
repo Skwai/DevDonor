@@ -92,8 +92,7 @@ export default class ProjectPage extends Vue {
 
   @Action private loadProjectByID: (projectID: string) => Promise<void>
 
-  @Getter('getProjectByID')
-  private getProject: (projectID: string) => Project | null
+  @Getter('getProjectByID') private getProject: (projectID: string) => Project | null
 
   get skills() {
     return ['UX', 'Apps']
@@ -129,7 +128,6 @@ export default class ProjectPage extends Vue {
       await this.loadProjectByID(this.projectID)
       this.project = this.getProject(this.projectID)
     } catch (err) {
-      console.error(err)
     } finally {
       this.loading = false
     }
@@ -138,68 +136,81 @@ export default class ProjectPage extends Vue {
 </script>
 
 <style lang="stylus" module>
-@import "../styles/config.styl"
-@import "../styles/text.styl"
+@import '../styles/config.styl';
+@import '../styles/text.styl';
 
-.Project
-  &__Header
-    background: #fff
-    padding: $spacingBase 0
-    margin-bottom: $spacingBase
-    border-bottom: $colorGray solid 1px
+.Project {
+  &__Header {
+    background: #fff;
+    padding: $spacingBase 0;
+    margin-bottom: $spacingBase;
+    border-bottom: $colorGray solid 1px;
     // background: $colorPrimary
     // color: #fff
+  }
 
-  &__Meta
-    display: flex
-    align-items: center
-    color: rgba($fontColorBase, .5)
-    textSmallCaps()
-    margin-bottom: 1rem
-    white-space: nowrap
+  &__Meta {
+    display: flex;
+    align-items: center;
+    color: rgba($fontColorBase, 0.5);
+    textSmallCaps();
+    margin-bottom: 1rem;
+    white-space: nowrap;
+  }
 
-  &__Organization
-    background: #fff
-    padding: $spacingBase
-    font-size: 0.875rem
-    border: $colorGray solid 1px
+  &__Organization {
+    background: #fff;
+    padding: $spacingBase;
+    font-size: 0.875rem;
+    border: $colorGray solid 1px;
 
-    h3
-      text-align: center
+    h3 {
+      text-align: center;
+    }
 
-    h4
-      text-align: center
-      margin-bottom: 1rem
+    h4 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+  }
 
-  &__Description
-    textMarkdown()
+  &__Description {
+    textMarkdown();
+  }
 
-  &__Logo
-    width: 100%
-    height: auto
+  &__Logo {
+    width: 100%;
+    height: auto;
 
-    &Wrap
-      margin: 0 auto 1rem
-      width: 5rem
+    &Wrap {
+      margin: 0 auto 1rem;
+      width: 5rem;
+    }
+  }
 
-  &__Volunteer
-    margin: 0 0 $spacingBase
+  &__Volunteer {
+    margin: 0 0 $spacingBase;
+  }
 
-  &__Title
-    font-size: 2rem
-    margin-bottom: 1.25rem
+  &__Title {
+    font-size: 2rem;
+    margin-bottom: 1.25rem;
+  }
 
-  &__New
-    margin-right: $spacingBase
+  &__New {
+    margin-right: $spacingBase;
+  }
 
-  &__Region,
-  &__Created
-    display: flex
-    align-items: center
-    margin-right: $spacingBase
+  &__Region, &__Created {
+    display: flex;
+    align-items: center;
+    margin-right: $spacingBase;
+  }
 
-  &__Body
-    display: grid
-    grid-template-columns: 1fr 20rem
-    grid-gap: 3rem
+  &__Body {
+    display: grid;
+    grid-template-columns: 1fr 20rem;
+    grid-gap: 3rem;
+  }
+}
 </style>

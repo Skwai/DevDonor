@@ -10,11 +10,13 @@ export default class AppTag extends Vue {}
 </script>
 
 <style lang="stylus" module>
-@import "../styles/tag.styl"
+@import '../styles/tag.styl';
 
-.AppTag
-  tag()
+.AppTag {
+  tag();
 
-  + .AppTag
-    margin-left: 0.25rem
+  + .AppTag {
+    margin-left: 0.25rem;
+  }
+}
 </style>

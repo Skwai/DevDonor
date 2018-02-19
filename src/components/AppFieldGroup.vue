@@ -12,11 +12,12 @@ export default class AppFormFields extends Vue {}
 </script>
 
 <style lang="stylus" module>
-@import "../styles/config.styl"
+@import '../styles/config.styl';
 
-.AppFieldGroup
-  display: grid
-  grid-gap: $spacingBase
-  grid-template-columns: repeat(2, 1fr)
-  margin-bottom: $spacingBase
+.AppFieldGroup {
+  display: grid;
+  grid-gap: $spacingBase;
+  grid-template-columns: repeat(2, 1fr);
+  margin-bottom: $spacingBase;
+}
 </style>

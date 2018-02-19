@@ -91,41 +91,48 @@ export default class AppField extends Vue {
 </script>
 
 <style lang="stylus" module>
-@import "../styles/config.styl"
-@import "../styles/forms.styl"
+@import '../styles/config.styl';
+@import '../styles/forms.styl';
 
-.AppField
-  text-align: left
+.AppField {
+  text-align: left;
+  grid-column: span 2;
 
-  grid-column: span 2
+  @media (min-width: 768px) {
+    grid-column: span 1;
 
-  @media (min-width: 768px)
-    grid-column: span 1
+    &[span='2'] {
+      grid-column: span 2;
+    }
+  }
 
-    &[span="2"]
-      grid-column: span 2
+  &__Wrap {
+    display: flex;
+    position: relative;
+  }
 
-  &__Wrap
-    display: flex
-    position: relative
+  &__Toggle {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 0;
+    height: auto;
+    z-index: 1;
 
-  &__Toggle
-    position: absolute
-    right: 1rem
-    top: 50%
-    transform: translateY(-50%)
-    line-height: 0
-    height: auto
-    z-index: 1
+    &Icon {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
 
-    &Icon
-      width: 1.5rem
-      height: 1.5rem
+  &__Label {
+    fieldLabel();
+  }
 
-  &__Label
-    fieldLabel()
-
-  &__Input
-    z-index: 2
-    field()
+  &__Input {
+    z-index: 2;
+    field();
+  }
+}
 </style>

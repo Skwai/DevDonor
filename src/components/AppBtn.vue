@@ -65,83 +65,99 @@ export default class AppBtn extends Vue {
 </script>
 
 <style lang="stylus" module>
-@keyframes -loading
-  from
-    transform: rotate(0deg)
-  to
-    transform: rotate(359deg)
+@keyframes -loading {
+  from {
+    transform: rotate(0deg);
+  }
 
-@require "../styles/config.styl"
-@require "../styles/text.styl"
+  to {
+    transform: rotate(359deg);
+  }
+}
 
-.AppBtn
-  background: #fff
-  border-radius: 99rem
-  padding: 0.675rem 1.5rem
-  display: inline-flex
-  align-items: center
-  transition: transitionBase
-  text-decoration: none
-  background: #fff
-  color: inherit
-  border: 0
-  textCaps()
-  white-space: nowrap
-  cursor: pointer
-  position: relative
-  font-size: 0.875rem
-  font-weight: 600
+@require '../styles/config.styl';
+@require '../styles/text.styl';
 
-  &[disabled]
-    cursor: not-allowed
-    opacity: .5
+.AppBtn {
+  background: #fff;
+  border-radius: 99rem;
+  padding: 0.675rem 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  transition: transitionBase;
+  text-decoration: none;
+  background: #fff;
+  color: inherit;
+  border: 0;
+  textCaps();
+  white-space: nowrap;
+  cursor: pointer;
+  position: relative;
+  font-size: 0.875rem;
+  font-weight: 600;
 
-  &:focus,
-  &:active
-    outline: 0
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 
-  &[loading]
-    opacity: .5
-    cursor: not-allowed
+  &:focus, &:active {
+    outline: 0;
+  }
 
-  &[loading] &__Label
-    opacity: 0
+  &[loading] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 
-  &__Loading
-    position: absolute
-    left: 50%
-    top: 50%
-    width: 2rem
-    height: 2rem
-    transform: translate(-50%, -50%)
+  &[loading] &__Label {
+    opacity: 0;
+  }
 
-  &[size=large]
-    padding: 1rem 2rem
-    font-weight: 600
+  &__Loading {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 2rem;
+    height: 2rem;
+    transform: translate(-50%, -50%);
+  }
 
-  &[color=white]
-    background: #fff
-    color: $colorDarkBlue
-    box-shadow: none
+  &[size=large] {
+    padding: 1rem 2rem;
+    font-weight: 600;
+  }
 
-  &[color=dark]
-    background: $colorDarkBlue
-    box-shadow: none
-    color: #fff
+  &[color=white] {
+    background: #fff;
+    color: $colorDarkBlue;
+    box-shadow: none;
+  }
 
-  &[color=primary]
-    background: $colorPrimary
-    box-shadow: none
-    color: #fff
+  &[color=dark] {
+    background: $colorDarkBlue;
+    box-shadow: none;
+    color: #fff;
+  }
 
-  &:active
-    transform: translateY(-2px)
+  &[color=primary] {
+    background: $colorPrimary;
+    box-shadow: none;
+    color: #fff;
+  }
 
-  &__Icon
-    margin-right: 1em
+  &:active {
+    transform: translateY(-2px);
+  }
 
-    svg
-      width: 2em
-      height: 2em
-      stroke: currentColor
+  &__Icon {
+    margin-right: 1em;
+
+    svg {
+      width: 2em;
+      height: 2em;
+      stroke: currentColor;
+    }
+  }
+}
 </style>

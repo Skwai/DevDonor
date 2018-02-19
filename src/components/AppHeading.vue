@@ -10,13 +10,15 @@ export default class AppHeading extends Vue {}
 </script>
 
 <style lang="stylus" module>
-@require "../styles/config"
+@require '../styles/config';
 
-.AppHeading
-  margin-top: $spacingBase
-  margin-bottom: $spacingBase
-  font-size: 2rem
+.AppHeading {
+  margin-top: $spacingBase;
+  margin-bottom: $spacingBase;
+  font-size: 2rem;
 
-  &:first-child
-    margin-top: 0
+  &:first-child {
+    margin-top: 0;
+  }
+}
 </style>

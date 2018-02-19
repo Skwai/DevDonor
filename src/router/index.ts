@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import CreateProject from '@/views/CreateProject'
-import HomePage from '@/views/Home'
-import Project from '@/views/Project'
+import CreateProject from '../views/CreateProject.vue'
+import HomePage from '../views/Home.vue'
+import Project from '../views/Project.vue'
 
 Vue.use(Router)
 

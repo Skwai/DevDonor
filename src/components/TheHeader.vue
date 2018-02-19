@@ -32,41 +32,47 @@ export default class TheHeader extends Vue {}
 </script>
 
 <style lang="stylus" module>
-@require "../styles/config.styl"
+@require '../styles/config.styl';
 
-.TheHeader
-  transition: transitionBase
-  box-shadow: rgba(0,0,0,.1) 0 0.25rem 1rem //, rgba($colorGray, 1) 0 1px 1px
-  display: flex
-  align-items: center
-  z-index: 2
-  background: #fff
-  padding: 0 $spacingBase
-  position: sticky
-  top: 0
-  left: 0
-  width: 100vw
+.TheHeader {
+  transition: transitionBase;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0.25rem 1rem; // , rgba($colorGray, 1) 0 1px 1px
+  display: flex;
+  align-items: center;
+  z-index: 2;
+  background: #fff;
+  padding: 0 $spacingBase;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100vw;
 
-  &__Logo
-    transition: transitionBase
-    color: $colorPrimary
-    padding: $spacingBase 0
+  &__Logo {
+    transition: transitionBase;
+    color: $colorPrimary;
+    padding: $spacingBase 0;
 
-    &:hover
-      background: rgba(0,0,0,.05)
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+  }
 
-  &__Nav
-    display: flex
-    margin-left: auto
+  &__Nav {
+    display: flex;
+    margin-left: auto;
 
-    &Item
-      padding: $spacingBase
-      font-weight: 500
+    &Item {
+      padding: $spacingBase;
+      font-weight: 500;
 
-      &:hover,
-      &:focus
-        color: $colorPrimary
+      &:hover, &:focus {
+        color: $colorPrimary;
+      }
 
-      &Active
-        color: $colorPrimary
+      &Active {
+        color: $colorPrimary;
+      }
+    }
+  }
+}
 </style>

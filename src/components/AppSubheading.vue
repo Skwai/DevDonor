@@ -6,8 +6,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component
-export default class AppSubheading extends Vue {
-}
+export default class AppSubheading extends Vue {}
 </script>
 
 <style lang="stylus" module>

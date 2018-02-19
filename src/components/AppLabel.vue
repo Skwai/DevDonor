@@ -10,11 +10,13 @@ export default class AppLabel extends Vue {}
 </script>
 
 <style lang="stylus" module>
-@import "../styles/label.styl"
+@import '../styles/label.styl';
 
-.AppLabel
-  label()
+.AppLabel {
+  label();
 
-  + .AppLabel
-    margin-left: 0.25rem
+  + .AppLabel {
+    margin-left: 0.25rem;
+  }
+}
 </style>
