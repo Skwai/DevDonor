@@ -11,12 +11,12 @@
         :exact-active-class="$style.TheHeader__NavItemActive"
       >Browse Projects</router-link>
       <router-link
-        to="/create"
+        :to="{ name: 'CreateProject' }"
         :class="$style.TheHeader__NavItem"
         :active-class="$style.TheHeader__NavItemActive"
       >Create Project</router-link>
       <router-link
-        to="/about"
+        :to="{ name: 'About' }"
         :class="$style.TheHeader__NavItem"
         :active-class="$style.TheHeader__NavItemActive"
       >How It Works</router-link>

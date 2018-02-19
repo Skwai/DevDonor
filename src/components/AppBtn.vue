@@ -6,6 +6,7 @@
     :color="color"
     :size="size"
     :loading="loading"
+    :block="block"
     @click="click"
   >
     <span v-if="loading" :class="$style.AppBtn__Loading">
@@ -21,6 +22,7 @@
     :color="color"
     :size="size"
     :loading="loading"
+    :block="block"
     @click="click"
   >
     <span v-if="loading" :class="$style.AppBtn__Loading">
@@ -43,6 +45,9 @@ export default class AppBtn extends Vue {
   @Prop() private color: string
 
   @Prop() private size: string
+
+  @Prop({ default: false })
+  private block: boolean
 
   @Prop({ default: false })
   private loading: boolean
@@ -95,6 +100,11 @@ export default class AppBtn extends Vue {
   position: relative;
   font-size: 0.875rem;
   font-weight: 600;
+
+  &[block] {
+    display: block;
+    width: 100%;
+  }
 
   &[disabled] {
     cursor: not-allowed;

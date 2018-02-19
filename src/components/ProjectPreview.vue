@@ -1,7 +1,7 @@
 <template>
   <article class="ProjectPreview">
     <router-link
-      :to="{ name: 'Project', params: { projectID: project.id } }"
+      :to="{ name: 'ViewProject', params: { projectID: project.id } }"
       class="ProjectPreview__Link"
     >
       <div class="ProjectPreview__LogoWrap">

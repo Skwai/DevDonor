@@ -9,4 +9,8 @@ export default class Project {
   public organizationType: string = ''
   public organizationLogo: string = ''
   public organizationDescription: string = ''
+
+  constructor(args = {}) {
+    Object.assign(this, args)
+  }
 }

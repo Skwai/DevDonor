@@ -1,16 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import CreateProject from '../views/CreateProject.vue'
-import HomePage from '../views/Home.vue'
-import Project from '../views/Project.vue'
+import CreateProject from '../pages/CreateProject.vue'
+import HomePage from '../pages/Home.vue'
+import ViewProject from '../pages/ViewProject.vue'
+import About from '../pages/About.vue'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
+    path: '/',
       name: 'Home',
       component: HomePage
     },
@@ -21,8 +22,13 @@ export default new Router({
     },
     {
       path: '/project/:projectID',
-      name: 'Project',
-      component: Project
+      name: 'ViewProject',
+      component: ViewProject
+    },
+    {
+      path: '/about',
+      name: 'About',
+      component: About
     }
   ]
 })

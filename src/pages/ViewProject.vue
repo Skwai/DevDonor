@@ -38,7 +38,10 @@
         </div>
         <article :class="$style.Project__Sidebar">
           <div :class="$style.Project__Volunteer">
-            <AppBtn color="primary">Volunteer for this project</AppBtn>
+            <AppBtn
+              color="primary"
+              :block=true
+            >Volunteer for this project</AppBtn>
           </div>
 
           <div :class="$style.Project__Organization">

@@ -107,7 +107,7 @@ const PROJECT_TYPE_OPTIONS = ['Web', 'Mobile', 'Desktop']
 
 @Component
 export default class CreateProjectPage extends Vue {
-  private project = { ...new Project() }
+  private project = new Project()
   private fileName: string = ''
   private step: number = 1
   private causeOptions: string[] = CAUSE_OPTIONS
@@ -133,15 +133,19 @@ export default class CreateProjectPage extends Vue {
   }
 
   get validations() {
-    const {
-      title,
+    return {
+      foo: 'bar'
+    }
+    /*
+    return ({
+      title: {},
       description,
       type,
       country,
       organizationName,
       organizationType,
       organizationDescription
-    } = this.project
+    } = this.project)
 
     return {
       country: this.countryOptions.includes(country),
@@ -152,6 +156,7 @@ export default class CreateProjectPage extends Vue {
       organizationName: organizationName.length > 1,
       organizationType: organizationType.length > 1
     }
+    */
   }
 
   get isValid() {
