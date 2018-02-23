@@ -173,11 +173,10 @@ export default class AppUpload extends Vue {
     transition: $transitionBase;
     line-height: 1;
     font-size: $fontSizeSmall;
-    opacity: 0.7;
+    color: $colorPrimary;
 
     &:hover, &:focus {
-      color: $colorPrimary;
-      opacity: 1;
+      box-shadow: currentColor 0 1px 0;
     }
   }
 }
