@@ -2,8 +2,8 @@
   <div :class="$style.AppUpload" :focused="focused">
     <AppMediaObject align="center">
       <template slot="object">
-        <div v-if="url" :class="$style.AppUpload__Preview">
-          <img :src="url" :class="$style.AppUpload__PreviewImage">
+        <div v-if="value" :class="$style.AppUpload__Preview">
+          <img :src="value" :class="$style.AppUpload__PreviewImage">
         </div>
         <label :class="$style.AppUpload__Drop" v-else>
           <AppLoading v-if="uploading" />
@@ -16,7 +16,7 @@
       <div slot="body">
         <p v-if="label" :class="$style.AppUpload__Label">{{label}}</p>
         <button
-          v-if="url"
+          v-if="value"
           type="button"
           @click.prevent="removeUpload"
           :class="$style.AppUpload__Remove"
@@ -34,22 +34,17 @@ import { storage } from '../services/db'
 
 @Component
 export default class AppUpload extends Vue {
-  private focused: boolean = false
-
   @Prop() private url: string
-
   @Prop() private fileTypes: string[]
-
   @Prop() private maxFileSize: number
-
   @Prop() private filePath: string
-
   @Prop() private fileName: string
-
   @Prop() private label: string
-
   @Prop() private description: string
+  @Prop({ required: true })
+  private value: string
 
+  private focused: boolean = false
   private progress: number = 0
   private uploading: boolean = false
 
@@ -62,10 +57,7 @@ export default class AppUpload extends Vue {
   }
 
   private removeUpload() {
-    if (!this.url) {
-      return
-    }
-    this.$emit('update:url', null)
+    this.$emit('input', '')
   }
 
   private async upload(ev: Event) {
@@ -101,7 +93,7 @@ export default class AppUpload extends Vue {
       )
 
       const { downloadURL } = await task
-      this.$emit('update:url', downloadURL)
+      this.$emit('input', downloadURL)
     } finally {
       this.uploading = false
     }

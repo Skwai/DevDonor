@@ -10,3 +10,6 @@ export const getProjectByID = ({ projects }: State) => (projectID: string) => {
   }
   return null
 }
+
+export const getSavedCreateProjectFormData = ({ savedCreateProjectFormData }: State) =>
+  savedCreateProjectFormData

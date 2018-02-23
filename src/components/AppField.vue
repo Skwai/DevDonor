@@ -25,6 +25,7 @@
         :spellcheck="spellcheck"
         :placeholder="placeholder"
         @input="change"
+        @blur="blur"
       ></textarea>
       <input
         v-else
@@ -40,6 +41,7 @@
         :spellcheck="spellcheck"
         :placeholder="placeholder"
         @input="change"
+        @blur="blur"
       >
       <slot></slot>
     </div>
@@ -104,8 +106,11 @@ export default class AppField extends Vue {
   private change(ev: Event) {
     const value = (ev.target as HTMLInputElement).value
     this.inputValue = value
-    this.dirty = true
     this.$emit('input', value)
+  }
+
+  private blur(ev: Event) {
+    this.dirty = true
   }
 
   private created() {
