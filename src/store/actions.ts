@@ -72,5 +72,5 @@ export const storeProjectFormData = ({ commit }: IActionContext, project: Projec
 
 export const clearProjectFormData = ({ commit }: IActionContext) => {
   commit('CLEAR_SAVED_CREATE_PROJECT_FORM_DATA')
-  localStorage.removeItem(STORED_PROJECT_FORM_DATA_KEY)
+  localStorage.removeItem(SAVED_CREATE_PROJECT_FORM_DATA_KEY)
 }
