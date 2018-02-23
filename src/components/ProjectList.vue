@@ -72,7 +72,7 @@ export default class ProjectList extends Vue {
   display: grid;
   grid-gap: 2rem;
 
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     grid-template-columns: 14rem auto;
   }
 }

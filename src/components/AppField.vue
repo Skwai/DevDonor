@@ -3,6 +3,7 @@
     :class="$style.AppField"
     :empty="empty"
     :span="span"
+    :error="!valid && dirty"
   >
     <label
       v-if="showLabel"
@@ -48,10 +49,12 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import { PropOptions } from 'vue/types/options'
 
 @Component
 export default class AppField extends Vue {
   private inputValue: string | number | null = null
+  private dirty: boolean = false
 
   @Prop({ required: true })
   private label: string
@@ -62,8 +65,8 @@ export default class AppField extends Vue {
   @Prop({ default: false, required: false })
   private required: boolean
 
-  @Prop({ required: true })
-  private value: string | number
+  @Prop({ required: true, type: String })
+  private value: string | number | null
 
   @Prop({ default: false, required: false })
   private disabled: boolean
@@ -95,9 +98,13 @@ export default class AppField extends Vue {
   @Prop({ default: 1 })
   private span: number
 
+  @Prop({ required: false, default: true })
+  private valid: boolean
+
   private change(ev: Event) {
     const value = (ev.target as HTMLInputElement).value
     this.inputValue = value
+    this.dirty = true
     this.$emit('input', value)
   }
 

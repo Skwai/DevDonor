@@ -1,22 +1,24 @@
 <template>
   <div
-    :class="$style.AppField"
+    :class="$style.AppSelect"
     :empty="empty"
     :span="span"
+    :error="!valid && dirty"
   >
     <label
       v-if="showLabel"
-      :class="$style.AppField__Label"
+      :class="$style.AppSelect__Label"
       :for="inputID"
     >{{label}}</Label>
-    <div :class="$style.AppField__Wrap">
+    <div :class="$style.AppSelect__Wrap">
       <select
-        :class="$style.AppField__Input"
+        :class="$style.AppSelect__Input"
         :required="required"
         :disabled="disabled"
         :id="inputID"
         v-model="inputValue"
         @input="change"
+        @blur="onBlur"
       >
         <option
           v-for="(option, index) in options"
@@ -27,12 +29,12 @@
       <label
         :for="inputID"
         aria-hidden="true"
-        :class="$style.AppField__Toggle"
+        :class="$style.AppSelect__Toggle"
       >
-        <svg :class="$style.AppField__ToggleIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
+        <svg :class="$style.AppSelect__ToggleIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
       </label>
-      <slot></slot>
     </div>
+    <AppHelpText v-if="description">{{description}}</AppHelpText>
   </div>
 </template>
 
@@ -40,8 +42,10 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
-export default class AppField extends Vue {
+export default class AppSelect extends Vue {
   private inputValue: string | number | null = null
+
+  private dirty: boolean = false
 
   @Prop({ required: true })
   private label: string
@@ -49,8 +53,8 @@ export default class AppField extends Vue {
   @Prop({ default: false, required: false })
   private required: boolean
 
-  @Prop({ required: true })
-  private value: string | number
+  @Prop({ required: true, type: String })
+  private value: string | number | null
 
   @Prop({ default: false, required: false })
   private disabled: boolean
@@ -58,11 +62,17 @@ export default class AppField extends Vue {
   @Prop({ default: true })
   private showLabel: boolean
 
-  @Prop({ required: true })
+  @Prop({ required: true, type: Array })
   private options: Array<string | number>
 
   @Prop({ default: 1 })
   private span: number
+
+  @Prop({ required: false })
+  private description: string
+
+  @Prop({ required: false, default: true })
+  private valid: boolean
 
   private change(ev: Event) {
     const value = (ev.target as HTMLInputElement).value
@@ -87,6 +97,10 @@ export default class AppField extends Vue {
   get inputID(): string {
     return `${this.uid}__Input`
   }
+
+  private onBlur() {
+    this.dirty = true
+  }
 }
 </script>
 
@@ -94,7 +108,7 @@ export default class AppField extends Vue {
 @import '../styles/config.styl';
 @import '../styles/forms.styl';
 
-.AppField {
+.AppSelect {
   text-align: left;
   grid-column: span 2;
 

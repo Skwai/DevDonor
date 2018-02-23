@@ -4,22 +4,22 @@ field()
   position: relative
   display: block
   position: relative
-  // border: 0
-  // border-bottom: $colorGray solid 1px
   transition: $transitionBase
   box-shadow: none
   width: 100%
   border-radius: 0
   -webkit-appearance: none
-  transition: border-color $transitionBase
+  transition: border-color $transitionBase, box-shadow $transitionBase
   will-change: border-color
   flex: 1
-  // padding: 1.5rem 0 0.5rem
-  // padding: 1.5rem 1rem 0.5rem
   border-radius: 3px
   padding: 1rem 1rem
   border: $colorGray solid 1px
   background: transparent
+
+  [error] &
+    color: $colorRed
+    border-color: $colorRed
 
   [empty] &
     padding: 1rem
@@ -30,22 +30,14 @@ field()
 
   &:focus
     border-color: $colorPrimary
-    box-shadow: none
+    box-shadow: $colorPrimary 0 0 0 1px
     outline: 0
 
 fieldLabel()
   cursor: text
-  // top: 1.25rem
-  // left: 1rem
-  // position: absolute
-  // transition: $transitionBase
-  // transform: translate(0, -50%) scale(0.75)
-  // transform-origin: left top
-  // opacity: .5
   display: block
   cursor: text
   z-index: 1
   font-weight: 500
-  // color: $colorPrimary
   line-height: 1
   margin-bottom: 0.875rem

@@ -3,7 +3,7 @@
     <form @submit.prevent="submit">
       <AppHeading>Create a new project</AppHeading>
       <p>Have an idea for a great project? Fill out the form below to find developers to help you with it.</p>
-
+      {{isValid}}
       <div v-if="step === 1">
         <h2 :class="$style.CreateProject__Step">Step 1. About your organization</h2>
         <AppFieldGroup>
@@ -11,21 +11,25 @@
             label="Organization name"
             :required="true"
             :span="2"
+            :valid="validations.organizationName"
             v-model="project.organizationName"
           />
 
           <AppSelect
-            label="Organization type"
+            label="Your organization's cause"
             :required="true"
             v-model="project.organizationType"
             :options="causeOptions"
-          />
+            :valid="validations.organizationType"
+            description="What goal or cause does your organization focus on?"
+          ></AppSelect>
 
           <AppSelect
             label="Country"
             :required="true"
             v-model="project.country"
             :options="countryOptions"
+            :valid="validations.country"
           />
 
           <AppUpload
@@ -36,6 +40,7 @@
             :url.sync="project.organizationLogo"
             label="Upload your logo"
             description="Upload a picture to use as your logo"
+            :valid="validations.organizationDescription"
           />
 
           <AppField
@@ -44,6 +49,7 @@
             :span="2"
             label="Organization description"
             v-model="project.organizationType"
+            :valid="validations.organizationDescription"
             description="Describe what your organization does, how it helps people, and what its mission is."
           />
         </AppFieldGroup>
@@ -59,22 +65,31 @@
           <AppField
             label="Project title"
             :required="true"
+            :span="2"
+            :valid="validations.title"
             v-model="project.title"
+            :minlength="10"
+            :maxlength="100"
           />
 
           <AppSelect
-            label="Project type"
-            v-model="project.type"
+            label="Project projectType"
+            v-model="project.projectType"
             :required="true"
+            :span="2"
+            :valid="validations.projectType"
             :options="projectTypeOptions"
           />
 
           <AppField
             type="textarea"
             rows="10"
+            :span="2"
             label="Project description"
             v-model="project.description"
+            :valid="validations.description"
             :required="true"
+            :minlength="50"
           />
         </AppFieldGroup>
         <div :class="$style.CreateProject__Actions">
@@ -93,6 +108,7 @@ import { Action } from 'vuex-class'
 import Project from '../models/Project'
 import { createID } from '../services/db'
 import countries from '../utils/countries'
+import { required, minLength, maxLength, isEmail } from '../utils/validations'
 
 const CAUSE_OPTIONS = [
   'Art & Culture',
@@ -133,30 +149,29 @@ export default class CreateProjectPage extends Vue {
   }
 
   get validations() {
-    return {
-      foo: 'bar'
-    }
-    /*
-    return ({
-      title: {},
-      description,
-      type,
-      country,
+    const {
       organizationName,
       organizationType,
-      organizationDescription
-    } = this.project)
-
+      organizationDescription,
+      country,
+      title,
+      description,
+      projectType,
+      email
+    } = this.project
     return {
-      country: this.countryOptions.includes(country),
-      description: description.length > 1,
-      title: title.length > 1,
-      type: PROJECT_TYPE_OPTIONS.includes(type),
-      organizationDescription: organizationDescription.length > 1,
-      organizationName: organizationName.length > 1,
-      organizationType: organizationType.length > 1
+      organizationName: required(organizationName) && minLength(organizationName, 3),
+      organizationType: required(organizationType),
+      orgnizationDescription:
+        required(organizationDescription) &&
+        minLength(organizationDescription, 50) &&
+        maxLength(organizationDescription, 255),
+      country: required(country),
+      title: required(title) && minLength(title, 10) && maxLength(title, 255),
+      projectType: required(projectType),
+      description: required(description) && minLength(description, 50),
+      email: required(email) && isEmail(email)
     }
-    */
   }
 
   get isValid() {

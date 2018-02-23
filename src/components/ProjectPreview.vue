@@ -43,7 +43,7 @@ const DESCRIPTION_WORD_LENGTH = 30
 @Component
 export default class ProjectPreview extends Vue {
   @Prop({ required: true })
-  private project: Project
+  private project: {}
 
   get isNew() {
     return new Date()

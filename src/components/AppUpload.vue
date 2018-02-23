@@ -1,22 +1,27 @@
 <template>
-  <div :class="$style.AppUpload">
+  <div :class="$style.AppUpload" :focused="focused">
     <AppMediaObject align="center">
       <template slot="object">
         <div v-if="url" :class="$style.AppUpload__Preview">
           <img :src="url" :class="$style.AppUpload__PreviewImage">
-          <button type="button" @click.prevent="removeUpload" :class="$style.AppUpload__Remove"><svg :class="$style.AppUpload__RemoveIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
         </div>
         <label :class="$style.AppUpload__Drop" v-else>
           <AppLoading v-if="uploading" />
           <div v-else>
             <svg :class="$style.AppUpload__Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke-width="1" stroke-miterlimit="10"><path d="M12 22V9" data-cap="butt"/><path d="M9 12l3-3 3 3" stroke-linecap="square"/><path d="M16 17h3c2.209 0 4-1.791 4-4 0-2.197-1.782-4.013-4.025-3.997C18.718 5.093 15.474 2 11.5 2 7.481 2 4.21 5.164 4.018 9.136 2.287 9.575 1 11.132 1 13c0 2.209 1.791 4 4 4h3" stroke-linecap="square"/></g></svg>
-            <input type="file" @change="upload" :class="$style.AppUpload__File">
+            <input @focus="onFocus" @blur="onBlur" type="file" @change="upload" :class="$style.AppUpload__File">
           </div>
         </label>
       </template>
       <div slot="body">
         <p v-if="label" :class="$style.AppUpload__Label">{{label}}</p>
-        <AppHelpText v-if="description">{{description}}</AppHelpText>
+        <button
+          v-if="url"
+          type="button"
+          @click.prevent="removeUpload"
+          :class="$style.AppUpload__Remove"
+        >Remove upload</button>
+        <AppHelpText v-else-if="description">{{description}}</AppHelpText>
       </div>
     </AppMediaObject>
   </div>
@@ -29,6 +34,8 @@ import { storage } from '../services/db'
 
 @Component
 export default class AppUpload extends Vue {
+  private focused: boolean = false
+
   @Prop() private url: string
 
   @Prop() private fileTypes: string[]
@@ -45,6 +52,14 @@ export default class AppUpload extends Vue {
 
   private progress: number = 0
   private uploading: boolean = false
+
+  private onFocus() {
+    this.focused = true
+  }
+
+  private onBlur() {
+    this.focused = false
+  }
 
   private removeUpload() {
     if (!this.url) {
@@ -141,7 +156,7 @@ export default class AppUpload extends Vue {
     transition: $transitionBase;
     border: $colorGray dashed 2px;
 
-    &:hover {
+    &:hover, &:focus, [focused] & {
       border-color: $colorPrimary;
       color: $colorPrimary;
     }
@@ -158,39 +173,19 @@ export default class AppUpload extends Vue {
   }
 
   &__Remove {
-    top: -4px;
-    right: -4px;
-    position: absolute;
     display: flex;
-    justify-content: center;
     align-items: center;
     padding: 0;
     border: 0;
-    width: 2rem;
-    height: 2rem;
     background: #fff;
     transition: $transitionBase;
-
-    &Icon {
-      height: 1.25rem;
-      width: 1.25rem;
-    }
+    line-height: 1;
+    font-size: $fontSizeSmall;
+    opacity: 0.7;
 
     &:hover, &:focus {
+      color: $colorPrimary;
       opacity: 1;
-    }
-
-    &:hover &Icon, &:focus &Icon {
-      opacity: 1;
-    }
-
-    &:focus {
-      outline: 0;
-    }
-
-    &Icon {
-      opacity: 0.5;
-      transition: $transitionBase;
     }
   }
 }
