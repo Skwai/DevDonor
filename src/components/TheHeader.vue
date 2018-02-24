@@ -51,9 +51,11 @@ export default class TheHeader extends Vue {}
     transition: transitionBase;
     color: $colorPrimary;
     padding: $spacingBase 0;
+    transition: $transitionBase;
+    will-change: transform;
 
-    &:hover {
-      background: rgba(0, 0, 0, 0.05);
+    &:hover, &:focus {
+      transform: scale(1.1);
     }
   }
 

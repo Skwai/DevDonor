@@ -4,7 +4,6 @@
       <ProjectFilters />
     </div>
     <div :class="$style.ProjectList__Projects">
-      <AppSubheading justify="center">Current Projects</AppSubheading>
       <AppLoading v-if="loading" />
       <div
         v-else-if="hasProjects"
@@ -68,12 +67,18 @@ export default class ProjectList extends Vue {
 @import '../styles/container.styl';
 
 .ProjectList {
-  container();
   display: grid;
+  container();
   grid-gap: 2rem;
 
+  // grid-gap: 2rem;
   @media (min-width: 768px) {
     grid-template-columns: 14rem auto;
+  }
+
+  &__Items {
+    display: grid;
+    grid-gap: 1rem;
   }
 }
 </style>

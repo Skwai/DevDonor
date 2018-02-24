@@ -39,7 +39,7 @@ export default class ProjectFilters extends Vue {
 
 .ProjectFilters {
   &__Category {
-    // background: #fff
+    background: #fff;
     border-top: $colorLightGray solid 1px;
   }
 }

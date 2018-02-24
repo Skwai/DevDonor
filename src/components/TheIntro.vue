@@ -21,7 +21,6 @@ export default class TheIntro extends Vue {}
 .TheIntro {
   background: $colorPrimary linear-gradient(150deg, darken($colorPrimary, 10) 0%, $colorPrimary 100%);
   color: #fff;
-  margin-bottom: $spacingBase;
 
   &__Body {
     container();

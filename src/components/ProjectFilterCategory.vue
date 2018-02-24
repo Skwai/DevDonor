@@ -43,7 +43,6 @@ export default class ProjectFilterCategory extends Vue {
 
   &__List {
     list-style: none;
-    font-size: 0.8125rem;
     padding-bottom: 1rem;
     display: none;
 
@@ -88,7 +87,6 @@ export default class ProjectFilterCategory extends Vue {
     padding: 1rem;
     cursor: pointer;
     align-items: center;
-    font-size: $fontSizeSmall;
     user-select: none;
 
     &:hover {

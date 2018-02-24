@@ -9,24 +9,21 @@
       </div>
       <div class="ProjectPreview__Body">
         <header class="ProjectPreview__Header">
-          <h3 class="ProjectPreview__Title">
+          <h2 class="ProjectPreview__Title">
             {{project.title}}
-          </h3>
+          </h2>
+        </header>
+        <div class="ProjectPreview__Meta">
+          <div class="ProjectPreview__Organization">{{project.organizationName}}</div>
+          <div class="ProjectPreview__Region">
+            <AppGlyph><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></AppGlyph>
+            <span>{{project.city}}, {{project.country}}</span>
+          </div>
           <time class="ProjectPreview__CreatedAt" :datetime="project.createdAt">
             <div class="ProjectPreview__Label" v-if="isNew">New</div>
-            <AppGlyph>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"></path></svg>
-            </AppGlyph>
-            <span>{{createdAt}}</span>
+            <AppGlyph><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"></path></svg></AppGlyph>
+            <span>Created {{createdAt}}</span>
           </time>
-        </header>
-        <div class="ProjectPreview__Organization">{{project.organizationName}}</div>
-        <div class="ProjectPreview__Description">{{description}}</div>
-        <div class="ProjectPreview__Meta">
-          <span class="ProjectPreview__Region">
-            <AppGlyph><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></AppGlyph>
-            {{project.city}}, {{project.country}}
-          </span>
         </div>
       </div>
     </router-link>
@@ -36,17 +33,17 @@
 <script lang="ts" >
 import moment from 'moment'
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import { IProjectProperties } from '../models/Project'
 
-import Project from '../models/Project'
 const DESCRIPTION_WORD_LENGTH = 30
 
 @Component
 export default class ProjectPreview extends Vue {
   @Prop({ required: true })
-  private project: {}
+  private project: IProjectProperties
 
   get isNew() {
-    return new Date()
+    return false // return new Date()
   }
 
   get createdAt() {
@@ -54,10 +51,12 @@ export default class ProjectPreview extends Vue {
   }
 
   get description() {
-    return this.project.description
-      .split(' ')
-      .splice(0, DESCRIPTION_WORD_LENGTH)
-      .join(' ')
+    if (this.project.description) {
+      return this.project.description
+        .split(' ')
+        .splice(0, DESCRIPTION_WORD_LENGTH)
+        .join(' ')
+    }
   }
 
   get skills() {
@@ -72,17 +71,11 @@ export default class ProjectPreview extends Vue {
 @require '../styles/label.styl';
 
 .ProjectPreview {
-  $logoSize = 5rem;
-  transition: transitionLong;
+  $logoSize = 4rem;
+  transition: $transitionLong;
   transform: translate3d(0, 0, 0);
   transform-origin: center center;
   width: 100%;
-
-  // margin-bottom: $spacingBase
-  &:hover {
-    position: relative;
-    z-index: 2;
-  }
 
   &__Category {
     textSmallCaps();
@@ -97,32 +90,19 @@ export default class ProjectPreview extends Vue {
     margin-right: 1rem;
   }
 
-  &__Organization {
-    margin-bottom: 0.5rem;
-    textSmallCaps();
-  }
-
   &__Link {
     display: flex;
     color: inherit;
     flex-direction: row;
-    transition: $transitionLong;
     background: #fff;
-    // box-shadow: rgba(0,0,0,.125) 0 1px 1px
     transition: $transitionBase;
     padding: $spacingBase;
     width: 100%;
     -webkit-backface-visibility: hidden;
     -webkit-transform: translateZ(0) scale(1, 1);
-    box-shadow: $colorGray 0 0 0 1px;
 
-    // border-bottom: $colorGray solid 1px
-    &:focus {
-      outline: 0;
-    }
-
-    &:hover {
-      box-shadow: rgba($colorPrimary, 0.2) 0 2px 2rem, $colorPrimary 0 0 0 1px;
+    &:hover, &:focus {
+      box-shadow: rgba(0, 0, 0, 0.1) 0 2px 1rem;
     }
   }
 
@@ -132,18 +112,9 @@ export default class ProjectPreview extends Vue {
 
   &__Logo {
     width: auto;
-    min-width: $logoSize;
-    height: auto;
-    // display: flex
-    // justify-content: center
-    // background: #fff
-    // box-shadow: rgba(0,0,0,.125) 0 1px 1px
-    // box-shadow: $colorGray 0 0 0 1px
-    // border: #fff solid 5px
-    // object-fit: cover
-    // transition: $transitionBase
+    width: $logoSize;
     -webkit-backface-visibility: hidden;
-    width: 10vw;
+    height: auto;
 
     &Wrap {
       height: $logoSize;
@@ -151,30 +122,35 @@ export default class ProjectPreview extends Vue {
       margin-right: $spacingBase;
       display: flex;
       align-items: center;
+      background: #fff;
     }
   }
 
   &__Title {
     textSubheading();
-    margin-bottom: 0.5rem;
+    margin: 0 0 0.5rem;
     color: $colorPrimary;
+    font-weight: 500;
+    line-height: 1.35;
   }
 
   &__Region {
-    margin-left: auto;
+    margin-left: 1.5rem;
     display: flex;
     align-items: center;
+    opacity: 0.5;
   }
 
   &__Body {
     flex: 1;
+    align-self: center;
   }
 
   &__Meta {
-    textSmallCaps();
     font-weight: 500;
     display: flex;
     align-items: center;
+    font-size: $fontSizeSmall;
   }
 
   &__Header {
@@ -189,12 +165,10 @@ export default class ProjectPreview extends Vue {
   }
 
   &__CreatedAt {
-    textSmallCaps();
     display: flex;
     align-items: center;
-    margin-left: auto;
-    padding-left: $spacingBase;
-    white-space: nowrap;
+    margin-left: 1.5rem;
+    opacity: 0.5;
 
     svg {
       width: 1rem;
