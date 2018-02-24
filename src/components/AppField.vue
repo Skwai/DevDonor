@@ -9,7 +9,10 @@
       v-if="showLabel"
       :class="$style.AppField__Label"
       :for="inputID"
-    >{{label}}</Label>
+    >
+      {{label}}
+      <span v-if="helpText" :class="$style.AppField__HelpText">{{helpText}}</span>
+    </Label>
     <div :class="$style.AppField__Wrap">
       <textarea v-if="type === 'textarea'"
         :class="$style.AppField__Input"
@@ -19,6 +22,8 @@
         :rows="rows"
         cols="20"
         :id="inputID"
+        :minlength="minlength"
+        :maxlength="maxlength"
         :autocomplete="autocomplete"
         :autocapitalize="autocapitalize"
         :autocorrect="autocorrect"
@@ -100,8 +105,14 @@ export default class AppField extends Vue {
   @Prop({ default: 1 })
   private span: number
 
-  @Prop({ required: false, default: true })
+  @Prop({ required: false })
   private valid: boolean
+
+  @Prop({ required: false })
+  private minlength: number
+
+  @Prop({ required: false })
+  private maxlength: number
 
   private change(ev: Event) {
     const value = (ev.target as HTMLInputElement).value
@@ -115,6 +126,26 @@ export default class AppField extends Vue {
 
   private created() {
     this.inputValue = this.value
+  }
+
+  get helpText() {
+    const { minlength, maxlength, required } = this
+
+    if (!required) {
+      return 'Optional'
+    }
+
+    if (minlength && maxlength) {
+      return `${minlength}-${maxlength} characters`
+    }
+
+    if (maxlength) {
+      return `Maximum ${maxlength} characters`
+    }
+
+    if (minlength) {
+      return `Minimum ${minlength} characters`
+    }
   }
 
   get empty(): boolean {
@@ -150,12 +181,20 @@ export default class AppField extends Vue {
     }
   }
 
+  &__HelpText {
+    margin-left: auto;
+    padding-left: 1rem;
+    opacity: 0.5;
+    font-size: $fontSizeSmall;
+  }
+
   &__Wrap {
     display: flex;
   }
 
   &__Label {
     fieldLabel();
+    display: flex;
   }
 
   &__Input {
