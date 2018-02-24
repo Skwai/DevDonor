@@ -9,9 +9,10 @@ import About from '../pages/About.vue'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
-    path: '/',
+      path: '/',
       name: 'Home',
       component: HomePage
     },
