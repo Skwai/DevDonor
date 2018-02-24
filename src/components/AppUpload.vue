@@ -3,7 +3,12 @@
     <AppMediaObject align="center">
       <template slot="object">
         <div v-if="value" :class="$style.AppUpload__Preview">
-          <img :src="value" :class="$style.AppUpload__PreviewImage">
+          <img
+            v-if="previewImageLoaded"
+            :src="value"
+            :class="$style.AppUpload__PreviewImage"
+          >
+          <AppLoading v-else></AppLoading>
         </div>
         <label :class="$style.AppUpload__Drop" v-else>
           <AppLoading v-if="uploading" />
@@ -20,7 +25,7 @@
           type="button"
           @click.prevent="removeUpload"
           :class="$style.AppUpload__Remove"
-        >Remove upload</button>
+        >Remove file</button>
         <AppHelpText v-else-if="description">{{description}}</AppHelpText>
       </div>
     </AppMediaObject>
@@ -28,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 
 import { storage } from '../services/db'
 
@@ -44,9 +49,34 @@ export default class AppUpload extends Vue {
   @Prop({ required: true })
   private value: string
 
+  private previewImageLoaded: boolean = false
+  private previewImageError: boolean = false
   private focused: boolean = false
   private progress: number = 0
   private uploading: boolean = false
+
+  @Watch('value', { immediate: true })
+  private async loadPreviewImage(newValue: string, oldValue: string) {
+    if (!newValue || newValue === oldValue) {
+      return
+    }
+
+    this.previewImageLoaded = false
+    this.previewImageError = false
+
+    const image = new Image()
+    image.src = newValue
+
+    try {
+      await new Promise((resolve, reject) => {
+        image.onload = resolve
+        image.onerror = reject
+      })
+      this.previewImageLoaded = true
+    } catch {
+      this.previewImageError = true
+    }
+  }
 
   private onFocus() {
     this.focused = true
@@ -94,6 +124,7 @@ export default class AppUpload extends Vue {
 
       const { downloadURL } = await task
       this.$emit('input', downloadURL)
+      this.loadPreviewImage(downloadURL)
     } finally {
       this.uploading = false
     }
@@ -118,6 +149,9 @@ export default class AppUpload extends Vue {
     align-items: center;
     justify-content: center;
     position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    border: $colorGray dashed 2px;
 
     &Image {
       width: 100%;
@@ -149,7 +183,12 @@ export default class AppUpload extends Vue {
     border: $colorGray dashed 2px;
 
     &:hover, &:focus, [focused] & {
-      border-color: $colorPrimary;
+      border-color: currentColor;
+      color: $colorPrimary;
+    }
+
+    &:drop {
+      border-color: currentColor;
       color: $colorPrimary;
     }
   }
