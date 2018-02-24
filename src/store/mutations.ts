@@ -6,10 +6,9 @@ import State from './State'
 import { setTimeout } from 'timers'
 
 export const ADD_PROJECT: Mutation<State> = (state, project: Project) => {
-  if (!project.id) {
-    return
+  if (project.id) {
+    state.projects[project.id] = project
   }
-  state.projects[project.id] = project
 }
 
 export const SET_CURRENT_USER: Mutation<State> = (state, user: Firebase.User) => {
