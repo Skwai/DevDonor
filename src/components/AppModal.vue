@@ -2,6 +2,7 @@
   <section
     :class="$style.AppModal"
     @close="close"
+    rol="dialog"
   >
     <div :class="$style.AppModal__Content">
       <slot />
@@ -11,6 +12,7 @@
         @click.prevent="close"
         aria-label="Close"
         :class="$style.AppModal__Close"
+        rel="close"
       >
         <svg :class="$style.AppModal__CloseIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10"><path d="M19.5 5.5l-14 14M19.5 19.5l-14-14"/></g></svg>
       </button>
@@ -113,7 +115,7 @@ export default class AppModal extends Vue {
   right: 0;
   bottom: 0;
   background: rgba($colorOffWhite, 0.9);
-  z-index: $zIndexCover;
+  z-index: $zIndexModal;
   overflow-y: auto;
   opacity: 0;
   animation: AppModal 0.5s 1 forwards;
@@ -126,7 +128,6 @@ export default class AppModal extends Vue {
     position: absolute;
     left: 0;
     right: 0;
-    // width: fit-content
     height: fit-content;
     width: 46rem;
     margin: auto;
@@ -150,7 +151,6 @@ export default class AppModal extends Vue {
     opacity: 0.5;
     transition: $transitionBase;
     transform-origin: center center;
-    display: none;
 
     &:hover, &:focus {
       opacity: 1;

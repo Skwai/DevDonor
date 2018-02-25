@@ -32,3 +32,19 @@ export const SET_SAVED_CREATE_PROJECT_FORM_DATA: Mutation<State> = (state, proje
 export const CLEAR_SAVED_CREATE_PROJECT_FORM_DATA: Mutation<State> = (state, project: Project) => {
   state.savedCreateProjectFormData = {}
 }
+
+export const SET_PENDING_AUTH: Mutation<State> = (state) => {
+  state.pendingAuth = true
+}
+
+export const RESET_PENDING_AUTH: Mutation<State> = (state) => {
+  state.pendingAuth = false
+}
+
+export const SET_ERROR_NOTIFICATION: Mutation<State> = (state, message: string) => {
+  state.notification = { message, type: 'error' }
+}
+
+export const REMOVE_NOTIFICATION: Mutation<State> = (state) => {
+  state.notification = null
+}

@@ -1,5 +1,6 @@
 <template>
   <main id="App" :class="$style.App">
+    <TheNotifications />
     <TheHeader />
     <router-view />
     <TheFooter />
@@ -12,11 +13,13 @@ import { Action } from 'vuex-class'
 
 import TheFooter from './components/TheFooter.vue'
 import TheHeader from './components/TheHeader.vue'
+import TheNotifications from './components/TheNotifications.vue'
 
 @Component({
   components: {
     TheFooter,
-    TheHeader
+    TheHeader,
+    TheNotifications
   }
 })
 export default class App extends Vue {}

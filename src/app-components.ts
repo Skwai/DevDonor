@@ -1,7 +1,9 @@
 import Vue from 'vue'
 
 import AppBtn from './components/AppBtn.vue'
+import AppCard from './components/AppCard.vue'
 import AppField from './components/AppField.vue'
+import AppLink from './components/AppLink.vue'
 import AppFieldGroup from './components/AppFieldGroup.vue'
 import AppGlyph from './components/AppGlyph.vue'
 import AppHeading from './components/AppHeading.vue'
@@ -16,6 +18,8 @@ import AppTag from './components/AppTag.vue'
 import AppUpload from './components/AppUpload.vue'
 
 Vue.component('AppBtn', AppBtn)
+Vue.component('AppCard', AppCard)
+Vue.component('AppLink', AppLink)
 Vue.component('AppField', AppField)
 Vue.component('AppHeading', AppHeading)
 Vue.component('AppLoading', AppLoading)

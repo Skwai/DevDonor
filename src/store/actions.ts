@@ -11,19 +11,31 @@ const LOCALSTORAGE_WRITE_DEBOUNCE = 200 // ms
 
 interface IActionContext extends ActionContext<State, any> {}
 
-export const login = async ({ commit }: IActionContext): Promise<void> => {
-  const userRecord = await auth.signIn()
-  const userData = userRecord.user.toJSON()
-  commit('SET_CURRENT_USER', userData)
+export const login = async ({ commit }: IActionContext, provider: string): Promise<void> => {
+  commit('SET_PENDING_AUTH')
+  commit('REMOVE_NOTIFICATION')
+  try {
+    const userRecord = await auth.signIn(provider)
+    const userData = userRecord.user.toJSON()
+    commit('SET_CURRENT_USER', userData)
+  } catch (err) {
+    if (err.message) {
+      commit('SET_ERROR_NOTIFICATION', err.message)
+    }
+    throw err
+  } finally {
+    commit('RESET_PENDING_AUTH')
+  }
 }
 
 export const loadCurrentUser = async ({ commit }: IActionContext): Promise<void> => {
+  commit('SET_PENDING_AUTH')
   const userRecord = await auth.getCurrentUser()
-
   if (userRecord) {
     const userData = userRecord.toJSON()
     commit('SET_CURRENT_USER', userData)
   }
+  commit('RESET_PENDING_AUTH')
 }
 
 export const loadProjects = async ({ commit }: IActionContext): Promise<void> => {
@@ -73,4 +85,8 @@ export const storeProjectFormData = ({ commit }: IActionContext, project: Projec
 export const clearProjectFormData = ({ commit }: IActionContext) => {
   commit('CLEAR_SAVED_CREATE_PROJECT_FORM_DATA')
   localStorage.removeItem(SAVED_CREATE_PROJECT_FORM_DATA_KEY)
+}
+
+export const removeNotification = ({ commit }: IActionContext) => {
+  commit('REMOVE_NOTIFICATION')
 }

@@ -44,6 +44,7 @@ export default class AppMediaObject extends Vue {
 
   &__Object {
     margin-right: $spacingBase;
+    line-height: 0;
   }
 }
 </style>

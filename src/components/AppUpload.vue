@@ -124,7 +124,6 @@ export default class AppUpload extends Vue {
 
       const { downloadURL } = await task
       this.$emit('input', downloadURL)
-      this.loadPreviewImage(downloadURL)
     } finally {
       this.uploading = false
     }

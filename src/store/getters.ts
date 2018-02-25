@@ -13,3 +13,7 @@ export const getProjectByID = ({ projects }: State) => (projectID: string) => {
 
 export const getSavedCreateProjectFormData = ({ savedCreateProjectFormData }: State) =>
   savedCreateProjectFormData
+
+export const pendingAuth = ({ pendingAuth }: State) => pendingAuth
+
+export const notification = ({ notification }: State) => notification

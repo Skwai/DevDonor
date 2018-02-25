@@ -1,9 +1,29 @@
 <template>
-  <AppModal @close="cancel" :class="$style.CreateProject">
-    <form @submit.prevent="submit">
-      <AppHeading>Create a new project</AppHeading>
-      <p>Are you a charity or not-for-profit and have an idea for a great project? Fill out the form below to find developers to help you with it.</p>
-      <div v-if="step === 1">
+  <AppModal
+    @close="cancel"
+    :class="$style.CreateProject"
+    :canClose="true"
+  >
+    <AppHeading>Create a new project</AppHeading>
+    <p>Are you a charity or not-for-profit and have an idea for a great project? Fill out the form below to find developers to help you with it.</p>
+
+    <div v-if="!currentUser" :class="$style.CreateProject__Auth">
+      <AppSubheading>You'll need to sign in to create a new project</AppSubheading>
+      <AuthLogin @authenticated="onAuthenticated" />
+    </div>
+    <AppCard v-else-if="currentUser" :class="$style.CreateProject__CurrentUser">
+      <AppMediaObject align="center">
+        <img slot="object" :src="currentUser.photoURL" width="64" height="64">
+        <div slot="body">
+          <h4>Signed in with Google+</h4>
+          <div>{{currentUser.displayName}}</div>
+          <div :class="$style.CreateProject__CurrentUserEmail">{{currentUser.email}}</div>
+          <AppLink>Sign out</AppLink>
+        </div>
+      </AppMediaObject>
+    </AppCard>
+    <form v-if="currentUser" @submit.prevent="submit">
+      <template v-if="step === 1">
         <h2 :class="$style.CreateProject__Step">
           <span>About your organization</span>
           <AppTag>Step 1 of 2</AppTag>
@@ -15,16 +35,6 @@
             :span="2"
             :valid="validations[STEP_1].organizationName"
             v-model="project.organizationName"
-          />
-
-          <AppField
-            type="email"
-            label="Your email address"
-            :span="2"
-            v-model="project.email"
-            :valid="validations[STEP_2].email"
-            :required="true"
-            description="This will be used to send you notifications about your project"
           />
 
           <AppSelect
@@ -86,8 +96,8 @@
             :disabled="!isValid[STEP_1]"
           >Next step</AppBtn>
         </div>
-      </div>
-      <div v-if="step === 2">
+      </template>
+      <template v-if="step === 2">
         <h2 :class="$style.CreateProject__Step">
           <span>About your project</span>
           <AppTag>Step 2 of 2</AppTag>
@@ -128,7 +138,7 @@
           <AppBtn type="button" @click="prevStep">Previous Step</AppBtn>
           <AppBtn type="submit" color="primary" size="large" :disabled="!isValid[STEP_1] || !isValid[STEP_2]">Create My Project</AppBtn>
         </div>
-      </div>
+      </template>
     </form>
   </AppModal>
 </template>
@@ -140,7 +150,8 @@ import { Action, Getter } from 'vuex-class'
 import Project from '../models/Project'
 import { createID } from '../services/db'
 import countries from '../utils/countries'
-import { required, minLength, maxLength, isEmail } from '../utils/validations'
+import { required, minLength, maxLength } from '../utils/validations'
+import AuthLogin from '../components/AuthLogin.vue'
 
 const CAUSE_OPTIONS = [
   'Art & Culture',
@@ -158,7 +169,11 @@ const STEP_1 = 'step1'
 const STEP_2 = 'step2'
 const STEPS = [STEP_1, STEP_2]
 
-@Component
+@Component({
+  components: {
+    AuthLogin
+  }
+})
 export default class CreateProjectPage extends Vue {
   private project = new Project()
   private fileName: string = ''
@@ -168,19 +183,28 @@ export default class CreateProjectPage extends Vue {
   private projectTypeOptions: string[] = PROJECT_TYPE_OPTIONS.slice(0)
   private STEP_1 = STEP_1
   private STEP_2 = STEP_2
+  private currentUser: {} | null = null
 
   @Action private storeProjectFormData: (project: Project) => void
   @Action private createProject: (project: Project) => Promise<void>
   @Action private clearProjectFormData: () => void
+  @Action private loadCurrentUser: () => Promise<void>
 
   @Getter private getSavedCreateProjectFormData: {}
+  @Getter private getCurrentUser: {}
 
   @Watch('project', { immediate: false, deep: true })
   private onProjectChanged(value: Project) {
     this.storeProjectFormData(value)
   }
 
-  private created() {
+  private onAuthenticated(currentUser: any) {
+    this.currentUser = currentUser
+  }
+
+  private async created() {
+    await this.loadCurrentUser()
+    this.currentUser = this.getCurrentUser
     this.fileName = createID()
     Object.assign(this.project, this.getSavedCreateProjectFormData)
     window.onpopstate = this.loadURLStep.bind(this)
@@ -225,7 +249,6 @@ export default class CreateProjectPage extends Vue {
       title,
       description,
       projectType,
-      email,
       state
     } = this.project
     return {
@@ -244,8 +267,7 @@ export default class CreateProjectPage extends Vue {
       [STEP_2]: {
         title: required(title) && minLength(title, 10) && maxLength(title, 200),
         projectType: required(projectType),
-        description: required(description) && minLength(description, 100),
-        email: required(email) && isEmail(email)
+        description: required(description) && minLength(description, 100)
       }
     }
   }
@@ -279,17 +301,38 @@ export default class CreateProjectPage extends Vue {
     margin-bottom: $spacingBase;
   }
 
+  h4 {
+    margin-bottom: 0.5rem;
+  }
+
+  &__Auth {
+    margin-top: $spacingBase;
+    text-align: center;
+    border-top: $colorGray solid 1px;
+    padding-top: $spacingBase;
+  }
+
   &__Step {
-    margin: 2rem 0 1.5rem;
+    margin: $spacingBase 0 $spacingBase;
     align-items: center;
     justify-content: space-between;
     display: flex;
-    border-bottom: $colorGray dotted 1px;
+    border-bottom: $colorGray solid 1px;
     padding-bottom: 1rem;
   }
 
   &__Actions {
     text-align: right;
+  }
+
+  &__CurrentUser {
+    margin-top: $spacingBase;
+  }
+
+  &__CurrentUserEmail {
+    // opacity: 0.7;
+    // font-size: $fontSizeSmall;
+    margin-bottom: 0.5rem;
   }
 }
 </style>

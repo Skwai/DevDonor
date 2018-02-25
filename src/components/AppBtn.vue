@@ -8,9 +8,13 @@
     :loading="loading"
     :block="block"
     @click="click"
+    :style="backgroundColor"
   >
     <span v-if="loading" :class="$style.AppBtn__Loading">
       <AppSpinner />
+    </span>
+    <span :class="$style.AppBtn__Icon" v-if="$slots.icon">
+      <slot name="icon" />
     </span>
     <span :class="$style.AppBtn__Label"><slot /></span>
   </router-link>
@@ -24,6 +28,7 @@
     :loading="loading"
     :block="block"
     @click="click"
+    :style="backgroundColor"
   >
     <span v-if="loading" :class="$style.AppBtn__Loading">
       <AppSpinner />
@@ -42,7 +47,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 export default class AppBtn extends Vue {
   @Prop() private to: string
 
-  @Prop() private color: string
+  @Prop({ default: 'light' }) private color: string
 
   @Prop() private size: string
 
@@ -57,6 +62,16 @@ export default class AppBtn extends Vue {
 
   @Prop({ default: false })
   private disabled: boolean
+
+  @Prop({ required: false })
+  private background: string
+
+  get backgroundColor() {
+    if (this.background) {
+      return `background-color: ${this.background}; color: #fff`
+    }
+    return null
+  }
 
   private click(ev: Event) {
     if (this.loading) {
@@ -101,6 +116,10 @@ export default class AppBtn extends Vue {
   font-size: 0.875rem;
   font-weight: 600;
 
+  + .AppBtn {
+    margin-left: 0.5rem
+  }
+
   &[block] {
     display: block;
     width: 100%;
@@ -144,6 +163,18 @@ export default class AppBtn extends Vue {
     box-shadow: none;
   }
 
+  &[color=light] {
+    &:hover, &:focus {
+      color: $colorPrimary
+      border-color: currentColor
+    }
+  }
+
+  &[color=stroke] {
+    box-shadow: inset rgba($colorPrimary, .5) 0 0 0 1px
+    color: $colorPrimary
+  }
+
   &[color=dark] {
     background: $colorDarkBlue;
     box-shadow: none;
@@ -162,11 +193,15 @@ export default class AppBtn extends Vue {
 
   &__Icon {
     margin-right: 1em;
+    width: 1.25em;
+    height: 1.25em;
+    margin-top: -0.125em
+    margin-bottom: -0.125em
 
     svg {
-      width: 2em;
-      height: 2em;
-      stroke: currentColor;
+      width: 1.25em;
+      height: 1.25em;
+      fill: currentColor
     }
   }
 }

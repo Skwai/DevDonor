@@ -16,8 +16,8 @@ export default class AppFormFields extends Vue {}
 
 .AppFieldGroup {
   display: grid;
-  grid-gap: $spacingBase;
+  grid-gap: $spacingLarge;
   grid-template-columns: repeat(2, 1fr);
-  margin-bottom: $spacingBase;
+  margin-bottom: $spacingLarge;
 }
 </style>
