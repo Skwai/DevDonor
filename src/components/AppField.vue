@@ -3,7 +3,7 @@
     :class="$style.AppField"
     :empty="empty"
     :span="span"
-    :error="!valid && dirty"
+    :error="!isValid && dirty"
   >
     <label
       v-if="showLabel"
@@ -31,6 +31,7 @@
         :placeholder="placeholder"
         @input="change"
         @blur="blur"
+        ref="input"
       ></textarea>
       <input
         v-else
@@ -47,6 +48,7 @@
         :placeholder="placeholder"
         @input="change"
         @blur="blur"
+        ref="input"
       >
       <slot></slot>
     </div>
@@ -106,9 +108,6 @@ export default class AppField extends Vue {
   private span: number
 
   @Prop({ required: false })
-  private valid: boolean
-
-  @Prop({ required: false })
   private minlength: number
 
   @Prop({ required: false })
@@ -160,6 +159,13 @@ export default class AppField extends Vue {
 
   get inputID(): string {
     return `${this.uid}__Input`
+  }
+
+  get isValid(): boolean {
+    if (this.$refs.input) {
+      return (this.$refs.input as HTMLInputElement).validity.valid
+    }
+    return false
   }
 }
 </script>

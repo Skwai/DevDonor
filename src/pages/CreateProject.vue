@@ -32,7 +32,8 @@
             label="Organization name"
             :required="true"
             :span="2"
-            :valid="validations[steps.STEP_1].organizationName"
+            :maxlength="100"
+            :valid.sync="validations.organizationName"
             v-model="project.organizationName"
           />
 
@@ -42,7 +43,7 @@
             v-model="project.organizationType"
             :span="2"
             :options="causeOptions"
-            :valid="validations[steps.STEP_1].organizationType"
+            :valid.sync="validations.organizationType"
             description="What goal or cause does your organization focus on?"
           ></AppSelect>
 
@@ -51,7 +52,7 @@
             :required="true"
             v-model="project.country"
             :options="countryOptions"
-            :valid="validations[steps.STEP_1].country"
+            :valid.sync="validations.country"
           />
 
           <AppSelect
@@ -59,7 +60,7 @@
             :required="true"
             v-model="project.state"
             :options="countryOptions"
-            :valid="validations[steps.STEP_1].state"
+            :valid.sync="validations.state"
           />
 
           <AppUpload
@@ -70,7 +71,7 @@
             v-model="project.organizationLogo"
             label="Upload your logo"
             description="Upload a picture to use as your logo"
-            :valid="validations[steps.STEP_1].organizationDescription"
+            :valid.sync="validations.organizationDescription"
           />
 
           <AppField
@@ -79,7 +80,7 @@
             :span="2"
             label="Organization description"
             v-model="project.organizationDescription"
-            :valid="validations[steps.STEP_1].organizationDescription"
+            :valid.sync="validations.organizationDescription"
             :minlength="10"
             :maxlength="200"
             description="Describe what your organization does, how it helps people, and what its mission is."
@@ -106,7 +107,7 @@
             label="Project name"
             :required="true"
             :span="2"
-            :valid="validations[steps.STEP_2].title"
+            :valid.sync="validations.title"
             v-model="project.title"
             :minlength="10"
             :maxlength="100"
@@ -117,7 +118,7 @@
             v-model="project.projectType"
             :required="true"
             :span="2"
-            :valid="validations[steps.STEP_2].projectType"
+            :valid.sync="validations.projectType"
             :options="projectTypeOptions"
             description="What sort of project are you looking to create?"
           />
@@ -128,7 +129,7 @@
             :span="2"
             label="Project description"
             v-model="project.description"
-            :valid="validations[steps.STEP_2].description"
+            :valid.sync="validations.description"
             :required="true"
             :minlength="50"
           />
@@ -189,6 +190,16 @@ export default class CreateProjectPage extends Vue {
   private countryOptions: string[] = countries.map((c: { name: string }) => c.name)
   private projectTypeOptions: string[] = PROJECT_TYPE_OPTIONS.slice(0)
   private steps: {} | undefined = undefined // non-reactive
+  private validations = {
+    organizationName: true,
+    organizationType: true,
+    organizationDescription: true,
+    country: true,
+    title: true,
+    description: true,
+    projectType: true,
+    state: true
+  }
 
   @Action private storeProjectFormData: (project: Project) => void
   @Action private createProject: (project: Project) => Promise<void>
@@ -242,42 +253,10 @@ export default class CreateProjectPage extends Vue {
     history.pushState(null, '', hash)
   }
 
-  get validations() {
-    const {
-      organizationName,
-      organizationType,
-      organizationDescription,
-      country,
-      title,
-      description,
-      projectType,
-      state
-    } = this.project
-    return {
-      // step 1
-      [STEP_1]: {
-        organizationName: required(organizationName) && minLength(organizationName, 3),
-        organizationType: required(organizationType),
-        organizationDescription:
-          required(organizationDescription) &&
-          minLength(organizationDescription, 10) &&
-          maxLength(organizationDescription, 200),
-        country: required(country),
-        state: required(state)
-      },
-      // step 2
-      [STEP_2]: {
-        title: required(title) && minLength(title, 10) && maxLength(title, 200),
-        projectType: required(projectType),
-        description: required(description) && minLength(description, 100)
-      }
-    }
-  }
-
   get isValid() {
     return {
-      [STEP_1]: Object.values(this.validations[STEP_1]).every((v) => !!v),
-      [STEP_2]: Object.values(this.validations[STEP_2]).every((v) => !!v)
+      [STEP_1]: Object.values({}).every((v) => !!v),
+      [STEP_2]: Object.values({}).every((v) => !!v)
     }
   }
 
