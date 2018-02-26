@@ -1,5 +1,5 @@
 <template>
-  <button :class="$style.AppLink">
+  <button :class="$style.AppLink" @click="$emit('click', $event)">
     <slot />
   </button>
 </template>
