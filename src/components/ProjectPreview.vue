@@ -100,6 +100,7 @@ export default class ProjectPreview extends Vue {
     width: 100%;
     -webkit-backface-visibility: hidden;
     -webkit-transform: translateZ(0) scale(1, 1);
+    border: $colorLightGray solid 1px;
 
     &:hover, &:focus {
       box-shadow: rgba(0, 0, 0, 0.1) 0 2px 1rem;

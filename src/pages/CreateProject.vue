@@ -7,21 +7,21 @@
     <AppHeading>Create a new project</AppHeading>
     <p>Are you a charity or not-for-profit and have an idea for a great project? Fill out the form below to find developers to help you with it.</p>
 
-    <div v-if="!currentUser" :class="$style.CreateProject__Auth">
+    <div v-if="!getCurrentUser" :class="$style.CreateProject__Auth">
       <AppSubheading>You'll need to sign in to create a new project</AppSubheading>
-      <AuthLogin @authenticated="onAuthenticated" />
+      <AuthLogin />
     </div>
-    <AppCard v-else-if="currentUser" :class="$style.CreateProject__CurrentUser">
+    <AppCard v-else-if="getCurrentUser" :class="$style.CreateProject__CurrentUser">
       <AppMediaObject align="center">
-        <img slot="object" :src="currentUser.photoURL" width="64" height="64">
+        <img slot="object" :src="getCurrentUser.photoURL" width="64" height="64">
         <div slot="body">
-          <div><strong>{{currentUser.displayName}}</strong></div>
-          <div :class="$style.CreateProject__CurrentUserEmail">{{currentUser.email}}</div>
+          <div><strong>{{getCurrentUser.displayName}}</strong></div>
+          <div :class="$style.CreateProject__CurrentUserEmail">{{getCurrentUser.email}}</div>
           <AppLink @click="logout">Sign out of Google+</AppLink>
         </div>
       </AppMediaObject>
     </AppCard>
-    <form v-if="currentUser" @submit.prevent="submit">
+    <form v-if="getCurrentUser" @submit.prevent="submit">
       <template v-if="step === 1">
         <h2 :class="$style.CreateProject__Step">
           <span>About your organization</span>
@@ -189,7 +189,6 @@ export default class CreateProjectPage extends Vue {
   private countryOptions: string[] = countries.map((c: { name: string }) => c.name)
   private projectTypeOptions: string[] = PROJECT_TYPE_OPTIONS.slice(0)
   private steps: {} | undefined = undefined // non-reactive
-  private currentUser: {} | null = null
 
   @Action private storeProjectFormData: (project: Project) => void
   @Action private createProject: (project: Project) => Promise<void>
@@ -205,14 +204,9 @@ export default class CreateProjectPage extends Vue {
     this.storeProjectFormData(value)
   }
 
-  private onAuthenticated(currentUser: any) {
-    this.currentUser = currentUser
-  }
-
   private async created() {
     this.steps = { STEP_1, STEP_2 }
     await this.loadCurrentUser()
-    this.currentUser = this.getCurrentUser
     this.fileName = createID()
     Object.assign(this.project, this.getSavedCreateProjectFormData)
     window.onpopstate = this.loadURLStep.bind(this)
