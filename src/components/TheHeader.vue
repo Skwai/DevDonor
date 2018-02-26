@@ -47,6 +47,10 @@ export default class TheHeader extends Vue {}
   left: 0;
   width: 100vw;
 
+  h1 {
+    margin: 0;
+  }
+
   &__Logo {
     transition: transitionBase;
     color: $colorPrimary;

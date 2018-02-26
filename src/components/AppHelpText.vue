@@ -13,8 +13,8 @@ export default class AppHelpText extends Vue {}
 @require '../styles/config.styl';
 
 .AppHelpText {
-  margin: $spacingTiny 0 0;
+  margin-top: $spacingTiny;
   opacity: 0.7;
-  font-size: $fontSizeSmall;
+  font-size: 0.9125rem;
 }
 </style>

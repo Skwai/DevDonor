@@ -9,7 +9,10 @@
       v-if="showLabel"
       :class="$style.AppSelect__Label"
       :for="inputID"
-    >{{label}}</Label>
+    >
+      {{label}}
+      <span v-if="helpText" :class="$style.AppField__HelpText">{{helpText}}</span>
+    </label>
     <div :class="$style.AppSelect__Wrap">
       <select
         :class="$style.AppSelect__Input"
@@ -19,6 +22,7 @@
         v-model="inputValue"
         @input="change"
         @blur="onBlur"
+        ref="select"
       >
         <option
           v-for="(option, index) in options"
@@ -39,13 +43,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 
 @Component
 export default class AppSelect extends Vue {
   private inputValue: string | number | null = null
-
   private dirty: boolean = false
+  private uid: string | undefined = undefined
 
   @Prop({ required: true })
   private label: string
@@ -74,28 +78,56 @@ export default class AppSelect extends Vue {
   @Prop({ required: false, default: true })
   private valid: boolean
 
+  @Watch('value', { immediate: true })
+  private onValueChange(newValue: any) {
+    this.inputValue = newValue
+    this.checkValidity()
+  }
+
   private change(ev: Event) {
     const value = (ev.target as HTMLInputElement).value
-    this.inputValue = value
     this.$emit('input', value)
   }
 
-  private created() {
-    this.inputValue = this.value
+  private checkValidity() {
+    const valid = this.getValidity()
+    this.$emit('update:valid', valid)
+  }
+
+  private getValidity() {
+    if (this.$refs.select) {
+      return (this.$refs.select as HTMLSelectElement).validity.valid
+    }
+    return false
+  }
+
+  private blur(ev: Event) {
+    this.dirty = true
   }
 
   get empty(): boolean {
     return !String(this.inputValue).length
   }
 
-  get uid(): string {
+  get inputID(): string {
+    return `${this.uid}__Input`
+  }
+
+  get helpText() {
+    const { required } = this
+    if (!required) {
+      return 'Optional'
+    }
+  }
+
+  private createUID() {
     return Math.random()
       .toString(36)
       .substr(2)
   }
 
-  get inputID(): string {
-    return `${this.uid}__Input`
+  private created() {
+    this.uid = this.createUID()
   }
 
   private onBlur() {
@@ -105,8 +137,8 @@ export default class AppSelect extends Vue {
 </script>
 
 <style lang="stylus" module>
-@import '../styles/config.styl';
-@import '../styles/forms.styl';
+@import '../styles/config';
+@import '../styles/forms';
 
 .AppSelect {
   text-align: left;
@@ -118,6 +150,13 @@ export default class AppSelect extends Vue {
     &[span='2'] {
       grid-column: span 2;
     }
+  }
+
+  &__HelpText {
+    margin-left: auto;
+    padding-left: 1rem;
+    opacity: 0.5;
+    font-size: $fontSizeSmall;
   }
 
   &__Wrap {

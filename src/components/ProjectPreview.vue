@@ -1,33 +1,31 @@
 <template>
-  <article class="ProjectPreview">
-    <router-link
-      :to="{ name: 'ViewProject', params: { projectID: project.id } }"
-      class="ProjectPreview__Link"
-    >
-      <div class="ProjectPreview__LogoWrap">
-        <img class="ProjectPreview__Logo" :src="project.organizationLogo">
-      </div>
-      <div class="ProjectPreview__Body">
-        <header class="ProjectPreview__Header">
-          <h2 class="ProjectPreview__Title">
-            {{project.title}}
-          </h2>
-        </header>
-        <div class="ProjectPreview__Meta">
-          <div class="ProjectPreview__Organization">{{project.organizationName}}</div>
-          <div class="ProjectPreview__Region">
-            <AppGlyph><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></AppGlyph>
-            <span>{{project.city}}, {{project.country}}</span>
-          </div>
-          <time class="ProjectPreview__CreatedAt" :datetime="project.createdAt">
-            <div class="ProjectPreview__Label" v-if="isNew">New</div>
-            <AppGlyph><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"></path></svg></AppGlyph>
-            <span>Created {{createdAt}}</span>
-          </time>
+  <router-link
+    :to="{ name: 'ViewProject', params: { projectID: project.id } }"
+    class="ProjectPreview"
+  >
+    <div class="ProjectPreview__LogoWrap">
+      <img class="ProjectPreview__Logo" :src="project.organizationLogo">
+    </div>
+    <div class="ProjectPreview__Body">
+      <header class="ProjectPreview__Header">
+        <h2 class="ProjectPreview__Title">
+          {{project.title}}
+        </h2>
+      </header>
+      <div class="ProjectPreview__Meta">
+        <div class="ProjectPreview__Organization">{{project.organizationName}}</div>
+        <div class="ProjectPreview__Region">
+          <AppGlyph><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></AppGlyph>
+          <span>{{project.country}}</span>
         </div>
+        <time class="ProjectPreview__CreatedAt" :datetime="project.createdAt">
+          <div class="ProjectPreview__Label" v-if="isNew">New</div>
+          <AppGlyph><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"></path></svg></AppGlyph>
+          <span>Created {{createdAt}}</span>
+        </time>
       </div>
-    </router-link>
-  </article>
+    </div>
+  </router-link>
 </template>
 
 <script lang="ts" >
@@ -69,13 +67,25 @@ export default class ProjectPreview extends Vue {
 @require '../styles/config.styl';
 @require '../styles/text.styl';
 @require '../styles/label.styl';
+@require '../styles/card.styl';
 
 .ProjectPreview {
   $logoSize = 4rem;
-  transition: $transitionLong;
-  transform: translate3d(0, 0, 0);
-  transform-origin: center center;
   width: 100%;
+  display: flex;
+  color: inherit;
+  flex-direction: row;
+  background: #fff;
+  transition: $transitionBase;
+  padding: $spacingBase;
+  width: 100%;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translateZ(0) scale(1, 1);
+  card();
+
+  &:hover, &:focus {
+    border-color: $colorPrimary;
+  }
 
   &__Category {
     textSmallCaps();
@@ -88,23 +98,6 @@ export default class ProjectPreview extends Vue {
   &__Label {
     label();
     margin-right: 1rem;
-  }
-
-  &__Link {
-    display: flex;
-    color: inherit;
-    flex-direction: row;
-    background: #fff;
-    transition: $transitionBase;
-    padding: $spacingBase;
-    width: 100%;
-    -webkit-backface-visibility: hidden;
-    -webkit-transform: translateZ(0) scale(1, 1);
-    border: $colorLightGray solid 1px;
-
-    &:hover, &:focus {
-      box-shadow: rgba(0, 0, 0, 0.1) 0 2px 1rem;
-    }
   }
 
   &__Skills {

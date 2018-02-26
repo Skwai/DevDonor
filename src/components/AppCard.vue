@@ -5,14 +5,17 @@
 </template>
 
 <script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+
+@Component
+export default class AppCard extends Vue {}
 </script>
 
 <style lang="stylus" module>
 @require '../styles/config';
+@require '../styles/card';
 
 .AppCard {
-  padding: $spacingBase;
-  border: $colorLightGray solid 1px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 1rem;
+  card();
 }
 </style>

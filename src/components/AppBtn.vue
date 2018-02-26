@@ -47,20 +47,21 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 export default class AppBtn extends Vue {
   @Prop() private to: string
 
-  @Prop({ default: 'light' }) private color: string
+  @Prop({ required: false })
+  private color: string
 
   @Prop() private size: string
 
-  @Prop({ default: false })
+  @Prop({ default: false, required: false })
   private block: boolean
 
-  @Prop({ default: false })
+  @Prop({ default: false, required: false })
   private loading: boolean
 
-  @Prop({ default: 'button' })
+  @Prop({ default: 'button', required: false })
   private type: string
 
-  @Prop({ default: false })
+  @Prop({ default: false, required: false })
   private disabled: boolean
 
   @Prop({ required: false })
@@ -117,7 +118,7 @@ export default class AppBtn extends Vue {
   font-weight: 600;
 
   + .AppBtn {
-    margin-left: 0.5rem
+    margin-left: 0.5rem;
   }
 
   &[block] {
@@ -164,15 +165,17 @@ export default class AppBtn extends Vue {
   }
 
   &[color=light] {
+    box-shadow: inset $colorLightGray 0 0 0 1px;
+
     &:hover, &:focus {
-      color: $colorPrimary
-      border-color: currentColor
+      color: $colorPrimary;
+      border-color: currentColor;
     }
   }
 
   &[color=stroke] {
-    box-shadow: inset rgba($colorPrimary, .5) 0 0 0 1px
-    color: $colorPrimary
+    box-shadow: inset rgba($colorPrimary, 0.5) 0 0 0 1px;
+    color: $colorPrimary;
   }
 
   &[color=dark] {
@@ -195,13 +198,13 @@ export default class AppBtn extends Vue {
     margin-right: 1em;
     width: 1.25em;
     height: 1.25em;
-    margin-top: -0.125em
-    margin-bottom: -0.125em
+    margin-top: -0.125em;
+    margin-bottom: -0.125em;
 
     svg {
       width: 1.25em;
       height: 1.25em;
-      fill: currentColor
+      fill: currentColor;
     }
   }
 }

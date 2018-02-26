@@ -21,7 +21,6 @@ export default class Project {
   public description: string = ''
   public projectType: string = ''
   public country: string = ''
-  public state: string = ''
   public organizationName: string = ''
   public organizationType: string = ''
   public organizationLogo: string = ''

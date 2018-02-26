@@ -27,7 +27,7 @@ export default class App extends Vue {}
 
 <style lang="stylus" module>
 @require 'styles/config.styl';
-@require 'styles/reset.styl';
+// @require 'styles/reset.styl';
 @require 'styles/text.styl';
 
 body.-modal {
@@ -56,7 +56,7 @@ body {
   margin: 0;
 }
 
-button, input, textarea {
+button, input, textarea, select {
   font-size: 1rem;
   line-height: $lineHeightBase;
   font-family: inherit;
@@ -64,6 +64,11 @@ button, input, textarea {
 
 button {
   cursor: pointer;
+}
+
+ul, ol {
+  padding-left: 0;
+  margin: 0;
 }
 
 h1, h2, h3, h4 {

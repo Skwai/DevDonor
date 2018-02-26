@@ -6,7 +6,7 @@
         <div :class="$style.Project__Meta">
           <div :class="$style.Project__Created">
             <span :class="$style.Project__New">
-              <AppTag v-if="isNew">New</AppTag>
+              <AppLabel v-if="isNew">New</AppLabel>
             </span>
             <AppGlyph>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"></path></svg>
@@ -17,7 +17,7 @@
             <AppGlyph>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path></svg>
             </AppGlyph>
-            {{project.country}}, {{project.city}}
+            {{project.country}}
           </div>
         </div>
         <h1 :class="$style.Project__Title">{{project.title}}</h1>
@@ -40,13 +40,22 @@
         </div>
         <article :class="$style.Project__Sidebar">
           <div :class="$style.Project__Volunteer">
-            <AppBtn
-              color="primary"
-              :block=true
-            >Volunteer for this project</AppBtn>
+            <AppCard>
+              <h3>Interested in helping out?</h3>
+              <p>This project is seeking volunteers with the following skills:</p>
+              <ul>
+                <li><strong>Web Development</strong></li>
+                <li><strong>Design</strong></li>
+                <li><strong>Project Management</strong></li>
+              </ul>
+              <AppBtn
+                color="primary"
+                :block=true
+              >Volunteer for project</AppBtn>
+            </AppCard>
           </div>
 
-          <div :class="$style.Project__Organization">
+          <AppCard :class="$style.Project__Organization">
             <div :class="$style.Project__LogoWrap">
               <img
                 :class="$style.Project__Logo"
@@ -56,7 +65,7 @@
             <h3>{{project.organizationName}}</h3>
             <h4>{{project.country}}</h4>
             <div>{{project.organizationDescription}}</div>
-          </div>
+          </AppCard>
         </article>
       </div>
     </AppContainer>
@@ -165,13 +174,16 @@ export default class ProjectPage extends Vue {
     padding: $spacingBase;
     font-size: 0.875rem;
 
-    h3 {
-      text-align: center;
-    }
-
     h4 {
       text-align: center;
       margin-bottom: 1rem;
+    }
+  }
+
+  &__Sidebar {
+    h3 {
+      margin-top: 0;
+      text-align: center;
     }
   }
 

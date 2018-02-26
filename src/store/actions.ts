@@ -97,6 +97,10 @@ export const clearProjectFormData = ({ commit }: IActionContext) => {
   localStorage.removeItem(SAVED_CREATE_PROJECT_FORM_DATA_KEY)
 }
 
+export const showError = ({ commit }: IActionContext, message: string) => {
+  commit(types.SET_ERROR_NOTIFICATION, message)
+}
+
 export const removeNotification = ({ commit }: IActionContext) => {
   commit(types.REMOVE_NOTIFICATION)
 }

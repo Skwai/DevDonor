@@ -3,7 +3,7 @@
     :class="$style.AppField"
     :empty="empty"
     :span="span"
-    :error="!isValid && dirty"
+    :error="!valid && dirty"
   >
     <label
       v-if="showLabel"
@@ -12,7 +12,7 @@
     >
       {{label}}
       <span v-if="helpText" :class="$style.AppField__HelpText">{{helpText}}</span>
-    </Label>
+    </label>
     <div :class="$style.AppField__Wrap">
       <textarea v-if="type === 'textarea'"
         :class="$style.AppField__Input"
@@ -57,13 +57,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { PropOptions } from 'vue/types/options'
 
 @Component
 export default class AppField extends Vue {
   private inputValue: string | number | null = null
   private dirty: boolean = false
+  private valid: boolean = false
+  private uid: string | undefined = undefined
 
   @Prop({ required: true })
   private label: string
@@ -74,7 +76,7 @@ export default class AppField extends Vue {
   @Prop({ default: false, required: false })
   private required: boolean
 
-  @Prop({ required: true, type: String })
+  @Prop({ required: true, type: [String, Number] })
   private value: string | number | null
 
   @Prop({ default: false, required: false })
@@ -115,33 +117,42 @@ export default class AppField extends Vue {
 
   private change(ev: Event) {
     const value = (ev.target as HTMLInputElement).value
-    this.inputValue = value
     this.$emit('input', value)
+  }
+
+  @Watch('value', { immediate: true })
+  private onValueChange(newValue: any) {
+    this.inputValue = newValue
+    this.checkValidity()
+  }
+
+  private checkValidity() {
+    const valid = this.getValidity()
+    this.$emit('update:valid', valid)
+  }
+
+  private getValidity() {
+    if (this.$refs.input) {
+      return (this.$refs.input as HTMLInputElement).validity.valid
+    }
+    return false
   }
 
   private blur(ev: Event) {
     this.dirty = true
   }
 
-  private created() {
-    this.inputValue = this.value
-  }
-
   get helpText() {
     const { minlength, maxlength, required } = this
-
     if (!required) {
       return 'Optional'
     }
-
     if (minlength && maxlength) {
       return `${minlength}-${maxlength} characters`
     }
-
     if (maxlength) {
       return `Maximum ${maxlength} characters`
     }
-
     if (minlength) {
       return `Minimum ${minlength} characters`
     }
@@ -151,21 +162,18 @@ export default class AppField extends Vue {
     return !String(this.inputValue).length
   }
 
-  get uid(): string {
+  private createUID() {
     return Math.random()
       .toString(36)
       .substr(2)
   }
 
-  get inputID(): string {
-    return `${this.uid}__Input`
+  private created() {
+    this.uid = this.createUID()
   }
 
-  get isValid(): boolean {
-    if (this.$refs.input) {
-      return (this.$refs.input as HTMLInputElement).validity.valid
-    }
-    return false
+  get inputID(): string {
+    return `${this.uid}__Input`
   }
 }
 </script>

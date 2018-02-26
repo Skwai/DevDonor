@@ -4,150 +4,139 @@
     :class="$style.CreateProject"
     :canClose="true"
   >
-    <AppHeading>Create a new project</AppHeading>
-    <p>Are you a charity or not-for-profit and have an idea for a great project? Fill out the form below to find developers to help you with it.</p>
+    <template v-if="submitted">
+      <AppHeading>Great! Your project has been created</AppHeading>
+      <p>We'll notify you by email when people want to join your project.</p>
+      <p><AppBtn to="/project/1" color="stroke">View your new project page</AppBtn></p>
+    </template>
+    <template v-else>
+      <AppHeading>Create a new project</AppHeading>
+      <p>Are you a charity or not-for-profit and have an idea for a great project? Fill out the form below to find developers to help you with it.</p>
 
-    <div v-if="!getCurrentUser" :class="$style.CreateProject__Auth">
-      <AppSubheading>You'll need to sign in to create a new project</AppSubheading>
-      <AuthLogin />
-    </div>
-    <AppCard v-else-if="getCurrentUser" :class="$style.CreateProject__CurrentUser">
-      <AppMediaObject align="center">
-        <img slot="object" :src="getCurrentUser.photoURL" width="64" height="64">
-        <div slot="body">
-          <div><strong>{{getCurrentUser.displayName}}</strong></div>
-          <div :class="$style.CreateProject__CurrentUserEmail">{{getCurrentUser.email}}</div>
-          <AppLink @click="logout">Sign out of Google+</AppLink>
-        </div>
-      </AppMediaObject>
-    </AppCard>
-    <form v-if="getCurrentUser" @submit.prevent="submit">
-      <template v-if="step === 1">
-        <h2 :class="$style.CreateProject__Step">
-          <span>About your organization</span>
-          <AppTag>Step 1 of 2</AppTag>
-        </h2>
-        <AppFieldGroup>
-          <AppField
-            label="Organization name"
-            :required="true"
-            :span="2"
-            :maxlength="100"
-            :valid.sync="validations.organizationName"
-            v-model="project.organizationName"
-          />
+      <div v-if="!getCurrentUser" :class="$style.CreateProject__Auth">
+        <AppSubheading>You'll need to sign in to create a new project</AppSubheading>
+        <AuthLogin />
+      </div>
+      <AppCard v-else-if="getCurrentUser" :class="$style.CreateProject__CurrentUser">
+        <AppMediaObject align="center">
+          <img slot="object" :src="getCurrentUser.photoURL" width="64" height="64">
+          <div slot="body">
+            <div><strong>{{getCurrentUser.displayName}}</strong></div>
+            <div :class="$style.CreateProject__CurrentUserEmail">{{getCurrentUser.email}}</div>
+            <AppLink @click="logout">Sign out of Google+</AppLink>
+          </div>
+        </AppMediaObject>
+      </AppCard>
+      <form v-if="getCurrentUser" @submit.prevent="submit" ref="form">
+        <template v-if="step === 1">
+          <h2 :class="$style.CreateProject__Step">
+            <span>About your project</span>
+            <AppTag>Step 1 of 2</AppTag>
+          </h2>
+          <AppFieldGroup>
+            <AppField
+              label="Project name"
+              :required="true"
+              :span="2"
+              v-model="project.title"
+              :minlength="10"
+              :maxlength="100"
+            />
 
-          <AppSelect
-            label="Charity type"
-            :required="true"
-            v-model="project.organizationType"
-            :span="2"
-            :options="causeOptions"
-            :valid.sync="validations.organizationType"
-            description="What goal or cause does your organization focus on?"
-          ></AppSelect>
+            <AppRadioGroup
+              label="Project type"
+              description="What sort of project are you looking to create?"
+              :span="2"
+              :required="true"
+              :options="projectTypeOptions"
+              v-model="project.projectType"
+            />
 
-          <AppSelect
-            label="Country"
-            :required="true"
-            v-model="project.country"
-            :options="countryOptions"
-            :valid.sync="validations.country"
-          />
+            <AppField
+              type="textarea"
+              :rows="10"
+              :span="2"
+              label="Project description"
+              v-model="project.description"
+              :required="true"
+              :minlength="50"
+            />
+          </AppFieldGroup>
 
-          <AppSelect
-            label="State/Province"
-            :required="true"
-            v-model="project.state"
-            :options="countryOptions"
-            :valid.sync="validations.state"
-          />
+          <div :class="$style.CreateProject__Actions">
+            <AppBtn type="button" @click="cancel">Cancel</AppBtn>
+            <AppBtn
+              @click="nextStep"
+              color="primary"
+              size="large"
+            >Next step</AppBtn>
+          </div>
+        </template>
+        <template v-if="step === 2">
+          <h2 :class="$style.CreateProject__Step">
+            <span>About your organization</span>
+            <AppTag>Step 2 of 2</AppTag>
+          </h2>
+          <AppFieldGroup>
+            <AppField
+              label="Organization name"
+              :required="true"
+              :span="2"
+              :maxlength="100"
+              v-model="project.organizationName"
+            />
 
-          <AppUpload
-            :maxFileSize="2"
-            filePath="logos"
-            :span="2"
-            :fileName="fileName"
-            v-model="project.organizationLogo"
-            label="Upload your logo"
-            description="Upload a picture to use as your logo"
-            :valid.sync="validations.organizationDescription"
-          />
+            <AppSelect
+              label="Charity type"
+              :required="true"
+              v-model="project.organizationType"
+              :span="2"
+              :options="causeOptions"
+              description="What goal or cause does your organization focus on?"
+            ></AppSelect>
 
-          <AppField
-            type="textarea"
-            :required="true"
-            :span="2"
-            label="Organization description"
-            v-model="project.organizationDescription"
-            :valid.sync="validations.organizationDescription"
-            :minlength="10"
-            :maxlength="200"
-            description="Describe what your organization does, how it helps people, and what its mission is."
-          />
-        </AppFieldGroup>
+            <AppSelect
+              label="Country"
+              :required="true"
+              v-model="project.country"
+              :options="countryOptions"
+            />
 
-        <div :class="$style.CreateProject__Actions">
-          <AppBtn type="button" @click="cancel">Cancel</AppBtn>
-          <AppBtn
-            @click="nextStep"
-            color="primary"
-            size="large"
-            :disabled="!isValid[steps.STEP_1]"
-          >Next step</AppBtn>
-        </div>
-      </template>
-      <template v-if="step === 2">
-        <h2 :class="$style.CreateProject__Step">
-          <span>About your project</span>
-          <AppTag>Step 2 of 2</AppTag>
-        </h2>
-        <AppFieldGroup>
-          <AppField
-            label="Project name"
-            :required="true"
-            :span="2"
-            :valid.sync="validations.title"
-            v-model="project.title"
-            :minlength="10"
-            :maxlength="100"
-          />
+            <AppUpload
+              :maxFileSize="2"
+              filePath="logos"
+              :span="2"
+              :fileName="fileName"
+              v-model="project.organizationLogo"
+              label="Upload your logo"
+              description="Upload a picture to use as your logo"
+            />
 
-          <AppSelect
-            label="Project type"
-            v-model="project.projectType"
-            :required="true"
-            :span="2"
-            :valid.sync="validations.projectType"
-            :options="projectTypeOptions"
-            description="What sort of project are you looking to create?"
-          />
-
-          <AppField
-            type="textarea"
-            :rows="10"
-            :span="2"
-            label="Project description"
-            v-model="project.description"
-            :valid.sync="validations.description"
-            :required="true"
-            :minlength="50"
-          />
-        </AppFieldGroup>
-        <div :class="$style.CreateProject__Actions">
-          <AppBtn
-            type="button"
-            @click="prevStep"
-          >Previous Step</AppBtn>
-          <AppBtn
-            type="submit"
-            color="primary"
-            size="large"
-            :disabled="!isValid[steps.STEP_1] || !isValid[steps.STEP_2]"
-          >Create My Project</AppBtn>
-        </div>
-      </template>
-    </form>
+            <AppField
+              type="textarea"
+              :required="true"
+              :span="2"
+              label="Organization description"
+              v-model="project.organizationDescription"
+              :minlength="10"
+              :maxlength="200"
+              description="Describe what your organization does, how it helps people, and what its mission is."
+            />
+          </AppFieldGroup>
+          <div :class="$style.CreateProject__Actions">
+            <AppBtn
+              type="button"
+              @click="prevStep"
+            >Previous Step</AppBtn>
+            <AppBtn
+              type="submit"
+              color="primary"
+              size="large"
+            >Create My Project</AppBtn>
+          </div>
+        </template>
+      </form>
+    </template>
   </AppModal>
 </template>
 
@@ -158,7 +147,6 @@ import { Action, Getter } from 'vuex-class'
 import Project from '../models/Project'
 import { createID } from '../services/db'
 import countries from '../utils/countries'
-import { required, minLength, maxLength } from '../utils/validations'
 import AuthLogin from '../components/AuthLogin.vue'
 
 const CAUSE_OPTIONS = [
@@ -170,7 +158,34 @@ const CAUSE_OPTIONS = [
   'Health & Wellness'
 ]
 
-const PROJECT_TYPE_OPTIONS = ['Web', 'Mobile', 'Desktop']
+const PROJECT_TYPE_OPTIONS = {
+  webapp: 'Web - A web app that runs in your browser',
+  mobile: 'Mobile - A mobile app for Android or iOS phones and tablets',
+  desktop: 'Desktop - A desktop app for Windows, Mac or Linux'
+}
+
+/*
+const PROJECT_SKILLS_OPTIONS = [
+  'Java',
+  'JavaScript',
+  'TypeScript',
+  'Ruby',
+  'Python',
+  'Rust',
+  'Go',
+  'UX',
+  'C',
+  'C++',
+  'C#',
+  'PHP',
+  'SQL',
+  'Objective-C',
+  'Swift',
+  'Scala',
+  'CSS',
+  'HTML'
+]
+*/
 
 // the names of the steps
 const STEP_1 = 'step1'
@@ -188,25 +203,17 @@ export default class CreateProjectPage extends Vue {
   private step: number = 1
   private causeOptions: string[] = CAUSE_OPTIONS
   private countryOptions: string[] = countries.map((c: { name: string }) => c.name)
-  private projectTypeOptions: string[] = PROJECT_TYPE_OPTIONS.slice(0)
+  private projectTypeOptions: {} = { ...PROJECT_TYPE_OPTIONS }
   private steps: {} | undefined = undefined // non-reactive
-  private validations = {
-    organizationName: true,
-    organizationType: true,
-    organizationDescription: true,
-    country: true,
-    title: true,
-    description: true,
-    projectType: true,
-    state: true
-  }
+  private submitting: boolean = false
+  private submitted: boolean = false
 
   @Action private storeProjectFormData: (project: Project) => void
-  @Action private createProject: (project: Project) => Promise<void>
+  @Action('createProject') private actionCreateProject: (project: Project) => Promise<void>
   @Action private clearProjectFormData: () => void
   @Action private loadCurrentUser: () => Promise<void>
   @Action('logout') private actionLogout: () => void
-
+  @Action('showError') private actionShowError: (message: string) => void
   @Getter private getSavedCreateProjectFormData: {}
   @Getter private getCurrentUser: {}
 
@@ -229,10 +236,15 @@ export default class CreateProjectPage extends Vue {
   }
 
   private nextStep() {
-    if (STEPS[this.step]) {
+    const valid = this.checkValidity()
+    if (valid && STEPS[this.step]) {
       this.step++
       this.pushURLStep()
     }
+  }
+
+  private checkValidity() {
+    return (this.$refs.form as HTMLFormElement).reportValidity()
   }
 
   private prevStep() {
@@ -253,21 +265,21 @@ export default class CreateProjectPage extends Vue {
     history.pushState(null, '', hash)
   }
 
-  get isValid() {
-    return {
-      [STEP_1]: Object.values({}).every((v) => !!v),
-      [STEP_2]: Object.values({}).every((v) => !!v)
-    }
-  }
-
   private async submit(ev: Event) {
-    if (!this.isValid) {
+    const valid = this.checkValidity()
+    if (!valid) {
       return
     }
+    this.submitting = true
     try {
-      await this.createProject(this.project)
+      await this.actionCreateProject(this.project)
       this.clearProjectFormData()
-    } catch (err) {}
+      this.submitted = true
+    } catch (err) {
+      this.actionShowError('There was a problem creating your project')
+    } finally {
+      this.submitting = false
+    }
   }
 
   private logout() {

@@ -16,6 +16,8 @@ import AppSpinner from './components/AppSpinner.vue'
 import AppSubheading from './components/AppSubheading.vue'
 import AppTag from './components/AppTag.vue'
 import AppUpload from './components/AppUpload.vue'
+import AppRadioGroup from './components/AppRadioGroup.vue'
+import AppCheckboxGroup from './components/AppCheckboxGroup.vue'
 
 Vue.component('AppBtn', AppBtn)
 Vue.component('AppCard', AppCard)
@@ -33,3 +35,5 @@ Vue.component('AppGlyph', AppGlyph)
 Vue.component('AppTag', AppTag)
 Vue.component('AppFieldGroup', AppFieldGroup)
 Vue.component('AppSelect', AppSelect)
+Vue.component('AppRadioGroup', AppRadioGroup)
+Vue.component('AppCheckboxGroup', AppCheckboxGroup)
