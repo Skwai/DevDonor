@@ -15,10 +15,9 @@
       <AppMediaObject align="center">
         <img slot="object" :src="currentUser.photoURL" width="64" height="64">
         <div slot="body">
-          <h4>Signed in with Google+</h4>
-          <div>{{currentUser.displayName}}</div>
+          <div><strong>{{currentUser.displayName}}</strong></div>
           <div :class="$style.CreateProject__CurrentUserEmail">{{currentUser.email}}</div>
-          <AppLink>Sign out</AppLink>
+          <AppLink @click="logout">Sign out of Google+</AppLink>
         </div>
       </AppMediaObject>
     </AppCard>
@@ -33,7 +32,7 @@
             label="Organization name"
             :required="true"
             :span="2"
-            :valid="validations[STEP_1].organizationName"
+            :valid="validations[steps.STEP_1].organizationName"
             v-model="project.organizationName"
           />
 
@@ -43,7 +42,7 @@
             v-model="project.organizationType"
             :span="2"
             :options="causeOptions"
-            :valid="validations[STEP_1].organizationType"
+            :valid="validations[steps.STEP_1].organizationType"
             description="What goal or cause does your organization focus on?"
           ></AppSelect>
 
@@ -52,7 +51,7 @@
             :required="true"
             v-model="project.country"
             :options="countryOptions"
-            :valid="validations[STEP_1].country"
+            :valid="validations[steps.STEP_1].country"
           />
 
           <AppSelect
@@ -60,7 +59,7 @@
             :required="true"
             v-model="project.state"
             :options="countryOptions"
-            :valid="validations[STEP_1].state"
+            :valid="validations[steps.STEP_1].state"
           />
 
           <AppUpload
@@ -71,7 +70,7 @@
             v-model="project.organizationLogo"
             label="Upload your logo"
             description="Upload a picture to use as your logo"
-            :valid="validations[STEP_1].organizationDescription"
+            :valid="validations[steps.STEP_1].organizationDescription"
           />
 
           <AppField
@@ -80,7 +79,7 @@
             :span="2"
             label="Organization description"
             v-model="project.organizationDescription"
-            :valid="validations[STEP_1].organizationDescription"
+            :valid="validations[steps.STEP_1].organizationDescription"
             :minlength="10"
             :maxlength="200"
             description="Describe what your organization does, how it helps people, and what its mission is."
@@ -93,7 +92,7 @@
             @click="nextStep"
             color="primary"
             size="large"
-            :disabled="!isValid[STEP_1]"
+            :disabled="!isValid[steps.STEP_1]"
           >Next step</AppBtn>
         </div>
       </template>
@@ -107,7 +106,7 @@
             label="Project name"
             :required="true"
             :span="2"
-            :valid="validations[STEP_2].title"
+            :valid="validations[steps.STEP_2].title"
             v-model="project.title"
             :minlength="10"
             :maxlength="100"
@@ -118,7 +117,7 @@
             v-model="project.projectType"
             :required="true"
             :span="2"
-            :valid="validations[STEP_2].projectType"
+            :valid="validations[steps.STEP_2].projectType"
             :options="projectTypeOptions"
             description="What sort of project are you looking to create?"
           />
@@ -129,14 +128,22 @@
             :span="2"
             label="Project description"
             v-model="project.description"
-            :valid="validations[STEP_2].description"
+            :valid="validations[steps.STEP_2].description"
             :required="true"
             :minlength="50"
           />
         </AppFieldGroup>
         <div :class="$style.CreateProject__Actions">
-          <AppBtn type="button" @click="prevStep">Previous Step</AppBtn>
-          <AppBtn type="submit" color="primary" size="large" :disabled="!isValid[STEP_1] || !isValid[STEP_2]">Create My Project</AppBtn>
+          <AppBtn
+            type="button"
+            @click="prevStep"
+          >Previous Step</AppBtn>
+          <AppBtn
+            type="submit"
+            color="primary"
+            size="large"
+            :disabled="!isValid[steps.STEP_1] || !isValid[steps.STEP_2]"
+          >Create My Project</AppBtn>
         </div>
       </template>
     </form>
@@ -181,14 +188,14 @@ export default class CreateProjectPage extends Vue {
   private causeOptions: string[] = CAUSE_OPTIONS
   private countryOptions: string[] = countries.map((c: { name: string }) => c.name)
   private projectTypeOptions: string[] = PROJECT_TYPE_OPTIONS.slice(0)
-  private STEP_1 = STEP_1
-  private STEP_2 = STEP_2
+  private steps: {} | undefined = undefined // non-reactive
   private currentUser: {} | null = null
 
   @Action private storeProjectFormData: (project: Project) => void
   @Action private createProject: (project: Project) => Promise<void>
   @Action private clearProjectFormData: () => void
   @Action private loadCurrentUser: () => Promise<void>
+  @Action('logout') private actionLogout: () => void
 
   @Getter private getSavedCreateProjectFormData: {}
   @Getter private getCurrentUser: {}
@@ -203,6 +210,7 @@ export default class CreateProjectPage extends Vue {
   }
 
   private async created() {
+    this.steps = { STEP_1, STEP_2 }
     await this.loadCurrentUser()
     this.currentUser = this.getCurrentUser
     this.fileName = createID()
@@ -287,6 +295,10 @@ export default class CreateProjectPage extends Vue {
       await this.createProject(this.project)
       this.clearProjectFormData()
     } catch (err) {}
+  }
+
+  private logout() {
+    this.actionLogout()
   }
 }
 </script>
