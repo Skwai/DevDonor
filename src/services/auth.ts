@@ -8,16 +8,12 @@ google.addScope(
   ].join(',')
 )
 
-const facebook = new Firebase.auth.FacebookAuthProvider()
-facebook.addScope(['email', 'public_profile'].join(','))
-
 interface IAuthProviders {
   [key: string]: any
 }
 
 const authProviders: IAuthProviders = {
-  google,
-  facebook
+  google
 }
 
 export const signIn = (provider: string): Promise<any> => {

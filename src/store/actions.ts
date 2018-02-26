@@ -6,43 +6,53 @@ import * as auth from '../services/auth'
 import db from '../services/db'
 import State from './state'
 import { SAVED_CREATE_PROJECT_FORM_DATA_KEY } from '../config'
+import * as types from './types'
 
 const LOCALSTORAGE_WRITE_DEBOUNCE = 200 // ms
 
 interface IActionContext extends ActionContext<State, any> {}
 
 export const login = async ({ commit }: IActionContext, provider: string): Promise<void> => {
-  commit('SET_PENDING_AUTH')
-  commit('REMOVE_NOTIFICATION')
+  commit(types.SET_PENDING_AUTH)
+  commit(types.REMOVE_NOTIFICATION)
   try {
     const userRecord = await auth.signIn(provider)
     const userData = userRecord.user.toJSON()
-    commit('SET_CURRENT_USER', userData)
+    commit(types.SET_CURRENT_USER, userData)
   } catch (err) {
     if (err.message) {
-      commit('SET_ERROR_NOTIFICATION', err.message)
+      commit(types.SET_ERROR_NOTIFICATION, err.message)
     }
     throw err
   } finally {
-    commit('RESET_PENDING_AUTH')
+    commit(types.RESET_PENDING_AUTH)
   }
 }
 
+export const logout = ({ commit }: IActionContext) => {
+  auth.signOut()
+  commit(types.REMOVE_CURRENT_USER)
+}
+
 export const loadCurrentUser = async ({ commit }: IActionContext): Promise<void> => {
-  commit('SET_PENDING_AUTH')
-  const userRecord = await auth.getCurrentUser()
-  if (userRecord) {
-    const userData = userRecord.toJSON()
-    commit('SET_CURRENT_USER', userData)
+  commit(types.SET_PENDING_AUTH)
+  try {
+    const userRecord = await auth.getCurrentUser()
+    if (userRecord) {
+      const userData = userRecord.toJSON()
+      commit(types.SET_CURRENT_USER, userData)
+    }
+  } catch (err) {
+  } finally {
+    commit(types.RESET_PENDING_AUTH)
   }
-  commit('RESET_PENDING_AUTH')
 }
 
 export const loadProjects = async ({ commit }: IActionContext): Promise<void> => {
   const querySnapshot = await db.collection('projects').get()
   querySnapshot.forEach((docSnapshot: firebase.firestore.DocumentSnapshot) => {
     const id = docSnapshot.id
-    commit('ADD_PROJECT', { ...docSnapshot.data(), id })
+    commit(types.ADD_PROJECT, { ...docSnapshot.data(), id })
   })
 }
 
@@ -51,7 +61,7 @@ export const createProject = async ({ commit }: IActionContext, project: Project
     .collection('projects')
     .add({ ...project })
   const id = ref.id
-  commit('ADD_PROJECT', { ...project, id })
+  commit(types.ADD_PROJECT, { ...project, id })
 }
 
 export const loadProjectByID = async ({ commit, state }: IActionContext, projectID: string) => {
@@ -69,7 +79,7 @@ export const loadProjectByID = async ({ commit, state }: IActionContext, project
     ...doc.data(),
     id: doc.id
   }
-  commit('ADD_PROJECT', project)
+  commit(types.ADD_PROJECT, project)
 }
 
 export const storeProjectFormData = ({ commit }: IActionContext, project: Project) => {
@@ -78,15 +88,15 @@ export const storeProjectFormData = ({ commit }: IActionContext, project: Projec
     () => localStorage.setItem(SAVED_CREATE_PROJECT_FORM_DATA_KEY, JSON.stringify(projectData)),
     LOCALSTORAGE_WRITE_DEBOUNCE
   )
-  commit('SET_SAVED_CREATE_PROJECT_FORM_DATA', projectData)
-  commit('SET_SAVED_CREATE_PROJECT_FORM_DATA_WRITE_PID', pid)
+  commit(types.SET_SAVED_CREATE_PROJECT_FORM_DATA, projectData)
+  commit(types.SET_SAVED_CREATE_PROJECT_FORM_DATA_WRITE_PID, pid)
 }
 
 export const clearProjectFormData = ({ commit }: IActionContext) => {
-  commit('CLEAR_SAVED_CREATE_PROJECT_FORM_DATA')
+  commit(types.CLEAR_SAVED_CREATE_PROJECT_FORM_DATA)
   localStorage.removeItem(SAVED_CREATE_PROJECT_FORM_DATA_KEY)
 }
 
 export const removeNotification = ({ commit }: IActionContext) => {
-  commit('REMOVE_NOTIFICATION')
+  commit(types.REMOVE_NOTIFICATION)
 }
