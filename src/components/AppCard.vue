@@ -17,5 +17,6 @@ export default class AppCard extends Vue {}
 
 .AppCard {
   card();
+  margin-bottom: $spacingBase;
 }
 </style>

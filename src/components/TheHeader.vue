@@ -14,7 +14,7 @@
         :to="{ name: 'CreateProject' }"
         :class="$style.TheHeader__NavItem"
         :active-class="$style.TheHeader__NavItemActive"
-      >Create Project</router-link>
+      >Create a Project</router-link>
       <router-link
         :to="{ name: 'About' }"
         :class="$style.TheHeader__NavItem"

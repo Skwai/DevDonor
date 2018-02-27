@@ -5,6 +5,7 @@ import CreateProject from '../pages/CreateProject.vue'
 import HomePage from '../pages/Home.vue'
 import ViewProject from '../pages/ViewProject.vue'
 import About from '../pages/About.vue'
+import Volunteer from '../pages/Volunteer.vue'
 
 Vue.use(Router)
 
@@ -24,7 +25,14 @@ export default new Router({
     {
       path: '/project/:projectID',
       name: 'ViewProject',
-      component: ViewProject
+      component: ViewProject,
+      children: [
+        {
+          path: 'volunteer',
+          name: 'Volunteer',
+          component: Volunteer
+        }
+      ]
     },
     {
       path: '/about',

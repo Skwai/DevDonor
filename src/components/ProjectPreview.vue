@@ -80,11 +80,11 @@ export default class ProjectPreview extends Vue {
   padding: $spacingBase;
   width: 100%;
   -webkit-backface-visibility: hidden;
-  -webkit-transform: translateZ(0) scale(1, 1);
+  position: relative;
   card();
 
-  &:hover, &:focus {
-    border-color: $colorPrimary;
+  &:hover &__Title, &:focus &__Title {
+    color: $colorPrimary;
   }
 
   &__Category {
@@ -123,9 +123,10 @@ export default class ProjectPreview extends Vue {
   &__Title {
     textSubheading();
     margin: 0 0 0.5rem;
-    color: $colorPrimary;
+    // color: $colorPrimary;
     font-weight: 500;
     line-height: 1.35;
+    transition: $transitionBase;
   }
 
   &__Region {

@@ -22,7 +22,12 @@ import TheNotifications from './components/TheNotifications.vue'
     TheNotifications
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  @Action('loadCurrentUser') private actionLoadCurrentUser: () => Promise<void>
+  private created() {
+    this.actionLoadCurrentUser()
+  }
+}
 </script>
 
 <style lang="stylus" module>

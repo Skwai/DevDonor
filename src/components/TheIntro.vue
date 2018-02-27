@@ -2,7 +2,7 @@
   <header :class="$style.TheIntro">
     <div :class="$style.TheIntro__Body">
       <h1 :class="$style.TheIntro__Title">Connecting developers with charities</h1>
-      <p :class="$style.TheIntro__Description">Pitch a charitable project for developer to work on</p>
+      <p :class="$style.TheIntro__Description">Submit a charitable project for developers to help you with</p>
     </div>
   </header>
 </template>

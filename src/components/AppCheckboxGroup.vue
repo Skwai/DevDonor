@@ -99,6 +99,11 @@ export default class AppRadioGroup extends Vue {
   &__Option {
     display: block;
     font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+      color: $colorPrimary;
+    }
   }
 
   &__Help {

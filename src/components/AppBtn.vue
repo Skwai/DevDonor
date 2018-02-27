@@ -45,7 +45,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class AppBtn extends Vue {
-  @Prop() private to: string
+  @Prop({ type: [String, Object] })
+  private to: string | {}
 
   @Prop({ required: false })
   private color: string

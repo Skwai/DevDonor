@@ -1,9 +1,5 @@
 <template>
-  <AppModal
-    @close="cancel"
-    :class="$style.CreateProject"
-    :canClose="true"
-  >
+  <div :class="$style.CreateProject">
     <template v-if="submitted">
       <AppHeading>Great! Your project has been created</AppHeading>
       <p>We'll notify you by email when people want to join your project.</p>
@@ -12,21 +8,17 @@
     <template v-else>
       <AppHeading>Create a new project</AppHeading>
       <p>Are you a charity or not-for-profit and have an idea for a great project? Fill out the form below to find developers to help you with it.</p>
-
-      <div v-if="!getCurrentUser" :class="$style.CreateProject__Auth">
-        <AppSubheading>You'll need to sign in to create a new project</AppSubheading>
+      <div
+        v-if="!getCurrentUser"
+        :class="$style.CreateProject__Auth"
+      >
+        <h4>You'll need to sign in to create a new project</h4>
         <AuthLogin />
       </div>
-      <AppCard v-else-if="getCurrentUser" :class="$style.CreateProject__CurrentUser">
-        <AppMediaObject align="center">
-          <img slot="object" :src="getCurrentUser.photoURL" width="64" height="64">
-          <div slot="body">
-            <div><strong>{{getCurrentUser.displayName}}</strong></div>
-            <div :class="$style.CreateProject__CurrentUserEmail">{{getCurrentUser.email}}</div>
-            <AppLink @click="logout">Sign out of Google+</AppLink>
-          </div>
-        </AppMediaObject>
-      </AppCard>
+      <CurrentUser
+        v-else-if="getCurrentUser"
+        :currentUser="getCurrentUser"
+      />
       <form v-if="getCurrentUser" @submit.prevent="submit" ref="form">
         <template v-if="step === 1">
           <h2 :class="$style.CreateProject__Step">
@@ -63,14 +55,13 @@
             />
           </AppFieldGroup>
 
-          <div :class="$style.CreateProject__Actions">
-            <AppBtn type="button" @click="cancel">Cancel</AppBtn>
+          <AppBtnGroup>
             <AppBtn
               @click="nextStep"
               color="primary"
               size="large"
             >Next step</AppBtn>
-          </div>
+          </AppBtnGroup>
         </template>
         <template v-if="step === 2">
           <h2 :class="$style.CreateProject__Step">
@@ -123,7 +114,7 @@
               description="Describe what your organization does, how it helps people, and what its mission is."
             />
           </AppFieldGroup>
-          <div :class="$style.CreateProject__Actions">
+          <AppBtnGroup>
             <AppBtn
               type="button"
               @click="prevStep"
@@ -133,30 +124,22 @@
               color="primary"
               size="large"
             >Create My Project</AppBtn>
-          </div>
+          </AppBtnGroup>
         </template>
       </form>
     </template>
-  </AppModal>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Watch, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
-
 import Project from '../models/Project'
 import { createID } from '../services/db'
 import countries from '../utils/countries'
 import AuthLogin from '../components/AuthLogin.vue'
-
-const CAUSE_OPTIONS = [
-  'Art & Culture',
-  'Animals & Environment',
-  'Humanitarian Aid',
-  'Youth & Education',
-  'Social Services',
-  'Health & Wellness'
-]
+import CurrentUser from '../components/CurrentUser.vue'
+import CAUSE_OPTION from '../utils/causes'
 
 const PROJECT_TYPE_OPTIONS = {
   webapp: 'Web - A web app that runs in your browser',
@@ -194,7 +177,8 @@ const STEPS = [STEP_1, STEP_2]
 
 @Component({
   components: {
-    AuthLogin
+    AuthLogin,
+    CurrentUser
   }
 })
 export default class CreateProjectPage extends Vue {
@@ -212,7 +196,6 @@ export default class CreateProjectPage extends Vue {
   @Action('createProject') private actionCreateProject: (project: Project) => Promise<void>
   @Action private clearProjectFormData: () => void
   @Action private loadCurrentUser: () => Promise<void>
-  @Action('logout') private actionLogout: () => void
   @Action('showError') private actionShowError: (message: string) => void
   @Getter private getSavedCreateProjectFormData: {}
   @Getter private getCurrentUser: {}
@@ -222,17 +205,12 @@ export default class CreateProjectPage extends Vue {
     this.storeProjectFormData(value)
   }
 
-  private async created() {
+  private created() {
     this.steps = { STEP_1, STEP_2 }
-    await this.loadCurrentUser()
     this.fileName = createID()
     Object.assign(this.project, this.getSavedCreateProjectFormData)
     window.onpopstate = this.loadURLStep.bind(this)
     this.loadURLStep()
-  }
-
-  private cancel() {
-    this.$router.push('/')
   }
 
   private nextStep() {
@@ -281,10 +259,6 @@ export default class CreateProjectPage extends Vue {
       this.submitting = false
     }
   }
-
-  private logout() {
-    this.actionLogout()
-  }
 }
 </script>
 
@@ -292,21 +266,36 @@ export default class CreateProjectPage extends Vue {
 @import '../styles/config.styl';
 @import '../styles/text.styl';
 @import '../styles/tag.styl';
+@import '../styles/card.styl';
+
+@keyframes CreateProject {
+  0% {
+    opacity: 0;
+    transform: translateY(-3rem);
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0rem);
+  }
+}
 
 .CreateProject {
-  h3 {
-    margin-bottom: $spacingBase;
-  }
-
-  h4 {
-    margin-bottom: 0.5rem;
-  }
+  card();
+  max-width: 90vw;
+  width: 46rem;
+  margin: $spacingLarge auto;
+  padding: $spacingLarge;
+  animation: CreateProject 0.75s 0.5s 1 forwards;
+  opacity: 0;
 
   &__Auth {
     margin-top: $spacingBase;
-    text-align: center;
     border-top: $colorGray solid 1px;
-    padding-top: $spacingBase;
   }
 
   &__Step {
@@ -316,20 +305,6 @@ export default class CreateProjectPage extends Vue {
     display: flex;
     border-bottom: $colorGray solid 1px;
     padding-bottom: 1rem;
-  }
-
-  &__Actions {
-    text-align: right;
-  }
-
-  &__CurrentUser {
-    margin-top: $spacingBase;
-  }
-
-  &__CurrentUserEmail {
-    // opacity: 0.7;
-    // font-size: $fontSizeSmall;
-    margin-bottom: 0.5rem;
   }
 }
 </style>

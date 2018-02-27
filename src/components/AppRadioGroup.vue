@@ -10,9 +10,9 @@
       >
         <input
           type="radio"
-          :required="required"
           :value="isOptionsArray ? option : index"
           :name="uid"
+          :required="required"
           v-model="inputValue"
           @change="change"
         >
@@ -44,6 +44,9 @@ export default class AppRadioGroup extends Vue {
 
   @Prop({ required: false, default: false })
   private required: boolean
+
+  @Prop({ required: true, type: [String, Number] })
+  private value: string | number
 
   get isOptionsArray() {
     return 'length' in this.options
@@ -94,11 +97,16 @@ export default class AppRadioGroup extends Vue {
 
   &__Label {
     fieldLabel();
+    cursor: pointer;
   }
 
   &__Option {
     display: block;
     font-weight: 500;
+
+    &:hover {
+      color: $colorPrimary;
+    }
   }
 
   &__Help {

@@ -122,17 +122,17 @@ export default class AppModal extends Vue {
 
   &__Content {
     top: 7vmin;
-    background: #ffff;
+    background: #fff;
     box-shadow: rgba(0, 0, 0, 0.1) 0 0.25rem 1rem, rgba(0, 0, 0, 0.1) 0 1px 1px;
-    padding: 2rem 3rem;
+    max-width: 90vw;
+    width: 46rem;
+    padding: $spacingLarge;
     position: absolute;
     left: 0;
     right: 0;
     height: fit-content;
-    width: 46rem;
     margin: auto;
     margin-bottom: 7vmin;
-    max-width: 90vw;
     opacity: 0;
     transform: translate(0, -3rem);
     animation: AppModal__Content 0.5s 0.25s 1 forwards;

@@ -33,12 +33,10 @@ export default class AuthLogin extends Vue {
 @require '../styles/config.styl';
 
 .AuthLogin {
-  text-align: center;
-
   &__Buttons {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
   }
 }
 </style>

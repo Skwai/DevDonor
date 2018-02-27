@@ -10,15 +10,16 @@
     />
     <ProjectFilterCategory
       label="Causes"
-      :options="typeOptions"
+      :options="causeOptions"
     />
   </form>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-
+import { Action, Getter } from 'vuex-class'
 import ProjectFilterCategory from './ProjectFilterCategory.vue'
+import CAUSE_OPTIONS from '../utils/causes'
 
 @Component({
   components: {
@@ -27,10 +28,14 @@ import ProjectFilterCategory from './ProjectFilterCategory.vue'
 })
 export default class ProjectFilters extends Vue {
   private skillOptions: string[] = ['Apps', 'Frontend', 'Backend', 'UX']
-
   private regionOptions: string[] = ['Australia', 'USA', 'Canada', 'New Zealand']
+  private causeOptions = CAUSE_OPTIONS
 
-  private typeOptions: string[] = ['Animal welfare', 'Homeless', 'Sports clubs']
+  private filters = {
+    regions: [],
+    causes: [],
+    skills: []
+  }
 }
 </script>
 

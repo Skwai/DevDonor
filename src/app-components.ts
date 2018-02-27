@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 import AppBtn from './components/AppBtn.vue'
+import AppBtnGroup from './components/AppBtnGroup.vue'
 import AppCard from './components/AppCard.vue'
 import AppField from './components/AppField.vue'
 import AppLink from './components/AppLink.vue'
@@ -20,6 +21,7 @@ import AppRadioGroup from './components/AppRadioGroup.vue'
 import AppCheckboxGroup from './components/AppCheckboxGroup.vue'
 
 Vue.component('AppBtn', AppBtn)
+Vue.component('AppBtnGroup', AppBtnGroup)
 Vue.component('AppCard', AppCard)
 Vue.component('AppLink', AppLink)
 Vue.component('AppField', AppField)

@@ -1,6 +1,6 @@
 <template>
   <AppLoading v-if="loading" />
-  <div v-else-if="project">
+  <div v-else-if="project" :class="$style.Project">
     <header :class="$style.Project__Header">
       <AppContainer>
         <div :class="$style.Project__Meta">
@@ -21,14 +21,6 @@
           </div>
         </div>
         <h1 :class="$style.Project__Title">{{project.title}}</h1>
-        <!--
-        <div :class="$style.Project__Skills">
-          <AppTag
-            v-for="(skill, index) in skills"
-            :key="index"
-          >{{skill}}</AppTag>
-        </div>
-        -->
       </AppContainer>
     </header>
 
@@ -42,13 +34,9 @@
           <div :class="$style.Project__Volunteer">
             <AppCard>
               <h3>Interested in helping out?</h3>
-              <p>This project is seeking volunteers with the following skills:</p>
-              <ul>
-                <li><strong>Web Development</strong></li>
-                <li><strong>Design</strong></li>
-                <li><strong>Project Management</strong></li>
-              </ul>
+              <p>This project is seeking volunteers</p>
               <AppBtn
+                :to="{ path: 'volunteer', append: true }"
                 color="primary"
                 :block=true
               >Volunteer for project</AppBtn>
@@ -69,6 +57,7 @@
         </article>
       </div>
     </AppContainer>
+    <router-view />
   </div>
 </template>
 
@@ -155,8 +144,7 @@ export default class ProjectPage extends Vue {
 
 .Project {
   &__Header {
-    padding: $spacingBase 0;
-    border-bottom: $colorGray solid 1px;
+    padding: $spacingLarge 0;
     margin-bottom: $spacingBase;
   }
 
@@ -203,6 +191,7 @@ export default class ProjectPage extends Vue {
 
   &__Volunteer {
     margin: 0 0 $spacingBase;
+    text-align: center;
   }
 
   &__Title {
