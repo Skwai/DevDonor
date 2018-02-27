@@ -1,16 +1,19 @@
 <template>
   <form :class="$style.ProjectFilters">
     <ProjectFilterCategory
-      label="Skills"
-      :options="skillOptions"
+      label="Project Type"
+      :options="projectTypeOptions"
+      v-model="filters.projectTypes"
     />
     <ProjectFilterCategory
       label="Region"
-      :options="regionOptions"
+      :options="countryOptions"
+      v-model="filters.countries"
     />
     <ProjectFilterCategory
       label="Causes"
       :options="causeOptions"
+      v-model="filters.causes"
     />
   </form>
 </template>
@@ -19,7 +22,13 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 import ProjectFilterCategory from './ProjectFilterCategory.vue'
-import CAUSE_OPTIONS from '../utils/causes'
+import { CAUSES } from '../data/causes'
+import { PROJECT_TYPES } from '../data/project'
+import { COUNTRIES } from '../data/countries'
+
+interface IFilters {
+  [key: string]: string[]
+}
 
 @Component({
   components: {
@@ -27,14 +36,18 @@ import CAUSE_OPTIONS from '../utils/causes'
   }
 })
 export default class ProjectFilters extends Vue {
-  private skillOptions: string[] = ['Apps', 'Frontend', 'Backend', 'UX']
-  private regionOptions: string[] = ['Australia', 'USA', 'Canada', 'New Zealand']
-  private causeOptions = CAUSE_OPTIONS
+  private projectTypeOptions = PROJECT_TYPES
+  private countryOptions = COUNTRIES
+  private causeOptions = CAUSES
 
-  private filters = {
-    regions: [],
+  private filters: IFilters = {
+    countries: [],
     causes: [],
-    skills: []
+    projectTypes: []
+  }
+
+  private setFilter(filter: string, value: string[]) {
+    this.filters[filter] = value
   }
 }
 </script>

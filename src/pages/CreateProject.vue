@@ -104,6 +104,14 @@
             />
 
             <AppField
+              type="url"
+              :required="false"
+              :span="2"
+              label="Website"
+              v-model="project.organizationUrl"
+            />
+
+            <AppField
               type="textarea"
               :required="true"
               :span="2"
@@ -136,39 +144,11 @@ import { Component, Watch, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 import Project from '../models/Project'
 import { createID } from '../services/db'
-import countries from '../utils/countries'
 import AuthLogin from '../components/AuthLogin.vue'
 import CurrentUser from '../components/CurrentUser.vue'
-import CAUSE_OPTION from '../utils/causes'
-
-const PROJECT_TYPE_OPTIONS = {
-  webapp: 'Web - A web app that runs in your browser',
-  mobile: 'Mobile - A mobile app for Android or iOS phones and tablets',
-  desktop: 'Desktop - A desktop app for Windows, Mac or Linux'
-}
-
-/*
-const PROJECT_SKILLS_OPTIONS = [
-  'Java',
-  'JavaScript',
-  'TypeScript',
-  'Ruby',
-  'Python',
-  'Rust',
-  'Go',
-  'UX',
-  'C',
-  'C++',
-  'C#',
-  'PHP',
-  'SQL',
-  'Objective-C',
-  'Swift',
-  'Scala',
-  'CSS',
-  'HTML'
-]
-*/
+import { CAUSES } from '../data/causes'
+import { PROJECT_TYPES_WITH_DESCRIPTIONS } from '../data/project'
+import { COUNTRIES } from '../data/countries'
 
 // the names of the steps
 const STEP_1 = 'step1'
@@ -185,9 +165,9 @@ export default class CreateProjectPage extends Vue {
   private project = new Project()
   private fileName: string = ''
   private step: number = 1
-  private causeOptions: string[] = CAUSE_OPTIONS
-  private countryOptions: string[] = countries.map((c: { name: string }) => c.name)
-  private projectTypeOptions: {} = { ...PROJECT_TYPE_OPTIONS }
+  private causeOptions = [...CAUSES]
+  private countryOptions = { ...COUNTRIES }
+  private projectTypeOptions = { ...PROJECT_TYPES_WITH_DESCRIPTIONS }
   private steps: {} | undefined = undefined // non-reactive
   private submitting: boolean = false
   private submitted: boolean = false
@@ -209,15 +189,15 @@ export default class CreateProjectPage extends Vue {
     this.steps = { STEP_1, STEP_2 }
     this.fileName = createID()
     Object.assign(this.project, this.getSavedCreateProjectFormData)
-    window.onpopstate = this.loadURLStep.bind(this)
-    this.loadURLStep()
+    window.onpopstate = this.loadUrlStep.bind(this)
+    this.loadUrlStep()
   }
 
   private nextStep() {
     const valid = this.checkValidity()
     if (valid && STEPS[this.step]) {
       this.step++
-      this.pushURLStep()
+      this.pushUrlStep()
     }
   }
 
@@ -228,16 +208,16 @@ export default class CreateProjectPage extends Vue {
   private prevStep() {
     if (STEPS[this.step - 2]) {
       this.step--
-      this.pushURLStep()
+      this.pushUrlStep()
     }
   }
 
-  private loadURLStep() {
+  private loadUrlStep() {
     const hash = window.location.hash.substring(1)
     this.step = hash && STEPS.includes(hash) ? STEPS.indexOf(hash) + 1 : 1
   }
 
-  private pushURLStep() {
+  private pushUrlStep() {
     const { step } = this
     const hash = `#${STEPS[this.step - 1]}`
     history.pushState(null, '', hash)

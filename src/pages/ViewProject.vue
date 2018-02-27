@@ -6,7 +6,7 @@
         <div :class="$style.Project__Meta">
           <div :class="$style.Project__Created">
             <span :class="$style.Project__New">
-              <AppLabel v-if="isNew">New</AppLabel>
+              <AppTag v-if="isNew">New</AppTag>
             </span>
             <AppGlyph>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"></path></svg>
@@ -67,28 +67,9 @@ import moment from 'moment'
 import { Component, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 
-import AppBtn from '../components/AppBtn.vue'
-import AppContainer from '../components/AppContainer.vue'
-import AppGlyph from '../components/AppGlyph.vue'
-import AppHelpText from '../components/AppHelpText.vue'
-import AppLabel from '../components/AppLabel.vue'
-import AppLoading from '../components/AppLoading.vue'
-import AppMediaObject from '../components/AppMediaObject.vue'
-import AppModal from '../components/AppModal.vue'
 import Project from '../models/Project'
 
-@Component({
-  components: {
-    AppBtn,
-    AppContainer,
-    AppGlyph,
-    AppHelpText,
-    AppLabel,
-    AppLoading,
-    AppMediaObject,
-    AppModal
-  }
-})
+@Component
 export default class ProjectPage extends Vue {
   private loading: boolean = true
   private project: Project | null = null
@@ -139,10 +120,13 @@ export default class ProjectPage extends Vue {
 </script>
 
 <style lang="stylus" module>
-@import '../styles/config.styl';
-@import '../styles/text.styl';
+@import '../styles/config';
+@import '../styles/text';
+@import '../styles/container';
 
 .Project {
+  container();
+
   &__Header {
     padding: $spacingLarge 0;
     margin-bottom: $spacingBase;

@@ -8,9 +8,8 @@
     </div>
     <div class="ProjectPreview__Body">
       <header class="ProjectPreview__Header">
-        <h2 class="ProjectPreview__Title">
-          {{project.title}}
-        </h2>
+        <h2 class="ProjectPreview__Title">{{project.title}}</h2>
+        <div class="ProjectPreview__Type"><AppTag>Mobile</AppTag></div>
       </header>
       <div class="ProjectPreview__Meta">
         <div class="ProjectPreview__Organization">{{project.organizationName}}</div>
@@ -122,7 +121,7 @@ export default class ProjectPreview extends Vue {
 
   &__Title {
     textSubheading();
-    margin: 0 0 0.5rem;
+    margin: 0;
     // color: $colorPrimary;
     font-weight: 500;
     line-height: 1.35;
@@ -151,6 +150,12 @@ export default class ProjectPreview extends Vue {
   &__Header {
     display: flex;
     align-items: flex-start;
+    margin-bottom: 0.5rem;
+  }
+
+  &__Type {
+    padding-left: $spacingBase;
+    margin-left: auto;
   }
 
   &__Description {

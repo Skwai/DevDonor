@@ -1,4 +1,4 @@
-const CAUSE_OPTIONS = [
+export const CAUSES = [
   'Art & Culture',
   'Animals & Environment',
   'Humanitarian Aid',
@@ -6,5 +6,3 @@ const CAUSE_OPTIONS = [
   'Social Services',
   'Health & Wellness'
 ]
-
-export default CAUSE_OPTIONS

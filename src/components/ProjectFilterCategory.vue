@@ -10,8 +10,16 @@
     <ul :class="$style.ProjectFilterCategory__List">
       <li
         :class="$style.ProjectFilterCategory__ListItem"
+        @click="clear"
+        :active="!value.length"
+      >All</li>
+      <li
+        :class="$style.ProjectFilterCategory__ListItem"
         v-for="(item, index) in options"
         :key="index"
+        tabindex="1"
+        @click="select(index)"
+        :active="value.includes(index)"
       >{{item}}</li>
     </ul>
   </div>
@@ -22,15 +30,38 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component
 export default class ProjectFilterCategory extends Vue {
+  private open: boolean = false
+
   @Prop({ required: true })
   private label: string
-  @Prop({ required: true })
-  private options: string[]
 
-  private open: boolean = false
+  @Prop({ required: true, type: Array })
+  private value: string[]
+
+  @Prop({ required: true, type: [Array, Object] })
+  private options: string[] | {}
+
+  get isArray() {
+    return 'length' in this.options
+  }
 
   private toggle() {
     this.open = !this.open
+  }
+
+  private select(filter: string) {
+    const value = [...this.value]
+    if (value.includes(filter)) {
+      value.splice(value.indexOf(filter), 1)
+      this.$emit('input', value)
+    } else {
+      value.push(filter)
+      this.$emit('input', value)
+    }
+  }
+
+  private clear() {
+    this.$emit('input', [])
   }
 }
 </script>
@@ -54,15 +85,25 @@ export default class ProjectFilterCategory extends Vue {
       padding: 0.5rem 1rem 0.5rem 2rem;
       position: relative;
       user-select: none;
+      font-size: $fontSizeSmall;
+      cursor: pointer;
+      border-radius: 3px;
 
-      &:hover {
+      &[active] {
         color: $colorPrimary;
-        cursor: pointer;
 
         &::before {
           opacity: 1;
           transform: scale(2);
         }
+
+        &:hover {
+          // text-decoration: line-through;
+        }
+      }
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
       }
 
       &::before {

@@ -1,5 +1,5 @@
 <template>
-  <article>
+  <article :class="$style.About">
     <h1>How it works</h1>
     <p>Making all those little fluffies that live in the clouds. Let's build some happy little clouds up here. Maybe there's a happy little Evergreen that lives here. Painting should do one thing. It should put happiness in your heart. Let your imagination be your guide.</p>
     <p>I'm sort of a softy, I couldn't shoot Bambi except with a camera. Let's make a happy little mountain now. Life is too short to be alone, too precious. Share it with a friend. We'll take a little bit of Van Dyke Brown. We don't have to be committed. We are just playing here.</p>
@@ -17,3 +17,11 @@ import { Component, Vue } from 'vue-property-decorator'
 @Component
 export default class AboutPage extends Vue {}
 </script>
+
+<style lang="stylus" module>
+@require '../styles/container';
+
+.About {
+  container();
+}
+</style>
