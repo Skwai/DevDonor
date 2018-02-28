@@ -51,8 +51,8 @@
               >
             </div>
             <h3>{{project.organizationName}}</h3>
-            <h4>{{project.country}}</h4>
             <div>{{project.organizationDescription}}</div>
+            <p v-if="project.organizationUrl"><a :href="project.organizationUrl">Visit Website</a></p>
           </AppCard>
         </article>
       </div>
@@ -148,7 +148,6 @@ export default class ProjectPage extends Vue {
 
     h4 {
       text-align: center;
-      margin-bottom: 1rem;
     }
   }
 

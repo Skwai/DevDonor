@@ -30,7 +30,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 import Project from '../models/Project'
-import { IStateProjectList } from '../store/State'
+import IProjectList from '../interfaces/ProjectList'
 import ProjectFilters from './ProjectFilters.vue'
 import ProjectPreview from './ProjectPreview.vue'
 
@@ -43,7 +43,7 @@ import ProjectPreview from './ProjectPreview.vue'
 export default class ProjectList extends Vue {
   private loading: boolean = false
 
-  @Getter('getProjects') private projects: IStateProjectList
+  @Getter('getProjects') private projects: IProjectList
   @Action private loadProjects: () => Promise<void>
 
   private async created() {
@@ -63,15 +63,14 @@ export default class ProjectList extends Vue {
 </script>
 
 <style lang="stylus" module>
-@import '../styles/config.styl';
-@import '../styles/container.styl';
+@import '../styles/config';
+@import '../styles/container';
 
 .ProjectList {
   display: grid;
   container();
   grid-gap: 2rem;
 
-  // grid-gap: 2rem;
   @media (min-width: 768px) {
     grid-template-columns: 14rem auto;
   }

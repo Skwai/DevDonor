@@ -1,27 +1,19 @@
 import Project from '../models/Project'
+import IProjectList from '../interfaces/ProjectList'
+import INotification from '../interfaces/Notification'
 
 import { SAVED_CREATE_PROJECT_FORM_DATA_KEY } from '../config'
 
-export interface IStateProjectList {
-  [key: string]: Project
-}
-
-export interface INotification {
-  message: string
-  type: string
-}
-
-const getLocalStorageData = (key: string): any => {
+const getStorageData = (key: string): any => {
   const data = localStorage.getItem(SAVED_CREATE_PROJECT_FORM_DATA_KEY)
   return data ? JSON.parse(data) : null
 }
 
 export default class State {
-  public projects: IStateProjectList = {}
+  public projects: IProjectList = {}
   public currentUser: {} | null = null
   // data from an uncompleted form
-  public savedCreateProjectFormData: {} = getLocalStorageData(SAVED_CREATE_PROJECT_FORM_DATA_KEY) ||
-    {}
+  public savedCreateProjectFormData: {} = getStorageData(SAVED_CREATE_PROJECT_FORM_DATA_KEY) || {}
   // a setTimeout ID matching a write to localStorage
   public savedCreateProjectFormDataWritePID: number | null = null
   public pendingAuth: boolean = false

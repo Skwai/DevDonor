@@ -27,7 +27,14 @@
         />
       </AppFieldGroup>
       <AppBtnGroup>
-        <AppBtn type="submit" color="primary">Send Message</AppBtn>
+        <AppBtn
+          @click="cancel"
+        >Cancel</AppBtn>
+        <AppBtn
+          size="large"
+          type="submit"
+          color="primary"
+        >Send Message</AppBtn>
       </AppBtnGroup>
     </form>
   </AppModal>

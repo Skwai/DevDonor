@@ -11,8 +11,7 @@
 <script lang="ts">
 import { Component, Watch, Vue } from 'vue-property-decorator'
 import { Getter, Action } from 'vuex-class'
-
-import { INotification } from '../store/State'
+import INotification from '../interfaces/Notification'
 
 const NOTIFICATION_DURATION = 2000
 

@@ -4,7 +4,7 @@ import { Action, ActionContext } from 'vuex'
 import Project from '../models/Project'
 import * as auth from '../services/auth'
 import db from '../services/db'
-import State from './state'
+import State from './State'
 import { SAVED_CREATE_PROJECT_FORM_DATA_KEY } from '../config'
 import * as types from './types'
 
