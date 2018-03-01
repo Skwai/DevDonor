@@ -5,6 +5,9 @@
     </div>
     <div :class="$style.ProjectList__Projects">
       <AppLoading v-if="loading" />
+      <div v-else-if="error" :class="$style.ProjectList__Error">
+        <h3>There was an error loading projects</h3>
+      </div>
       <div
         v-else-if="hasProjects"
         :class="$style.ProjectList__Items"
@@ -20,7 +23,7 @@
         </div>
       </div>
       <div v-else :class="$style.ProjectList__Empty">
-        <AppHeading>No Projects</AppHeading>
+        <h3>Sorry, no projects found</h3>
       </div>
     </div>
   </div>
@@ -42,6 +45,7 @@ import ProjectPreview from './ProjectPreview.vue'
 })
 export default class ProjectList extends Vue {
   private loading: boolean = false
+  private error: boolean = false
 
   @Getter('getFilteredProjects') private projects: IProjectList
   @Action('loadProjects') private actionLoadProjects: () => Promise<void>
@@ -53,9 +57,12 @@ export default class ProjectList extends Vue {
 
   private async loadProjects(filters: any = {}) {
     this.loading = true
+    this.error = false
+
     try {
       await this.actionLoadProjects()
     } catch (err) {
+      this.error = true
     } finally {
       this.loading = false
     }
@@ -75,6 +82,7 @@ export default class ProjectList extends Vue {
 <style lang="stylus" module>
 @import '../styles/config';
 @import '../styles/container';
+@import '../styles/card';
 
 .ProjectList {
   display: grid;
@@ -88,6 +96,16 @@ export default class ProjectList extends Vue {
   &__Items {
     display: grid;
     grid-gap: 1rem;
+  }
+
+  &__Error {
+    card();
+    text-align: center;
+  }
+
+  &__Empty {
+    card();
+    text-align: center;
   }
 }
 </style>

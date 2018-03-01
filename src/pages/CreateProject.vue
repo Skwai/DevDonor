@@ -82,7 +82,7 @@
               :required="true"
               v-model="project.organizationType"
               :span="2"
-              :options="causeOptions"
+              :options="organizationTypeOptions"
               description="What goal or cause does your organization focus on?"
             ></AppSelect>
 
@@ -146,7 +146,7 @@ import Project from '../models/Project'
 import { createID } from '../services/db'
 import AuthLogin from '../components/AuthLogin.vue'
 import CurrentUser from '../components/CurrentUser.vue'
-import { CAUSES } from '../data/causes'
+import { ORGANIZATION_TYPES } from '../data/organization-types'
 import { PROJECT_TYPES_WITH_DESCRIPTIONS } from '../data/project'
 import { COUNTRIES } from '../data/countries'
 
@@ -165,7 +165,7 @@ export default class CreateProjectPage extends Vue {
   private project = new Project()
   private fileName: string = ''
   private step: number = 1
-  private causeOptions = [...CAUSES]
+  private organizationTypeOptions = [...ORGANIZATION_TYPES]
   private countryOptions = { ...COUNTRIES }
   private projectTypeOptions = { ...PROJECT_TYPES_WITH_DESCRIPTIONS }
   private steps: {} | undefined = undefined // non-reactive

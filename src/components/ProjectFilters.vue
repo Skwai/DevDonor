@@ -12,7 +12,7 @@
     />
     <ProjectFilterCategory
       label="Causes"
-      :options="causeOptions"
+      :options="organizationTypeOptions"
       v-model="filters.organizationType"
     />
   </form>
@@ -21,7 +21,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import ProjectFilterCategory from './ProjectFilterCategory.vue'
-import { CAUSES } from '../data/causes'
+import { ORGANIZATION_TYPES } from '../data/organization-types'
 import { PROJECT_TYPES } from '../data/project'
 import { COUNTRIES } from '../data/countries'
 import IProjectFilters from '../interfaces/ProjectFilters'
@@ -34,7 +34,7 @@ import IProjectFilters from '../interfaces/ProjectFilters'
 export default class ProjectFilters extends Vue {
   private projectTypeOptions = PROJECT_TYPES
   private countryOptions = COUNTRIES
-  private causeOptions = CAUSES
+  private organizationTypeOptions = ORGANIZATION_TYPES
 
   private filters: IProjectFilters = {
     country: '',
