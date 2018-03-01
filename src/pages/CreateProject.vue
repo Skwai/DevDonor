@@ -165,7 +165,7 @@ export default class CreateProjectPage extends Vue {
   private project = new Project()
   private fileName: string = ''
   private step: number = 1
-  private organizationTypeOptions = [...ORGANIZATION_TYPES]
+  private organizationTypeOptions = { ...ORGANIZATION_TYPES }
   private countryOptions = { ...COUNTRIES }
   private projectTypeOptions = { ...PROJECT_TYPES_WITH_DESCRIPTIONS }
   private steps: {} | undefined = undefined // non-reactive

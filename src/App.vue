@@ -80,6 +80,10 @@ h1, h2, h3, h4 {
   line-height: $lineHeightSmall;
 }
 
+h5 {
+  font-size: 0.875rem;
+}
+
 h1 {
   textTitle();
 }

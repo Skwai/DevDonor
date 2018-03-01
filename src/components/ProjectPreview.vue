@@ -51,7 +51,9 @@ export default class ProjectPreview extends Vue {
   @Getter private getCountryName: (countryCode: string) => string
 
   get countryName() {
-    return this.getCountryName(this.project.country)
+    if (this.project.country) {
+      return this.getCountryName(this.project.country)
+    }
   }
 
   get isNew() {

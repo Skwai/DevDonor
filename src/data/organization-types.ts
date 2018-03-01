@@ -1,4 +1,4 @@
-export const ORGANIZATION_TYPES = {
+export const ORGANIZATION_TYPES: { [key: string]: string } = {
   art: 'Art & Culture',
   animals: 'Animals & Environment',
   humanitarian: 'Humanitarian Aid',

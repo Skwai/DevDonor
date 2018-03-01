@@ -1,14 +1,19 @@
 <template>
-  <button :class="$style.AppLink" @click="$emit('click', $event)">
+  <a :class="$style.AppLink" @click="$emit('click', $event)" v-if="href" :href="href">
+    <slot />
+  </a>
+  <button v-else :class="$style.AppLink" @click="$emit('click', $event)">
     <slot />
   </button>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component
-export default class AppLink extends Vue {}
+export default class AppLink extends Vue {
+  @Prop() private href: string
+}
 </script>
 
 <style lang="stylus" module>

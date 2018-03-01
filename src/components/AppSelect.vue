@@ -66,8 +66,8 @@ export default class AppSelect extends Vue {
   @Prop({ default: true })
   private showLabel: boolean
 
-  @Prop({ required: true, type: Array })
-  private options: Array<string | number>
+  @Prop({ required: true, type: [Array, Object] })
+  private options: Array<string | number> | { [key: string]: string }
 
   @Prop({ default: 1 })
   private span: number

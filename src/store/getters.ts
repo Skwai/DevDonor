@@ -40,6 +40,6 @@ export const getCountryName = () => (countryCode: string) => {
   return countryCode in COUNTRIES ? COUNTRIES[countryCode] : null
 }
 
-export const getOrganizationType = () => (orgType: string): string => {
+export const getOrganizationType = () => (orgType: string): string | null => {
   return orgType in ORGANIZATION_TYPES ? ORGANIZATION_TYPES[orgType] : null
 }
