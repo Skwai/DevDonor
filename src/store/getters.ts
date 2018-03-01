@@ -7,9 +7,9 @@ export const getProjects = ({ projects }: State) => projects
 
 export const getCurrentUser = ({ currentUser }: State) => currentUser
 
-export const getProjectByID = ({ projects }: State) => (projectID: string) => {
-  if (projectID in projects) {
-    return projects[projectID]
+export const getProjectById = ({ projects }: State) => (projectId: string) => {
+  if (projectId in projects) {
+    return projects[projectId]
   }
   return null
 }

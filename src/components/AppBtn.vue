@@ -101,14 +101,13 @@ export default class AppBtn extends Vue {
 @require '../styles/text.styl';
 
 .AppBtn {
-  background: #fff;
   border-radius: 99rem;
   padding: 0.675rem 1.5rem;
   display: inline-flex;
   align-items: center;
   transition: transitionBase;
   text-decoration: none;
-  background: #fff;
+  background: transparent;
   color: inherit;
   border: 0;
   textCaps();
@@ -154,38 +153,29 @@ export default class AppBtn extends Vue {
     transform: translate(-50%, -50%);
   }
 
-  &[size=large] {
+  &[size='large'] {
     padding: 1rem 2rem;
     font-weight: 600;
   }
 
-  &[color=white] {
-    background: #fff;
-    color: $colorDarkBlue;
-    box-shadow: none;
+  &[size='small'] {
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    font-size: 0.8125rem;
   }
 
-  &[color=light] {
-    box-shadow: inset $colorLightGray 0 0 0 1px;
-
-    &:hover, &:focus {
-      color: $colorPrimary;
-      border-color: currentColor;
-    }
-  }
-
-  &[color=stroke] {
+  &[color='stroke'] {
     box-shadow: inset rgba($colorPrimary, 0.5) 0 0 0 1px;
     color: $colorPrimary;
   }
 
-  &[color=dark] {
+  &[color='dark'] {
     background: $colorDarkBlue;
     box-shadow: none;
     color: #fff;
   }
 
-  &[color=primary] {
+  &[color='primary'] {
     background: $colorPrimary;
     box-shadow: none;
     color: #fff;
@@ -197,14 +187,14 @@ export default class AppBtn extends Vue {
 
   &__Icon {
     margin-right: 1em;
-    width: 1.25em;
-    height: 1.25em;
-    margin-top: -0.125em;
-    margin-bottom: -0.125em;
+    align-self: center;
+
+    &, svg {
+      width: 1em;
+      height: 1em;
+    }
 
     svg {
-      width: 1.25em;
-      height: 1.25em;
       fill: currentColor;
     }
   }

@@ -19,6 +19,12 @@
             </AppGlyph>
             {{countryName}}
           </div>
+          <div :class="$style.ViewProject__Actions">
+            <AppBtn size="small" @click="editProject">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z"/></svg>
+              Edit project
+            </AppBtn>
+          </div>
         </div>
         <h1 :class="$style.ViewProject__Title">{{project.title}}</h1>
       </AppContainer>
@@ -75,9 +81,9 @@ export default class ViewProjectPage extends Vue {
   private loading: boolean = true
   private project: Project | null = null
 
-  @Action private loadProjectByID: (projectID: string) => Promise<void>
+  @Action private loadProjectByID: (projectId: string) => Promise<void>
 
-  @Getter('getProjectByID') private getProject: (projectID: string) => Project | null
+  @Getter('getProjectById') private getProject: (projectId: string) => Project | null
   @Getter private getCountryName: (countryCode: string) => string
   @Getter private getOrganizationType: (orgType: string) => string
 
@@ -97,8 +103,8 @@ export default class ViewProjectPage extends Vue {
     return ['UX', 'Apps']
   }
 
-  get projectID() {
-    return this.$route.params.projectID
+  get projectId() {
+    return this.$route.params.projectId
   }
 
   get isNew() {
@@ -126,14 +132,14 @@ export default class ViewProjectPage extends Vue {
     return new URL(this.project.organizationUrl).host
   }
 
-  private close() {
-    this.$router.push('/')
+  private editProject() {
+    this.$router.push({ name: 'EditProject', params: { projectId: this.$route.params.projectId } })
   }
 
   private async created() {
     try {
-      await this.loadProjectByID(this.projectID)
-      this.project = this.getProject(this.projectID)
+      await this.loadProjectByID(this.projectId)
+      this.project = this.getProject(this.projectId)
     } catch (err) {
     } finally {
       this.loading = false
@@ -151,17 +157,15 @@ export default class ViewProjectPage extends Vue {
   container();
 
   &__Header {
-    padding: $spacingLarge 0;
-    margin-bottom: $spacingBase;
+    margin-bottom: $spacingLarge;
   }
 
   &__Meta {
     display: flex;
     align-items: center;
-    color: rgba($fontColorBase, 0.5);
-    margin-bottom: 1rem;
+    margin-bottom: $spacingBase;
     white-space: nowrap;
-    font-weight: 500;
+    color: rgba($fontColorBase, 0.7);
   }
 
   &__Organization {
@@ -202,6 +206,10 @@ export default class ViewProjectPage extends Vue {
       margin: 0 auto 1rem;
       width: 5rem;
     }
+  }
+
+  &__Actions {
+    margin-left: auto;
   }
 
   &__Volunteer {

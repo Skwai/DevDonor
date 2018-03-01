@@ -4,6 +4,7 @@
     :empty="empty"
     :span="span"
     :error="!valid && dirty"
+    :key="inputValue"
   >
     <label
       v-if="showLabel"
@@ -26,8 +27,8 @@
       >
         <option
           v-for="(option, index) in options"
-          :value="option"
-          :key="index"
+          :value="isArray ? option : index"
+          :key="isArray ? option : index"
         >{{option}}</option>
       </select>
       <label
@@ -118,6 +119,10 @@ export default class AppSelect extends Vue {
     if (!required) {
       return 'Optional'
     }
+  }
+
+  get isArray() {
+    return 'length' in this.options
   }
 
   private createUID() {

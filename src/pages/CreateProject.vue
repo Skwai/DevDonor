@@ -32,7 +32,7 @@
               :span="2"
               v-model="project.title"
               :minlength="10"
-              :maxlength="100"
+              :maxlength="200"
             />
 
             <AppRadioGroup

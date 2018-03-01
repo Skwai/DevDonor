@@ -1,6 +1,6 @@
 <template>
   <router-link
-    :to="{ name: 'ViewProject', params: { projectID: project.id } }"
+    :to="{ name: 'ViewProject', params: { projectId: project.id } }"
     :class="$style.ProjectPreview"
   >
     <div :class="$style.ProjectPreview__LogoWrap">
@@ -99,6 +99,10 @@ export default class ProjectPreview extends Vue {
 
   &:hover, &:focus {
     box-shadow: rgba(0, 0, 0, 0.2) 0 2px 2rem;
+  }
+
+  &:hover &__Title, &:focus &__Title {
+    text-decoration: underline;
   }
 
   &__Category {

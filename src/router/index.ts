@@ -6,6 +6,7 @@ import HomePage from '../pages/Home.vue'
 import ViewProject from '../pages/ViewProject.vue'
 import About from '../pages/About.vue'
 import Volunteer from '../pages/Volunteer.vue'
+import EditProject from '../pages/EditProject.vue'
 
 Vue.use(Router)
 
@@ -23,7 +24,7 @@ export default new Router({
       component: CreateProject
     },
     {
-      path: '/project/:projectID',
+      path: '/project/:projectId',
       name: 'ViewProject',
       component: ViewProject,
       children: [
@@ -31,6 +32,11 @@ export default new Router({
           path: 'volunteer',
           name: 'Volunteer',
           component: Volunteer
+        },
+        {
+          path: 'edit',
+          name: 'EditProject',
+          component: EditProject
         }
       ]
     },
@@ -39,5 +45,8 @@ export default new Router({
       name: 'About',
       component: About
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    return savedPosition || { x: 0, y: 0 }
+  }
 })

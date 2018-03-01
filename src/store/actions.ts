@@ -72,13 +72,13 @@ export const createProject = async ({ commit }: IActionContext, project: Project
   commit(types.ADD_PROJECT, { ...project, id })
 }
 
-export const loadProjectByID = async ({ commit, state }: IActionContext, projectID: string) => {
+export const loadProjectByID = async ({ commit, state }: IActionContext, projectId: string) => {
   // Check if project is already in store
-  if (projectID in state.projects) {
+  if (projectId in state.projects) {
     return
   }
   // Load project from Firestore
-  const ref = db.collection('projects').doc(projectID)
+  const ref = db.collection('projects').doc(projectId)
   const doc = await ref.get()
   if (!doc.exists) {
     throw Error('Project does not exist')
