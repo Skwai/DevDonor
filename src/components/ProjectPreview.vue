@@ -24,7 +24,7 @@
         <div :class="$style.ProjectPreview__Organization">{{project.organizationName}}</div>
         <div :class="$style.ProjectPreview__Region">
           <AppGlyph><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></AppGlyph>
-          <span>{{project.country}}</span>
+          <span>{{countryName}}</span>
         </div>
         <time :class="$style.ProjectPreview__CreatedAt" :datetime="project.createdAt">
           <AppGlyph><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"></path></svg></AppGlyph>
@@ -38,9 +38,9 @@
 <script lang="ts" >
 import moment from 'moment'
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Getter } from 'vuex-class'
 import IProjectProperties from '../interfaces/ProjectProperties'
 
-const DESCRIPTION_WORD_LENGTH = 30
 const NEW_PROJECT_DAYS = 14 * 24 * 60 * 60 * 1000
 
 @Component
@@ -48,21 +48,21 @@ export default class ProjectPreview extends Vue {
   @Prop({ required: true })
   private project: IProjectProperties
 
+  @Getter private getCountryName: (countryCode: string) => string
+
+  get countryName() {
+    return this.getCountryName(this.project.country)
+  }
+
   get isNew() {
-    return new Date()
+    if (!this.project.createdAt) {
+      return false
+    }
+    return new Date(this.project.createdAt).getTime() > new Date().getTime() - NEW_PROJECT_DAYS
   }
 
   get createdAt() {
     return moment(this.project.createdAt).fromNow()
-  }
-
-  get description() {
-    if (this.project.description) {
-      return this.project.description
-        .split(' ')
-        .splice(0, DESCRIPTION_WORD_LENGTH)
-        .join(' ')
-    }
   }
 
   get skills() {

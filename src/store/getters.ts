@@ -1,5 +1,7 @@
 import State from './State'
 import IProjectList from '@/interfaces/ProjectList'
+import { COUNTRIES } from '../data/countries'
+import { ORGANIZATION_TYPES } from '../data/organization-types'
 
 export const getProjects = ({ projects }: State) => projects
 
@@ -33,3 +35,11 @@ export const getFilteredProjects = ({ projects, projectFilters }: State): IProje
 }
 
 export const getProjectFilters = ({ projectFilters }: State) => projectFilters
+
+export const getCountryName = () => (countryCode: string) => {
+  return countryCode in COUNTRIES ? COUNTRIES[countryCode] : null
+}
+
+export const getOrganizationType = () => (orgType: string): string => {
+  return orgType in ORGANIZATION_TYPES ? ORGANIZATION_TYPES[orgType] : null
+}
