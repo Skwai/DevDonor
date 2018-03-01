@@ -9,6 +9,8 @@ import { SAVED_CREATE_PROJECT_FORM_DATA_KEY } from '../config'
 import * as types from './types'
 import IProjectFilters from '../interfaces/ProjectFilters'
 
+const PAGINATION_LIMIT = 20
+
 const LOCALSTORAGE_WRITE_DEBOUNCE = 200 // ms
 
 interface IActionContext extends ActionContext<State, any> {}
@@ -51,13 +53,14 @@ export const loadCurrentUser = async ({ commit }: IActionContext): Promise<void>
 
 export const loadProjects = async ({ commit, state }: IActionContext): Promise<void> => {
   const collection = await db.collection('projects')
+
   const query = Object.entries(state.projectFilters).reduce(
     (prev: firebase.firestore.Query, [k, v]) => {
       return v ? prev.where(k, '==', v) : prev
     },
     collection
   )
-  const querySnapshot = await query.get()
+  const querySnapshot = await query.limit(PAGINATION_LIMIT).get()
   querySnapshot.forEach((docSnapshot: firebase.firestore.DocumentSnapshot) => {
     const id = docSnapshot.id
     commit(types.ADD_PROJECT, { ...docSnapshot.data(), id })
