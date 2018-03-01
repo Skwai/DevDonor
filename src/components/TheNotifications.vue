@@ -17,7 +17,8 @@ const NOTIFICATION_DURATION = 2000
 
 @Component
 export default class TheNotifications extends Vue {
-  @Getter private notification: INotification | null
+  @Getter('getNotification') private notification: INotification | null
+
   @Action private removeNotification: () => void
 
   private hide() {

@@ -1,6 +1,7 @@
 import IProjectProperties from '../interfaces/ProjectProperties'
 
 export default class Project {
+  [key: string]: any
   public id?: string
   public createdAt?: Date
   public ownerId?: string

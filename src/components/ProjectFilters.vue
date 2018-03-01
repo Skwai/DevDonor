@@ -3,32 +3,28 @@
     <ProjectFilterCategory
       label="Project Type"
       :options="projectTypeOptions"
-      v-model="filters.projectTypes"
+      v-model="filters.projectType"
     />
     <ProjectFilterCategory
       label="Region"
       :options="countryOptions"
-      v-model="filters.countries"
+      v-model="filters.country"
     />
     <ProjectFilterCategory
       label="Causes"
       :options="causeOptions"
-      v-model="filters.causes"
+      v-model="filters.organizationType"
     />
   </form>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import { Action, Getter } from 'vuex-class'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import ProjectFilterCategory from './ProjectFilterCategory.vue'
 import { CAUSES } from '../data/causes'
 import { PROJECT_TYPES } from '../data/project'
 import { COUNTRIES } from '../data/countries'
-
-interface IFilters {
-  [key: string]: string[]
-}
+import IProjectFilters from '../interfaces/ProjectFilters'
 
 @Component({
   components: {
@@ -40,14 +36,15 @@ export default class ProjectFilters extends Vue {
   private countryOptions = COUNTRIES
   private causeOptions = CAUSES
 
-  private filters: IFilters = {
-    countries: [],
-    causes: [],
-    projectTypes: []
+  private filters: IProjectFilters = {
+    country: '',
+    organizationType: '',
+    projectType: ''
   }
 
-  private setFilter(filter: string, value: string[]) {
-    this.filters[filter] = value
+  @Watch('filters', { deep: true })
+  private onFiltersChange(filters: IProjectFilters) {
+    this.$emit('update', this.filters)
   }
 }
 </script>

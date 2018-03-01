@@ -19,7 +19,7 @@
         :key="index"
         tabindex="1"
         @click="select(index)"
-        :active="value.includes(index)"
+        :active="value === index"
       >{{item}}</li>
     </ul>
   </div>
@@ -35,8 +35,8 @@ export default class ProjectFilterCategory extends Vue {
   @Prop({ required: true })
   private label: string
 
-  @Prop({ required: true, type: Array })
-  private value: string[]
+  @Prop({ required: true, type: [String, Number] })
+  private value: string | number
 
   @Prop({ required: true, type: [Array, Object] })
   private options: string[] | {}
@@ -50,18 +50,11 @@ export default class ProjectFilterCategory extends Vue {
   }
 
   private select(filter: string) {
-    const value = [...this.value]
-    if (value.includes(filter)) {
-      value.splice(value.indexOf(filter), 1)
-      this.$emit('input', value)
-    } else {
-      value.push(filter)
-      this.$emit('input', value)
-    }
+    this.$emit('input', filter)
   }
 
   private clear() {
-    this.$emit('input', [])
+    this.$emit('input', '')
   }
 }
 </script>
@@ -70,7 +63,11 @@ export default class ProjectFilterCategory extends Vue {
 @import '../styles/config.styl';
 
 .ProjectFilterCategory {
-  border-bottom: $colorGray solid 1px;
+  border-top: $colorLightGray solid 1px;
+
+  &:first-child {
+    border-top: 0;
+  }
 
   &__List {
     list-style: none;
@@ -88,6 +85,7 @@ export default class ProjectFilterCategory extends Vue {
       font-size: $fontSizeSmall;
       cursor: pointer;
       border-radius: 3px;
+      transition: background $transitionBase;
 
       &[active] {
         color: $colorPrimary;
@@ -98,7 +96,7 @@ export default class ProjectFilterCategory extends Vue {
         }
 
         &:hover {
-          // text-decoration: line-through;
+          text-decoration: line-through;
         }
       }
 
@@ -125,12 +123,15 @@ export default class ProjectFilterCategory extends Vue {
 
   &__Label {
     display: flex;
-    padding: 1rem;
+    padding: 0.75rem 1rem;
     cursor: pointer;
     align-items: center;
     user-select: none;
+    border-radius: 3px;
+    transition: background $transitionBase;
 
-    &:hover {
+    &:hover, &:focus {
+      // background: rgba(0, 0, 0, 0.05);
       color: $colorPrimary;
     }
 

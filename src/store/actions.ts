@@ -7,6 +7,7 @@ import db from '../services/db'
 import State from './State'
 import { SAVED_CREATE_PROJECT_FORM_DATA_KEY } from '../config'
 import * as types from './types'
+import IProjectFilters from '../interfaces/ProjectFilters'
 
 const LOCALSTORAGE_WRITE_DEBOUNCE = 200 // ms
 
@@ -48,8 +49,15 @@ export const loadCurrentUser = async ({ commit }: IActionContext): Promise<void>
   }
 }
 
-export const loadProjects = async ({ commit }: IActionContext): Promise<void> => {
-  const querySnapshot = await db.collection('projects').get()
+export const loadProjects = async ({ commit, state }: IActionContext): Promise<void> => {
+  const collection = await db.collection('projects')
+  const query = Object.entries(state.projectFilters).reduce(
+    (prev: firebase.firestore.Query, [k, v]) => {
+      return v ? prev.where(k, '==', v) : prev
+    },
+    collection
+  )
+  const querySnapshot = await query.get()
   querySnapshot.forEach((docSnapshot: firebase.firestore.DocumentSnapshot) => {
     const id = docSnapshot.id
     commit(types.ADD_PROJECT, { ...docSnapshot.data(), id })
@@ -103,4 +111,8 @@ export const showError = ({ commit }: IActionContext, message: string) => {
 
 export const removeNotification = ({ commit }: IActionContext) => {
   commit(types.REMOVE_NOTIFICATION)
+}
+
+export const setProjectFilters = ({ commit }: IActionContext, filters: IProjectFilters) => {
+  commit(types.SET_PROJECT_FILTERS, filters)
 }

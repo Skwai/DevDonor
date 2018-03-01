@@ -1,6 +1,7 @@
 import Project from '../models/Project'
 import IProjectList from '../interfaces/ProjectList'
 import INotification from '../interfaces/Notification'
+import IProjectFilters from '../interfaces/ProjectFilters'
 
 import { SAVED_CREATE_PROJECT_FORM_DATA_KEY } from '../config'
 
@@ -18,4 +19,9 @@ export default class State {
   public savedCreateProjectFormDataWritePID: number | null = null
   public pendingAuth: boolean = false
   public notification: INotification | null = null
+  public projectFilters: IProjectFilters = {
+    projectType: '',
+    country: '',
+    organizationType: ''
+  }
 }

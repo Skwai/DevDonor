@@ -50,6 +50,10 @@ const mutations: MutationTree<State> = {
 
   [types.REMOVE_CURRENT_USER](state) {
     state.currentUser = null
+  },
+
+  [types.SET_PROJECT_FILTERS](state, filters) {
+    state.projectFilters = filters
   }
 }
 

@@ -1,30 +1,32 @@
 <template>
   <router-link
     :to="{ name: 'ViewProject', params: { projectID: project.id } }"
-    class="ProjectPreview"
+    :class="$style.ProjectPreview"
   >
-    <div class="ProjectPreview__LogoWrap">
-      <img class="ProjectPreview__Logo" :src="project.organizationLogo">
+    <div :class="$style.ProjectPreview__LogoWrap">
+      <img :class="$style.ProjectPreview__Logo" :src="project.organizationLogo">
     </div>
-    <div class="ProjectPreview__Body">
-      <header class="ProjectPreview__Header">
-        <h2 class="ProjectPreview__Title">{{project.title}}</h2>
-        <div class="ProjectPreview__Type">
+    <div :class="$style.ProjectPreview__Body">
+      <header :class="$style.ProjectPreview__Header">
+        <h2 :class="$style.ProjectPreview__Title">{{project.title}}</h2>
+        <div :class="$style.ProjectPreview__Type">
           <AppTag>Mobile Project</AppTag>
         </div>
       </header>
-      <div class="ProjectPreview__Meta">
+      <div>
+      </div>
+      <div :class="$style.ProjectPreview__Meta">
         <!--
-        <div v-if="isNew" class="ProjectPreview__New">
+        <div v-if="isNew" :class="$style.ProjectPreview__New">
           <AppLabel>New</AppLabel>
         </div>
         -->
-        <div class="ProjectPreview__Organization">{{project.organizationName}}</div>
-        <div class="ProjectPreview__Region">
+        <div :class="$style.ProjectPreview__Organization">{{project.organizationName}}</div>
+        <div :class="$style.ProjectPreview__Region">
           <AppGlyph><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></AppGlyph>
           <span>{{project.country}}</span>
         </div>
-        <time class="ProjectPreview__CreatedAt" :datetime="project.createdAt">
+        <time :class="$style.ProjectPreview__CreatedAt" :datetime="project.createdAt">
           <AppGlyph><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"></path></svg></AppGlyph>
           <span>Created {{createdAt}}</span>
         </time>
@@ -69,11 +71,11 @@ export default class ProjectPreview extends Vue {
 }
 </script>
 
-<style lang="stylus">
-@require '../styles/config.styl';
-@require '../styles/text.styl';
-@require '../styles/label.styl';
-@require '../styles/card.styl';
+<style lang="stylus" module>
+@require '../styles/config';
+@require '../styles/text';
+@require '../styles/label';
+@require '../styles/card';
 
 .ProjectPreview {
   $logoSize = 5rem;
@@ -90,6 +92,8 @@ export default class ProjectPreview extends Vue {
   -webkit-backface-visibility: hidden;
   position: relative;
   card();
+  transform-origin: center center;
+  will-change: box-shadow;
 
   &:hover, &:focus {
     box-shadow: rgba(0, 0, 0, 0.2) 0 2px 2rem;
@@ -153,6 +157,10 @@ export default class ProjectPreview extends Vue {
     display: flex;
     align-items: center;
     font-size: $fontSizeSmall;
+  }
+
+  &__Organization {
+    font-weight: 700;
   }
 
   &__Header {

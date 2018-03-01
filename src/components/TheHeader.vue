@@ -70,6 +70,7 @@ export default class TheHeader extends Vue {}
     &Item {
       padding: $spacingBase;
       font-weight: 500;
+      white-space: nowrap;
 
       &:hover, &:focus {
         color: $colorPrimary;

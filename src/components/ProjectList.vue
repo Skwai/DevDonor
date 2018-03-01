@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.ProjectList">
     <div :class="$style.ProjectList__Filters">
-      <ProjectFilters />
+      <ProjectFilters @update="onFilterChange" />
     </div>
     <div :class="$style.ProjectList__Projects">
       <AppLoading v-if="loading" />
@@ -43,21 +43,31 @@ import ProjectPreview from './ProjectPreview.vue'
 export default class ProjectList extends Vue {
   private loading: boolean = false
 
-  @Getter('getProjects') private projects: IProjectList
-  @Action private loadProjects: () => Promise<void>
+  @Getter('getFilteredProjects') private projects: IProjectList
+  @Action('loadProjects') private actionLoadProjects: () => Promise<void>
+  @Action('setProjectFilters') private actionSetProjectFilters: (filters: any) => void
 
   private async created() {
+    this.loadProjects()
+  }
+
+  private async loadProjects(filters: any = {}) {
     this.loading = true
     try {
-      await this.loadProjects()
+      await this.actionLoadProjects()
     } catch (err) {
     } finally {
       this.loading = false
     }
   }
 
-  private hasProjects(): boolean {
+  get hasProjects(): boolean {
     return !!Object.keys(this.projects).length
+  }
+
+  private onFilterChange(filters: {}) {
+    this.actionSetProjectFilters(filters)
+    this.loadProjects()
   }
 }
 </script>
