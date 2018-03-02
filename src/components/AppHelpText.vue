@@ -1,16 +1,20 @@
 <template>
-  <div class="HelpText"><slot /></div>
+  <div :class="$style.AppHelpText"><slot /></div>
 </template>
 
-<script>
-export default {}
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component
+export default class AppHelpText extends Vue {}
 </script>
 
-<style lang="stylus">
-@require "../styles/config.styl"
+<style lang="stylus" module>
+@require '../styles/config.styl';
 
-.HelpText
-  margin: spacingTiny 0 0
-  opacity: .7
-  font-size: fontSizeSmall
+.AppHelpText {
+  margin-top: $spacingTiny;
+  opacity: 0.7;
+  font-size: 0.9125rem;
+}
 </style>

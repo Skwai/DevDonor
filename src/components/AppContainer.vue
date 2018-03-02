@@ -1,15 +1,23 @@
 <template>
-  <div class="Container"><slot /></div>
+  <div :class="$style.AppContainer">
+    <slot />
+  </div>
 </template>
 
-<script>
-export default {}
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component
+export default class AppContainer extends Vue {}
 </script>
 
-<style lang="stylus">
-@require "../styles/grid.styl"
+<style lang="stylus" module>
+@import '../styles/config.styl';
 
-.Container
-  container()
-
+.AppContainer {
+  width: 64rem;
+  margin: 0 auto;
+  max-width: 100vw;
+  padding: 0 $spacingBase;
+}
 </style>

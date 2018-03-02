@@ -1,130 +1,113 @@
 <template>
-  <div class="CheckboxGroup">
-    <div class="CheckboxGroup__Label">{{label}}</div>
-    <AppHelpText v-if="description">{{description}}</AppHelpText>
-    <div class="CheckboxGroup__Options">
-      <label class="CheckboxGroup__Option" v-for="(description, value) in options" :key="value">
+  <div :class="$style.AppRadioGroup" :span="span">
+    <div :class="$style.AppRadioGroup__Label">{{label}}</div>
+    <AppHelpText v-if="description" :class="$style.AppRadioGroup__Help">{{description}}</AppHelpText>
+    <div :class="$style.AppRadioGroup__Options">
+      <label
+        :class="$style.AppRadioGroup__Option"
+        v-for="(option, index) in options"
+        :key="index"
+      >
         <input
-          class="CheckboxGroup__OptionInput"
           type="checkbox"
-          v-model="selected"
-          :value="value"
+          :value="isOptionsArray ? option : index"
+          :name="uid"
+          :required="required"
+          v-model="inputValue"
+          @change="change"
         >
-        <span class="CheckboxGroup__OptionLabel">
-          {{value}}
-          <small class="CheckboxGroup__OptionDescription">{{description}}</small>
-        </span>
+        {{option}}
       </label>
     </div>
-    <div class="CheckboxGroup__Error" v-if="error">{{errorMessage || "InvalidInvalid"}}</div>
   </div>
 </template>
 
-<script>
-export default {
-  props: [
-    'label',
-    'description',
-    'options',
-    'value',
-    'error',
-    'errorMessage'
-  ],
+<script lang="ts">
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 
-  data () {
-    return {
-      selected: Object.keys(this.value) || []
-    }
-  },
+@Component
+export default class AppRadioGroup extends Vue {
+  private inputValue: Array<string | number> = []
+  private uid: string | undefined = undefined
 
-  watch: {
-    selected (value) {
-      const obj = value.reduce((obj, v) => Object.assign(obj, { [v]: true }), {})
-      this.$emit('update:value', obj)
-    }
+  @Prop({ required: true, type: [Array] })
+  private value: Array<string | number> | null
+
+  @Prop({ required: true, type: [Array, Object] })
+  private options: {} | string[]
+
+  @Prop({ required: true })
+  private label: string
+
+  @Prop({ required: false })
+  private description: string
+
+  @Prop({ default: 1 })
+  private span: number
+
+  get isOptionsArray() {
+    return 'length' in this.options
+  }
+
+  @Watch('value', { immediate: true })
+  private onValueChange(newValue: any) {
+    this.inputValue = newValue
+  }
+
+  private change(ev: Event) {
+    const value = this.inputValue
+    this.$emit('input', value)
+  }
+
+  private createUID() {
+    return Math.random()
+      .toString(36)
+      .substr(2)
+  }
+
+  private created() {
+    this.uid = this.createUID()
   }
 }
 </script>
 
-<style lang="stylus">
-@require "../styles/config.styl"
-@require "../styles/card.styl"
+<style lang="stylus" module>
+@require '../styles/config';
+@require '../styles/forms';
 
-.CheckboxGroup
-  spacing()
-  card()
+.AppRadioGroup {
+  grid-column: span 2;
 
-  &__Label
-    font-weight: 600
+  @media (min-width: 768px) {
+    grid-column: span 1;
 
-  &__Options
-    display: flex
-    flex-wrap: wrap
-    margin-top: spacingSmall
+    &[span='2'] {
+      grid-column: span 2;
+    }
+  }
 
-  &__Option
-    padding: spacingTiny 0
-    flex: 0 0 100%
+  &__Options {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 0.5rem;
+  }
 
-    &Input
-      position: absolute
-      opacity: 0
-      left: -999rem
+  &__Label {
+    fieldLabel();
+  }
 
-    &Description
-      font-size: 100%
-      opacity: .5
-      display: inline-block
-      margin-left: 0.5rem
+  &__Option {
+    display: block;
+    font-weight: 500;
+    cursor: pointer;
 
-    &Label
-      font-size: fontSizeSmall
-      font-weight: 500
-      display: flex
-      align-items: center
-      transition: transitionBase
-      position: relative
+    &:hover {
+      color: $colorPrimary;
+    }
+  }
 
-      &:hover
-        color: colorPrimaryBlue
-        cursor: pointer
-
-      &::before
-        content: ""
-        width: 1.25rem
-        height: 1.25rem
-        border-radius: borderRadiusBase
-        margin-right: spacingTiny
-        background: colorOffWhite
-        box-shadow: inset colorGray 0 0 0 1px
-        transition: transitionBase
-
-      &:hover::before
-        background: #fff
-        box-shadow: inset colorPrimaryBlue 0 0 0 1px
-
-      input:checked + &
-        color: colorPrimaryBlue
-
-        &::before
-          background: colorPrimaryBlue
-          box-shadow: inset colorPrimaryBlue 0 0 0 1px
-
-        &::after
-          opacity: 1
-
-
-      &::after
-        opacity: 0
-        transition: transitionBase
-        content: ""
-        position: absolute
-        top: (1.25rem / 2)
-        left: (1.25rem / 2)
-        width: 1rem
-        height: 1rem
-        transform: translate(-50%, -50%)
-        border-radius: borderRadiusBase
-        background: embedurl("../assets/check.svg", "utf8")
-        background-size: contain
+  &__Help {
+    margin-bottom: 1rem;
+  }
+}
 </style>

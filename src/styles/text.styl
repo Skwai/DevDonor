@@ -19,7 +19,6 @@ textSmallCaps()
 
 textBigCaps()
   textCaps()
-  font-size: 1rem
   font-weight: 600
 
 textTitle()
@@ -33,7 +32,7 @@ textHeading()
 
 textSubheading()
   font-size: 1.15rem
-  line-height: lineHeightSmall
+  line-height: $lineHeightSmall
   font-weight: 600
 
 textLead()
@@ -53,14 +52,7 @@ textLink()
   &:hover
     box-shadow: 0 2px 0 currentColor
 
-textMarkdown()
-  p, ul, ol
-    &:first-child
-      margin-top: 0
-
-    &:last-child
-      margin-bottom: 0
-
+textContent()
   h2, h3, h4
     margin: 2em 0 1em
 
@@ -73,9 +65,14 @@ textMarkdown()
   li
     padding: 0.25em 0
 
+    > :first-child
+      margin-top: 0
+
+    > :last-child
+      margin-bottom: 0
+
   ol
     list-style-type: decimal;
 
   ul
     list-style-type: disc
-

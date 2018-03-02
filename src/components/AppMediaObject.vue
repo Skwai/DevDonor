@@ -1,43 +1,50 @@
 <template>
-  <div class="MediaObject" :class="alignClassName">
-    <div class="MediaObject__Object">
+  <div :class="$style.AppMediaObject" :align="align">
+    <div :class="$style.AppMediaObject__Object">
       <slot name="object" />
     </div>
-    <div class="MediaObject__Body">
+    <div :class="$style.AppMediaObject__Body">
       <slot name="body" />
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  props: ['align'],
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
 
-  computed: {
-    alignClassName () {
-      return this.align ? `MediaObject--${this.align}` : null
-    }
-  }
+@Component
+export default class AppMediaObject extends Vue {
+  @Prop({ default: 'center' })
+  private align: string
 }
 </script>
 
-<style lang="stylus">
-@require "../styles/config.styl"
+<style lang="stylus" module>
+@require '../styles/config.styl';
 
-.MediaObject
-  display: flex
-  margin()
+.AppMediaObject {
+  display: flex;
+  margin();
 
-  &--top
-    align-items: flex-start
+  &[align='top'] {
+    align-items: flex-start;
+  }
 
-  &--center
-    align-items: center
+  &[align='center'] {
+    align-items: center;
+  }
 
-  &--bottom
-    align-item: flex-end
+  &[align='bottom'] {
+    align-item: flex-end;
+  }
 
-  &__Object
-    margin-right: spacingBase
+  &__Body {
+    text-align: left;
+  }
 
+  &__Object {
+    margin-right: $spacingBase;
+    line-height: 0;
+  }
+}
 </style>

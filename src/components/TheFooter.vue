@@ -1,7 +1,7 @@
 <template>
-  <footer class="Footer">
-    <div class="Footer__Container">
-      <nav class="Footer__Legals">
+  <footer :class="$style.TheFooter">
+    <div :class="$style.TheFooter__Container">
+      <nav :class="$style.TheFooter__Legals">
         <span>&copy; DevDonor</span>
         <a href="#">Privacy Policy</a>
         <a href="#">Terms of Use</a>
@@ -10,30 +10,35 @@
   </footer>
 </template>
 
-<script>
-export default {}
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component
+export default class TheFooter extends Vue {}
 </script>
 
-<style lang="stylus">
-@require "../styles/config"
-@require "../styles/grid"
-@require "../styles/text"
-@require "../styles/navbar"
+<style lang="stylus" module>
+@import '../styles/config.styl';
+@import '../styles/text.styl';
+@import '../styles/navbar.styl';
 
-.Footer
-  textMuted()
-  text-align: center
+.TheFooter {
+  textMuted();
+  text-align: center;
+  margin-top: auto;
+  padding-top: $spacingBase;
 
-  a
-    textLink()
+  a {
+    textLink();
+  }
 
-  &__Container
-    container()
-    padding: spacingBase spacingBase spacingLarge
+  &__Container {
+    container();
+    padding: $spacingBase $spacingBase $spacingBase;
+  }
 
-  &__License
-    margin-bottom: spacingSmall
-
-  &__Legals
-    navbar()
+  &__Legals {
+    navbar();
+  }
+}
 </style>

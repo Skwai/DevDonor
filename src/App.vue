@@ -1,89 +1,120 @@
 <template>
-  <main class="App">
-    <TheNotification />
+  <main id="App" :class="$style.App">
+    <TheNotifications />
     <TheHeader />
-    <router-view :key="$route.fullPath"></router-view>
+    <router-view />
     <TheFooter />
   </main>
 </template>
 
-<script>
-import { mapGetters } from 'vuex'
-import TheHeader from '@/components/TheHeader'
-import TheFooter from '@/components/TheFooter'
-import TheNotification from '@/components/TheNotification'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+import { Action } from 'vuex-class'
 
-export default {
+import TheFooter from './components/TheFooter.vue'
+import TheHeader from './components/TheHeader.vue'
+import TheNotifications from './components/TheNotifications.vue'
+
+@Component({
   components: {
-    TheHeader,
     TheFooter,
-    TheNotification
-  },
-
-  computed: {
-    ...mapGetters([
-      'auth',
-      'uid'
-    ])
-  },
-
-  created () {
-    this.$store.dispatch('getAuthStatus')
+    TheHeader,
+    TheNotifications
+  }
+})
+export default class App extends Vue {
+  @Action('loadCurrentUser') private actionLoadCurrentUser: () => Promise<void>
+  private created() {
+    this.actionLoadCurrentUser()
   }
 }
 </script>
 
-<style lang="stylus">
-@require "styles/config.styl"
-@require "styles/reset.styl"
-@require "styles/grid.styl"
-@require "styles/text.styl"
+<style lang="stylus" module>
+@require 'styles/config.styl';
+// @require 'styles/reset.styl';
+@require 'styles/text.styl';
 
-html
-  font-size: fontSizeBase
+body.-modal {
+  overflow: hidden;
+}
 
-  @media (max-width: 639px)
-    font-size: fontSizeBaseMobile
+html {
+  font-size: $fontSizeBase;
 
-  @media (max-width: 1027px)
-    font-size: fontSizeBaseTablet
+  @media (max-width: 639px) {
+    font-size: $fontSizeBase - 2px;
+  }
 
-body
-  font-family: fontFamilyBase
-  line-height: lineHeightBase
-  color: fontColorBase
-  background: colorOffWhite
+  @media (max-width: 1027px) {
+    font-size: $fontSizeBase - 1px;
+  }
+}
 
-button, input, textarea
-  font-size: 1rem
-  line-height: lineHeightBase
-  font-family: inherit
+body {
+  font-family: $fontFamilyBase;
+  line-height: $lineHeightBase;
+  color: $fontColorBase;
+  background: $colorOffWhite;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+}
 
-button
-  cursor: pointer
+button, input, textarea, select {
+  font-size: 1rem;
+  line-height: $lineHeightBase;
+  font-family: inherit;
+}
 
-h1, h2, h3, h4
-  line-height: lineHeightSmall
+button {
+  cursor: pointer;
+}
 
-h1
-  textTitle()
+ul, ol {
+  padding-left: 0;
+  margin: 0;
+}
 
-h2
-  textHeading()
+h1, h2, h3, h4 {
+  line-height: $lineHeightSmall;
+}
 
-h3
-  textSubheading()
+h5 {
+  font-size: 0.875rem;
+}
 
-a
-  text-decoration: none
-  color: inherit
+h1 {
+  textTitle();
+}
 
-*
-  box-sizing: border-box
+h2 {
+  textHeading();
+  margin-top: $spacingBase;
+  margin-bottom: $spacingBase;
+}
 
-.App
-  &__Container
-    container()
-    padding-top: spacingBase
-    padding-bottom: spacingBase
+h3 {
+  textSubheading();
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:focus {
+  box-shadow: none;
+  outline: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 </style>

@@ -2,165 +2,201 @@
   <router-link
     v-if="to"
     :to="to"
-    class="Btn"
-    :class="[colorClassName, sizeClassName, loadingClassName, successClassName]"
+    :class="$style.AppBtn"
+    :color="color"
+    :size="size"
+    :loading="loading"
+    :block="block"
+    @click="click"
+    :style="backgroundColor"
   >
-    <slot/>
+    <span v-if="loading" :class="$style.AppBtn__Loading">
+      <AppSpinner />
+    </span>
+    <span :class="$style.AppBtn__Icon" v-if="$slots.icon">
+      <slot name="icon" />
+    </span>
+    <span :class="$style.AppBtn__Label"><slot /></span>
   </router-link>
   <button
     v-else
-    class="Btn"
+    :class="$style.AppBtn"
     :disabled="disabled"
-    :class="[colorClassName, sizeClassName, loadingClassName, successClassName]"
     :type="type"
-    @click="onClick"
+    :color="color"
+    :size="size"
+    :loading="loading"
+    :block="block"
+    @click="click"
+    :style="backgroundColor"
   >
-    <span class="Btn__Icon" v-if="$slots.icon">
+    <span v-if="loading" :class="$style.AppBtn__Loading">
+      <AppSpinner />
+    </span>
+    <span :class="$style.AppBtn__Icon" v-if="$slots.icon">
       <slot name="icon" />
     </span>
-    <slot/>
+    <span :class="$style.AppBtn__Label"><slot /></span>
   </button>
 </template>
 
-<script>
-const COLORS = ['dark', 'light', 'primary', 'stroke', 'link']
-const SIZES = ['large']
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
-export default {
-  props: {
-    to: {
-      type: String
-    },
-    color: {
-      type: String
-    },
-    size: {
-      type: String
-    },
-    disabled: {
-      type: Boolean
-    },
-    loading: {
-      type: Boolean
-    },
-    success: {
-      type: Boolean
-    },
-    type: {
-      type: String,
-      default: 'button'
+@Component
+export default class AppBtn extends Vue {
+  @Prop({ type: [String, Object] })
+  private to: string | {}
+
+  @Prop({ required: false })
+  private color: string
+
+  @Prop() private size: string
+
+  @Prop({ default: false, required: false })
+  private block: boolean
+
+  @Prop({ default: false, required: false })
+  private loading: boolean
+
+  @Prop({ default: 'button', required: false })
+  private type: string
+
+  @Prop({ default: false, required: false })
+  private disabled: boolean
+
+  @Prop({ required: false })
+  private background: string
+
+  get backgroundColor() {
+    if (this.background) {
+      return `background-color: ${this.background}; color: #fff`
     }
-  },
+    return null
+  }
 
-  methods: {
-    onClick (ev) {
-      if (this.loading) {
-        ev.preventDefault()
-        return false
-      }
-
-      this.$emit('click', ev)
+  private click(ev: Event) {
+    if (this.loading) {
+      ev.preventDefault()
+      return false
     }
-  },
 
-  computed: {
-    colorClassName () {
-      const { color } = this
-      return (color && COLORS.includes(color)) ? `Btn--${color}` : null
-    },
-    successClassName () {
-      return this.success ? '-success' : null
-    },
-    loadingClassName () {
-      return this.loading ? '-loading' : null
-    },
-    sizeClassName () {
-      const { size } = this
-      return (size && SIZES.includes(size)) ? `Btn--${size}` : null
-    }
+    this.$emit('click', ev)
   }
 }
 </script>
 
-<style lang="stylus">
-@keyframes -loading
-  from
-    transform: rotate(0deg)
-  to
-    transform: rotate(359deg)
+<style lang="stylus" module>
+@keyframes -loading {
+  from {
+    transform: rotate(0deg);
+  }
 
-@require "../styles/config.styl"
-@require "../styles/text.styl"
+  to {
+    transform: rotate(359deg);
+  }
+}
 
-.Btn
-  background: #fff
-  border-radius: 99rem
-  padding: 0.75rem 1.5rem
-  display: inline-flex
-  align-items: center
-  transition: transitionBase
-  text-decoration: none
-  background: #fff
-  color: inherit
-  border: 0
-  textSmallCaps()
-  white-space: nowrap
-  cursor: pointer
-  box-shadow: inset colorGray 0 0 0 1px
-  position: relative
+@require '../styles/config.styl';
+@require '../styles/text.styl';
 
-  &[disabled]
-    cursor: not-allowed
-    opacity: .5
+.AppBtn {
+  border-radius: 99rem;
+  padding: 0.675rem 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  transition: transitionBase;
+  text-decoration: none;
+  background: transparent;
+  color: inherit;
+  border: 0;
+  textCaps();
+  white-space: nowrap;
+  cursor: pointer;
+  position: relative;
+  font-size: 0.875rem;
+  font-weight: 600;
 
-  &:focus,
-  &:active
-    outline: 0
+  &:hover, &:focus {
+    color: $colorPrimary;
+  }
 
-  &.-loading
-    color: transparent
-    opacity: .5
-    cursor: not-allowed
+  + .AppBtn {
+    margin-left: 0.5rem;
+  }
 
-    &::before
-      size = 2rem
-      content: ""
-      position: absolute
-      width: size
-      height: size
-      left: 50%
-      top: 50%
-      margin: (-0.5 * size) 0 0 (-0.5 * size)
-      animation: -loading 1s ease infinite
-      background: embedurl("../assets/loading-white.svg", "utf8") center center
-      background-size: contain
+  &[block] {
+    display: block;
+    width: 100%;
+  }
 
-  &--large
-    padding: spacingSmall 2rem
-    font-size: 0.8125rem
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 
-  &--dark
-    background: colorDarkBlue
-    box-shadow: none
-    color: #fff
+  &:focus, &:active {
+    outline: 0;
+  }
 
-  &--primary
-    background: colorPrimaryBlue
-    box-shadow: none
-    color: #fff
+  &[loading] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 
-  &:hover,
-  &:focus
-    box-shadow: inset rgba(0,0,0,.25) 0 0 0 1px
+  &[loading] &__Label {
+    opacity: 0;
+  }
 
-  &:active
-    transform: translateY(-2px)
+  &__Loading {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 2rem;
+    height: 2rem;
+    transform: translate(-50%, -50%);
+  }
 
-  &__Icon
-    margin-right: 1em
+  &[size='large'] {
+    padding: 1rem 2rem;
+    font-weight: 600;
+  }
 
-    svg
-      width: 2em
-      height: 2em
-      stroke: currentColor
+  &[size='small'] {
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    font-size: 0.8125rem;
+  }
+
+  &[color='stroke'] {
+    box-shadow: inset rgba($colorPrimary, 0.5) 0 0 0 1px;
+    color: $colorPrimary;
+  }
+
+  &[color='dark'] {
+    background: $colorDarkBlue;
+    box-shadow: none;
+    color: #fff;
+  }
+
+  &[color='primary'] {
+    background: $colorPrimary;
+    box-shadow: none;
+    color: #fff;
+  }
+
+  &__Icon {
+    margin-right: 1em;
+    align-self: center;
+
+    &, svg {
+      width: 1em;
+      height: 1em;
+    }
+
+    svg {
+      fill: currentColor;
+    }
+  }
+}
 </style>

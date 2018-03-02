@@ -1,43 +1,89 @@
 <template>
-  <header class="AppHeader">
+  <header :class="$style.TheHeader">
     <router-link
       to="/"
-      class="AppHeader__Logo"
+      :class="$style.TheHeader__Logo"
     ><h1>DevDonor</h1></router-link>
-    <TheAccountMenu />
+    <nav :class="$style.TheHeader__Nav" data-foo="true">
+      <router-link
+        to="/"
+        :class="$style.TheHeader__NavItem"
+        :exact-active-class="$style.TheHeader__NavItemActive"
+      >Projects</router-link>
+      <router-link
+        :to="{ name: 'CreateProject' }"
+        :class="$style.TheHeader__NavItem"
+        :active-class="$style.TheHeader__NavItemActive"
+      >Create a Project</router-link>
+      <router-link
+        :to="{ name: 'About' }"
+        :class="$style.TheHeader__NavItem"
+        :active-class="$style.TheHeader__NavItemActive"
+      >About</router-link>
+    </nav>
   </header>
 </template>
 
-<script>
-import TheAccountMenu from '@/components/TheAccountMenu'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 
-export default {
-  components: {
-    TheAccountMenu
-  }
-}
+@Component
+export default class TheHeader extends Vue {}
 </script>
 
+<style lang="stylus" module>
+@require '../styles/config.styl';
 
-<style lang="stylus">
-@require "../styles/config"
-@require "../styles/text"
-@require "../styles/navbar"
+.TheHeader {
+  transition: transitionBase;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0.25rem 1rem; // , rgba($colorGray, 1) 0 1px 1px
+  display: flex;
+  align-items: center;
+  z-index: 2;
+  background: #fff;
+  padding: 0 $spacingBase;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100vw;
 
-.AppHeader
-  background: colorPrimaryBlue
-  color: #fff
-  transition: transitionBase
-  box-shadow: rgba(colorDarkBlue,.1) 0 1px 0
-  display: flex
-  align-items: stretch
-  position: relative
-  z-index: 2
+  h1 {
+    margin: 0;
+  }
 
-  &__Logo
-    padding: spacingSmall spacingBase
-    transition: transitionBase
+  &__Logo {
+    transition: transitionBase;
+    color: $colorPrimary;
+    padding: $spacingBase 0;
+    transition: $transitionBase;
+    will-change: transform;
+    margin-right: 1rem;
 
-    &:hover
-      background: rgba(0,0,0,.05)
+    &:hover, &:focus {
+      transform: scale(1.1);
+    }
+  }
+
+  &__Nav {
+    display: flex;
+    margin-left: auto;
+
+    &Item {
+      padding: 0.5rem 0;
+      margin: 0 1rem;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: $transitionBase;
+
+      &:hover, &:focus {
+        color: $colorPrimary;
+      }
+
+      &Active {
+        color: $colorPrimary;
+        box-shadow: inset currentColor 0 -2px 0;
+      }
+    }
+  }
+}
 </style>

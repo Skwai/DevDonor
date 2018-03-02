@@ -1,11 +1,13 @@
+@import "./config.styl"
+@import "./text.styl"
+
 label()
-  background: colorPrimaryBlue
+  background: $colorPrimary
+  textCaps()
   border-radius: 99rem
   color: #fff
-  border: colorOffWhite solid 4px
-  font-size: fontSizeSmall
-  padding: 0 1em
-  height: 3em
-  display: inline-flex
-  align-items: center
-  justify-content: center
+  display: inline-block
+  font-size: 0.75rem
+  padding: 0.5rem 0.75rem
+  font-weight: 600
+  line-height: 1

@@ -1,14 +1,22 @@
 <template>
-  <div class="Card"><slot /></div>
+  <div :class="$style.AppCard">
+    <slot />
+  </div>
 </template>
 
-<script>
-export default {}
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+
+@Component
+export default class AppCard extends Vue {}
 </script>
 
-<style lang="stylus">
-@require "../styles/card.styl"
+<style lang="stylus" module>
+@require '../styles/config';
+@require '../styles/card';
 
-.Card
-  card()
+.AppCard {
+  card();
+  margin-bottom: $spacingBase;
+}
 </style>
