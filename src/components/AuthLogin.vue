@@ -18,7 +18,7 @@ import { Getter, Action } from 'vuex-class'
 export default class AuthLogin extends Vue {
   @Action('login') private actionLogin: (provider: string) => Promise<void>
   @Getter private getPendingAuth: boolean
-  @Getter private getCurrentUser: {} | null
+  @Getter private getCurrentUser: firebase.UserInfo | null
 
   private async login(provider: string) {
     try {

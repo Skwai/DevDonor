@@ -12,7 +12,7 @@ const getStorageData = (key: string): any => {
 
 export default class State {
   public projects: IProjectList = {}
-  public currentUser: {} | null = null
+  public currentUser: firebase.UserInfo | null = null
   // data from an uncompleted form
   public savedCreateProjectFormData: {} = getStorageData(SAVED_CREATE_PROJECT_FORM_DATA_KEY) || {}
   // a setTimeout ID matching a write to localStorage

@@ -17,7 +17,7 @@ import { Action } from 'vuex-class'
 
 @Component
 export default class CurrentUser extends Vue {
-  @Prop() private currentUser: {}
+  @Prop() private currentUser: firebase.UserInfo
 
   @Action('logout') private actionLogout: () => void
 

@@ -30,7 +30,6 @@
           @click="cancel"
         >Cancel</AppBtn>
         <AppBtn
-          size="large"
           type="submit"
           color="primary"
         >Send Message</AppBtn>
@@ -54,7 +53,7 @@ import CurrentUser from '../components/CurrentUser.vue'
 export default class Volunteer extends Vue {
   private message: string = ''
 
-  @Getter private getCurrentUser: {}
+  @Getter private getCurrentUser: firebase.UserInfo
 
   private cancel() {
     this.$router.push({

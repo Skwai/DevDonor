@@ -1,8 +1,8 @@
 <template>
   <header :class="$style.TheIntro">
     <div :class="$style.TheIntro__Body">
-      <h1 :class="$style.TheIntro__Title">Connecting developers with charities</h1>
-      <p :class="$style.TheIntro__Description">Submit a charitable project for developers to help you with</p>
+      <h1 :class="$style.TheIntro__Title">Connecting programmers with charities</h1>
+      <p :class="$style.TheIntro__Description">A free platform for charities to pitch projects for programmers to work on.</p>
     </div>
   </header>
 </template>
@@ -16,7 +16,8 @@ export default class TheIntro extends Vue {}
 </script>
 
 <style lang="stylus" module>
-@require '../styles/config.styl';
+@require '../styles/config';
+@require '../styles/text';
 
 .TheIntro {
   background: $colorPrimary linear-gradient(150deg, darken($colorPrimary, 10) 0%, $colorPrimary 100%);
@@ -36,7 +37,7 @@ export default class TheIntro extends Vue {}
   &__Description {
     textHeading();
     font-weight: 400;
-    opacity: 0.7;
+    opacity: 0.8;
   }
 
   &__Btns {

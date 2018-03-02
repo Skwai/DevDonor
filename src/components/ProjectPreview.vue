@@ -40,8 +40,7 @@ import moment from 'moment'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { Getter } from 'vuex-class'
 import IProjectProperties from '../interfaces/ProjectProperties'
-
-const NEW_PROJECT_DAYS = 14 * 24 * 60 * 60 * 1000
+import { NEW_PROJECT_DAYS } from '../config'
 
 @Component
 export default class ProjectPreview extends Vue {
@@ -60,7 +59,10 @@ export default class ProjectPreview extends Vue {
     if (!this.project.createdAt) {
       return false
     }
-    return new Date(this.project.createdAt).getTime() > new Date().getTime() - NEW_PROJECT_DAYS
+    return (
+      new Date(this.project.createdAt).getTime() >
+      new Date().getTime() - NEW_PROJECT_DAYS * 24 * 60 * 60 * 1000
+    )
   }
 
   get createdAt() {

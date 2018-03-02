@@ -94,7 +94,6 @@
           type="submit"
           color="primary"
           :loading="saving"
-          size="large"
         >Update My Project</AppBtn>
       </AppBtnGroup>
     </form>
@@ -124,7 +123,7 @@ export default class EditProjectPage extends Vue {
   private countryOptions = { ...COUNTRIES }
   private projectTypeOptions = { ...PROJECT_TYPES_WITH_DESCRIPTIONS }
   @Getter private getProjectById: (projectId: string) => Project
-  @Getter private getCurrentUser: any
+  @Getter private getCurrentUser: firebase.UserInfo
 
   @Action('updateProject')
   private actionUpdateProject: (

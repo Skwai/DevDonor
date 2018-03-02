@@ -7,6 +7,13 @@ export const getProjects = ({ projects }: State) => projects
 
 export const getCurrentUser = ({ currentUser }: State) => currentUser
 
+export const getCurrentUserId = ({ currentUser }: State) => {
+  if (currentUser && currentUser.uid) {
+    return currentUser.uid
+  }
+  return null
+}
+
 export const getProjectById = ({ projects }: State) => (projectId: string) => {
   if (projectId in projects) {
     return projects[projectId]

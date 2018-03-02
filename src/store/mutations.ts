@@ -13,7 +13,7 @@ const mutations: MutationTree<State> = {
     }
   },
 
-  [types.SET_CURRENT_USER](state, user: Firebase.User) {
+  [types.SET_CURRENT_USER](state, user: Firebase.UserInfo) {
     state.currentUser = user
   },
 

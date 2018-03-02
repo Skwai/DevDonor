@@ -17,6 +17,8 @@ export default class Project {
   public email: string = ''
   public organizationUrl: string = ''
 
+  public deleted: Date | null = null
+
   constructor(props: IProjectProperties = {}) {
     Object.assign(this, props)
   }

@@ -14,4 +14,5 @@ export default interface IProjectProperties {
   organizationDescription?: string
   organizationUrl?: string
   email?: string
+  deleted?: Date | null
 }

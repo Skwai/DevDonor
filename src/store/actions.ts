@@ -25,7 +25,7 @@ export const login = async ({ commit }: IActionContext, provider: string): Promi
     commit(types.SET_CURRENT_USER, userData)
   } catch (err) {
     if (err.message) {
-      commit(types.SET_ERROR_NOTIFICATION, err.message)
+      commit(types.SET_NOTIFICATION, { message: err.message, type: 'error' })
     }
     throw err
   } finally {
@@ -53,13 +53,12 @@ export const loadCurrentUser = async ({ commit }: IActionContext): Promise<void>
 }
 
 export const loadProjects = async ({ commit, state }: IActionContext): Promise<void> => {
-  const collection = await db.collection('projects')
-
+  const col = await db.collection('projects')
   const query = Object.entries(state.projectFilters).reduce(
     (prev: firebase.firestore.Query, [k, v]) => {
       return v ? prev.where(k, '==', v) : prev
     },
-    collection
+    col.where('deleted', '==', null)
   )
   const querySnapshot = await query.limit(PAGINATION_LIMIT).get()
   querySnapshot.forEach((docSnapshot: firebase.firestore.DocumentSnapshot) => {
@@ -76,7 +75,7 @@ export const createProject = async ({ commit }: IActionContext, project: Project
   commit(types.ADD_PROJECT, { ...project, id })
 }
 
-export const loadProjectByID = async ({ commit, state }: IActionContext, projectId: string) => {
+export const loadProjectById = async ({ commit, state }: IActionContext, projectId: string) => {
   // Check if project is already in store
   if (projectId in state.projects) {
     return
@@ -126,7 +125,7 @@ export const setProjectFilters = ({ commit }: IActionContext, filters: IProjectF
 }
 
 export const updateProject = async (
-  { commit }: IActionContext,
+  { commit, state }: IActionContext,
   {
     projectId,
     project
@@ -135,12 +134,42 @@ export const updateProject = async (
     project: IProjectProperties
   }
 ) => {
+  const currentUser = state.currentUser
   const docRef = db.collection('projects').doc(projectId)
+
   await db.runTransaction(async (transaction: firebase.firestore.Transaction) => {
     const doc = await transaction.get(docRef)
+
     if (!doc.exists) {
-      throw Error('project does not exist')
+      throw Error('Project does not exist')
     }
-    transaction.update(docRef, { ...project })
+
+    if (!currentUser || !currentUser.uid || currentUser.uid !== doc.data().ownerId) {
+      throw Error('You are not authorized to update this project')
+    }
+
+    const data = { ...project }
+    delete data.id
+
+    transaction.update(docRef, data)
+  })
+}
+
+export const deleteProject = async ({ commit, state }: IActionContext, projectId: string) => {
+  const currentUser = state.currentUser
+  const docRef = db.collection('projects').doc(projectId)
+
+  await db.runTransaction(async (transaction: firebase.firestore.Transaction) => {
+    const doc = await transaction.get(docRef)
+
+    if (!doc.exists) {
+      throw Error('Project does not exist')
+    }
+
+    if (!currentUser || !currentUser.uid || currentUser.uid !== doc.data().ownerId) {
+      throw Error('You are not authorized to delete this project')
+    }
+
+    transaction.update(docRef, { deleted: new Date() })
   })
 }

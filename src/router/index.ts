@@ -7,6 +7,7 @@ import ViewProject from '../pages/ViewProject.vue'
 import About from '../pages/About.vue'
 import Volunteer from '../pages/Volunteer.vue'
 import EditProject from '../pages/EditProject.vue'
+import DeleteProject from '../pages/DeleteProject.vue'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       name: 'ViewProject',
       component: ViewProject,
       children: [
+        {
+          path: 'delete',
+          name: 'DeleteProject',
+          component: DeleteProject
+        },
         {
           path: 'volunteer',
           name: 'Volunteer',

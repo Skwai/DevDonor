@@ -46,12 +46,14 @@
 
             <AppField
               type="textarea"
-              :rows="10"
+              :rows="12"
               :span="2"
-              label="Project description"
+              label="About your project"
               v-model="project.description"
+              placeholder="Describe what your project is about and the type of help and skills you're looking for"
               :required="true"
               :minlength="50"
+              description="Markdown is supported"
             />
           </AppFieldGroup>
 
@@ -59,7 +61,6 @@
             <AppBtn
               @click="nextStep"
               color="primary"
-              size="large"
             >Next step</AppBtn>
           </AppBtnGroup>
         </template>
@@ -130,7 +131,6 @@
             <AppBtn
               type="submit"
               color="primary"
-              size="large"
             >Create My Project</AppBtn>
           </AppBtnGroup>
         </template>
@@ -178,7 +178,7 @@ export default class CreateProjectPage extends Vue {
   @Action private loadCurrentUser: () => Promise<void>
   @Action('showError') private actionShowError: (message: string) => void
   @Getter private getSavedCreateProjectFormData: {}
-  @Getter private getCurrentUser: {}
+  @Getter private getCurrentUser: firebase.UserInfo
 
   @Watch('project', { immediate: false, deep: true })
   private onProjectChanged(value: Project) {

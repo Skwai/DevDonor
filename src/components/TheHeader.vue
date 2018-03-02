@@ -9,7 +9,7 @@
         to="/"
         :class="$style.TheHeader__NavItem"
         :exact-active-class="$style.TheHeader__NavItemActive"
-      >Browse Projects</router-link>
+      >Projects</router-link>
       <router-link
         :to="{ name: 'CreateProject' }"
         :class="$style.TheHeader__NavItem"
@@ -19,7 +19,7 @@
         :to="{ name: 'About' }"
         :class="$style.TheHeader__NavItem"
         :active-class="$style.TheHeader__NavItemActive"
-      >How It Works</router-link>
+      >About</router-link>
     </nav>
   </header>
 </template>
@@ -57,6 +57,7 @@ export default class TheHeader extends Vue {}
     padding: $spacingBase 0;
     transition: $transitionBase;
     will-change: transform;
+    margin-right: 1rem;
 
     &:hover, &:focus {
       transform: scale(1.1);
@@ -68,9 +69,11 @@ export default class TheHeader extends Vue {}
     margin-left: auto;
 
     &Item {
-      padding: $spacingBase;
+      padding: 0.5rem 0;
+      margin: 0 1rem;
       font-weight: 500;
       white-space: nowrap;
+      transition: $transitionBase;
 
       &:hover, &:focus {
         color: $colorPrimary;
@@ -78,6 +81,7 @@ export default class TheHeader extends Vue {}
 
       &Active {
         color: $colorPrimary;
+        box-shadow: inset currentColor 0 -2px 0;
       }
     }
   }
