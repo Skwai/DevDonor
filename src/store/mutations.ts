@@ -40,8 +40,8 @@ const mutations: MutationTree<State> = {
     state.pendingAuth = false
   },
 
-  [types.SET_ERROR_NOTIFICATION](state, message: string) {
-    state.notification = { message, type: 'error' }
+  [types.SET_NOTIFICATION](state, { message, type }: { message: string; type: string }) {
+    state.notification = { message, type }
   },
 
   [types.REMOVE_NOTIFICATION](state) {

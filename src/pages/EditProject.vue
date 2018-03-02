@@ -7,7 +7,7 @@
       <AuthLogin />
     </template>
 
-    <form v-else-if="project" @submit.prevent="update">
+    <form v-else-if="project" @submit.prevent="update" ref="form">
       <AppFieldGroup>
         <AppField
           label="Project name"
@@ -93,8 +93,9 @@
         <AppBtn
           type="submit"
           color="primary"
+          :loading="saving"
           size="large"
-        >Create My Project</AppBtn>
+        >Update My Project</AppBtn>
       </AppBtnGroup>
     </form>
   </AppModal>
@@ -102,12 +103,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Getter } from 'vuex-class'
+import { Action, Getter } from 'vuex-class'
 import AuthLogin from '../components/AuthLogin.vue'
 import Project from '@/models/Project'
 import { ORGANIZATION_TYPES } from '../data/organization-types'
 import { PROJECT_TYPES_WITH_DESCRIPTIONS } from '../data/project'
 import { COUNTRIES } from '../data/countries'
+import IProjectProperties from '@/interfaces/ProjectProperties'
 
 @Component({
   components: {
@@ -124,27 +126,41 @@ export default class EditProjectPage extends Vue {
   @Getter private getProjectById: (projectId: string) => Project
   @Getter private getCurrentUser: any
 
+  @Action('updateProject')
+  private actionUpdateProject: (
+    { projectId, project }: { projectId: string; project: IProjectProperties }
+  ) => Promise<void>
+
+  @Action('showError') private actionShowError: (message: string) => void
+  @Action('showSuccess') private actionShowSuccess: (message: string) => void
+
   get fileName() {
-    return this.$route.params.projectId
+    return this.projectId
   }
 
   private close() {
-    this.$router.push({ name: 'ViewProject', params: { projectId: this.$route.params.projectId } })
+    this.$router.push({ name: 'ViewProject', params: { projectId: this.projectId } })
   }
 
   get canEditProject() {
     return this.project.ownerId && this.getCurrentUser.uid === this.project.ownerId
   }
 
-  private update() {
+  get projectId() {
+    return this.$route.params.projectId
+  }
+
+  private async update() {
     if (!this.checkValidity()) {
       return
     }
     try {
       this.saving = true
-      // TODO: save project
+      const { projectId, project } = this
+      await this.actionUpdateProject({ projectId, project })
+      this.actionShowSuccess('Your project has been updated')
     } catch (err) {
-      // TODO: show erro
+      this.actionShowError('There was a problem updating this project')
     } finally {
       this.saving = false
     }

@@ -8,6 +8,7 @@ import State from './State'
 import { SAVED_CREATE_PROJECT_FORM_DATA_KEY } from '../config'
 import * as types from './types'
 import IProjectFilters from '../interfaces/ProjectFilters'
+import IProjectProperties from '@/interfaces/ProjectProperties'
 
 const PAGINATION_LIMIT = 20
 
@@ -109,7 +110,11 @@ export const clearProjectFormData = ({ commit }: IActionContext) => {
 }
 
 export const showError = ({ commit }: IActionContext, message: string) => {
-  commit(types.SET_ERROR_NOTIFICATION, message)
+  commit(types.SET_NOTIFICATION, { message, type: 'error' })
+}
+
+export const showSuccess = ({ commit }: IActionContext, message: string) => {
+  commit(types.SET_NOTIFICATION, { message, type: 'success' })
 }
 
 export const removeNotification = ({ commit }: IActionContext) => {
@@ -118,4 +123,24 @@ export const removeNotification = ({ commit }: IActionContext) => {
 
 export const setProjectFilters = ({ commit }: IActionContext, filters: IProjectFilters) => {
   commit(types.SET_PROJECT_FILTERS, filters)
+}
+
+export const updateProject = async (
+  { commit }: IActionContext,
+  {
+    projectId,
+    project
+  }: {
+    projectId: string
+    project: IProjectProperties
+  }
+) => {
+  const docRef = db.collection('projects').doc(projectId)
+  await db.runTransaction(async (transaction: firebase.firestore.Transaction) => {
+    const doc = await transaction.get(docRef)
+    if (!doc.exists) {
+      throw Error('project does not exist')
+    }
+    transaction.update(docRef, { ...project })
+  })
 }

@@ -5,7 +5,6 @@
   >
     <AppHeading>Volunteer for this project</AppHeading>
     <p>So you're interested in helping out with this project? Great!</p>
-    <p>Fill out this form to get in touch.</p>
 
     <CurrentUser v-if="getCurrentUser" :currentUser="getCurrentUser" />
     <template v-else>

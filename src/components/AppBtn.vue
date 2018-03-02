@@ -117,6 +117,10 @@ export default class AppBtn extends Vue {
   font-size: 0.875rem;
   font-weight: 600;
 
+  &:hover, &:focus {
+    color: $colorPrimary;
+  }
+
   + .AppBtn {
     margin-left: 0.5rem;
   }
@@ -179,10 +183,6 @@ export default class AppBtn extends Vue {
     background: $colorPrimary;
     box-shadow: none;
     color: #fff;
-  }
-
-  &:active {
-    transform: translateY(-2px);
   }
 
   &__Icon {
