@@ -11,12 +11,7 @@ const SIZES = [64, 128, 256, 512] // Resize target width in pixels
 
 export default functions.storage.object().onChange(async (event) => {
   const object = event.data
-
-  const fileBucket = object.bucket
-  const filePath = object.name
-  const contentType = object.contentType
-  const resourceState = object.resourceState
-  const metageneration = object.metageneration
+  const { bucket: fileBucket, name: filePath, contentType, resourceState, metageneration } = object
 
   if (!contentType.startsWith('image/')) {
     console.log('This is not an image.')
