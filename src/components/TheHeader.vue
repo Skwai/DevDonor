@@ -73,6 +73,20 @@ export default class TheHeader extends Vue {}
       font-weight: 500;
       white-space: nowrap;
       transition: $transitionBase;
+      position: relative;
+
+      &::before {
+        content: '';
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background: currentColor;
+        position: absolute;
+        transform: scale(0, 1);
+        transform-origin: left center;
+        transition: $transitionBase;
+      }
 
       &:hover, &:focus {
         color: $colorPrimary;
@@ -80,7 +94,10 @@ export default class TheHeader extends Vue {}
 
       &Active {
         color: $colorPrimary;
-        box-shadow: inset currentColor 0 -2px 0;
+
+        &::before {
+          transform: scale(1, 1);
+        }
       }
     }
   }

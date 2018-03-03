@@ -29,15 +29,17 @@
       </div>
       <aside :class="$style.ViewProject__Sidebar">
         <AppCard v-if="isProjectOwner">
-          <h3>This is your project</h3>
-          <AppBtnGroup justify="center">
-            <AppBtn color="stroke" :to="{ name: 'DeleteProject', params: { projectId: $route.params.projectId } }" size="small">
-              Delete it
-            </AppBtn>
-            <AppBtn color="stroke" :to="{ name: 'EditProject', params: { projectId: $route.params.projectId } }" size="small">
-              Edit it
-            </AppBtn>
-          </AppBtnGroup>
+          <h3>Manage your project</h3>
+          <AppNavList>
+            <AppNavListItem :to="{ name: 'EditProject', params: { projectId: $route.params.projectId } }">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M13 7L9 3"/><path d="M5.5 14.5l-5 1 1-5 10-10 4 4-10 10z"/></g></svg>
+              Edit project
+            </AppNavListItem>
+            <AppNavListItem :to="{ name: 'DeleteProject', params: { projectId: $route.params.projectId } }">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"><circle cx="8.5" cy="8.5" r="7"/><path d="M11.5 5.5l-6 6m0-6l6 6"/></g></svg>
+              Delete project
+            </AppNavListItem>
+          </AppNavList>
         </AppCard>
         <div
           :class="$style.ViewProject__Volunteer"
