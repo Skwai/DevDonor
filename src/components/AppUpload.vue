@@ -34,14 +34,20 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-
 import { storage } from '../services/db'
+
+const THUMBNAIL_PREFIX = 'thumbnail-'
+const MAX_FILE_SIZE_DEFAULT = 2 // MB
 
 @Component
 export default class AppUpload extends Vue {
   @Prop() private url: string
-  @Prop() private fileTypes: string[]
-  @Prop() private maxFileSize: number
+  @Prop({
+    default: ['png', 'jpeg', 'gif']
+  })
+  private fileTypes: string[]
+  @Prop({ default: MAX_FILE_SIZE_DEFAULT })
+  private maxFileSize: number
   @Prop() private filePath: string
   @Prop() private fileName: string
   @Prop() private label: string
@@ -106,28 +112,54 @@ export default class AppUpload extends Vue {
     this.uploading = true
 
     try {
-      const ext = file.name.split('.').pop()
-      const path = `${this.filePath}/${this.fileName}.${ext}`
+      const path = `${this.filePath}/${this.fileName}`
+      const thumbnailPath = `${this.filePath}/${THUMBNAIL_PREFIX}${this.fileName}`
       const ref = storage.ref().child(path)
       const metadata = { contentType: file.type }
       const task = ref.put(file, metadata)
 
       task.on(
         'state_changed',
-        (ev: any) => {
-          this.progress = ev.bytesTransferred / ev.totalBytes * 100
+        (snapshot: any) => {
+          this.progress = snapshot.bytesTransferred / snapshot.totalBytes * 100
         },
         (err: Error) => {
           throw err
         }
       )
 
-      const { downloadURL } = await task
-      this.$emit('input', downloadURL)
+      const upload = await task
+      const downloadUrl = upload.downloadURL
+
+      if (!downloadUrl) {
+        throw Error('Upload failed')
+      }
+
+      const thumbnailUrl = await this.getThumbnailUrl(thumbnailPath)
+
+      this.$emit('input', thumbnailUrl)
     } finally {
       this.uploading = false
     }
-    // TODO: resize image: https://gist.github.com/dcollien/312bce1270a5f511bf4a
+  }
+
+  private async getThumbnailUrl(path: string): Promise<string> {
+    const ref = storage.ref(path)
+    const timeout = new Date().getTime() + 60 * 1000
+
+    while (new Date().getTime() < timeout) {
+      try {
+        // check if thumbnail exists
+        const url = await ref.getDownloadURL()
+        if (url) {
+          return url
+        }
+      } catch (err) {}
+      // thumbnail wasn't found, try again in 2 seconds
+      await new Promise((resolve) => setTimeout(resolve, 2 * 1000))
+    }
+
+    throw Error('Timed out')
   }
 }
 </script>
@@ -155,7 +187,7 @@ export default class AppUpload extends Vue {
     &Image {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
   }
 

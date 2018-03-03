@@ -116,7 +116,7 @@ import IProjectProperties from '@/interfaces/ProjectProperties'
   }
 })
 export default class EditProjectPage extends Vue {
-  private project: Project
+  private project: Project = new Project()
   private saving = false
 
   private organizationTypeOptions = { ...ORGANIZATION_TYPES }
@@ -124,6 +124,7 @@ export default class EditProjectPage extends Vue {
   private projectTypeOptions = { ...PROJECT_TYPES_WITH_DESCRIPTIONS }
   @Getter private getProjectById: (projectId: string) => Project
   @Getter private getCurrentUser: firebase.UserInfo
+  @Getter private getCurrentUserId: string
 
   @Action('updateProject')
   private actionUpdateProject: (
@@ -142,7 +143,7 @@ export default class EditProjectPage extends Vue {
   }
 
   get canEditProject() {
-    return this.project.ownerId && this.getCurrentUser.uid === this.project.ownerId
+    return this.getCurrentUserId && this.getCurrentUserId === this.project.ownerId
   }
 
   get projectId() {
@@ -172,7 +173,7 @@ export default class EditProjectPage extends Vue {
   private created() {
     const project = this.getProjectById(this.$route.params.projectId)
     if (project) {
-      return (this.project = { ...project })
+      this.project = { ...project }
     }
   }
 }

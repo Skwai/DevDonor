@@ -1,0 +1,4 @@
+etc/
+firebase-debug.json
+package-lock.json
+node_modules/

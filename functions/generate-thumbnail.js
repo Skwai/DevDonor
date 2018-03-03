@@ -15,91 +15,97 @@
  */
 'use strict'
 
-const THUMBNAIL_PREFIX = 'thumbnail-'
-
-// [START import]
 const functions = require('firebase-functions')
+const mkdirp = require('mkdirp-promise')
+// Include a Service Account Key to use a Signed URL
 const gcs = require('@google-cloud/storage')()
 const spawn = require('child-process-promise').spawn
 const path = require('path')
 const os = require('os')
 const fs = require('fs')
-// [END import]
 
-// [START generateThumbnail]
+// Max height and width of the thumbnail in pixels.
+const THUMB_MAX_HEIGHT = 128
+const THUMB_MAX_WIDTH = 128
+// Thumbnail prefix added to file names.
+const THUMB_PREFIX = 'thumbnail-'
+
 /**
  * When an image is uploaded in the Storage bucket We generate a thumbnail automatically using
  * ImageMagick.
+ * After the thumbnail has been generated and uploaded to Cloud Storage,
+ * we write the public URL to the Firebase Realtime Database.
  */
-// [START generateThumbnailTrigger]
 module.exports = functions.storage.object().onChange((event) => {
-  // [END generateThumbnailTrigger]
-  // [START eventAttributes]
-  const object = event.data // The Storage object.
+  // File and directory paths.
+  const filePath = event.data.name
+  const contentType = event.data.contentType // This is the image Mimme type
+  const fileDir = path.dirname(filePath)
+  const fileName = path.basename(filePath)
+  const thumbFilePath = path.normalize(path.join(fileDir, `${THUMB_PREFIX}${fileName}`))
+  const tempLocalFile = path.join(os.tmpdir(), filePath)
+  const tempLocalDir = path.dirname(tempLocalFile)
+  const tempLocalThumbFile = path.join(os.tmpdir(), thumbFilePath)
 
-  const fileBucket = object.bucket // The Storage bucket that contains the file.
-  const filePath = object.name // File path in the bucket.
-  const contentType = object.contentType // File content type.
-  const resourceState = object.resourceState // The resourceState is 'exists' or 'not_exists' (for file/folder deletions).
-  const metageneration = object.metageneration // Number of times metadata has been generated. New objects have a value of 1.
-  // [END eventAttributes]
-
-  // [START stopConditions]
   // Exit if this is triggered on a file that is not an image.
   if (!contentType.startsWith('image/')) {
     console.log('This is not an image.')
-    return
+    return null
   }
 
-  // Get the file name.
-  const fileName = path.basename(filePath)
-
   // Exit if the image is already a thumbnail.
-  const prefixed = fileName.startsWith(THUMBNAIL_PREFIX)
-
-  if (prefixed) {
+  if (fileName.startsWith(THUMB_PREFIX)) {
     console.log('Already a Thumbnail.')
-    return
+    return null
   }
 
   // Exit if this is a move or deletion event.
-  if (resourceState === 'not_exists') {
+  if (event.data.resourceState === 'not_exists') {
     console.log('This is a deletion event.')
-    return
+    return null
   }
 
-  // Exit if file exists but is not new and is only being triggered
-  // because of a metadata change.
-  if (resourceState === 'exists' && metageneration > 1) {
-    console.log('This is a metadata change event.')
-    return
-  }
-  // [END stopConditions]
+  // Cloud Storage files.
+  const bucket = gcs.bucket(event.data.bucket)
+  const file = bucket.file(filePath)
+  const thumbFile = bucket.file(thumbFilePath)
+  const metadata = { contentType: contentType }
 
-  // [START thumbnailGeneration]
-  // Download file from bucket.
-  const bucket = gcs.bucket(fileBucket)
-  const tempFilePath = path.join(os.tmpdir(), fileName)
-  return bucket
-    .file(filePath)
-    .download({
-      destination: tempFilePath
+  // Create the temp directory where the storage file will be downloaded.
+  return mkdirp(tempLocalDir)
+    .then(() => {
+      // Download file from bucket.
+      return file.download({ destination: tempLocalFile })
     })
     .then(() => {
-      console.log('Image downloaded locally to', tempFilePath)
+      console.log('The file has been downloaded to', tempLocalFile)
       // Generate a thumbnail using ImageMagick.
-      return spawn('convert', [tempFilePath, '-thumbnail', '200x200>', tempFilePath])
+      return spawn(
+        'convert',
+        [
+          tempLocalFile,
+          '-thumbnail',
+          `${THUMB_MAX_WIDTH}x${THUMB_MAX_HEIGHT}>`,
+          tempLocalThumbFile
+        ],
+        { capture: ['stdout', 'stderr'] }
+      )
     })
     .then(() => {
-      console.log('Thumbnail created at', tempFilePath)
-      // We add a 'thumb_' prefix to thumbnails file name. That's where we'll upload the thumbnail.
-      const thumbFileName = `${THUMBNAIL_PREFIX}${fileName}`
-      const thumbFilePath = path.join(path.dirname(filePath), thumbFileName)
-      // Uploading the thumbnail.
-      return bucket.upload(tempFilePath, { destination: thumbFilePath })
-      // Once the thumbnail has been uploaded delete the local file to free up disk space.
+      console.log('Thumbnail created at', tempLocalThumbFile)
+      // Uploading the Thumbnail.
+      return bucket.upload(tempLocalThumbFile, { destination: thumbFilePath, metadata: metadata })
     })
-    .then(() => fs.unlinkSync(tempFilePath))
-  // [END thumbnailGeneration]
+    .then(() => {
+      console.log('Thumbnail uploaded to Storage at', thumbFilePath)
+      // Once the image has been uploaded delete the local files to free up disk space.
+      fs.unlinkSync(tempLocalFile)
+      fs.unlinkSync(tempLocalThumbFile)
+      // Get the Signed URLs for the thumbnail and original image.
+      const config = {
+        action: 'read',
+        expires: '03-01-2500'
+      }
+      return Promise.all([thumbFile.getSignedUrl(config), file.getSignedUrl(config)])
+    })
 })
-// [END generateThumbnail]
