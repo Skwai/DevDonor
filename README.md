@@ -4,12 +4,12 @@ A free platform to connect charities with programmers
 
 ## Built with
 
-* Yarn
-* Jest
-* Vue.js
-* Firebase
-* Stylus
-* Typescript
+* [Vue.js](https://vuejs.org/)
+* [Firebase](https://firebase.google.com/)
+* [TypeScript](https://www.typescriptlang.org/)
+* [Yarn](https://yarnpkg.com/en/)
+* [Jest](https://facebook.github.io/jest/)
+* [Stylus](http://stylus-lang.com/)
 
 ## Installing
 
