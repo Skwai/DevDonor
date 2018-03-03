@@ -8,6 +8,7 @@ import About from '../pages/About.vue'
 import Volunteer from '../pages/Volunteer.vue'
 import EditProject from '../pages/EditProject.vue'
 import DeleteProject from '../pages/DeleteProject.vue'
+import NotFound from '../pages/NotFound.vue'
 
 Vue.use(Router)
 
@@ -50,7 +51,8 @@ export default new Router({
       path: '/about',
       name: 'About',
       component: About
-    }
+    },
+    { path: '*', component: NotFound }
   ],
   scrollBehavior(to, from, savedPosition) {
     return savedPosition || { x: 0, y: 0 }

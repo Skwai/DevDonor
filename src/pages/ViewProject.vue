@@ -142,7 +142,12 @@ export default class ViewProjectPage extends Vue {
     try {
       await this.loadProjectById(this.projectId)
       this.project = this.getProject(this.projectId)
+
+      if (this.project && this.project.deleted) {
+        throw Error('Project has been deleted')
+      }
     } catch (err) {
+      this.$router.push({ name: 'NotFound' })
     } finally {
       this.loading = false
     }

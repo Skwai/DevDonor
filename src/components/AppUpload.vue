@@ -43,7 +43,7 @@ const MAX_FILE_SIZE_DEFAULT = 2 // MB
 export default class AppUpload extends Vue {
   @Prop() private url: string
   @Prop({
-    default: ['png', 'jpeg', 'gif']
+    default: () => ['png', 'jpeg', 'gif']
   })
   private fileTypes: string[]
   @Prop({ default: MAX_FILE_SIZE_DEFAULT })

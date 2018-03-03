@@ -137,7 +137,7 @@ export const updateProject = async (
   const currentUser = state.currentUser
   const docRef = db.collection('projects').doc(projectId)
 
-  await db.runTransaction(async (transaction: firebase.firestore.Transaction) => {
+  const result = await db.runTransaction(async (transaction: firebase.firestore.Transaction) => {
     const doc = await transaction.get(docRef)
 
     if (!doc.exists) {
@@ -151,7 +151,8 @@ export const updateProject = async (
     const data = { ...project }
     delete data.id
 
-    transaction.update(docRef, data)
+    await transaction.update(docRef, data)
+    commit(types.UPDATE_PROJECT, { projectId, data })
   })
 }
 
@@ -170,6 +171,11 @@ export const deleteProject = async ({ commit, state }: IActionContext, projectId
       throw Error('You are not authorized to delete this project')
     }
 
-    transaction.update(docRef, { deleted: new Date() })
+    const data = {
+      deleted: new Date()
+    }
+
+    transaction.update(docRef, data)
+    commit(types.UPDATE_PROJECT, { projectId, data })
   })
 }

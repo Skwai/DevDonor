@@ -5,6 +5,7 @@ import Project from '../models/Project'
 import State from './State'
 import { setTimeout } from 'timers'
 import * as types from './types'
+import IProjectProperties from '@/interfaces/ProjectProperties'
 
 const mutations: MutationTree<State> = {
   [types.ADD_PROJECT](state, project: Project) {
@@ -54,6 +55,15 @@ const mutations: MutationTree<State> = {
 
   [types.SET_PROJECT_FILTERS](state, filters) {
     state.projectFilters = filters
+  },
+
+  [types.UPDATE_PROJECT](
+    state,
+    { projectId, data }: { projectId: string; data: IProjectProperties }
+  ) {
+    if (projectId in state.projects) {
+      state.projects[projectId] = {...state.projects[projectId], ...data}
+    }
   }
 }
 

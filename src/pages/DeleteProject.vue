@@ -10,7 +10,7 @@
       <p>Are you sure you want delete this project? You won't be able to recover it.</p>
       <AppBtnGroup>
         <AppBtn @click="close">No way</AppBtn>
-        <AppBtn color="dark" @click="deleteProject">Yes, delete it</AppBtn>
+        <AppBtn color="dark" @click="deleteProject" :loading="deleting">Yes, delete it</AppBtn>
       </AppBtnGroup>
     </template>
   </AppModal>
@@ -35,6 +35,7 @@ export default class DeleteProject extends Vue {
 
   @Action('deleteProject') private actionDeleteProject: (projectId: string) => Promise<void>
   @Action('showError') private actionShowError: (message: string) => void
+  @Action('showSuccess') private actionShowSuccess: (message: string) => void
 
   get project() {
     return this.getProjectById(this.projectId)
@@ -56,6 +57,8 @@ export default class DeleteProject extends Vue {
     try {
       this.deleting = true
       await this.actionDeleteProject(this.projectId)
+      this.actionShowSuccess('Project has been deleted')
+      this.$router.push({ name: 'Home' })
     } catch (err) {
       this.actionShowError('There was a problem deleting this project')
     } finally {
