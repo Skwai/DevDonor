@@ -3,7 +3,9 @@
 // https://firebase.google.com/docs/functions/write-firebase-functions
 
 const generateThumbnail = require('./src/generate-thumbnail')
-const volunteerMessageEmail = require('./')
+const volunteerMessageEmail = require('./src/volunteer-message-email')
 
-exports.generateThumbnail = generateThumbnail
-exports.volunteerMessageEmail = volunteerMessageEmail
+module.exports = {
+  generateThumbnail,
+  volunteerMessageEmail
+}

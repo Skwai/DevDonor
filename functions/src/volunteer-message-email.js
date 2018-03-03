@@ -1,12 +1,13 @@
 'use strict'
 
 const functions = require('firebase-functions')
-const sengridMail = require('@sendgrid/mail')
-const config = functions.config()
-const mailer = sengridMail.setApiKey(config.sendgrid.apikey)
+const sendgridMail = require('@sendgrid/mail')
 
-module.exports = firestore.document('volunteers/{volunteerId}').onCreate((event) => {
+const mailer = sendgridMail.setApiKey(functions.config().sendgrid.apikey)
+
+module.exports = functions.firestore.document('volunteers/{volunteerId}').onCreate((event) => {
   const newValue = event.data.data()
+  console.log(newValue)
 
   console.log('Sendgrid email started')
 
@@ -18,7 +19,12 @@ module.exports = firestore.document('volunteers/{volunteerId}').onCreate((event)
     html: '<strong>and easy to do anywhere, even with Node.js</strong>'
   }
 
-  mailer.send(message).then(() => {
-    console.log('Sendgrid email sent')
-  })
+  sendgridMail
+    .send(message)
+    .then(() => {
+      console.log('Sendgrid email sent')
+    })
+    .catch((err) => {
+      console.error(err)
+    })
 })
