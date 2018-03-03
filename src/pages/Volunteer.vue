@@ -80,6 +80,10 @@ export default class Volunteer extends Vue {
   }
 
   private async submit() {
+    if (this.submitting) {
+      return
+    }
+
     this.submitting = true
 
     try {
@@ -93,6 +97,7 @@ export default class Volunteer extends Vue {
       })
       this.submitted = true
     } catch (err) {
+      // TODO: display error
     } finally {
       this.submitting = false
     }

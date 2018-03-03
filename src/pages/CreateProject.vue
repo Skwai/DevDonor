@@ -131,6 +131,7 @@
             <AppBtn
               type="submit"
               color="primary"
+              :loading="submitting"
             >Create My Project</AppBtn>
           </AppBtnGroup>
         </template>
@@ -225,7 +226,7 @@ export default class CreateProjectPage extends Vue {
 
   private async submit(ev: Event) {
     const valid = this.checkValidity()
-    if (!valid) {
+    if (!valid || this.submitting) {
       return
     }
     this.submitting = true

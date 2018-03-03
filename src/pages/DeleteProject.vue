@@ -54,8 +54,11 @@ export default class DeleteProject extends Vue {
   }
 
   private async deleteProject() {
+    if (this.deleting) {
+      return
+    }
+    this.deleting = true
     try {
-      this.deleting = true
       await this.actionDeleteProject(this.projectId)
       this.actionShowSuccess('Project has been deleted')
       this.$router.push({ name: 'Home' })
