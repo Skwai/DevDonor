@@ -68,9 +68,7 @@ export const loadProjects = async ({ commit, state }: IActionContext): Promise<v
 }
 
 export const createProject = async ({ commit }: IActionContext, project: Project) => {
-  const ref: firebase.firestore.DocumentReference = await db
-    .collection('projects')
-    .add({ ...project })
+  const ref = await db.collection('projects').add({ ...project })
   const id = ref.id
   commit(types.ADD_PROJECT, { ...project, id })
 }
@@ -178,4 +176,18 @@ export const deleteProject = async ({ commit, state }: IActionContext, projectId
     transaction.update(docRef, data)
     commit(types.UPDATE_PROJECT, { projectId, data })
   })
+}
+
+export const createVolunteer = async (
+  { commit }: IActionContext,
+  { projectId, user, message }: { projectId: string; user: firebase.UserInfo; message: string }
+) => {
+  const volunteerData = {
+    projectId,
+    message,
+    photoUrl: user.photoURL,
+    uid: user.uid,
+    email: user.email
+  }
+  return db.collection('volunteers').add(volunteerData)
 }
