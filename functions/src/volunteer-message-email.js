@@ -52,7 +52,7 @@ module.exports = functions.firestore.document('volunteers/{volunteerId}').onCrea
 
       const text = `
         You have a new volunteer for your project:
-         ${projectData.title}
+        ${projectData.title}
 
         ${volunteerData.message}
       `
