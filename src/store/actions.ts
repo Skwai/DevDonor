@@ -185,6 +185,7 @@ export const createVolunteer = async (
   const volunteerData = {
     projectId,
     message,
+    displayName: user.displayName,
     photoUrl: user.photoURL,
     uid: user.uid,
     email: user.email
