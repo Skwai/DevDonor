@@ -42,7 +42,6 @@ export default class TheHeader extends Vue {}
   z-index: 2;
   background: #fff;
   padding: 0 $spacingBase;
-  position: sticky;
   top: 0;
   left: 0;
   width: 100vw;
