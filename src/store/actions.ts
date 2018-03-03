@@ -183,12 +183,16 @@ export const createVolunteer = async (
   { projectId, user, message }: { projectId: string; user: firebase.UserInfo; message: string }
 ) => {
   const volunteerData = {
-    projectId,
     message,
     displayName: user.displayName,
     photoUrl: user.photoURL,
     uid: user.uid,
     email: user.email
   }
-  return db.collection('volunteers').add(volunteerData)
+  return db
+    .collection('projects')
+    .doc(projectId)
+    .collection('volunteers')
+    .doc(user.uid)
+    .set(volunteerData)
 }

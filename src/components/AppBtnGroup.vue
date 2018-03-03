@@ -13,6 +13,11 @@ export default class AppBtnGroup extends Vue {}
 
 <style lang="stylus" module>
 .AppBtnGroup {
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+
+  &[justify='center'] {
+    justify-content: center;
+  }
 }
 </style>

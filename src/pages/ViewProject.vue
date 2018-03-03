@@ -18,16 +18,6 @@
           </AppGlyph>
           {{countryName}}
         </div>
-        <div :class="$style.ViewProject__Actions">
-          <AppBtn :to="{ name: 'DeleteProject', params: { projectId: $route.params.projectId } }" size="small">
-            <!--<svg slot="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path data-color="color-2" d="M10.1 4.5L8 6.6 5.9 4.5 4.5 5.9 6.6 8l-2.1 2.1 1.4 1.4L8 9.4l2.1 2.1 1.4-1.4L9.4 8l2.1-2.1z"/><path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"/></svg>-->
-            Delete
-          </AppBtn>
-          <AppBtn :to="{ name: 'EditProject', params: { projectId: $route.params.projectId } }" size="small">
-            <!--<svg slot="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z"/></svg>-->
-            Edit
-          </AppBtn>
-        </div>
       </div>
       <h1 :class="$style.ViewProject__Title">{{project.title}}</h1>
     </header>
@@ -37,8 +27,22 @@
         <AppSubheading>About the project</AppSubheading>
         <div v-html="description" :class="$style.ViewProject__Description"></div>
       </div>
-      <article :class="$style.ViewProject__Sidebar">
-        <div :class="$style.ViewProject__Volunteer">
+      <aside :class="$style.ViewProject__Sidebar">
+        <AppCard v-if="isProjectOwner">
+          <h3>This is your project</h3>
+          <AppBtnGroup justify="center">
+            <AppBtn color="stroke" :to="{ name: 'DeleteProject', params: { projectId: $route.params.projectId } }" size="small">
+              Delete it
+            </AppBtn>
+            <AppBtn color="stroke" :to="{ name: 'EditProject', params: { projectId: $route.params.projectId } }" size="small">
+              Edit it
+            </AppBtn>
+          </AppBtnGroup>
+        </AppCard>
+        <div
+          :class="$style.ViewProject__Volunteer"
+          v-else-if="!isVolunteer"
+        >
           <AppCard>
             <h3>Interested in helping out?</h3>
             <p>This project is seeking volunteers</p>
@@ -62,7 +66,7 @@
           <p v-if="project.organizationUrl" :class="$style.ViewProject__OrganizationUrl"><AppLink :href="project.organizationUrl" target="_blank">{{domainName}}</AppLink></p>
           <div>{{project.organizationDescription}}</div>
         </AppCard>
-      </article>
+      </aside>
     </div>
     <router-view />
   </div>
@@ -86,6 +90,7 @@ export default class ViewProjectPage extends Vue {
   @Getter('getProjectById') private getProject: (projectId: string) => Project | null
   @Getter private getCountryName: (countryCode: string) => string
   @Getter private getOrganizationType: (orgType: string) => string
+  @Getter private getCurrentUserId: string
 
   get countryName() {
     if (this.project) {
@@ -116,7 +121,6 @@ export default class ViewProjectPage extends Vue {
       new Date().getTime() - NEW_PROJECT_DAYS * 24 * 60 * 60 * 1000
     )
   }
-
   get createdAt() {
     if (this.project) {
       return moment(this.project.createdAt).fromNow()
@@ -136,6 +140,17 @@ export default class ViewProjectPage extends Vue {
     }
 
     return new URL(this.project.organizationUrl).host
+  }
+
+  get isVolunteer() {
+    return false
+  }
+
+  get isProjectOwner() {
+    if (this.project && this.project.ownerId) {
+      return this.getCurrentUserId === this.project.ownerId
+    }
+    return false
   }
 
   private async created() {
