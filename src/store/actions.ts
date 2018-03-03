@@ -189,10 +189,20 @@ export const createVolunteer = async (
     uid: user.uid,
     email: user.email
   }
-  return db
+
+  const docRef = db
     .collection('projects')
     .doc(projectId)
     .collection('volunteers')
     .doc(user.uid)
-    .set(volunteerData)
+
+  await db.runTransaction(async (transaction: firebase.firestore.Transaction) => {
+    const doc = await transaction.get(docRef)
+
+    if (doc.exists) {
+      throw Error('User has already volunteered for this project')
+    }
+
+    transaction.set(docRef, volunteerData)
+  })
 }
