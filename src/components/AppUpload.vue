@@ -37,12 +37,17 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { storage } from '../services/db'
 
 const THUMBNAIL_PREFIX = 'thumbnail-'
+const MAX_FILE_SIZE_DEFAULT = 2 // MB
 
 @Component
 export default class AppUpload extends Vue {
   @Prop() private url: string
-  @Prop() private fileTypes: string[]
-  @Prop() private maxFileSize: number
+  @Prop({
+    default: ['png', 'jpeg', 'gif']
+  })
+  private fileTypes: string[]
+  @Prop({ default: MAX_FILE_SIZE_DEFAULT })
+  private maxFileSize: number
   @Prop() private filePath: string
   @Prop() private fileName: string
   @Prop() private label: string
@@ -107,7 +112,6 @@ export default class AppUpload extends Vue {
     this.uploading = true
 
     try {
-      // const ext = file.name.split('.').pop()
       const path = `${this.filePath}/${this.fileName}`
       const thumbnailPath = `${this.filePath}/${THUMBNAIL_PREFIX}${this.fileName}`
       const ref = storage.ref().child(path)
