@@ -40,8 +40,10 @@ export const logout = ({ commit }: IActionContext) => {
 
 export const loadCurrentUser = async ({ commit }: IActionContext): Promise<void> => {
   commit(types.SET_PENDING_AUTH)
+
   try {
     const userRecord = await auth.getCurrentUser()
+
     if (userRecord) {
       const userData = userRecord.toJSON()
       commit(types.SET_CURRENT_USER, userData)
@@ -67,10 +69,19 @@ export const loadProjects = async ({ commit, state }: IActionContext): Promise<v
   })
 }
 
-export const createProject = async ({ commit }: IActionContext, project: Project) => {
-  const ref = await db.collection('projects').add({ ...project })
-  const id = ref.id
-  commit(types.ADD_PROJECT, { ...project, id })
+export const createProject = async ({ commit, state }: IActionContext, project: Project) => {
+  if (!state.currentUser || !state.currentUser.email) {
+    throw Error('Current user is missing an email address')
+  }
+
+  const copy = { ...project }
+  copy.email = state.currentUser.email
+  copy.ownerId = state.currentUser.uid
+  copy.createdAt = new Date()
+
+  const ref = await db.collection('projects').add({ ...copy })
+  copy.id = ref.id
+  commit(types.ADD_PROJECT, copy)
 }
 
 export const loadProjectById = async ({ commit, state }: IActionContext, projectId: string) => {
@@ -102,8 +113,8 @@ export const storeProjectFormData = ({ commit }: IActionContext, project: Projec
 }
 
 export const clearProjectFormData = ({ commit }: IActionContext) => {
-  commit(types.CLEAR_SAVED_CREATE_PROJECT_FORM_DATA)
-  localStorage.removeItem(SAVED_CREATE_PROJECT_FORM_DATA_KEY)
+  // commit(types.CLEAR_SAVED_CREATE_PROJECT_FORM_DATA)
+  // localStorage.removeItem(SAVED_CREATE_PROJECT_FORM_DATA_KEY)
 }
 
 export const showError = ({ commit }: IActionContext, message: string) => {
