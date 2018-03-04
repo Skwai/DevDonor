@@ -25,20 +25,24 @@ export default class AppNavListItem extends Vue {
 
 <style lang="stylus" module>
 @require '../styles/config';
+@require '../styles/text';
 
 .AppNavListItem {
   display: flex;
   align-items: center;
-  padding: 0.75rem 0;
+  padding: 0.75rem $spacingBase;
   transition: $transitionBase;
   user-select: none;
   background: transparent;
   border: 0;
   -webkit--moz-appearance: none;
   font-size: $fontSizeSmall;
+  white-space: nowrap;
+  textSmallCaps();
 
   &:hover, &:focus {
-    color: $colorPrimary;
+    // color: $colorPrimary;
+    background: $colorHighlight;
   }
 
   &__Icon {

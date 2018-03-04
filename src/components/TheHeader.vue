@@ -6,7 +6,7 @@
     >
       <h1><img :class="$style.TheHeader__LogoImage" src="/logo.svg" alt="DevDonor"></h1>
     </router-link>
-    <nav :class="$style.TheHeader__Nav" data-foo="true">
+    <nav :class="$style.TheHeader__Nav">
       <router-link
         to="/"
         :class="$style.TheHeader__NavItem"
@@ -23,13 +23,20 @@
         :active-class="$style.TheHeader__NavItemActive"
       >About</router-link>
     </nav>
+
+    <!--<AccountMenu />-->
   </header>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import AccountMenu from './AccountMenu.vue'
 
-@Component
+@Component({
+  components: {
+    AccountMenu
+  }
+})
 export default class TheHeader extends Vue {}
 </script>
 
@@ -56,7 +63,7 @@ export default class TheHeader extends Vue {}
   &__Logo {
     transition: transitionBase;
     color: $colorPrimary;
-    padding: 1rem 0;
+    padding: 1.5rem 0;
     transition: $transitionBase;
     will-change: transform;
     margin-right: 1rem;
