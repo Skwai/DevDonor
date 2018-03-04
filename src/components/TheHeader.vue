@@ -46,7 +46,7 @@ export default class TheHeader extends Vue {}
 
 .TheHeader {
   transition: transitionBase;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 0.25rem 1rem, rgba(0, 0, 0, 0.1) 0 1px 1px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0.25rem 1rem; // , rgba(0, 0, 0, 0.1) 0 1px 1px;
   display: flex;
   align-items: stretch;
   z-index: 2;
