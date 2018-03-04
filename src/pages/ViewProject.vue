@@ -87,7 +87,7 @@ export default class ViewProjectPage extends Vue {
   private loading: boolean = true
   private project: Project | null = null
 
-  @Action private loadProjectById: (projectId: string) => Promise<void>
+  @Action('loadProjectById') private actionLoadProjectById: (projectId: string) => Promise<void>
 
   @Getter('getProjectById') private getProject: (projectId: string) => Project | null
   @Getter private getCountryName: (countryCode: string) => string
@@ -123,6 +123,7 @@ export default class ViewProjectPage extends Vue {
       new Date().getTime() - NEW_PROJECT_DAYS * 24 * 60 * 60 * 1000
     )
   }
+
   get createdAt() {
     if (this.project) {
       return moment(this.project.createdAt).fromNow()
@@ -157,7 +158,7 @@ export default class ViewProjectPage extends Vue {
 
   private async created() {
     try {
-      await this.loadProjectById(this.projectId)
+      await this.actionLoadProjectById(this.projectId)
       this.project = this.getProject(this.projectId)
 
       if (this.project && this.project.deleted) {

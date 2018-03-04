@@ -89,16 +89,33 @@ export const loadProjectById = async ({ commit, state }: IActionContext, project
   if (projectId in state.projects) {
     return
   }
+
   // Load project from Firestore
-  const ref = db.collection('projects').doc(projectId)
-  const doc = await ref.get()
-  if (!doc.exists) {
+  const projectRef = db.collection('projects').doc(projectId)
+  const projectDoc = await projectRef.get()
+
+  if (!projectDoc.exists) {
     throw Error('Project does not exist')
   }
-  const project = {
-    ...doc.data(),
-    id: doc.id
+
+  const project: IProjectProperties = {
+    ...projectDoc.data(),
+    id: projectDoc.id
   }
+
+  // check if the current user has volunteered for the project
+  /*
+  if (state.currentUser && state.currentUser.uid && state.currentUser.uid !== project.ownerId) {
+    try {
+      const volunteerRef = projectRef.collection('volunteers').doc(state.currentUser.uid)
+      const volunteerDoc = await volunteerRef.get()
+
+      if (volunteerDoc.exists) {
+      }
+    } catch (err) {}
+  }
+  */
+
   commit(types.ADD_PROJECT, project)
 }
 

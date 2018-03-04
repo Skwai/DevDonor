@@ -11,13 +11,23 @@
       <AppHeading>Volunteer for this project</AppHeading>
       <p>So you're interested in helping out with this project? Great!</p>
 
-      <CurrentUser v-if="getCurrentUser" :currentUser="getCurrentUser" />
+      <CurrentUser
+        v-if="getCurrentUser"
+        :currentUser="getCurrentUser"
+      />
+
       <template v-else>
         <h4>You'll need to sign in first, so that this charity can contact you</h4>
         <AuthLogin />
       </template>
 
-      <form v-if="getCurrentUser" @submit.prevent="submit">
+      <template v-if="alreadyVolunteered">
+      </template>
+
+      <form
+        v-if="getCurrentUser && !alreadyVolunteered"
+        @submit.prevent="submit"
+      >
         <AppFieldGroup>
           <AppField
             type="textarea"
