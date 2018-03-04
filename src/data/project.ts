@@ -1,4 +1,6 @@
-export const PROJECT_TYPES = {
+export const PROJECT_TYPES: {
+  [key: string]: any
+} = {
   web: 'Web',
   mobile: 'Mobile',
   desktop: 'Desktop',
