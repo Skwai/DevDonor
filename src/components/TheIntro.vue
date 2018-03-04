@@ -20,7 +20,7 @@ export default class TheIntro extends Vue {}
 @require '../styles/text';
 
 .TheIntro {
-  background: $colorPrimary linear-gradient(150deg, darken($colorPrimary, 10) 0%, $colorPrimary 100%);
+  background: $colorPrimary;
   color: #fff;
 
   &__Body {

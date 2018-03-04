@@ -1,6 +1,7 @@
 <template>
   <AppLoading v-if="loading" />
   <div v-else-if="project" :class="$style.ViewProject">
+
     <header :class="$style.ViewProject__Header">
       <div :class="$style.ViewProject__Meta">
         <div :class="$style.ViewProject__Created">
@@ -27,7 +28,9 @@
         <AppSubheading>About the project</AppSubheading>
         <div v-html="description" :class="$style.ViewProject__Description"></div>
       </div>
+
       <aside :class="$style.ViewProject__Sidebar">
+
         <AppCard v-if="isProjectOwner">
           <h3>Manage your project</h3>
           <AppNavList>
@@ -42,24 +45,22 @@
           </AppNavList>
         </AppCard>
 
-        <AppCard v-if="isVolunteer">
+        <AppCard v-if="isProjectVolunteer">
           <p>You've volunteered for this project</p>
         </AppCard>
 
-        <div
+        <AppCard
+          v-if="!isProjectVolunteer && !isProjectOwner"
           :class="$style.ViewProject__Volunteer"
-          v-else-if="!isVolunteer"
         >
-          <AppCard>
-            <h3>Interested in helping out?</h3>
-            <p>This project is seeking volunteers</p>
-            <AppBtn
-              :to="{ path: 'volunteer', append: true }"
-              color="primary"
-              :block=true
-            >Volunteer for project</AppBtn>
-          </AppCard>
-        </div>
+          <h3>Interested in helping out?</h3>
+          <p>This project is seeking volunteers</p>
+          <AppBtn
+            :to="{ path: 'volunteer', append: true }"
+            color="primary"
+            :block=true
+          >Volunteer for project</AppBtn>
+        </AppCard>
 
         <AppCard :class="$style.ViewProject__Organization">
           <div :class="$style.ViewProject__LogoWrap">
@@ -73,6 +74,7 @@
           <p v-if="project.organizationUrl" :class="$style.ViewProject__OrganizationUrl"><AppLink :href="project.organizationUrl" target="_blank">{{domainName}}</AppLink></p>
           <div>{{project.organizationDescription}}</div>
         </AppCard>
+
       </aside>
     </div>
     <router-view />
@@ -151,7 +153,7 @@ export default class ViewProjectPage extends Vue {
     return new URL(this.project.organizationUrl).host
   }
 
-  get isVolunteer() {
+  get isProjectVolunteer() {
     return this.getIsUserVolunteerProject(this.projectId)
   }
 
@@ -189,6 +191,8 @@ export default class ViewProjectPage extends Vue {
 
   &__Header {
     margin-bottom: $spacingLarge;
+    padding-bottom: $spacingLarge;
+    border-bottom: $colorLightGray solid 2px;
   }
 
   &__Meta {

@@ -4,7 +4,7 @@
       <ProjectFilters @update="onFilterChange" />
     </div>
     <div :class="$style.ProjectList__Projects">
-      <h1 :class="$style.ProjectList__Heading">Current Projects</h1>
+      <!--<h1 :class="$style.ProjectList__Heading">Current Projects</h1>-->
       <AppLoading v-if="loading" />
       <div v-else-if="error" :class="$style.ProjectList__Error">
         <h3>There was an error loading projects</h3>

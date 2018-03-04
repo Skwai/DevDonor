@@ -46,7 +46,7 @@ export default class TheHeader extends Vue {}
 
 .TheHeader {
   transition: transitionBase;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 0.25rem 1rem; // , rgba($colorGray, 1) 0 1px 1px
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0.25rem 1rem, rgba(0, 0, 0, 0.1) 0 1px 1px;
   display: flex;
   align-items: stretch;
   z-index: 2;
@@ -73,13 +73,14 @@ export default class TheHeader extends Vue {}
       content: 'Beta';
       position: absolute;
       right: 0;
-      top: 0;
-      background: $colorDarkBlue;
+      top: 0.5rem;
+      background: $colorPrimary;
       color: #fff;
       textCaps();
       font-size: 10px;
       line-height: 1;
       padding: 3px 5px;
+      border-radius: 1px;
     }
 
     &Image {
@@ -96,8 +97,8 @@ export default class TheHeader extends Vue {}
     margin-left: auto;
 
     &Item {
-      padding: 0.5rem 0;
-      margin: 0 1rem;
+      padding: 0 0.5rem;
+      margin: 0 0.5rem;
       white-space: nowrap;
       transition: $transitionBase;
       position: relative;
