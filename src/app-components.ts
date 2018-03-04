@@ -23,6 +23,7 @@ import AppRadioGroup from './components/AppRadioGroup.vue'
 import AppCheckboxGroup from './components/AppCheckboxGroup.vue'
 import AppNavList from './components/AppNavList.vue'
 import AppNavListItem from './components/AppNavListItem.vue'
+import AppPage from './components/AppPage.vue'
 
 Vue.component('AppBtn', AppBtn)
 Vue.component('AppBtnGroup', AppBtnGroup)
@@ -47,3 +48,4 @@ Vue.component('AppRadioGroup', AppRadioGroup)
 Vue.component('AppCheckboxGroup', AppCheckboxGroup)
 Vue.component('AppNavList', AppNavList)
 Vue.component('AppNavListItem', AppNavListItem)
+Vue.component('AppPage', AppPage)
