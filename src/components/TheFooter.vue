@@ -3,8 +3,7 @@
     <div :class="$style.TheFooter__Container">
       <nav :class="$style.TheFooter__Legals">
         <span>&copy; DevDonor</span>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Use</a>
+        <router-link :to="{ name: 'Privacy' }">Privacy</router-link>
       </nav>
     </div>
   </footer>

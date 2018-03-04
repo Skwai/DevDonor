@@ -1,6 +1,7 @@
 <template>
   <AppLoading v-if="loading" />
   <div v-else-if="project" :class="$style.ViewProject">
+
     <header :class="$style.ViewProject__Header">
       <div :class="$style.ViewProject__Meta">
         <div :class="$style.ViewProject__Created">
@@ -18,18 +19,8 @@
           </AppGlyph>
           {{countryName}}
         </div>
-        <div :class="$style.ViewProject__Actions">
-          <AppBtn :to="{ name: 'DeleteProject', params: { projectId: $route.params.projectId } }" size="small">
-            <!--<svg slot="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path data-color="color-2" d="M10.1 4.5L8 6.6 5.9 4.5 4.5 5.9 6.6 8l-2.1 2.1 1.4 1.4L8 9.4l2.1 2.1 1.4-1.4L9.4 8l2.1-2.1z"/><path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"/></svg>-->
-            Delete
-          </AppBtn>
-          <AppBtn :to="{ name: 'EditProject', params: { projectId: $route.params.projectId } }" size="small">
-            <!--<svg slot="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z"/></svg>-->
-            Edit
-          </AppBtn>
-        </div>
       </div>
-      <h1 :class="$style.ViewProject__Title">{{project.title}}</h1>
+      <AppHeading :class="$style.ViewProject__Title">{{project.title}}</AppHeading>
     </header>
 
     <div :class="$style.ViewProject__Body">
@@ -37,18 +28,39 @@
         <AppSubheading>About the project</AppSubheading>
         <div v-html="description" :class="$style.ViewProject__Description"></div>
       </div>
-      <article :class="$style.ViewProject__Sidebar">
-        <div :class="$style.ViewProject__Volunteer">
-          <AppCard>
-            <h3>Interested in helping out?</h3>
-            <p>This project is seeking volunteers</p>
-            <AppBtn
-              :to="{ path: 'volunteer', append: true }"
-              color="primary"
-              :block=true
-            >Volunteer for project</AppBtn>
-          </AppCard>
-        </div>
+
+      <aside :class="$style.ViewProject__Sidebar">
+
+        <AppCard v-if="isProjectOwner">
+          <h3>Manage your project</h3>
+          <AppNavList>
+            <AppNavListItem :to="{ name: 'EditProject', params: { projectId: $route.params.projectId } }">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M13 7L9 3"/><path d="M5.5 14.5l-5 1 1-5 10-10 4 4-10 10z"/></g></svg>
+              Edit project
+            </AppNavListItem>
+            <AppNavListItem :to="{ name: 'DeleteProject', params: { projectId: $route.params.projectId } }">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"><circle cx="8.5" cy="8.5" r="7"/><path d="M11.5 5.5l-6 6m0-6l6 6"/></g></svg>
+              Delete project
+            </AppNavListItem>
+          </AppNavList>
+        </AppCard>
+
+        <AppCard v-if="isProjectVolunteer">
+          <p>You've volunteered for this project</p>
+        </AppCard>
+
+        <AppCard
+          v-if="!isProjectVolunteer && !isProjectOwner"
+          :class="$style.ViewProject__Volunteer"
+        >
+          <h3>Interested in helping out?</h3>
+          <p>This project is seeking volunteers</p>
+          <AppBtn
+            :to="{ path: 'volunteer', append: true }"
+            color="primary"
+            :block=true
+          >Volunteer for project</AppBtn>
+        </AppCard>
 
         <AppCard :class="$style.ViewProject__Organization">
           <div :class="$style.ViewProject__LogoWrap">
@@ -62,7 +74,8 @@
           <p v-if="project.organizationUrl" :class="$style.ViewProject__OrganizationUrl"><AppLink :href="project.organizationUrl" target="_blank">{{domainName}}</AppLink></p>
           <div>{{project.organizationDescription}}</div>
         </AppCard>
-      </article>
+
+      </aside>
     </div>
     <router-view />
   </div>
@@ -81,11 +94,13 @@ export default class ViewProjectPage extends Vue {
   private loading: boolean = true
   private project: Project | null = null
 
-  @Action private loadProjectById: (projectId: string) => Promise<void>
+  @Action('loadProjectById') private actionLoadProjectById: (projectId: string) => Promise<void>
 
   @Getter('getProjectById') private getProject: (projectId: string) => Project | null
   @Getter private getCountryName: (countryCode: string) => string
   @Getter private getOrganizationType: (orgType: string) => string
+  @Getter private getCurrentUserId: string
+  @Getter private getIsUserVolunteerProject: (projectId: string) => boolean
 
   get countryName() {
     if (this.project) {
@@ -138,11 +153,27 @@ export default class ViewProjectPage extends Vue {
     return new URL(this.project.organizationUrl).host
   }
 
+  get isProjectVolunteer() {
+    return this.getIsUserVolunteerProject(this.projectId)
+  }
+
+  get isProjectOwner() {
+    if (this.project && this.project.ownerId) {
+      return this.getCurrentUserId === this.project.ownerId
+    }
+    return false
+  }
+
   private async created() {
     try {
-      await this.loadProjectById(this.projectId)
+      await this.actionLoadProjectById(this.projectId)
       this.project = this.getProject(this.projectId)
+
+      if (this.project && this.project.deleted) {
+        throw Error('Project has been deleted')
+      }
     } catch (err) {
+      this.$router.push({ name: 'NotFound' })
     } finally {
       this.loading = false
     }
@@ -160,6 +191,7 @@ export default class ViewProjectPage extends Vue {
 
   &__Header {
     margin-bottom: $spacingLarge;
+    border-bottom: $colorGray solid 1px;
   }
 
   &__Meta {
@@ -167,7 +199,7 @@ export default class ViewProjectPage extends Vue {
     align-items: center;
     margin-bottom: $spacingBase;
     white-space: nowrap;
-    color: rgba($fontColorBase, 0.7);
+    color: rgba($fontColorBase, 0.5);
   }
 
   &__Organization {
@@ -217,11 +249,6 @@ export default class ViewProjectPage extends Vue {
   &__Volunteer {
     margin: 0 0 $spacingBase;
     text-align: center;
-  }
-
-  &__Title {
-    font-size: 2rem;
-    margin-bottom: 0;
   }
 
   &__New {

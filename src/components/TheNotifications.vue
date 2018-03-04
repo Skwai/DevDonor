@@ -1,7 +1,7 @@
 <template>
   <div
     role="alert"
-    :class="$style.Notification"
+    :class="$style.TheNotification"
     :show="show"
     @click="hide"
     :type="type"
@@ -47,14 +47,15 @@ export default class TheNotifications extends Vue {
 <style lang="stylus" module>
 @require '../styles/config';
 
-.Notification {
+.TheNotification {
   padding: $spacingBase;
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   text-align: center;
-  background: #fff;
+  background: $colorPrimary;
+  color: #fff;
   z-index: $zIndexTop;
   font-weight: 500;
   box-shadow: rgba(0, 0, 0, 0.1) 0 2px 1rem;

@@ -116,6 +116,7 @@ export default class AppBtn extends Vue {
   position: relative;
   font-size: 0.875rem;
   font-weight: 600;
+  text-align: center;
 
   &:hover, &:focus {
     color: $colorPrimary;

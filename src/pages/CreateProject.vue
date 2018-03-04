@@ -3,7 +3,8 @@
     <template v-if="submitted">
       <AppHeading>Great! Your project has been created</AppHeading>
       <p>We'll notify you by email when people want to join your project.</p>
-      <p><AppBtn to="/project/1" color="stroke">View your new project page</AppBtn></p>
+      <!-- TODO: fix link below -->
+      <p><AppBtn to="/projects" color="stroke">View your new project page</AppBtn></p>
     </template>
     <template v-else>
       <AppHeading>Create a new project</AppHeading>
@@ -131,6 +132,7 @@
             <AppBtn
               type="submit"
               color="primary"
+              :loading="submitting"
             >Create My Project</AppBtn>
           </AppBtnGroup>
         </template>
@@ -175,7 +177,6 @@ export default class CreateProjectPage extends Vue {
   @Action private storeProjectFormData: (project: Project) => void
   @Action('createProject') private actionCreateProject: (project: Project) => Promise<void>
   @Action private clearProjectFormData: () => void
-  @Action private loadCurrentUser: () => Promise<void>
   @Action('showError') private actionShowError: (message: string) => void
   @Getter private getSavedCreateProjectFormData: {}
   @Getter private getCurrentUser: firebase.UserInfo
@@ -225,7 +226,7 @@ export default class CreateProjectPage extends Vue {
 
   private async submit(ev: Event) {
     const valid = this.checkValidity()
-    if (!valid) {
+    if (!valid || this.submitting) {
       return
     }
     this.submitting = true

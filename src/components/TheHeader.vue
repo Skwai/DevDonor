@@ -3,8 +3,10 @@
     <router-link
       to="/"
       :class="$style.TheHeader__Logo"
-    ><h1>DevDonor</h1></router-link>
-    <nav :class="$style.TheHeader__Nav" data-foo="true">
+    >
+      <h1><img :class="$style.TheHeader__LogoImage" src="/logo.svg" alt="DevDonor"></h1>
+    </router-link>
+    <nav :class="$style.TheHeader__Nav">
       <router-link
         to="/"
         :class="$style.TheHeader__NavItem"
@@ -21,28 +23,35 @@
         :active-class="$style.TheHeader__NavItemActive"
       >About</router-link>
     </nav>
+
+    <!--<AccountMenu />-->
   </header>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import AccountMenu from './AccountMenu.vue'
 
-@Component
+@Component({
+  components: {
+    AccountMenu
+  }
+})
 export default class TheHeader extends Vue {}
 </script>
 
 <style lang="stylus" module>
 @require '../styles/config.styl';
+@require '../styles/text.styl';
 
 .TheHeader {
   transition: transitionBase;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 0.25rem 1rem; // , rgba($colorGray, 1) 0 1px 1px
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0.25rem 1rem; // , rgba(0, 0, 0, 0.1) 0 1px 1px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   z-index: 2;
   background: #fff;
   padding: 0 $spacingBase;
-  position: sticky;
   top: 0;
   left: 0;
   width: 100vw;
@@ -54,13 +63,33 @@ export default class TheHeader extends Vue {}
   &__Logo {
     transition: transitionBase;
     color: $colorPrimary;
-    padding: $spacingBase 0;
+    padding: 1.5rem 0;
     transition: $transitionBase;
     will-change: transform;
     margin-right: 1rem;
+    position: relative;
+
+    &::after {
+      content: 'Beta';
+      position: absolute;
+      right: 0;
+      top: 0.5rem;
+      background: $colorPrimary;
+      color: #fff;
+      textCaps();
+      font-size: 10px;
+      line-height: 1;
+      padding: 3px 5px;
+      border-radius: 1px;
+      display: none;
+    }
+
+    &Image {
+      height: 1.25rem;
+    }
 
     &:hover, &:focus {
-      transform: scale(1.1);
+      box-shadow: inset currentColor 0 -3px 0;
     }
   }
 
@@ -69,11 +98,27 @@ export default class TheHeader extends Vue {}
     margin-left: auto;
 
     &Item {
-      padding: 0.5rem 0;
-      margin: 0 1rem;
-      font-weight: 500;
+      padding: 0 0.5rem;
+      margin: 0 0.5rem;
       white-space: nowrap;
       transition: $transitionBase;
+      position: relative;
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+
+      &::before {
+        content: '';
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 3px;
+        background: $colorPrimary;
+        position: absolute;
+        transform: scale(0, 1);
+        transform-origin: left center;
+        transition: $transitionBase;
+      }
 
       &:hover, &:focus {
         color: $colorPrimary;
@@ -81,7 +126,10 @@ export default class TheHeader extends Vue {}
 
       &Active {
         color: $colorPrimary;
-        box-shadow: inset currentColor 0 -2px 0;
+
+        &::before {
+          transform: scale(1, 1);
+        }
       }
     }
   }

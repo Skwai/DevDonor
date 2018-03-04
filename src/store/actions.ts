@@ -40,8 +40,10 @@ export const logout = ({ commit }: IActionContext) => {
 
 export const loadCurrentUser = async ({ commit }: IActionContext): Promise<void> => {
   commit(types.SET_PENDING_AUTH)
+
   try {
     const userRecord = await auth.getCurrentUser()
+
     if (userRecord) {
       const userData = userRecord.toJSON()
       commit(types.SET_CURRENT_USER, userData)
@@ -67,12 +69,19 @@ export const loadProjects = async ({ commit, state }: IActionContext): Promise<v
   })
 }
 
-export const createProject = async ({ commit }: IActionContext, project: Project) => {
-  const ref: firebase.firestore.DocumentReference = await db
-    .collection('projects')
-    .add({ ...project })
-  const id = ref.id
-  commit(types.ADD_PROJECT, { ...project, id })
+export const createProject = async ({ commit, state }: IActionContext, project: Project) => {
+  if (!state.currentUser || !state.currentUser.email) {
+    throw Error('Current user is missing an email address')
+  }
+
+  const copy = { ...project }
+  copy.email = state.currentUser.email
+  copy.ownerId = state.currentUser.uid
+  copy.createdAt = new Date()
+
+  const ref = await db.collection('projects').add({ ...copy })
+  copy.id = ref.id
+  commit(types.ADD_PROJECT, copy)
 }
 
 export const loadProjectById = async ({ commit, state }: IActionContext, projectId: string) => {
@@ -80,16 +89,30 @@ export const loadProjectById = async ({ commit, state }: IActionContext, project
   if (projectId in state.projects) {
     return
   }
+
   // Load project from Firestore
-  const ref = db.collection('projects').doc(projectId)
-  const doc = await ref.get()
-  if (!doc.exists) {
+  const projectRef = db.collection('projects').doc(projectId)
+  const projectDoc = await projectRef.get()
+
+  if (!projectDoc.exists) {
     throw Error('Project does not exist')
   }
-  const project = {
-    ...doc.data(),
-    id: doc.id
+
+  const project: IProjectProperties = {
+    ...projectDoc.data(),
+    id: projectDoc.id
   }
+
+  if (state.currentUser && state.currentUser.uid) {
+    try {
+      const volunteerRef = projectRef.collection('volunteers').doc(state.currentUser.uid)
+      const volunteerDoc = await volunteerRef.get()
+      if (volunteerDoc.exists) {
+        commit(types.ADD_VOLUNTEER_PROJECT, project.id)
+      }
+    } catch (err) {}
+  }
+
   commit(types.ADD_PROJECT, project)
 }
 
@@ -137,7 +160,7 @@ export const updateProject = async (
   const currentUser = state.currentUser
   const docRef = db.collection('projects').doc(projectId)
 
-  await db.runTransaction(async (transaction: firebase.firestore.Transaction) => {
+  const result = await db.runTransaction(async (transaction: firebase.firestore.Transaction) => {
     const doc = await transaction.get(docRef)
 
     if (!doc.exists) {
@@ -151,7 +174,8 @@ export const updateProject = async (
     const data = { ...project }
     delete data.id
 
-    transaction.update(docRef, data)
+    await transaction.update(docRef, data)
+    commit(types.UPDATE_PROJECT, { projectId, data })
   })
 }
 
@@ -170,6 +194,39 @@ export const deleteProject = async ({ commit, state }: IActionContext, projectId
       throw Error('You are not authorized to delete this project')
     }
 
-    transaction.update(docRef, { deleted: new Date() })
+    const data = {
+      deleted: new Date()
+    }
+
+    transaction.update(docRef, data)
+    commit(types.UPDATE_PROJECT, { projectId, data })
+  })
+}
+
+export const createVolunteer = async (
+  { commit }: IActionContext,
+  { projectId, user, message }: { projectId: string; user: firebase.UserInfo; message: string }
+) => {
+  const volunteerData = {
+    message,
+    displayName: user.displayName,
+    photoUrl: user.photoURL,
+    email: user.email
+  }
+
+  const docRef = db
+    .collection('projects')
+    .doc(projectId)
+    .collection('volunteers')
+    .doc(user.uid)
+
+  await db.runTransaction(async (transaction: firebase.firestore.Transaction) => {
+    const doc = await transaction.get(docRef)
+
+    if (doc.exists) {
+      throw Error('User has already volunteered for this project')
+    }
+
+    transaction.set(docRef, volunteerData)
   })
 }

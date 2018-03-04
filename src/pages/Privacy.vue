@@ -1,7 +1,8 @@
 <template>
   <AppPage>
-    <AppHeading>About this website</AppHeading>
-    <AppContent v-html="content"></AppContent>
+    <AppHeading>Privacy Policy</AppHeading>
+    <AppLoading v-if="loading" />
+    <AppContent v-else-if="content" v-html="content"></AppContent>
   </AppPage>
 </template>
 
@@ -17,7 +18,7 @@ export default class AboutPage extends Vue {
   private async created() {
     this.loading = true
     try {
-      this.content = await loadMarkdownContent('about')
+      this.content = await loadMarkdownContent('privacy')
     } catch (err) {
       // TODO: error
     } finally {

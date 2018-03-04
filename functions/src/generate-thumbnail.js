@@ -10,7 +10,7 @@
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for t`he specific language governing permissions and
+ * See the License for the specific language governing permissions and
  * limitations under the License.
  */
 'use strict'
@@ -27,6 +27,7 @@ const fs = require('fs')
 // Max height and width of the thumbnail in pixels.
 const THUMB_MAX_HEIGHT = 128
 const THUMB_MAX_WIDTH = 128
+
 // Thumbnail prefix added to file names.
 const THUMB_PREFIX = 'thumbnail-'
 
@@ -95,17 +96,5 @@ module.exports = functions.storage.object().onChange((event) => {
       console.log('Thumbnail created at', tempLocalThumbFile)
       // Uploading the Thumbnail.
       return bucket.upload(tempLocalThumbFile, { destination: thumbFilePath, metadata: metadata })
-    })
-    .then(() => {
-      console.log('Thumbnail uploaded to Storage at', thumbFilePath)
-      // Once the image has been uploaded delete the local files to free up disk space.
-      fs.unlinkSync(tempLocalFile)
-      fs.unlinkSync(tempLocalThumbFile)
-      // Get the Signed URLs for the thumbnail and original image.
-      const config = {
-        action: 'read',
-        expires: '03-01-2500'
-      }
-      return Promise.all([thumbFile.getSignedUrl(config), file.getSignedUrl(config)])
     })
 })

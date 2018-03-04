@@ -20,7 +20,7 @@ export default class TheIntro extends Vue {}
 @require '../styles/text';
 
 .TheIntro {
-  background: $colorPrimary linear-gradient(150deg, darken($colorPrimary, 10) 0%, $colorPrimary 100%);
+  background: $colorPrimary;
   color: #fff;
 
   &__Body {
@@ -32,6 +32,7 @@ export default class TheIntro extends Vue {}
   &__Title {
     font-size: 1rem + 1vmin;
     margin-bottom: 0.5rem;
+    font-weight: 700;
   }
 
   &__Description {

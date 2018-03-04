@@ -90,6 +90,7 @@
         />
       </AppFieldGroup>
       <AppBtnGroup>
+        <AppBtn @click="close">Cancel</AppBtn>
         <AppBtn
           type="submit"
           color="primary"
@@ -151,11 +152,11 @@ export default class EditProjectPage extends Vue {
   }
 
   private async update() {
-    if (!this.checkValidity()) {
+    if (!this.checkValidity() || this.saving) {
       return
     }
+    this.saving = true
     try {
-      this.saving = true
       const { projectId, project } = this
       await this.actionUpdateProject({ projectId, project })
       this.actionShowSuccess('Your project has been updated')

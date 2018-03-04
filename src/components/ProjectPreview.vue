@@ -9,18 +9,14 @@
     <div :class="$style.ProjectPreview__Body">
       <header :class="$style.ProjectPreview__Header">
         <h2 :class="$style.ProjectPreview__Title">{{project.title}}</h2>
-        <div :class="$style.ProjectPreview__Type">
-          <AppTag>Mobile Project</AppTag>
+        <div :class="$style.ProjectPreview__Tags">
+          <AppTag>{{projectType}}</AppTag>
+          <AppLabel v-if="isNew">New</AppLabel>
         </div>
       </header>
       <div>
       </div>
       <div :class="$style.ProjectPreview__Meta">
-        <!--
-        <div v-if="isNew" :class="$style.ProjectPreview__New">
-          <AppLabel>New</AppLabel>
-        </div>
-        -->
         <div :class="$style.ProjectPreview__Organization">{{project.organizationName}}</div>
         <div :class="$style.ProjectPreview__Region">
           <AppGlyph><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></AppGlyph>
@@ -48,10 +44,17 @@ export default class ProjectPreview extends Vue {
   private project: IProjectProperties
 
   @Getter private getCountryName: (countryCode: string) => string
+  @Getter private getProjectTypeName: (projectType: string) => string
 
   get countryName() {
     if (this.project.country) {
       return this.getCountryName(this.project.country)
+    }
+  }
+
+  get projectType() {
+    if (this.project.projectType) {
+      return this.getProjectTypeName(this.project.projectType)
     }
   }
 
@@ -104,7 +107,7 @@ export default class ProjectPreview extends Vue {
   }
 
   &:hover &__Title, &:focus &__Title {
-    text-decoration: underline;
+    color: $colorPrimary;
   }
 
   &__Category {
@@ -143,17 +146,9 @@ export default class ProjectPreview extends Vue {
   &__Title {
     textSubheading();
     margin: 0;
-    color: $colorPrimary;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.35;
     transition: $transitionBase;
-  }
-
-  &__Region {
-    margin-left: 1.5rem;
-    display: flex;
-    align-items: center;
-    opacity: 0.5;
   }
 
   &__Body {
@@ -165,6 +160,7 @@ export default class ProjectPreview extends Vue {
     display: flex;
     align-items: center;
     font-size: $fontSizeSmall;
+    color: rgba($colorDarkBlue, 0.5);
   }
 
   &__Organization {
@@ -174,14 +170,14 @@ export default class ProjectPreview extends Vue {
   &__Header {
     display: flex;
     align-items: flex-start;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
   }
 
   &__New {
     margin-right: $spacingBase;
   }
 
-  &__Type {
+  &__Tags {
     margin-left: auto;
     padding-left: $spacingBase;
   }
@@ -190,7 +186,12 @@ export default class ProjectPreview extends Vue {
     display: flex;
     align-items: center;
     margin-left: $spacingBase;
-    opacity: 0.5;
+  }
+
+  &__Region {
+    margin-left: 1.5rem;
+    display: flex;
+    align-items: center;
   }
 }
 </style>
