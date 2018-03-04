@@ -191,8 +191,7 @@ export default class ViewProjectPage extends Vue {
 
   &__Header {
     margin-bottom: $spacingLarge;
-    padding-bottom: $spacingLarge;
-    border-bottom: $colorLightGray solid 2px;
+    border-bottom: $colorGray solid 1px;
   }
 
   &__Meta {
@@ -250,11 +249,6 @@ export default class ViewProjectPage extends Vue {
   &__Volunteer {
     margin: 0 0 $spacingBase;
     text-align: center;
-  }
-
-  &__Title {
-    font-size: 2rem;
-    margin-bottom: 0;
   }
 
   &__New {
