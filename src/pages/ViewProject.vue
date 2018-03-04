@@ -19,7 +19,7 @@
           {{countryName}}
         </div>
       </div>
-      <h1 :class="$style.ViewProject__Title">{{project.title}}</h1>
+      <AppHeading :class="$style.ViewProject__Title">{{project.title}}</AppHeading>
     </header>
 
     <div :class="$style.ViewProject__Body">
@@ -41,6 +41,11 @@
             </AppNavListItem>
           </AppNavList>
         </AppCard>
+
+        <AppCard v-if="isVolunteer">
+          <p>You've volunteered for this project</p>
+        </AppCard>
+
         <div
           :class="$style.ViewProject__Volunteer"
           v-else-if="!isVolunteer"
@@ -93,6 +98,7 @@ export default class ViewProjectPage extends Vue {
   @Getter private getCountryName: (countryCode: string) => string
   @Getter private getOrganizationType: (orgType: string) => string
   @Getter private getCurrentUserId: string
+  @Getter private getIsUserVolunteerProject: (projectId: string) => boolean
 
   get countryName() {
     if (this.project) {
@@ -146,7 +152,7 @@ export default class ViewProjectPage extends Vue {
   }
 
   get isVolunteer() {
-    return false
+    return this.getIsUserVolunteerProject(this.projectId)
   }
 
   get isProjectOwner() {

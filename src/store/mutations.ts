@@ -62,7 +62,13 @@ const mutations: MutationTree<State> = {
     { projectId, data }: { projectId: string; data: IProjectProperties }
   ) {
     if (projectId in state.projects) {
-      state.projects[projectId] = {...state.projects[projectId], ...data}
+      state.projects[projectId] = { ...state.projects[projectId], ...data }
+    }
+  },
+
+  [types.ADD_VOLUNTEER_PROJECT](state, projectId: string) {
+    if (!state.userVolunteerProjects.includes(projectId)) {
+      state.userVolunteerProjects.push(projectId)
     }
   }
 }

@@ -103,18 +103,15 @@ export const loadProjectById = async ({ commit, state }: IActionContext, project
     id: projectDoc.id
   }
 
-  // check if the current user has volunteered for the project
-  /*
-  if (state.currentUser && state.currentUser.uid && state.currentUser.uid !== project.ownerId) {
+  if (state.currentUser && state.currentUser.uid) {
     try {
       const volunteerRef = projectRef.collection('volunteers').doc(state.currentUser.uid)
       const volunteerDoc = await volunteerRef.get()
-
       if (volunteerDoc.exists) {
+        commit(types.ADD_VOLUNTEER_PROJECT, project.id)
       }
     } catch (err) {}
   }
-  */
 
   commit(types.ADD_PROJECT, project)
 }

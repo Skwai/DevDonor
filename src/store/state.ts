@@ -24,4 +24,5 @@ export default class State {
     country: '',
     organizationType: ''
   }
+  public userVolunteerProjects: string[] = []
 }

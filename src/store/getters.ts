@@ -54,3 +54,9 @@ export const getCountryName = () => (countryCode: string) => {
 export const getOrganizationType = () => (orgType: string): string | null => {
   return orgType in ORGANIZATION_TYPES ? ORGANIZATION_TYPES[orgType] : null
 }
+
+export const getIsUserVolunteerProject = ({ userVolunteerProjects }: State) => (
+  projectId: string
+) => {
+  return userVolunteerProjects.includes(projectId)
+}

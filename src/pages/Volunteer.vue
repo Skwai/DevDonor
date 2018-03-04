@@ -21,8 +21,7 @@
         <AuthLogin />
       </template>
 
-      <template v-if="alreadyVolunteered">
-      </template>
+      <h2>You've already volunteered for this project</h2>
 
       <form
         v-if="getCurrentUser && !alreadyVolunteered"
@@ -78,6 +77,7 @@ export default class Volunteer extends Vue {
   ) => Promise<void>
   @Action('showError') private actionShowError: (message: string) => void
   @Getter private getCurrentUser: firebase.UserInfo
+  @Getter private getIsUserVolunteerProject: (projectId: string) => boolean
 
   private cancel() {
     this.$router.push({
@@ -88,6 +88,10 @@ export default class Volunteer extends Vue {
 
   get projectId() {
     return this.$route.params.projectId
+  }
+
+  get alreadyVolunteered() {
+    return this.getIsUserVolunteerProject(this.projectId)
   }
 
   private async submit() {
