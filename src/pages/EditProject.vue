@@ -90,6 +90,7 @@
         />
       </AppFieldGroup>
       <AppBtnGroup>
+        <AppBtn @click="close">Cancel</AppBtn>
         <AppBtn
           type="submit"
           color="primary"
