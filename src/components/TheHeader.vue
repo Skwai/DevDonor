@@ -104,7 +104,7 @@ export default class TheHeader extends Vue {}
         bottom: 0;
         width: 100%;
         height: 3px;
-        background: currentColor;
+        background: $colorPrimary;
         position: absolute;
         transform: scale(0, 1);
         transform-origin: left center;
