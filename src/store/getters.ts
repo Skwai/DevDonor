@@ -29,6 +29,10 @@ export const getPendingAuth = ({ pendingAuth }: State) => pendingAuth
 export const getNotification = ({ notification }: State) => notification
 
 export const getFilteredProjects = ({ projects, projectFilters }: State): IProjectList => {
+  if (!Object.values(projectFilters).find((v: string) => !!v)) {
+    return projects
+  }
+
   return Object.entries(projects)
     .filter(([id, project]) => {
       return Object.entries(projectFilters).every(([propName, filter]) => {
