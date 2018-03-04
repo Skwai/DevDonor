@@ -66,6 +66,7 @@ export default class Volunteer extends Vue {
   private actionCreateVolunteer: (
     { user, projectId, message }: { user: firebase.UserInfo; projectId: string; message: string }
   ) => Promise<void>
+  @Action('showError') private actionShowError: (message: string) => void
   @Getter private getCurrentUser: firebase.UserInfo
 
   private cancel() {
@@ -97,7 +98,7 @@ export default class Volunteer extends Vue {
       })
       this.submitted = true
     } catch (err) {
-      // TODO: display error
+      this.actionShowError('There was a problem sending your message')
     } finally {
       this.submitting = false
     }

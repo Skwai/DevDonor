@@ -197,7 +197,6 @@ export const createVolunteer = async (
     message,
     displayName: user.displayName,
     photoUrl: user.photoURL,
-    uid: user.uid,
     email: user.email
   }
 
