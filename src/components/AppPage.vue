@@ -19,9 +19,5 @@ export default class AppPage extends Vue {}
   container(40rem);
   padding-top: $spacingLarge;
   padding-bottom: $spacingLarge;
-
-  &__Content {
-    textContent();
-  }
 }
 </style>

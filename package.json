@@ -17,7 +17,7 @@
   "dependencies": {
     "@google-cloud/storage": "^1.6.0",
     "firebase": "^4.8.2",
-    "marked": "^0.3.12",
+    "marked": "^0.3.17",
     "moment": "^2.20.1",
     "vue": "^2.5.13",
     "vue-class-component": "^6.1.2",
@@ -38,6 +38,7 @@
     "@vue/cli-plugin-unit-jest": "^3.0.0-beta.1",
     "@vue/cli-service": "^3.0.0-beta.1",
     "@vue/test-utils": "^1.0.0-beta.10",
+    "copy-webpack-plugin": "^4.5.0",
     "lint-staged": "^6.0.0",
     "prettier": "^1.10.2",
     "stylus": "^0.54.5",
@@ -51,9 +52,20 @@
       "autoprefixer": {}
     }
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
   "jest": {
-    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "vue"],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "vue"
+    ],
     "transform": {
       "^.+\\.vue$": "vue-jest",
       "^.+\\.tsx?$": "ts-jest"
@@ -61,14 +73,22 @@
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1"
     },
-    "snapshotSerializers": ["jest-serializer-vue"],
+    "snapshotSerializers": [
+      "jest-serializer-vue"
+    ],
     "mapCoverage": true
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
-    "*.ts": ["vue-cli-service lint", "git add"],
-    "*.vue": ["vue-cli-service lint", "git add"]
+    "*.ts": [
+      "vue-cli-service lint",
+      "git add"
+    ],
+    "*.vue": [
+      "vue-cli-service lint",
+      "git add"
+    ]
   }
 }

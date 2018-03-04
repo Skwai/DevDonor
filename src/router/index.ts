@@ -8,6 +8,7 @@ import About from '../pages/About.vue'
 import Volunteer from '../pages/Volunteer.vue'
 import EditProject from '../pages/EditProject.vue'
 import DeleteProject from '../pages/DeleteProject.vue'
+import Privacy from '../pages/Privacy.vue'
 import NotFound from '../pages/NotFound.vue'
 
 Vue.use(Router)
@@ -51,6 +52,11 @@ export default new Router({
       path: '/about',
       name: 'About',
       component: About
+    },
+    {
+      path: '/privacy',
+      name: 'Privacy',
+      component: Privacy
     },
     { path: '*', component: NotFound }
   ],

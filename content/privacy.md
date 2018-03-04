@@ -30,4 +30,4 @@ You have a right to access your personal information, subject to exceptions allo
 
 DevDonor welcomes your comments regarding this Privacy Policy. If you have any questions about this Privacy Policy and would like further information, please contact us via the following web page:
 
-[devdonor.com/contact](devdonor.com/contact)
+[https://devdonor.com/contact](https://devdonor.com/contact)
