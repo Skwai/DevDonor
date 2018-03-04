@@ -32,6 +32,7 @@ export default class TheIntro extends Vue {}
   &__Title {
     font-size: 1rem + 1vmin;
     margin-bottom: 0.5rem;
+    font-weight: 700;
   }
 
   &__Description {
