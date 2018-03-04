@@ -81,6 +81,7 @@ export default class TheHeader extends Vue {}
       line-height: 1;
       padding: 3px 5px;
       border-radius: 1px;
+      display: none;
     }
 
     &Image {
