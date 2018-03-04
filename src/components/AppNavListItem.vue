@@ -36,13 +36,10 @@ export default class AppNavListItem extends Vue {
   background: transparent;
   border: 0;
   -webkit--moz-appearance: none;
-  font-size: $fontSizeSmall;
   white-space: nowrap;
-  textSmallCaps();
 
   &:hover, &:focus {
-    // color: $colorPrimary;
-    background: $colorHighlight;
+    color: $colorPrimary;
   }
 
   &__Icon {
