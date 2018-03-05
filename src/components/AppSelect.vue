@@ -51,6 +51,7 @@ export default class AppSelect extends Vue {
   private inputValue: string | number | null = null
   private dirty: boolean = false
   private uid: string | undefined = undefined
+  private valid: boolean = false
 
   @Prop({ required: true })
   private label: string
@@ -76,9 +77,6 @@ export default class AppSelect extends Vue {
   @Prop({ required: false })
   private description: string
 
-  @Prop({ required: false, default: true })
-  private valid: boolean
-
   @Watch('value', { immediate: true })
   private onValueChange(newValue: any) {
     this.inputValue = newValue
@@ -92,7 +90,6 @@ export default class AppSelect extends Vue {
 
   private checkValidity() {
     const valid = this.getValidity()
-    this.$emit('update:valid', valid)
   }
 
   private getValidity() {
@@ -191,6 +188,11 @@ export default class AppSelect extends Vue {
   &__Input {
     z-index: 2;
     field();
+    // Remove <select> arrow from firefox
+    // https://stackoverflow.com/questions/5912791/how-to-remove-the-arrow-from-a-select-element-in-firefox
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
   }
 }
 </style>

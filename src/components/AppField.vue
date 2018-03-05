@@ -41,6 +41,8 @@
         :required="required"
         :disabled="disabled"
         :id="inputID"
+        :minlength="minlength"
+        :maxlength="maxlength"
         :autocomplete="autocomplete"
         :autocapitalize="autocapitalize"
         :autocorrect="autocorrect"
@@ -127,8 +129,7 @@ export default class AppField extends Vue {
   }
 
   private checkValidity() {
-    const valid = this.getValidity()
-    this.$emit('update:valid', valid)
+    this.valid = this.getValidity()
   }
 
   private getValidity() {
