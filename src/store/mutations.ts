@@ -14,6 +14,10 @@ const mutations: MutationTree<State> = {
     }
   },
 
+  [types.REMOVE_PROJECT](state, projectId: string) {
+    delete state[projectId]
+  },
+
   [types.SET_CURRENT_USER](state, user: Firebase.UserInfo) {
     state.currentUser = user
   },
