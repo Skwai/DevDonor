@@ -4,6 +4,8 @@ const functions = require('firebase-functions')
 const sendgridMail = require('@sendgrid/mail')
 const admin = require('firebase-admin')
 
+const { html, text } = require('./emails/new-volunteer-email')
+
 admin.initializeApp(functions.config().firebase)
 const db = admin.firestore()
 
@@ -37,33 +39,23 @@ module.exports = functions.firestore
           return null
         }
 
-        const subject =
-          'New project volunteer' + volunteerData.displayName
-            ? ` - ${volunteerData.displayName}`
-            : null
+        const emailData = {
+          volunteerEmail: volunteerData.email,
+          volunteerPicture: volunteerData.photoUrl,
+          volunteerName: volunteerData.displayName,
+          volunteerMessage: volunteerData.message,
+          projectTitle: projectData.title
+        }
 
-        const html = `
-        <strong>You have a new volunteer for your project:</strong>
-        <strong>${projectData.title}</strong>
-        <br>
-        <br>
-        ${volunteerData.message}
-      `
-
-        const text = `
-        You have a new volunteer for your project:
-        ${projectData.title}
-
-        ${volunteerData.message}
-      `
+        const subject = 'New project volunteer'
 
         const message = {
           subject,
           to: projectData.email,
           from: 'noreply@devdonor.com',
           replyTo: volunteerData.email,
-          text,
-          html
+          text: text(emailData),
+          html: html(emailData)
         }
 
         console.log('Sending email to ' + projectData.email)
@@ -78,6 +70,6 @@ module.exports = functions.firestore
           })
       })
       .catch((err) => {
-        console.error('Project does not exist')
+        console.error(err)
       })
   })
