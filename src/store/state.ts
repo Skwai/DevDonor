@@ -11,6 +11,7 @@ const getStorageData = (key: string): any => {
 }
 
 export default class State {
+  [key: string]: any
   public projects: IProjectList = {}
   public currentUser: firebase.UserInfo | null = null
   // data from an uncompleted form
