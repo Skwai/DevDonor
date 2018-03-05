@@ -4,6 +4,6 @@ export const COUNTRIES: { [key: string]: string } = {
   ir: 'Ireland',
   nz: 'New Zealand',
   za: 'South Africa',
-  us: 'United States of America',
-  uk: 'United Kingdom'
+  us: 'USA',
+  uk: 'UK'
 }
