@@ -21,8 +21,6 @@
         <AuthLogin />
       </template>
 
-      <h2>You've already volunteered for this project</h2>
-
       <form
         v-if="getCurrentUser && !alreadyVolunteered"
         @submit.prevent="submit"
