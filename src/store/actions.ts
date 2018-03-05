@@ -199,8 +199,8 @@ export const deleteProject = async ({ commit, state }: IActionContext, projectId
     }
 
     transaction.update(docRef, data)
-    commit(types.UPDATE_PROJECT, { projectId, data })
   })
+  commit(types.REMOVE_PROJECT, projectId)
 }
 
 export const createVolunteer = async (
