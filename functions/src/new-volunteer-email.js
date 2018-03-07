@@ -63,7 +63,7 @@ module.exports = functions.firestore
         return sendgridMail
           .send(message)
           .then(() => {
-            console.log('Email sent')
+            console.log('Email sent to ' + projectData.email)
           })
           .catch((err) => {
             console.error(err)
