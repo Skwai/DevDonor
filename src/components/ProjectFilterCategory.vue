@@ -63,8 +63,7 @@ export default class ProjectFilterCategory extends Vue {
 @import '../styles/config.styl';
 
 .ProjectFilterCategory {
-  border-top: $colorLightGray solid 1px;
-
+  // border-top: $colorLightGray solid 1px;
   &:first-child {
     border-top: 0;
   }
@@ -129,6 +128,7 @@ export default class ProjectFilterCategory extends Vue {
     user-select: none;
     border-radius: 3px;
     transition: background $transitionBase;
+    color: $colorPrimary;
 
     &:hover, &:focus {
       // background: rgba(0, 0, 0, 0.05);

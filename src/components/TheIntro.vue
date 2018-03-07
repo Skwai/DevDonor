@@ -3,6 +3,9 @@
     <div :class="$style.TheIntro__Body">
       <h1 :class="$style.TheIntro__Title">Connecting programmers with charities</h1>
       <p :class="$style.TheIntro__Description">A free platform for charities to pitch projects for programmers to work on.</p>
+      <p>
+        <AppBtn :to="{ name: 'CreateProject' }" size="large" color="primary">Create a project</AppBtn>
+      </p>
     </div>
   </header>
 </template>
@@ -17,7 +20,6 @@ export default class TheIntro extends Vue {}
 
 <style lang="stylus" module>
 @require '../styles/config';
-@require '../styles/text';
 
 .TheIntro {
   background: $colorPrimary;
@@ -39,10 +41,6 @@ export default class TheIntro extends Vue {}
     textHeading();
     font-weight: 400;
     opacity: 0.8;
-  }
-
-  &__Btns {
-    navbar();
   }
 
   &__Login {
