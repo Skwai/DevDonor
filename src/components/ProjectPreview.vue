@@ -153,7 +153,6 @@ export default class ProjectPreview extends Vue {
     display: flex;
     align-items: center;
     font-size: $fontSizeSmall;
-    color: rgba($colorDarkBlue, 0.7);
   }
 
   &__Organization {
@@ -170,7 +169,6 @@ export default class ProjectPreview extends Vue {
     display: flex;
     align-items: center;
     margin-left: auto;
-    color: rgba($colorDarkBlue, 0.7);
     white-space: nowrap;
     padding-left: $spacingBase;
     font-size: $fontSizeSmall;

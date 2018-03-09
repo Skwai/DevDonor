@@ -32,7 +32,6 @@ export default class App extends Vue {
 
 <style lang="stylus" module>
 @require 'styles/config.styl';
-// @require 'styles/reset.styl';
 @require 'styles/text.styl';
 
 body.-modal {

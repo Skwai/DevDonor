@@ -1,30 +1,31 @@
 <template>
   <header :class="$style.TheHeader">
-    <router-link
-      to="/"
-      :class="$style.TheHeader__Logo"
-    >
-      <h1><img :class="$style.TheHeader__LogoImage" src="/logo.svg" alt="DevDonor"></h1>
-    </router-link>
-    <nav :class="$style.TheHeader__Nav">
+    <div :class="$style.TheHeader__Container">
       <router-link
         to="/"
-        :class="$style.TheHeader__NavItem"
-        :exact-active-class="$style.TheHeader__NavItemActive"
-      >Projects</router-link>
-      <router-link
-        :to="{ name: 'CreateProject' }"
-        :class="$style.TheHeader__NavItem"
-        :active-class="$style.TheHeader__NavItemActive"
-      >Create a Project</router-link>
-      <router-link
-        :to="{ name: 'About' }"
-        :class="$style.TheHeader__NavItem"
-        :active-class="$style.TheHeader__NavItemActive"
-      >About</router-link>
-    </nav>
-
-    <!--<AccountMenu />-->
+        :class="$style.TheHeader__Logo"
+      >
+        <h1><img :class="$style.TheHeader__LogoImage" src="/logo.svg" alt="DevDonor"></h1>
+      </router-link>
+      <nav :class="$style.TheHeader__Nav">
+        <router-link
+          to="/"
+          :class="$style.TheHeader__NavItem"
+          :exact-active-class="$style.TheHeader__NavItemActive"
+        >Projects</router-link>
+        <router-link
+          :to="{ name: 'CreateProject' }"
+          :class="$style.TheHeader__NavItem"
+          :active-class="$style.TheHeader__NavItemActive"
+        >Create a Project</router-link>
+        <router-link
+          :to="{ name: 'About' }"
+          :class="$style.TheHeader__NavItem"
+          :active-class="$style.TheHeader__NavItemActive"
+        >About</router-link>
+      </nav>
+      <AccountMenu />
+    </div>
   </header>
 </template>
 
@@ -43,18 +44,23 @@ export default class TheHeader extends Vue {}
 <style lang="stylus" module>
 @require '../styles/config.styl';
 @require '../styles/text.styl';
+@require '../styles/container';
 
 .TheHeader {
   transition: transitionBase;
   box-shadow: rgba(0, 0, 0, 0.1) 0 0.25rem 1rem; // , rgba(0, 0, 0, 0.1) 0 1px 1px;
-  display: flex;
-  align-items: stretch;
   z-index: 2;
   background: #fff;
-  padding: 0 $spacingBase;
   top: 0;
   left: 0;
   width: 100vw;
+
+  &__Container {
+    container();
+    display: flex;
+    align-items: stretch;
+    padding: 0 $spacingBase;
+  }
 
   h1 {
     margin: 0;

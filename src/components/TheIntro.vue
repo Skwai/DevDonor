@@ -3,9 +3,9 @@
     <div :class="$style.TheIntro__Body">
       <h1 :class="$style.TheIntro__Title">Connecting programmers with charities</h1>
       <p :class="$style.TheIntro__Description">A free platform for charities to pitch projects for programmers to work on.</p>
-      <p>
+      <div :class="$style.TheIntro__Ctas">
         <AppBtn :to="{ name: 'CreateProject' }" size="large" color="primary">Create a project</AppBtn>
-      </p>
+      </div>
     </div>
   </header>
 </template>
@@ -28,10 +28,11 @@ export default class TheIntro extends Vue {}
   &__Body {
     container();
     text-align: center;
-    padding: 10vmin $spacingBase 10vmin;
+    padding: 15vmin $spacingBase 15vmin;
   }
 
   &__Title {
+    margin-top: 0;
     font-size: 1rem + 1vmin;
     margin-bottom: 0.5rem;
     font-weight: 700;
@@ -39,12 +40,12 @@ export default class TheIntro extends Vue {}
 
   &__Description {
     textHeading();
-    font-weight: 400;
-    opacity: 0.8;
+    font-weight: 600;
+    opacity: 0.6;
   }
 
-  &__Login {
-    margin-top: $spacingBase;
+  &__Ctas {
+    margin-top: 2rem;
   }
 }
 </style>

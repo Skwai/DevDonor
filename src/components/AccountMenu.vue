@@ -8,10 +8,11 @@
     >
       <img :class="$style.AccountMenu__Avatar" v-if="currentUser.photoURL" :src="currentUser.photoURL">
     </button>
+    <AppLoading v-else-if="pendingAUth" size="small" />
     <div :class="$style.AccountMenu__Menu">
       <AppNavList>
-        <AppNavListItem>Your projects</AppNavListItem>
-        <AppNavListItem>Sign out</AppNavListItem>
+        <!--<AppNavListItem>Your projects</AppNavListItem>-->
+        <AppNavListItem @click="logout">Sign out</AppNavListItem>
       </AppNavList>
     </div>
   </div>
@@ -19,16 +20,24 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import { Getter } from 'vuex-class'
+import { Action, Getter } from 'vuex-class'
 
 @Component
 export default class AccountMenu extends Vue {
   private open = false
 
+  @Action('logout') private actionLogout: () => void
+
   @Getter('getCurrentUser') private currentUser: firebase.UserInfo
+  @Getter('getPendingAuth') private pendingAUth: firebase.UserInfo
 
   private toggleOpen() {
     this.open = !this.open
+  }
+
+  private logout() {
+    this.actionLogout()
+    this.open = false
   }
 }
 </script>
@@ -60,18 +69,28 @@ export default class AccountMenu extends Vue {
   &__Menu {
     padding: 0.5rem 0;
     width: 12rem;
-    right: -1 * $spacingBase;
+    right: -0.5rem;
     top: -999rem;
     transform: translateY(0);
     background: #fff;
     position: absolute;
-    box-shadow: rgba(0, 0, 0, 0.1) 0 0.25rem 1rem; // , rgba(0, 0, 0, 0.1) 0 1px 1px;
-    border-left: rgba(0, 0, 0, 0.1) solid 1px;
-    border-bottom: rgba(0, 0, 0, 0.1) solid 1px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 2px 10px, rgba(0, 0, 0, 0.1) 0 1px 1px;
     transition: transform $transitionBase;
+    border-radius: 3px;
+
+    &::before {
+      content: '';
+      right: 1rem;
+      bottom: 100%;
+      border-bottom: #fff solid 8px;
+      border-left: transparent solid 8px;
+      border-right: transparent solid 8px;
+      position: absolute;
+    }
 
     [open] & {
       top: 100%;
+      transform: translate(0, 1rem);
     }
   }
 }

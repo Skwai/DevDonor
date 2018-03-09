@@ -21,6 +21,12 @@ export default class AppLoading extends Vue {}
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: $spacingBase auto;
+  margin: 0 auto;
+  line-height: 0;
+  align-self: center;
+
+  &[size='small'] {
+    width: 2rem;
+  }
 }
 </style>

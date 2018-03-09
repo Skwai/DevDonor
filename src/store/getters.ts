@@ -6,7 +6,9 @@ import { PROJECT_TYPES } from '../data/project'
 import Project from '@/models/Project'
 import IProjectFilters from '@/interfaces/ProjectFilters'
 
-export const getProjects = ({ projects }: State) => projects
+export const getProjects = ({ projects }: State): Project[] => {
+  return Object.values(projects)
+}
 
 export const getCurrentUser = ({ currentUser }: State) => currentUser
 
@@ -49,7 +51,12 @@ export const getFilteredProjects = ({ projects }: State) => (
     }
   }
 
-  return filteredProjects
+  return filteredProjects.sort((a, b) => {
+    if (!a.createdAt || !b.createdAt) {
+      return 0
+    }
+    return a.createdAt.getTime() - b.createdAt.getTime()
+  })
 }
 
 export const getCountryName = () => (countryCode: string) => {

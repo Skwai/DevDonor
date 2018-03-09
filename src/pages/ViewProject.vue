@@ -206,7 +206,6 @@ export default class ViewProjectPage extends Vue {
     align-items: center;
     margin-bottom: $spacingBase;
     white-space: nowrap;
-    color: rgba($fontColorBase, 0.5);
   }
 
   &__Organization {

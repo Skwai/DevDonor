@@ -13,12 +13,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { Action } from 'vuex-class'
+import { Action, Getter } from 'vuex-class'
 
 @Component
 export default class CurrentUser extends Vue {
   @Prop() private currentUser: firebase.UserInfo
-
   @Action('logout') private actionLogout: () => void
 
   private logout() {
