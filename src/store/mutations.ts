@@ -57,10 +57,6 @@ const mutations: MutationTree<State> = {
     state.currentUser = null
   },
 
-  [types.SET_PROJECT_FILTERS](state, filters) {
-    state.projectFilters = filters
-  },
-
   [types.UPDATE_PROJECT](
     state,
     { projectId, data }: { projectId: string; data: IProjectProperties }

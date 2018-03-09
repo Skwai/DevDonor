@@ -54,14 +54,14 @@ export const loadCurrentUser = async ({ commit }: IActionContext): Promise<void>
   }
 }
 
-export const loadProjects = async ({ commit, state }: IActionContext): Promise<void> => {
+export const loadProjects = async (
+  { commit }: IActionContext,
+  projectFilters: IProjectFilters = {}
+): Promise<void> => {
   const col = await db.collection('projects')
-  const query = Object.entries(state.projectFilters).reduce(
-    (prev: firebase.firestore.Query, [k, v]) => {
-      return v ? prev.where(k, '==', v) : prev
-    },
-    col.where('deleted', '==', null)
-  )
+  const query = Object.entries(projectFilters).reduce((prev: firebase.firestore.Query, [k, v]) => {
+    return v ? prev.where(k, '==', v) : prev
+  }, col.where('deleted', '==', null))
   const querySnapshot = await query.limit(PAGINATION_LIMIT).get()
   querySnapshot.forEach((docSnapshot: firebase.firestore.DocumentSnapshot) => {
     const id = docSnapshot.id
@@ -141,10 +141,6 @@ export const showSuccess = ({ commit }: IActionContext, message: string) => {
 
 export const removeNotification = ({ commit }: IActionContext) => {
   commit(types.REMOVE_NOTIFICATION)
-}
-
-export const setProjectFilters = ({ commit }: IActionContext, filters: IProjectFilters) => {
-  commit(types.SET_PROJECT_FILTERS, filters)
 }
 
 export const updateProject = async (

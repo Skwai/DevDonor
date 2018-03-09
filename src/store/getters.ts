@@ -4,6 +4,7 @@ import { COUNTRIES } from '../data/countries'
 import { ORGANIZATION_TYPES } from '../data/organization-types'
 import { PROJECT_TYPES } from '../data/project'
 import Project from '@/models/Project'
+import IProjectFilters from '@/interfaces/ProjectFilters'
 
 export const getProjects = ({ projects }: State) => projects
 
@@ -30,32 +31,26 @@ export const getPendingAuth = ({ pendingAuth }: State) => pendingAuth
 
 export const getNotification = ({ notification }: State) => notification
 
-export const getFilteredProjects = ({ projects, projectFilters }: State): Project[] => {
-  let projectsArray = Object.values(projects)
-  const hasFilters = !Object.values(projectFilters).find((v: string) => !!v)
+export const getFilteredProjects = ({ projects }: State) => (
+  projectFilters: IProjectFilters
+): Project[] => {
+  const filteredProjects = []
+  const projectFilterEntries = Object.entries(projectFilters)
 
-  // filter out deleted projects
-  projectsArray = projectsArray.filter((project) => !project.deleted)
+  for (const id in projects) {
+    const project = projects[id]
 
-  // filter against projectFilters
-  if (hasFilters) {
-    projectsArray = projectsArray.filter((project) =>
-      Object.entries(projectFilters).every(
-        ([prop, filter]) => (filter ? project[prop] === filter : true)
-      )
+    const filtered = projectFilterEntries.every(
+      ([prop, filter]) => (filter ? project[prop] === filter : true)
     )
+
+    if (filtered) {
+      filteredProjects.push(project)
+    }
   }
 
-  // sort by created date
-  return projectsArray.sort((a, b) => {
-    if (!a.createdAt || !b.createdAt) {
-      return 0
-    }
-    return b.createdAt.getTime() - a.createdAt.getTime()
-  })
+  return filteredProjects
 }
-
-export const getProjectFilters = ({ projectFilters }: State) => projectFilters
 
 export const getCountryName = () => (countryCode: string) => {
   return countryCode in COUNTRIES ? COUNTRIES[countryCode] : null

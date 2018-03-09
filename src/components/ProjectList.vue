@@ -4,13 +4,13 @@
       <ProjectFilters @update="onFilterChange" />
     </div>
     <div :class="$style.ProjectList__Projects">
-      <!--<h1 :class="$style.ProjectList__Heading">Current Projects</h1>-->
+      <h1 :class="$style.ProjectList__Heading">Current Projects</h1>
       <AppLoading v-if="loading" />
       <div v-else-if="error" :class="$style.ProjectList__Error">
         <h3>There was an error loading projects</h3>
       </div>
       <div
-        v-else-if="hasProjects"
+        v-else-if="projects.length"
         :class="$style.ProjectList__Items"
       >
         <div
@@ -37,6 +37,7 @@ import Project from '../models/Project'
 import IProjectList from '../interfaces/ProjectList'
 import ProjectFilters from './ProjectFilters.vue'
 import ProjectPreview from './ProjectPreview.vue'
+import IProjectFilters from '@/interfaces/ProjectFilters'
 
 @Component({
   components: {
@@ -47,10 +48,16 @@ import ProjectPreview from './ProjectPreview.vue'
 export default class ProjectList extends Vue {
   private loading: boolean = false
   private error: boolean = false
+  private projectFilters: IProjectFilters = {
+    projectType: '',
+    country: '',
+    organizationType: ''
+  }
+  private projects: Project[]
 
-  @Getter('getFilteredProjects') private projects: IProjectList
-  @Action('loadProjects') private actionLoadProjects: () => Promise<void>
-  @Action('setProjectFilters') private actionSetProjectFilters: (filters: any) => void
+  @Getter private getFilteredProjects: (projectFilters: IProjectFilters) => Project[]
+  @Action('loadProjects')
+  private actionLoadProjects: (projectFilters: IProjectFilters) => Promise<void>
 
   private async created() {
     this.loadProjects()
@@ -59,9 +66,11 @@ export default class ProjectList extends Vue {
   private async loadProjects(filters: any = {}) {
     this.loading = true
     this.error = false
+    this.projects = []
 
     try {
-      await this.actionLoadProjects()
+      await this.actionLoadProjects(this.projectFilters)
+      this.projects = this.getFilteredProjects(this.projectFilters)
     } catch (err) {
       this.error = true
     } finally {
@@ -69,12 +78,8 @@ export default class ProjectList extends Vue {
     }
   }
 
-  get hasProjects(): boolean {
-    return !!Object.keys(this.projects).length
-  }
-
-  private onFilterChange(filters: {}) {
-    this.actionSetProjectFilters(filters)
+  private onFilterChange(filters: IProjectFilters) {
+    this.projectFilters = filters
     this.loadProjects()
   }
 }
