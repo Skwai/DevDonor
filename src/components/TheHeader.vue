@@ -65,7 +65,7 @@ export default class TheHeader extends Vue {}
     color: $colorPrimary;
     padding: 1.5rem 0;
     transition: $transitionBase;
-    will-change: transform;
+    will-change: opacity;
     margin-right: 1rem;
     position: relative;
 
@@ -80,8 +80,8 @@ export default class TheHeader extends Vue {}
       font-size: 10px;
       line-height: 1;
       padding: 3px 5px;
-      border-radius: 1px;
-      display: none;
+      border-radius: 2px;
+      font-weight: 600;
     }
 
     &Image {
@@ -89,7 +89,7 @@ export default class TheHeader extends Vue {}
     }
 
     &:hover, &:focus {
-      box-shadow: inset currentColor 0 -3px 0;
+      opacity: 0.8;
     }
   }
 
@@ -110,7 +110,7 @@ export default class TheHeader extends Vue {}
       &::before {
         content: '';
         left: 0;
-        bottom: 0;
+        top: 0;
         width: 100%;
         height: 3px;
         background: $colorPrimary;
