@@ -15,15 +15,15 @@
           <span>{{createdAt}}</span>
         </time>
       </header>
-      <div :class="$style.ProjectPreview__Tags">
-        <AppTag>{{projectType}}</AppTag>
-      </div>
       <div :class="$style.ProjectPreview__Meta">
         <div :class="$style.ProjectPreview__Organization">{{project.organizationName}}</div>
         <div :class="$style.ProjectPreview__Region">
           <AppGlyph><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></AppGlyph>
           <span>{{countryName}}</span>
         </div>
+      </div>
+      <div :class="$style.ProjectPreview__Tags">
+        <AppTag>{{projectType}}</AppTag>
       </div>
     </div>
   </router-link>
@@ -76,7 +76,7 @@ export default class ProjectPreview extends Vue {
 @require '../styles/card';
 
 .ProjectPreview {
-  $logoSize = 5rem;
+  $logoSize = 4rem;
   width: 100%;
   color: inherit;
   display: block;
@@ -92,6 +92,7 @@ export default class ProjectPreview extends Vue {
   padding: $spacingBase;
   grid-gap: $spacingBase;
   grid-template-columns: $logoSize 1fr;
+  align-items: center;
 
   @media (min-width: 768px) {
     padding: $spacingBase;
@@ -99,19 +100,11 @@ export default class ProjectPreview extends Vue {
   }
 
   &:hover, &:focus {
-    // box-shadow: rgba(0, 0, 0, 0.2) 0 2px 2rem;
+    box-shadow: rgba($colorDarkBlue, 0.1) 0 2px 1rem;
   }
 
   &:hover &__Title, &:focus &__Title {
     color: $colorPrimary;
-  }
-
-  &__Category {
-    textSmallCaps();
-    font-size: 0.75rem;
-    opacity: 0.4;
-    width: 100%;
-    margin-top: $spacingSmall;
   }
 
   &__Label {
@@ -151,6 +144,8 @@ export default class ProjectPreview extends Vue {
 
   &__Body {
     align-self: center;
+    border-left: $colorGray solid 1px;
+    padding-left: $spacingBase;
   }
 
   &__Meta {
@@ -158,7 +153,7 @@ export default class ProjectPreview extends Vue {
     display: flex;
     align-items: center;
     font-size: $fontSizeSmall;
-    color: rgba($colorDarkBlue, 0.5);
+    color: rgba($colorDarkBlue, 0.7);
   }
 
   &__Organization {
@@ -172,15 +167,12 @@ export default class ProjectPreview extends Vue {
   }
 
   &__CreatedAt {
-    position: absolute;
-    right: $spacingBase;
-    top: $spacingBase;
     display: flex;
     align-items: center;
-    // margin-left: auto;
-    color: rgba($colorDarkBlue, 0.5);
+    margin-left: auto;
+    color: rgba($colorDarkBlue, 0.7);
     white-space: nowrap;
-    // padding-left: $spacingBase;
+    padding-left: $spacingBase;
     font-size: $fontSizeSmall;
   }
 
@@ -191,7 +183,7 @@ export default class ProjectPreview extends Vue {
   }
 
   &__Tags {
-    margin-bottom: 0.75rem;
+    margin-top: 0.75rem;
   }
 }
 </style>

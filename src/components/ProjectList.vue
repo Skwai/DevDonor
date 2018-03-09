@@ -4,7 +4,6 @@
       <ProjectFilters @update="onFilterChange" />
     </div>
     <div :class="$style.ProjectList__Projects">
-      <h1 :class="$style.ProjectList__Heading">Current Projects</h1>
       <AppLoading v-if="loading" />
       <div v-else-if="error" :class="$style.ProjectList__Error">
         <h3>There was an error loading projects</h3>
@@ -113,16 +112,6 @@ export default class ProjectList extends Vue {
   &__Empty {
     card();
     text-align: center;
-  }
-
-  &__Heading {
-    text-align: center;
-    margin-top: 0;
-    textCaps();
-    font-size: 1rem;
-    margin-bottom: $spacingBase;
-    font-weight: 600;
-    opacity: 0.7;
   }
 }
 </style>

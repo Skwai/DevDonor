@@ -53,9 +53,11 @@ export default class ProjectFilters extends Vue {
 @import '../styles/config.styl';
 
 .ProjectFilters {
+  border-top: $colorLightGray solid 1px;
+  border-bottom: $colorLightGray solid 1px;
+
   &__Category {
     background: #fff;
-    // border-top: $colorLightGray solid 1px;
   }
 }
 </style>

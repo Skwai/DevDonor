@@ -22,7 +22,7 @@ export default class TheIntro extends Vue {}
 @require '../styles/config';
 
 .TheIntro {
-  background: $colorPrimary;
+  background: #010e28;
   color: #fff;
 
   &__Body {

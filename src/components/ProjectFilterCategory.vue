@@ -63,7 +63,8 @@ export default class ProjectFilterCategory extends Vue {
 @import '../styles/config.styl';
 
 .ProjectFilterCategory {
-  // border-top: $colorLightGray solid 1px;
+  border-top: $colorLightGray solid 1px;
+
   &:first-child {
     border-top: 0;
   }
