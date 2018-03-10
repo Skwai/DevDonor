@@ -28,7 +28,7 @@ exports.html = (locals) => `
       </tr>
       <tr>
         <td>
-          <table border="0" cellpadding="0" cellspacing="0" style="width: 100%; border: #dae1e9 solid 1px; box-shadow: #dae1e9 0 2px 10px">
+          <table border="0" cellpadding="0" cellspacing="0" style="width: 100%; border: #dae1e9 solid 1px; border-radius: 4px">
             <tr>
               <td style="width: 50px; padding: 20px 0 20px 20px; border-bottom: #dae1e9 solid 1px;"><img width="50" height="50" src="${
                 locals.volunteerPicture
