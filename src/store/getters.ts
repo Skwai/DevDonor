@@ -6,12 +6,21 @@ import { PROJECT_TYPES } from '../data/project'
 import Project from '@/models/Project'
 import IProjectFilters from '@/interfaces/ProjectFilters'
 
+/**
+ * Get all the projects in the store
+ */
 export const getProjects = ({ projects }: State): Project[] => {
   return Object.values(projects)
 }
 
+/**
+ * Get the current user's Firebase user data
+ */
 export const getCurrentUser = ({ currentUser }: State) => currentUser
 
+/**
+ * Get the UID of the current user
+ */
 export const getCurrentUserId = ({ currentUser }: State) => {
   if (currentUser && currentUser.uid) {
     return currentUser.uid
@@ -19,6 +28,9 @@ export const getCurrentUserId = ({ currentUser }: State) => {
   return null
 }
 
+/**
+ * Get a single project by its ID
+ */
 export const getProjectById = ({ projects }: State) => (projectId: string) => {
   if (projectId in projects) {
     return projects[projectId]
@@ -26,13 +38,25 @@ export const getProjectById = ({ projects }: State) => (projectId: string) => {
   return null
 }
 
+/**
+ * Get the persisted project form data from the store
+ */
 export const getSavedCreateProjectFormData = ({ savedCreateProjectFormData }: State) =>
   savedCreateProjectFormData
 
+/**
+ * Get the current pending auth state
+ */
 export const getPendingAuth = ({ pendingAuth }: State) => pendingAuth
 
+/**
+ * Get the current notification
+ */
 export const getNotification = ({ notification }: State) => notification
 
+/**
+ * Get a filtered Object of projects
+ */
 export const getFilteredProjects = ({ projects }: State) => (
   projectFilters: IProjectFilters
 ): Project[] => {
@@ -59,18 +83,30 @@ export const getFilteredProjects = ({ projects }: State) => (
   })
 }
 
+/**
+ * Get the name of a country from its 2 character country code
+ */
 export const getCountryName = () => (countryCode: string) => {
   return countryCode in COUNTRIES ? COUNTRIES[countryCode] : null
 }
 
+/**
+ * Get the name of a project type from its abbreviation
+ */
 export const getProjectTypeName = () => (projectType: string) => {
   return projectType in PROJECT_TYPES ? PROJECT_TYPES[projectType] : null
 }
 
+/**
+ * Get an organization type from its abbreviation
+ */
 export const getOrganizationType = () => (orgType: string): string | null => {
   return orgType in ORGANIZATION_TYPES ? ORGANIZATION_TYPES[orgType] : null
 }
 
+/**
+ * Check if the current user is a volunteer on a project
+ */
 export const getIsUserVolunteerProject = ({ userVolunteerProjects }: State) => (
   projectId: string
 ) => {
