@@ -76,7 +76,7 @@ export default class ProjectPreview extends Vue {
 @require '../styles/card';
 
 .ProjectPreview {
-  $logoSize = 4rem;
+  $logoSize = 3rem;
   width: 100%;
   color: inherit;
   display: block;

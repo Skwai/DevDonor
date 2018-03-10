@@ -8,19 +8,17 @@
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "test": "vue-cli-service test",
-    "e2e": "vue-cli-service e2e",
     "lint": "vue-cli-service lint",
-    "e2e:open": "vue-cli-service e2e:open",
     "deploy": "yarn build && firebase deploy",
     "deploy:hosting": "yarn build && firebase deploy --only hosting",
-    "format": "prettier --write **/*.{js,vue,ts,jso}"
+    "format": "prettier --write **/*.{js,vue,ts,json}"
   },
   "dependencies": {
     "@google-cloud/storage": "^1.6.0",
     "firebase": "^4.8.2",
     "marked": "^0.3.17",
     "moment": "^2.20.1",
-    "vue": "^2.5.13",
+    "vue": "^2.5.14",
     "vue-class-component": "^6.1.2",
     "vue-property-decorator": "^6.0.0",
     "vue-router": "^3.0.1",
@@ -29,11 +27,8 @@
     "vuex-class": "^0.3.0"
   },
   "devDependencies": {
-    "@firebase/app-types": "^0.1.1",
-    "@types/firebase": "^3.2.1",
     "@types/jest": "^22.0.1",
     "@types/marked": "^0.3.0",
-    "@vue/cli-plugin-e2e-cypress": "^3.0.0-beta.1",
     "@vue/cli-plugin-pwa": "^3.0.0-beta.1",
     "@vue/cli-plugin-typescript": "^3.0.0-beta.1",
     "@vue/cli-plugin-unit-jest": "^3.0.0-beta.1",
@@ -47,7 +42,8 @@
     "ts-jest": "^22.0.1",
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.8.0",
-    "vue-template-compiler": "^2.5.13"
+    "typescript": "^2.7.2",
+    "vue-template-compiler": "^2.5.14"
   },
   "postcss": {
     "plugins": {

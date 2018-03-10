@@ -79,7 +79,7 @@ export const getFilteredProjects = ({ projects }: State) => (
     if (!a.createdAt || !b.createdAt) {
       return 0
     }
-    return a.createdAt.getTime() - b.createdAt.getTime()
+    return b.createdAt.getTime() - a.createdAt.getTime()
   })
 }
 
