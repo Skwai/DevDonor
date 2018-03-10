@@ -1,6 +1,6 @@
 <template>
   <AppPage>
-    <AppHeading>About this website</AppHeading>
+    <AppHeading>How it works</AppHeading>
     <AppContent v-html="content"></AppContent>
   </AppPage>
 </template>
