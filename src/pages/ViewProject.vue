@@ -33,7 +33,7 @@
 
         <AppCard v-if="isProjectOwner">
           <h3>Manage your project</h3>
-          <AppNavList>
+          <AppNavList :class="$style.ViewProject__OwnerActions">
             <AppNavListItem :to="{ name: 'EditProject', params: { projectId: $route.params.projectId } }">
               <svg slot="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M13 7L9 3"/><path d="M5.5 14.5l-5 1 1-5 10-10 4 4-10 10z"/></g></svg>
               Edit project
@@ -206,6 +206,8 @@ export default class ViewProjectPage extends Vue {
     align-items: center;
     margin-bottom: $spacingBase;
     white-space: nowrap;
+    opacity: 0.6;
+    font-size: $fontSizeSmall;
   }
 
   &__Organization {
@@ -283,6 +285,11 @@ export default class ViewProjectPage extends Vue {
   &__OrganizationUrl {
     display: block;
     text-align: center;
+  }
+
+  &__OwnerActions {
+    margin-left: -1 * $spacingBase;
+    margin-right: -1 * $spacingBase;
   }
 }
 </style>
