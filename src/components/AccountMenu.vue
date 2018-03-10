@@ -11,7 +11,6 @@
     <AppLoading v-else-if="pendingAUth" size="small" />
     <div :class="$style.AccountMenu__Menu">
       <AppNavList>
-        <!--<AppNavListItem>Your projects</AppNavListItem>-->
         <AppNavListItem @click="logout">Sign out</AppNavListItem>
       </AppNavList>
     </div>
@@ -30,6 +29,21 @@ export default class AccountMenu extends Vue {
 
   @Getter('getCurrentUser') private currentUser: firebase.UserInfo
   @Getter('getPendingAuth') private pendingAUth: firebase.UserInfo
+
+  private created() {
+    this.documentClick = this.documentClick.bind(this)
+    document.addEventListener('click', this.documentClick)
+  }
+
+  private destroyed() {
+    document.removeEventListener('click', this.documentClick)
+  }
+
+  private documentClick(ev: MouseEvent) {
+    if (!this.$el.contains(ev.target as Node)) {
+      this.open = false
+    }
+  }
 
   private toggleOpen() {
     this.open = !this.open
@@ -64,6 +78,11 @@ export default class AccountMenu extends Vue {
     border-radius: 50%;
     width: 2rem;
     height: 2rem;
+    transition: $transitionBase;
+
+    &:hover {
+      box-shadow: $colorPrimary 0 0 0 2px;
+    }
   }
 
   &__Menu {
