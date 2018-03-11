@@ -86,17 +86,15 @@ export default class ProjectPreview extends Vue {
   -webkit-backface-visibility: hidden;
   position: relative;
   transform-origin: center center;
-  card();
+  // card();
   will-change: box-shadow;
-  display: grid;
-  padding: $spacingBase;
-  grid-gap: $spacingBase;
-  grid-template-columns: $logoSize 1fr;
+  display: flex;
   align-items: center;
+  border-bottom: $colorGray solid 1px;
 
   @media (min-width: 768px) {
-    padding: $spacingBase;
-    grid-gap: $spacingBase;
+    // padding: $spacingBase;
+    // grid-gap: $spacingBase;
   }
 
   &:hover, &:focus {
@@ -116,16 +114,16 @@ export default class ProjectPreview extends Vue {
     margin-top: $spacingSmall;
   }
 
+  &__Body, &__LogoWrap {
+    padding: $spacingBase;
+  }
+
   &__Logo {
-    width: auto;
     width: $logoSize;
     -webkit-backface-visibility: hidden;
     height: auto;
 
     &Wrap {
-      height: $logoSize;
-      width: $logoSize;
-      margin-right: $spacingBase;
       display: flex;
       align-items: center;
       background: #fff;
@@ -144,7 +142,8 @@ export default class ProjectPreview extends Vue {
 
   &__Body {
     align-self: center;
-    border-left: $colorGray solid 1px;
+    flex: 1;
+    border-left: $colorLightGray solid 1px;
     padding-left: $spacingBase;
   }
 

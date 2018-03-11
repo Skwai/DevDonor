@@ -101,7 +101,8 @@ export default class ProjectList extends Vue {
 
   &__Items {
     display: grid;
-    grid-gap: 1rem;
+    card();
+    padding: 0;
   }
 
   &__Error {
