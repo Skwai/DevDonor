@@ -60,6 +60,13 @@
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1"
     },
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.{js,vue,ts}",
+      "!src/types/**",
+      "!src/main.js",
+      "!**/node_modules/**"
+    ],
     "snapshotSerializers": ["jest-serializer-vue"]
   },
   "gitHooks": {
