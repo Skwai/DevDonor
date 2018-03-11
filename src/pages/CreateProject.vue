@@ -36,7 +36,7 @@
               :maxlength="200"
             />
 
-            <AppRadioGroup
+            <AppSelect
               label="Project type"
               description="What sort of project are you looking to create?"
               :span="2"

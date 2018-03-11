@@ -25,10 +25,12 @@
         @blur="onBlur"
         ref="select"
       >
+        <option disabled selected value="">Please select one&hellip;</option>
         <option
           v-for="(option, index) in options"
           :value="isArray ? option : index"
           :key="isArray ? option : index"
+          :selected="inputValue === index ? 'selected' : null"
         >{{option}}</option>
       </select>
       <label
@@ -86,15 +88,17 @@ export default class AppSelect extends Vue {
   private change(ev: Event) {
     const value = (ev.target as HTMLInputElement).value
     this.$emit('input', value)
+    this.checkValidity()
   }
 
   private checkValidity() {
-    const valid = this.getValidity()
+    this.valid = this.getValidity()
   }
 
   private getValidity() {
     if (this.$refs.select) {
-      return (this.$refs.select as HTMLSelectElement).validity.valid
+      const select = this.$refs.select as HTMLSelectElement
+      return select.validity.valid
     }
     return false
   }
