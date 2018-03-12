@@ -26,6 +26,7 @@ import AppNavListItem from './components/AppNavListItem.vue'
 import AppPage from './components/AppPage.vue'
 import AppContent from './components/AppContent.vue'
 import AppWarning from './components/AppWarning.vue'
+import AppMarkdown from './components/AppMarkdown.vue'
 
 Vue.component('AppBtn', AppBtn)
 Vue.component('AppBtnGroup', AppBtnGroup)
@@ -53,3 +54,4 @@ Vue.component('AppNavListItem', AppNavListItem)
 Vue.component('AppPage', AppPage)
 Vue.component('AppContent', AppContent)
 Vue.component('AppWarning', AppWarning)
+Vue.component('AppMarkdown', AppMarkdown)

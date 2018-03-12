@@ -178,6 +178,10 @@
   version "9.4.7"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-9.4.7.tgz#57d81cd98719df2c9de118f2d5f3b1120dcd7275"
 
+"@types/simplemde@^1.11.7":
+  version "1.11.7"
+  resolved "https://registry.yarnpkg.com/@types/simplemde/-/simplemde-1.11.7.tgz#c8bd9f54ff46db7f311a989004eb5815acedf429"
+
 "@types/strip-bom@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@types/strip-bom/-/strip-bom-3.0.0.tgz#14a8ec3956c2e81edb7520790aecf21c290aebd2"
@@ -190,13 +194,13 @@
   version "3.0.0-beta.6"
   resolved "https://registry.yarnpkg.com/@vue/cli-overlay/-/cli-overlay-3.0.0-beta.6.tgz#bc11b99e8b6550b43326305ee11f27d07ceaeec0"
 
-"@vue/cli-plugin-pwa@^3.0.0-beta.1":
+"@vue/cli-plugin-pwa@^3.0.0-beta.6":
   version "3.0.0-beta.6"
   resolved "https://registry.yarnpkg.com/@vue/cli-plugin-pwa/-/cli-plugin-pwa-3.0.0-beta.6.tgz#869abc3a45beb43e8be419ab77043313af75156d"
   dependencies:
     workbox-webpack-plugin "^3.0.0-beta.1"
 
-"@vue/cli-plugin-typescript@^3.0.0-beta.1":
+"@vue/cli-plugin-typescript@^3.0.0-beta.6":
   version "3.0.0-beta.6"
   resolved "https://registry.yarnpkg.com/@vue/cli-plugin-typescript/-/cli-plugin-typescript-3.0.0-beta.6.tgz#a52399731051417d147a93067f7baa1e9afa75b5"
   dependencies:
@@ -207,7 +211,7 @@
     tslint "^5.9.1"
     typescript "^2.7.2"
 
-"@vue/cli-plugin-unit-jest@^3.0.0-beta.1":
+"@vue/cli-plugin-unit-jest@^3.0.0-beta.6":
   version "3.0.0-beta.6"
   resolved "https://registry.yarnpkg.com/@vue/cli-plugin-unit-jest/-/cli-plugin-unit-jest-3.0.0-beta.6.tgz#7415a50bb780ca80427ce8c8bce99568300a5dd4"
   dependencies:
@@ -216,7 +220,7 @@
     jest-serializer-vue "^0.3.0"
     vue-jest "^2.1.1"
 
-"@vue/cli-service@^3.0.0-beta.1":
+"@vue/cli-service@^3.0.0-beta.6":
   version "3.0.0-beta.6"
   resolved "https://registry.yarnpkg.com/@vue/cli-service/-/cli-service-3.0.0-beta.6.tgz#b229b5fd3c5db33f0df9824f0b99ca081fa38d20"
   dependencies:
@@ -1354,6 +1358,16 @@ coa@~1.0.1:
 code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
+
+codemirror-spell-checker@*:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/codemirror-spell-checker/-/codemirror-spell-checker-1.1.2.tgz#1c660f9089483ccb5113b9ba9ca19c3f4993371e"
+  dependencies:
+    typo-js "*"
+
+codemirror@*:
+  version "5.35.0"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.35.0.tgz#280653d495455bc66aa87e6284292b02775ba878"
 
 collection-visit@^1.0.0:
   version "1.0.0"
@@ -4585,7 +4599,7 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-marked@^0.3.17:
+marked@*, marked@^0.3.17:
   version "0.3.17"
   resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.17.tgz#607f06668b3c6b1246b28f13da76116ac1aa2d2b"
 
@@ -6426,6 +6440,14 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
+simplemde@^1.11.2:
+  version "1.11.2"
+  resolved "https://registry.yarnpkg.com/simplemde/-/simplemde-1.11.2.tgz#a23a35d978d2c40ef07dec008c92f070d8e080e3"
+  dependencies:
+    codemirror "*"
+    codemirror-spell-checker "*"
+    marked "*"
+
 slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
@@ -7147,6 +7169,10 @@ typescript@^2.7.2:
   version "2.7.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.7.2.tgz#2d615a1ef4aee4f574425cdff7026edf81919836"
 
+typo-js@*:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/typo-js/-/typo-js-1.0.3.tgz#54d8ebc7949f1a7810908b6002c6841526c99d5a"
+
 uglify-es@^3.3.4:
   version "3.3.9"
   resolved "https://registry.yarnpkg.com/uglify-es/-/uglify-es-3.3.9.tgz#0c1c4f0700bed8dbc124cdb304d2592ca203e677"
@@ -7366,7 +7392,7 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
-vue-class-component@^6.0.0, vue-class-component@^6.1.2:
+vue-class-component@^6.0.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/vue-class-component/-/vue-class-component-6.2.0.tgz#7adb1daa9a868c75f30f97f33f4f1b94aee62089"
 
@@ -7431,7 +7457,14 @@ vue-style-loader@^4.0.1:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.5.13, vue-template-compiler@^2.5.14:
+vue-template-compiler@2.5.13:
+  version "2.5.13"
+  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.5.13.tgz#12a2aa0ecd6158ac5e5f14d294b0993f399c3d38"
+  dependencies:
+    de-indent "^1.0.2"
+    he "^1.1.0"
+
+vue-template-compiler@^2.5.13:
   version "2.5.14"
   resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.5.14.tgz#ba058359d4bd5ba0807fbc8adfc98065d7dbfebd"
   dependencies:
@@ -7442,13 +7475,9 @@ vue-template-es2015-compiler@^1.5.3, vue-template-es2015-compiler@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
 
-vue@^2.5.14:
-  version "2.5.14"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.14.tgz#74cb248a471053939abf6cdf2c406d4c311ab5a7"
-
-vuelidate@^0.6.1:
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/vuelidate/-/vuelidate-0.6.2.tgz#b417f5367407b047a2548119b25db56fe2bd5753"
+vue@2.5.13:
+  version "2.5.13"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.13.tgz#95bd31e20efcf7a7f39239c9aa6787ce8cf578e1"
 
 vuex-class@^0.3.0:
   version "0.3.0"

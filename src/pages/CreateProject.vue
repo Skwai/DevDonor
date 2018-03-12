@@ -45,6 +45,12 @@
               v-model="project.projectType"
             />
 
+            <AppMarkdown
+              label="About your project"
+              v-model="project.description"
+            />
+            <!--
+
             <AppField
               type="textarea"
               :rows="12"
@@ -56,6 +62,7 @@
               :minlength="50"
               description="Markdown is supported"
             />
+            -->
           </AppFieldGroup>
 
           <AppBtnGroup>
