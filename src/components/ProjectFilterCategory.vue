@@ -123,12 +123,13 @@ export default class ProjectFilterCategory extends Vue {
 
   &__Label {
     display: flex;
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 0;
     cursor: pointer;
     align-items: center;
     user-select: none;
     border-radius: 3px;
     transition: background $transitionBase;
+    font-size: 0.9125rem;
 
     &:hover, &:focus {
       // background: rgba(0, 0, 0, 0.05);

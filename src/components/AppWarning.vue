@@ -15,7 +15,7 @@ export default class AppWarning extends Vue {}
 .AppWarning {
   margin-top: $spacingLarge;
   margin-bottom: $spacingBase;
-  font-size: 1.125rem;
+  font-size: 1rem;
   text-align: center;
   color: $colorRed;
   font-weight: 600;
