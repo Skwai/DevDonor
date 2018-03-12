@@ -42,11 +42,11 @@ html {
   font-size: $fontSizeBase;
 
   @media (max-width: 639px) {
-    font-size: $fontSizeBase - 2px;
+    font-size: $fontSizeBase - 3px;
   }
 
   @media (max-width: 1027px) {
-    font-size: $fontSizeBase - 1px;
+    font-size: $fontSizeBase - 2px;
   }
 }
 
@@ -58,6 +58,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
+  font-weight: 500;
 }
 
 button, input, textarea, select {
