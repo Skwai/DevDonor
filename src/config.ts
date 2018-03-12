@@ -10,3 +10,5 @@ export const FIREBASE = {
 export const NEW_PROJECT_DAYS = 30
 
 export const SAVED_CREATE_PROJECT_FORM_DATA_KEY = 'devdonor:savedCreateProjectFormData'
+
+export const PROJECTS_PER_PAGE = 5

@@ -1,24 +1,23 @@
 <template>
-  <h2 :class="$style.AppSubheading"><slot /></h2>
+  <div role="alert" :class="$style.AppWarning"><slot /></div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component
-export default class AppSubheading extends Vue {}
+export default class AppWarning extends Vue {}
 </script>
 
 <style lang="stylus" module>
 @require '../styles/config';
 
-.AppSubheading {
+.AppWarning {
   margin-top: $spacingLarge;
   margin-bottom: $spacingBase;
-  font-size: 1.25rem;
-
-  &:first-child {
-    margin-top: 0;
-  }
+  font-size: 1.125rem;
+  text-align: center;
+  color: $colorRed;
+  font-weight: 600;
 }
 </style>

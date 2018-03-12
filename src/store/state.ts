@@ -20,4 +20,5 @@ export default class State {
   public pendingAuth: boolean = false
   public notification: INotification | null = null
   public userVolunteerProjects: string[] = []
+  public nextProjectId: string | null = null
 }

@@ -115,7 +115,7 @@ export default class AppBtn extends Vue {
   cursor: pointer;
   position: relative;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 700;
   text-align: center;
 
   &:hover, &:focus {

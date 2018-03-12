@@ -6,6 +6,8 @@ import { PROJECT_TYPES } from '../data/project'
 import Project from '@/models/Project'
 import IProjectFilters from '@/interfaces/ProjectFilters'
 
+import { PROJECTS_PER_PAGE } from '../config'
+
 /**
  * Get all the projects in the store
  */
@@ -57,9 +59,15 @@ export const getNotification = ({ notification }: State) => notification
 /**
  * Get a filtered Object of projects
  */
-export const getFilteredProjects = ({ projects }: State) => (
+export const getFilteredProjects = ({ projects }: State) => ({
+  projectFilters,
+  pages = 1,
+  projectsPerPage = PROJECTS_PER_PAGE
+}: {
   projectFilters: IProjectFilters
-): Project[] => {
+  pages?: number
+  projectsPerPage?: number
+}): Project[] => {
   const filteredProjects = []
   const projectFilterEntries = Object.entries(projectFilters)
 
@@ -75,7 +83,8 @@ export const getFilteredProjects = ({ projects }: State) => (
     }
   }
 
-  return filteredProjects.sort((a, b) => {
+  // slice to the page requested and filter by date created
+  return filteredProjects.slice(0, pages * projectsPerPage).sort((a, b) => {
     if (!a.createdAt || !b.createdAt) {
       return 0
     }
@@ -112,3 +121,9 @@ export const getIsUserVolunteerProject = ({ userVolunteerProjects }: State) => (
 ) => {
   return userVolunteerProjects.includes(projectId)
 }
+
+/**
+ *
+ * @param param0
+ */
+export const getNextProjectId = ({ nextProjectId }: State) => nextProjectId

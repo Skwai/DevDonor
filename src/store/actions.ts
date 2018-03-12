@@ -5,12 +5,10 @@ import Project from '../models/Project'
 import * as auth from '../services/auth'
 import db from '../services/db'
 import State from './State'
-import { SAVED_CREATE_PROJECT_FORM_DATA_KEY } from '../config'
+import { SAVED_CREATE_PROJECT_FORM_DATA_KEY, PROJECTS_PER_PAGE } from '../config'
 import * as types from './types'
 import IProjectFilters from '../interfaces/ProjectFilters'
-import IProjectProperties from '@/interfaces/ProjectProperties'
-
-const PAGINATION_LIMIT = 20
+import IProjectProperties from '../interfaces/ProjectProperties'
 
 const LOCALSTORAGE_WRITE_DEBOUNCE = 200 // ms
 
@@ -56,17 +54,49 @@ export const loadCurrentUser = async ({ commit }: IActionContext): Promise<void>
 
 export const loadProjects = async (
   { commit }: IActionContext,
-  projectFilters: IProjectFilters = {}
+  {
+    projectFilters = {},
+    projectsPerPage = PROJECTS_PER_PAGE,
+    startAtProjectId = null
+  }: {
+    projectFilters: IProjectFilters
+    projectsPerPage: number
+    startAtProjectId: string | null
+  }
 ): Promise<void> => {
-  const col = await db.collection('projects')
+  const colRef = db.collection('projects')
+
+  // pagination
+  const startDoc = startAtProjectId ? await colRef.doc(startAtProjectId).get() : null
+
+  const orderedRef =
+    startAtProjectId && startDoc
+      ? colRef.orderBy('createdAt', 'desc').startAt(startDoc)
+      : colRef.orderBy('createdAt', 'desc')
+
+  // filters
   const query = Object.entries(projectFilters).reduce((prev: firebase.firestore.Query, [k, v]) => {
     return v ? prev.where(k, '==', v) : prev
-  }, col.where('deleted', '==', null))
-  const querySnapshot = await query.limit(PAGINATION_LIMIT).get()
-  querySnapshot.forEach((docSnapshot: firebase.firestore.DocumentSnapshot) => {
+  }, orderedRef.where('deleted', '==', null))
+
+  const snapshots = await query.limit(PROJECTS_PER_PAGE + 1).get()
+
+  // add each of the projects in the store
+  snapshots.forEach((docSnapshot: firebase.firestore.DocumentSnapshot) => {
     const id = docSnapshot.id
     commit(types.ADD_PROJECT, { ...docSnapshot.data(), id })
   })
+
+  // if we have n+1 results then we can paginate
+  if (snapshots.size > projectsPerPage) {
+    const last = [...snapshots.docs].pop()
+
+    if (last && last.id) {
+      commit(types.SET_NEXT_PROJECT_ID, last.id)
+    }
+  } else {
+    commit(types.UNSET_NEXT_PROJECT_ID)
+  }
 }
 
 export const createProject = async ({ commit, state }: IActionContext, project: Project) => {

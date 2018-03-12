@@ -1,3 +1,72 @@
 {
-  "indexes": []
+  "indexes": [
+    {
+      "collectionId": "projects",
+      "fields": [
+        { "fieldPath": "deleted", "mode": "ASCENDING" },
+        { "fieldPath": "createdAt", "mode": "DESCENDING" }
+      ]
+    },
+
+    {
+      "collectionId": "projects",
+      "fields": [
+        { "fieldPath": "projectType", "mode": "ASCENDING" },
+        { "fieldPath": "createdAt", "mode": "DESCENDING" }
+      ]
+    },
+
+    {
+      "collectionId": "projects",
+      "fields": [
+        { "fieldPath": "organizationType", "mode": "ASCENDING" },
+        { "fieldPath": "createdAt", "mode": "DESCENDING" }
+      ]
+    },
+
+    {
+      "collectionId": "projects",
+      "fields": [
+        { "fieldPath": "country", "mode": "ASCENDING" },
+        { "fieldPath": "createdAt", "mode": "DESCENDING" }
+      ]
+    },
+
+    {
+      "collectionId": "projects",
+      "fields": [
+        { "fieldPath": "country", "mode": "ASCENDING" },
+        { "fieldPath": "projectType", "mode": "ASCENDING" },
+        { "fieldPath": "createdAt", "mode": "DESCENDING" }
+      ]
+    },
+
+    {
+      "collectionId": "projects",
+      "fields": [
+        { "fieldPath": "country", "mode": "ASCENDING" },
+        { "fieldPath": "organizationType", "mode": "ASCENDING" },
+        { "fieldPath": "createdAt", "mode": "DESCENDING" }
+      ]
+    },
+
+    {
+      "collectionId": "projects",
+      "fields": [
+        { "fieldPath": "projectType", "mode": "ASCENDING" },
+        { "fieldPath": "organizationType", "mode": "ASCENDING" },
+        { "fieldPath": "createdAt", "mode": "DESCENDING" }
+      ]
+    },
+
+    {
+      "collectionId": "projects",
+      "fields": [
+        { "fieldPath": "country", "mode": "ASCENDING" },
+        { "fieldPath": "organizationType", "mode": "ASCENDING" },
+        { "fieldPath": "projectType", "mode": "ASCENDING" },
+        { "fieldPath": "createdAt", "mode": "DESCENDING" }
+      ]
+    }
+  ]
 }

@@ -6,7 +6,7 @@
     <div :class="$style.ProjectList__Projects">
       <AppLoading v-if="loading" />
       <div v-else-if="error" :class="$style.ProjectList__Error">
-        <h3>There was an error loading projects</h3>
+        <AppWarning>There was an error loading projects</AppWarning>
       </div>
       <div
         v-else-if="projects.length"
@@ -20,6 +20,9 @@
           <ProjectPreview
             :project="project"
           />
+        </div>
+        <div v-if="getNextProjectId" :class="$style.ProjectList__More">
+          <AppBtn @click="loadNextPage" :loading="loadingNextPage">Load more</AppBtn>
         </div>
       </div>
       <div v-else :class="$style.ProjectList__Empty">
@@ -46,17 +49,43 @@ import IProjectFilters from '@/interfaces/ProjectFilters'
 })
 export default class ProjectList extends Vue {
   private loading: boolean = false
+  private loadingNextPage: boolean = false
   private error: boolean = false
   private projectFilters: IProjectFilters = {
     projectType: '',
     country: '',
     organizationType: ''
   }
-  private projects: Project[]
+  private projects: Project[] = []
+  private pages = 1
 
-  @Getter private getFilteredProjects: (projectFilters: IProjectFilters) => Project[]
+  @Getter private getNextProjectId: string | null
+
+  @Getter
+  private getFilteredProjects: (
+    {
+      projectFilters,
+      pages,
+      projectsPerPage
+    }: {
+      projectFilters: IProjectFilters
+      pages?: number
+      projectsPerPage?: number
+    }
+  ) => Project[]
+
   @Action('loadProjects')
-  private actionLoadProjects: (projectFilters: IProjectFilters) => Promise<void>
+  private actionLoadProjects: (
+    {
+      projectFilters,
+      projectsPerPage,
+      startAtProjectId
+    }: {
+      projectFilters: IProjectFilters
+      projectsPerPage?: number
+      startAtProjectId?: string | null
+    }
+  ) => Promise<void>
 
   private async created() {
     this.loadProjects()
@@ -66,14 +95,34 @@ export default class ProjectList extends Vue {
     this.loading = true
     this.error = false
     this.projects = []
+    this.pages = 1
+
+    const { projectFilters } = this
 
     try {
-      await this.actionLoadProjects(this.projectFilters)
-      this.projects = this.getFilteredProjects(this.projectFilters)
+      await this.actionLoadProjects({ projectFilters })
+      this.projects = this.getFilteredProjects({ projectFilters })
     } catch (err) {
       this.error = true
     } finally {
       this.loading = false
+    }
+  }
+
+  private async loadNextPage() {
+    if (!this.getNextProjectId) {
+      return
+    }
+
+    this.loadingNextPage = true
+    this.pages += 1
+    const { projectFilters, projects, pages } = this
+
+    try {
+      await this.actionLoadProjects({ projectFilters, startAtProjectId: this.getNextProjectId })
+      this.projects = this.getFilteredProjects({ projectFilters, pages })
+    } finally {
+      this.loadingNextPage = false
     }
   }
 
@@ -113,6 +162,11 @@ export default class ProjectList extends Vue {
   &__Empty {
     card();
     text-align: center;
+  }
+
+  &__More {
+    text-align: center;
+    padding: 0.5rem;
   }
 }
 </style>

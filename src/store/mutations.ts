@@ -70,6 +70,14 @@ const mutations: MutationTree<State> = {
     if (!state.userVolunteerProjects.includes(projectId)) {
       state.userVolunteerProjects.push(projectId)
     }
+  },
+
+  [types.SET_NEXT_PROJECT_ID](state, projectId: string) {
+    state.nextProjectId = projectId
+  },
+
+  [types.UNSET_NEXT_PROJECT_ID](state) {
+    state.nextProjectId = null
   }
 }
 
