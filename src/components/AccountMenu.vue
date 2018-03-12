@@ -93,7 +93,7 @@ export default class AccountMenu extends Vue {
     transform: translateY(0);
     background: #fff;
     position: absolute;
-    box-shadow: rgba(0, 0, 0, 0.1) 0 2px 10px, rgba(0, 0, 0, 0.1) 0 1px 1px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 2px 10px, rgba($colorGray, 0.8) 0 1px 1px;
     transition: transform $transitionBase;
     border-radius: 3px;
 
