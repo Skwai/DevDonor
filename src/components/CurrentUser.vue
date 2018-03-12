@@ -5,7 +5,7 @@
       <div slot="body">
         <div><strong>{{currentUser.displayName}}</strong></div>
         <div>{{currentUser.email}}</div>
-        <AppLink @click="logout">Sign out of Google+</AppLink>
+        <AppLink @click="logout">Sign out</AppLink>
       </div>
     </AppMediaObject>
   </AppCard>

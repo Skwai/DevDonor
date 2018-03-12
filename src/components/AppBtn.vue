@@ -117,6 +117,7 @@ export default class AppBtn extends Vue {
   font-size: 0.875rem;
   font-weight: 700;
   text-align: center;
+  transition: $transitionBase background;
 
   &:hover, &:focus {
     color: $colorPrimary;
@@ -160,12 +161,12 @@ export default class AppBtn extends Vue {
 
   &[size='large'] {
     padding: 1rem 2rem;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   &[size='small'] {
     padding: 0.5rem 1rem;
-    font-weight: 500;
+    font-weight: 700;
     font-size: 0.8125rem;
   }
 
@@ -184,6 +185,10 @@ export default class AppBtn extends Vue {
     background: $colorPrimary;
     box-shadow: none;
     color: #fff;
+
+    &:hover, &:focus {
+      background: lighten($colorPrimary, 7%);
+    }
   }
 
   &__Icon {

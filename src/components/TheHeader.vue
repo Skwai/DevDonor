@@ -7,23 +7,32 @@
       >
         <h1><img :class="$style.TheHeader__LogoImage" src="/logo.svg" alt="DevDonor"></h1>
       </router-link>
-      <nav :class="$style.TheHeader__Nav">
-        <router-link
-          to="/"
-          :class="$style.TheHeader__NavItem"
-          :exact-active-class="$style.TheHeader__NavItemActive"
-        >Projects</router-link>
-        <router-link
-          :to="{ name: 'CreateProject' }"
-          :class="$style.TheHeader__NavItem"
-          :active-class="$style.TheHeader__NavItemActive"
-        >Create a project</router-link>
-        <router-link
-          :to="{ name: 'About' }"
-          :class="$style.TheHeader__NavItem"
-          :active-class="$style.TheHeader__NavItemActive"
-        >How it works</router-link>
-      </nav>
+      <div :class="$style.TheHeader__Nav">
+        <button
+          aria-hidden="true"
+          :class="$style.TheHeader__NavToggle"
+          @click="toggleMenu"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><g fill="currentColor"><path d="M23 13H1c-.6 0-1-.4-1-1s.4-1 1-1h22c.6 0 1 .4 1 1s-.4 1-1 1z"/><path d="M23 6H1c-.6 0-1-.4-1-1s.4-1 1-1h22c.6 0 1 .4 1 1s-.4 1-1 1zm0 14H1c-.6 0-1-.4-1-1s.4-1 1-1h22c.6 0 1 .4 1 1s-.4 1-1 1z"/></g></svg>
+        </button>
+        <nav :class="$style.TheHeader__NavMenu" :open="showMenu">
+          <router-link
+            to="/"
+            :class="$style.TheHeader__NavItem"
+            :exact-active-class="$style.TheHeader__NavItemActive"
+          >Projects</router-link>
+          <router-link
+            :to="{ name: 'CreateProject' }"
+            :class="$style.TheHeader__NavItem"
+            :active-class="$style.TheHeader__NavItemActive"
+          >Create a project</router-link>
+          <router-link
+            :to="{ name: 'About' }"
+            :class="$style.TheHeader__NavItem"
+            :active-class="$style.TheHeader__NavItemActive"
+          >How it works</router-link>
+        </nav>
+      </div>
       <AccountMenu />
     </div>
   </header>
@@ -38,7 +47,13 @@ import AccountMenu from './AccountMenu.vue'
     AccountMenu
   }
 })
-export default class TheHeader extends Vue {}
+export default class TheHeader extends Vue {
+  private showMenu = false
+
+  private toggleMenu() {
+    this.showMenu = !this.showMenu
+  }
+}
 </script>
 
 <style lang="stylus" module>
@@ -100,41 +115,110 @@ export default class TheHeader extends Vue {}
   }
 
   &__Nav {
+    position: relative;
     display: flex;
     margin-left: auto;
 
-    &Item {
-      padding: 0 0.5rem;
-      margin: 0 0.5rem;
-      white-space: nowrap;
-      transition: $transitionBase;
-      position: relative;
-      display: flex;
-      align-items: center;
-      font-weight: 600;
-
-      &::before {
-        content: '';
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 3px;
-        background: $colorPrimary;
+    @media (max-width: 767px) {
+      &Menu {
+        padding: 0.5rem 0;
+        width: 12rem;
+        right: -1rem;
+        top: -999rem;
+        transform: translateY(0);
+        background: #fff;
         position: absolute;
-        transform: scale(0, 1);
-        transform-origin: left center;
-        transition: $transitionBase;
-      }
+        box-shadow: rgba(0, 0, 0, 0.1) 0 2px 10px, rgba($colorGray, 0.8) 0 1px 1px;
+        transition: transform $transitionBase;
+        border-radius: 3px;
 
-      &:hover, &:focus {
-        color: $colorPrimary;
-      }
-
-      &Active {
-        color: $colorPrimary;
+        &[open] {
+          top: 100%;
+          transform: translate(0, 1rem);
+        }
 
         &::before {
-          transform: scale(1, 1);
+          content: '';
+          right: 1rem;
+          bottom: 100%;
+          border-bottom: #fff solid 8px;
+          border-left: transparent solid 8px;
+          border-right: transparent solid 8px;
+          position: absolute;
+        }
+      }
+
+      &Item {
+        display: block;
+        white-space: nowrap;
+        padding: 1rem;
+        font-weight: 600;
+
+        &:hover, &:focus {
+          color: $colorPrimary;
+        }
+      }
+    }
+
+    &Toggle {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      padding: 0;
+      margin-left: auto;
+      align-self: center;
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        color: $colorPrimary;
+      }
+
+      @media (min-width: 768px) {
+        display: none;
+      }
+    }
+
+    @media (min-width: 768px) {
+      margin-left: auto;
+
+      &Menu {
+        display: flex;
+      }
+
+      &Item {
+        padding: 0 0.5rem;
+        margin: 0 0.5rem;
+        white-space: nowrap;
+        transition: $transitionBase;
+        position: relative;
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+
+        &::before {
+          content: '';
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 3px;
+          background: $colorPrimary;
+          position: absolute;
+          transform: scale(0, 1);
+          transform-origin: left center;
+          transition: $transitionBase;
+        }
+
+        &:hover, &:focus {
+          color: $colorPrimary;
+        }
+
+        &Active {
+          color: $colorPrimary;
+
+          &::before {
+            transform: scale(1, 1);
+          }
         }
       }
     }

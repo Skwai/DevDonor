@@ -13,7 +13,7 @@
         v-if="!getCurrentUser"
         :class="$style.CreateProject__Auth"
       >
-        <h4>You'll need to sign in to create a new project</h4>
+        <h2>First, you'll need to sign in to create a new project</h2>
         <AuthLogin />
       </div>
       <CurrentUser

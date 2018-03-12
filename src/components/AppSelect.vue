@@ -21,7 +21,7 @@
         :disabled="disabled"
         :id="inputID"
         v-model="inputValue"
-        @input="change"
+        @change="change"
         @blur="onBlur"
         ref="select"
       >
@@ -34,8 +34,9 @@
         >{{option}}</option>
       </select>
       <label
-        :for="inputID"
+        tabindex="0"
         aria-hidden="true"
+        :for="inputID"
         :class="$style.AppSelect__Toggle"
       >
         <svg :class="$style.AppSelect__ToggleIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
