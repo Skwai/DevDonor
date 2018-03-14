@@ -180,7 +180,7 @@ export default class ViewProjectPage extends Vue {
         throw Error('Project has been deleted')
       }
     } catch (err) {
-      this.$router.push({ name: 'NotFound' })
+      this.$router.replace({ path: '/404' })
     } finally {
       this.loading = false
     }

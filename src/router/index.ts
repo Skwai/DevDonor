@@ -58,7 +58,7 @@ export default new Router({
       name: 'Privacy',
       component: Privacy
     },
-    { path: '*', component: NotFound }
+    { path: '*', name: 'NotFound', component: NotFound }
   ],
   scrollBehavior(to, from, savedPosition) {
     return savedPosition || { x: 0, y: 0 }
