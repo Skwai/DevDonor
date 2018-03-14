@@ -184,40 +184,14 @@ export default class AppMarkdown extends Vue {
    */
   .CodeMirror {
     color: #000;
-  }
 
-  .CodeMirror-lines {
-    padding: 4px 0;
-  }
+    &-lines {
+      padding: 4px 0;
+    }
 
-  .CodeMirror pre {
-    padding: 0 4px;
-  }
-
-  .CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler {
-    background-color: #fff;
-  }
-
-  .CodeMirror-gutters {
-    border-right: 1px solid #ddd;
-    background-color: #f7f7f7;
-    white-space: nowrap;
-  }
-
-  .CodeMirror-linenumber {
-    padding: 0 3px 0 5px;
-    min-width: 20px;
-    text-align: right;
-    color: #999;
-    white-space: nowrap;
-  }
-
-  .CodeMirror-guttermarker {
-    color: #000;
-  }
-
-  .CodeMirror-guttermarker-subtle {
-    color: #999;
+    pre {
+      padding: 0 4px;
+    }
   }
 
   .CodeMirror-cursor {
@@ -635,15 +609,15 @@ export default class AppMarkdown extends Vue {
     box-sizing: border-box;
   }
 
-  .editor-statusbar .lines:before {
+  .editor-statusbar .lines::before {
     content: 'lines: ';
   }
 
-  .editor-statusbar .words:before {
+  .editor-statusbar .words::before {
     content: 'words: ';
   }
 
-  .editor-statusbar .characters:before {
+  .editor-statusbar .characters::before {
     content: 'characters: ';
   }
 

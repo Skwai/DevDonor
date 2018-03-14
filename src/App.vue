@@ -24,6 +24,7 @@ import TheNotifications from './components/TheNotifications.vue'
 })
 export default class App extends Vue {
   @Action('loadCurrentUser') private actionLoadCurrentUser: () => Promise<void>
+
   private created() {
     this.actionLoadCurrentUser()
   }
