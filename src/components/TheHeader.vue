@@ -164,8 +164,8 @@ export default class TheHeader extends Vue {
       appearance: none;
       border: 0;
       background: transparent;
-      padding: 0;
       margin-left: auto;
+      padding: 0.5rem;
       align-self: center;
       display: flex;
       align-items: center;

@@ -19,7 +19,7 @@
     "marked": "^0.3.17",
     "moment": "^2.20.1",
     "simplemde": "^1.11.2",
-    "vue": "2.5.13",
+    "vue": "2.5.15",
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^6.0.0",
     "vue-router": "^3.0.1",
@@ -45,7 +45,7 @@
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.8.0",
     "typescript": "^2.7.2",
-    "vue-template-compiler": "2.5.13"
+    "vue-template-compiler": "2.5.15"
   },
   "postcss": {
     "plugins": {
