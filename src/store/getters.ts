@@ -70,20 +70,17 @@ export const getFilteredProjects = ({ projects }: State) => ({
 }): Project[] => {
   const filteredProjects = []
   const projectFilterEntries = Object.entries(projectFilters)
-
   for (const id in projects) {
     const project = projects[id]
-
     const filtered = projectFilterEntries.every(
       ([prop, filter]) => (filter ? project[prop] === filter : true)
     )
-
     if (filtered) {
       filteredProjects.push(project)
     }
   }
 
-  // slice to the page requested and filter by date created
+  // slice to the pages requested and filter by date created
   return filteredProjects.slice(0, pages * projectsPerPage).sort((a, b) => {
     if (!a.createdAt || !b.createdAt) {
       return 0

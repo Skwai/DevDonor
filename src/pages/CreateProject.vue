@@ -45,16 +45,12 @@
               v-model="project.projectType"
             />
 
-            <AppField
-              type="textarea"
-              :rows="12"
-              :span="2"
+            <AppMarkdown
               label="About your project"
               v-model="project.description"
-              placeholder="Describe what your project is about and the type of help and skills you're looking for"
               :required="true"
-              :minlength="50"
-              description="Markdown is supported"
+              placeholder="Describe what your project is about and the type of help and skills you're looking for"
+              :span="2"
             />
           </AppFieldGroup>
 

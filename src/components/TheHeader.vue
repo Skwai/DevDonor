@@ -15,7 +15,7 @@
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><g fill="currentColor"><path d="M23 13H1c-.6 0-1-.4-1-1s.4-1 1-1h22c.6 0 1 .4 1 1s-.4 1-1 1z"/><path d="M23 6H1c-.6 0-1-.4-1-1s.4-1 1-1h22c.6 0 1 .4 1 1s-.4 1-1 1zm0 14H1c-.6 0-1-.4-1-1s.4-1 1-1h22c.6 0 1 .4 1 1s-.4 1-1 1z"/></g></svg>
         </button>
-        <nav :class="$style.TheHeader__NavMenu" :open="showMenu">
+        <nav :class="$style.TheHeader__NavMenu" :open="showMenu" @click="onMenuClick">
           <router-link
             to="/"
             :class="$style.TheHeader__NavItem"
@@ -50,8 +50,31 @@ import AccountMenu from './AccountMenu.vue'
 export default class TheHeader extends Vue {
   private showMenu = false
 
+  private onDocumentClick({ target }: MouseEvent) {
+    if (!this.$el.contains(target as HTMLElement)) {
+      this.closeMenu()
+    }
+  }
+
+  private onMenuClick(ev: MouseEvent) {
+    ev.stopPropagation()
+    this.closeMenu()
+  }
+
   private toggleMenu() {
     this.showMenu = !this.showMenu
+  }
+
+  private closeMenu() {
+    this.showMenu = false
+  }
+
+  private created() {
+    this.onDocumentClick = this.onDocumentClick.bind(this)
+  }
+
+  private mounted() {
+    document.addEventListener('click', this.onDocumentClick)
   }
 }
 </script>
@@ -164,8 +187,8 @@ export default class TheHeader extends Vue {
       appearance: none;
       border: 0;
       background: transparent;
-      padding: 0;
       margin-left: auto;
+      padding: 0.5rem;
       align-self: center;
       display: flex;
       align-items: center;

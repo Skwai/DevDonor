@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.AccountMenu" :open="open">
+  <div :class="$style.AccountMenu" :open="open" v-if="currentUser">
     <button
       v-if="currentUser"
       :class="$style.AccountMenu__Toggle"
@@ -31,16 +31,16 @@ export default class AccountMenu extends Vue {
   @Getter('getPendingAuth') private pendingAUth: firebase.UserInfo
 
   private created() {
-    this.documentClick = this.documentClick.bind(this)
-    document.addEventListener('click', this.documentClick)
+    this.onDocumentClick = this.onDocumentClick.bind(this)
+    document.addEventListener('click', this.onDocumentClick)
   }
 
   private destroyed() {
-    document.removeEventListener('click', this.documentClick)
+    document.removeEventListener('click', this.onDocumentClick)
   }
 
-  private documentClick(ev: MouseEvent) {
-    if (!this.$el.contains(ev.target as Node)) {
+  private onDocumentClick(ev: MouseEvent) {
+    if (!this.$el.contains(ev.target as HTMLElement)) {
       this.open = false
     }
   }

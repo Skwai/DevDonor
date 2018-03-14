@@ -198,6 +198,8 @@ export default class AppSelect extends Vue {
     -moz-appearance: none;
     text-indent: 0.01px;
     text-overflow: '';
+    white-space: nowrap;
+    padding-right: 3rem;
   }
 }
 </style>
